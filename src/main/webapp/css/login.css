@@ -1,0 +1,135 @@
+@charset "UTF-8";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins";
+}
+
+.login-page-container {
+  width: 100%;
+  height: 100vh;
+  background-color: #ffffff;
+  display: flex;
+}
+
+.login-page-image-container {
+  height: 100vh;
+  width: 50%;
+  overflow: hidden;
+}
+
+.login-page-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.login-page-section {
+  color: #363636;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.signin-container {
+  width: 80%;
+}
+
+.signin-container h1 {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.signin-section {
+  margin: 1rem 0rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.signin-label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.signin-label label {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.signin-input {
+  border: none;
+  background-color: #f9f8f7;
+  border-radius: 5px;
+  font-family:
+    "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  padding: 0.5rem;
+}
+
+.signin-input:focus {
+  outline: 0;
+  box-shadow: 0px 0px 1px grey;
+}
+
+.signin-btn {
+  font-size: 18px;
+  width: 100%;
+  /* background-color: #e8c1bb; */
+  background-color: rgba(209, 60, 60, 0.75);
+  border-radius: 0.3rem;
+  text-align: center;
+  padding: 0.5rem 1rem;
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  margin: 1rem 0;
+  transform: scale(1);
+  transition: all 0.2s ease;
+}
+
+.signin-btn:hover {
+  background-color: rgba(209, 60, 60, 0.85);
+  transform: scale(1.02);
+}
+
+.forget-pass-link {
+  color: #d13c3c;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.site-info {
+  font-size: 0.65rem;
+  font-weight: 300;
+  margin: 0.5rem 0;
+}
+
+.site-info span {
+  color: #4b8ac1;
+}
+
+.no-acc-btn {
+  margin-top: 1rem;
+  display: inline-block;
+  background-color: #f9f8f7;
+  padding: 1rem;
+  text-align: center;
+  text-decoration: none;
+  color: #363636;
+  width: 100%;
+  border-radius: 5px;
+}
+
+.no-acc-btn span {
+  color: #0968f6;
+  text-decoration: underline;
+  font-weight: 500;
+}
