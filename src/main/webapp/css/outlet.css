@@ -1,0 +1,128 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+.app-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.hero {
+    text-align: left;
+    padding: 60px 20px 40px 20px;
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #e67e22;
+}
+
+.hero p {
+    font-size: 1.1rem;
+    color: #666;
+    margin-top: 10px;
+}
+
+.selector-section {
+    padding: 20px;
+}
+
+.question {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.location-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.location-card {
+    background-color: #fdf2f1;
+    width: 30%;
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+
+    flex-grow: 0;
+    flex-shrink: 0;
+
+    border-radius: 16px;
+    border: 2px solid transparent;
+
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.location-name {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #333;
+    z-index: 2;
+    transition: color 0.3s;
+}
+
+.location-card:hover:not(.active) {
+    background-color: #fae3e1;
+    transform: translateY(-8px);
+    border-color: #fae3e1;
+}
+
+.location-card.active {
+    background-color: #d35400;
+    box-shadow: 0 10px 20px rgba(211, 84, 0, 0.3);
+    border-color: #d35400;
+    transform: scale(1.03);
+}
+
+.location-card.active .location-name {
+    color: white;
+}
+
+.card-with-photo::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: var(--bg-image);
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    z-index: 1;
+    transition: opacity 0.4s ease;
+}
+
+.card-with-photo::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.4); 
+    opacity: 0;
+    z-index: 2;
+    transition: opacity 0.4s ease;
+}
+
+.card-with-photo.active::before,
+.card-with-photo.active::after {
+    opacity: 1;
+}
+
+.card-with-photo.active .location-name {
+    color: white;
+}
