@@ -1,6 +1,7 @@
 package com.quickbite.model;
 
 public class Item {
+	
 	private String itemName;
 	private String category;
 	private String itemType;
@@ -9,7 +10,18 @@ public class Item {
 	private String itemAllergy;
 	private String itemImage;
 	
-	//Getters
+	//Constructor
+	public Item(String itemName, String category, String itemType, String itemStatus, String itemIngredient, String itemAllergy, String itemImage) {
+	    this.itemName = itemName;
+	    this.category = category;
+	    this.itemType = itemType;
+	    this.itemStatus = itemStatus;
+	    this.itemIngredient = itemIngredient;
+	    this.itemAllergy = itemAllergy;
+	    this.itemImage = itemImage;
+		}
+	
+	//Getters - to retrieve data from DB
 	public String getItemName() {
 		return itemName;
 	}
@@ -38,7 +50,7 @@ public class Item {
 		return itemImage;
 	}
 	
-	// Setters
+	// Setters - to manipulate data of exiting records
 	public void setItemName(String itemName) {
 		this.itemName = itemName;
 	}
