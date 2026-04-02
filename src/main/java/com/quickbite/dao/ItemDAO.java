@@ -1,4 +1,4 @@
-package com.quickbite.doa;
+package com.quickbite.dao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ItemDOA {
+public class ItemDAO {
 	
 	public List<Item> getAllItems(){
 		List<Item> itemList= new ArrayList<>();
