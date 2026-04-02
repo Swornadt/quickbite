@@ -7,23 +7,18 @@
 }
 
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+    margin: 0;
+    padding-top: 100px;
     background-color: #f0f0f0;
 }
 
 .container {
+	display: flex;
     width: 90%;
-    height: 90vh;
-    border-radius: 20px;
-    display: flex;
-    position: relative;
-    overflow: hidden;
     padding: 20px;
+    margin: 0 auto;
     gap:5%;
-    justify-content: space-between;
+    align-items: flex-start;
 }
 
 /* Left Container*/

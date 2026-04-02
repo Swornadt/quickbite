@@ -6,7 +6,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login Navbar | Quick Bite</title>
-    <link rel="stylesheet" href="<%=request.getContextPath() %>>/css/navbar1.css" />
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/navbar1.css" />
 
     <!-- Google Fonts Preconnect and Link -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
