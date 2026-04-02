@@ -1,5 +1,7 @@
-<!-- <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%> -->
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="java.util.*" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,7 +26,7 @@
         <div class="selection-heading">
             <div class="heading-group"> 
                 <input type="checkbox" id="select-all"/>
-                <label off="select-all">Select All</label>
+                <label for="select-all">Select All</label>
             </div>
             <div style="display:flex; justify-content: space-between;">
                 <span class="icon-trash">🗑️</span>
@@ -34,64 +36,52 @@
 
         <!-- Items List -->
         <div class="selection-list">
+        <!--  TODO: Integrate data from DAO -->
+        <%
+        List<Map<String, Object>> cartItems = (List<Map<String, Object>>) request.getAttribute("cartItems");
+        
+        double subtotal = 0;
+        
+        if (cartItems != null && !cartItems.isEmpty()) {
+            for (Map<String, Object> item : cartItems) {
+                String name = (String) item.get("name");
+                double price = (Double) item.get("price");
+                int quantity = (Integer) item.get("quantity");
+                int id = (Integer) item.get("id");
+                
+                subtotal += (price * quantity);
+        %>
 
             <!-- Rendered forEach -->
-            <div class="selection-item">
+            <div class="selection-item" data-id="<%= id %>">
                 <div class="item-main">
                     <input type="checkbox" class="item-check">
-                    <span class="item-name">Chicken Burger</span>
+                    <span class="item-name"><%= name %></span>
                 </div>
                 <div class="item-details">
-                    <span class="item-price">Rs. 280.00</span>
+                    <span class="item-price"><%= String.format("%.2f", price) %>></span>
                     <div class="item-actions">
-                        <span class="icon-heart">♡</span>
-                        <span class="icon-trash">🗑️</span>
+                        <span class="icon-heart">♡</span> <!-- TODO: toggle fav/unfav -->
+                        <a href="RemoveFromCart?id=<%= id %>" class="icon-trash">🗑️</a> <!-- TODO: remove from cart -->
                     </div>
                 </div>
                 <div class="quantity-control">
-                    <button>-</button>
-                    <span class="qty">1</span>
-                    <button>+</button>
+                	<!--  TODO: manage Cart state -->
+                    <button onclick="updateQty(<%= id %>, -1)">-</button>
+                    <span class="qty"><%= quantity %></span>
+                	<button onclick="updateQty(<%= id %>, 1)">+</button>
                 </div>
             </div>
-
-            <div class="selection-item">
-                <div class="item-main">
-                    <input type="checkbox" class="item-check">
-                    <span class="item-name">Chicken Burger</span>
-                </div>
-                <div class="item-details">
-                    <span class="item-price">Rs. 280.00</span>
-                    <div class="item-actions">
-                        <span class="icon-heart">♡</span>
-                        <span class="icon-trash">🗑️</span>
-                    </div>
-                </div>
-                <div class="quantity-control">
-                    <button>-</button>
-                    <span class="qty">1</span>
-                    <button>+</button>
-                </div>
+		<% 
+                }
+            } else { 
+        %>
+            <div class="empty-cart-msg" style="padding: 20px; text-align: center;">
+                Your cart is empty. <a href="outlets.jsp">Browse Outlets</a>
             </div>
-
-            <div class="selection-item">
-                <div class="item-main">
-                    <input type="checkbox" class="item-check">
-                    <span class="item-name">Chicken Burger</span>
-                </div>
-                <div class="item-details">
-                    <span class="item-price">Rs. 280.00</span>
-                    <div class="item-actions">
-                        <span class="icon-heart">♡</span>
-                        <span class="icon-trash">🗑️</span>
-                    </div>
-                </div>
-                <div class="quantity-control">
-                    <button>-</button>
-                    <span class="qty">1</span>
-                    <button>+</button>
-                </div>
-            </div>
+        <% 
+            }
+        %>
         </div>
     </div>
 
@@ -101,7 +91,7 @@
          <h3>Order Summary</h3>
         <div class="summary-row">
             <span>SUB TOTAL</span>
-            <span>430</span>
+            <span>Rs. <%= String.format("%.2f", subtotal) %></span>
         </div>
         <div class="summary-row">
             <span>VAT</span>
@@ -110,7 +100,7 @@
         <div class="summary-divider"></div>
         <div class="summary-row grand-total">
             <span>GRAND TOTAL</span>
-            <span class="total-price">430</span>
+            <span class="total-price">Rs. <%= String.format("%.2f", subtotal) %></span>
         </div>
         <!-- Button -->
         <button class="checkout-btn">Proceed To Checkout</button>
