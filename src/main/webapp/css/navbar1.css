@@ -7,14 +7,19 @@
 }
 
 nav {
-  background-color: #f9f8f7;
-  width: 100vw;
-  height: auto;
-  padding: 0.5rem 0rem;
   position: fixed;
-  box-shadow: 0px 0px 5px rgb(220, 220, 220);
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  
+  background-color: #f9f8f7;
+  
   display: flex;
   flex-direction: column;
+  height: auto;
+  padding: 0.5rem 0rem;
+  box-shadow: 0px 0px 5px rgb(220, 220, 220);
 }
 
 .nav-container {

@@ -15,6 +15,7 @@
 
 <body>
 <!-- Header -->
+<%@ include file="./navbar1.jsp" %>
 
 <!-- Main container -->
 <div class="container">
@@ -59,7 +60,7 @@
                     <span class="item-name"><%= name %></span>
                 </div>
                 <div class="item-details">
-                    <span class="item-price"><%= String.format("%.2f", price) %>></span>
+                    <span class="item-price"><%= String.format("%.2f", price) %></span>
                     <div class="item-actions">
                         <span class="icon-heart">♡</span> <!-- TODO: toggle fav/unfav -->
                         <a href="RemoveFromCart?id=<%= id %>" class="icon-trash">🗑️</a> <!-- TODO: remove from cart -->
@@ -106,6 +107,9 @@
         <button class="checkout-btn">Proceed To Checkout</button>
     </div>
 </div>
+
+<!-- Footer -->
+<%@ include file="./footer.jsp" %>
 
 </body>
 
