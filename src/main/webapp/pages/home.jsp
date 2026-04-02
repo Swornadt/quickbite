@@ -40,8 +40,8 @@
     <script>
     const thumbnails = document.querySelectorAll('.thumbnails div');
     const mainImg = document.querySelector('.main-img'); 
-    const container = document.querySelector('.image-container'); // Added this missing line
-
+    const container = document.querySelector('.image-container');
+    
     thumbnails.forEach(thumb => {
         thumb.addEventListener('click', () => {
             const currentActive = document.querySelector('.thumbnails .active');
