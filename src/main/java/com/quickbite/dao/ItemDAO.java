@@ -13,7 +13,7 @@ public class ItemDAO {
 	
 	public List<Item> getAllItems(){
 		List<Item> itemList= new ArrayList<>();
-		String sql = "SELECT * FROM items";
+		String sql = "SELECT * FROM Item";
 		
 		try (Connection conn = DBconfig.getConnection();
 		      PreparedStatement ps = conn.prepareStatement(sql);
@@ -21,13 +21,13 @@ public class ItemDAO {
 
 			 while (rs.next()) {
 				 Item item = new Item(         
-						 rs.getString("itemName"),
+						 rs.getString("item_name"),
 						 rs.getString("category"),
-						 rs.getString("itemType"),
-						 rs.getString("itemStatus"),
-						 rs.getString("itemIngredient"),
-						 rs.getString("itemAllergy"),
-						 rs.getString("itemImage")
+						 rs.getString("item_type"),
+						 rs.getString("item_status"),
+						 rs.getString("item_ingredient"),
+						 rs.getString("item_allergy"),
+						 rs.getString("item_image")
 					);
 		    	  
 			            itemList.add(item);           
