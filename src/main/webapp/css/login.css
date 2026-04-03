@@ -133,3 +133,13 @@ body {
   text-decoration: underline;
   font-weight: 500;
 }
+
+@media (max-width: 800px) {
+  .login-page-image-container {
+    display: none;
+  }
+
+  .login-page-section {
+    width: 100%;
+  }
+}
