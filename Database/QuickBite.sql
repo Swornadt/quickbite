@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 30, 2026 at 05:51 PM
+-- Generation Time: Apr 02, 2026 at 04:27 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -56,6 +56,7 @@ CREATE TABLE `Item` (
   `item_id` smallint(5) UNSIGNED NOT NULL,
   `item_name` varchar(50) NOT NULL,
   `category` varchar(50) NOT NULL,
+  `item_type` varchar(10) NOT NULL,
   `item_description` varchar(1000) DEFAULT NULL,
   `item_status` varchar(50) NOT NULL,
   `item_ingredient` varchar(1000) NOT NULL,
@@ -72,8 +73,6 @@ CREATE TABLE `Item` (
 CREATE TABLE `Order` (
   `order_id` smallint(5) UNSIGNED NOT NULL,
   `user_id` smallint(5) UNSIGNED NOT NULL,
-  `payment` tinyint(3) UNSIGNED DEFAULT NULL,
-  `payment_date` datetime DEFAULT NULL,
   `order_date` datetime DEFAULT NULL,
   `order_status` tinyint(3) UNSIGNED NOT NULL,
   `order_note` varchar(1000) DEFAULT NULL
@@ -115,6 +114,20 @@ CREATE TABLE `Outlet_Item` (
   `outlet_id` tinyint(3) UNSIGNED NOT NULL,
   `item_id` smallint(5) UNSIGNED NOT NULL,
   `outlet_item_price` decimal(8,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Payment`
+--
+
+CREATE TABLE `Payment` (
+  `payment_id` smallint(5) UNSIGNED NOT NULL,
+  `order_id` smallint(5) UNSIGNED NOT NULL,
+  `amount` decimal(10,2) NOT NULL,
+  `payment_status` varchar(15) NOT NULL,
+  `payment_date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -197,6 +210,13 @@ ALTER TABLE `Outlet_Item`
   ADD KEY `Outlet_Item_2` (`item_id`);
 
 --
+-- Indexes for table `Payment`
+--
+ALTER TABLE `Payment`
+  ADD PRIMARY KEY (`payment_id`),
+  ADD KEY `order_id` (`order_id`);
+
+--
 -- Indexes for table `User`
 --
 ALTER TABLE `User`
@@ -230,6 +250,12 @@ ALTER TABLE `Item`
 --
 ALTER TABLE `Order`
   MODIFY `order_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `Payment`
+--
+ALTER TABLE `Payment`
+  MODIFY `payment_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `User`
@@ -273,6 +299,12 @@ ALTER TABLE `Order_Item`
 ALTER TABLE `Outlet_Item`
   ADD CONSTRAINT `Outlet_Item_1` FOREIGN KEY (`outlet_id`) REFERENCES `Outlet` (`outlet_id`),
   ADD CONSTRAINT `Outlet_Item_2` FOREIGN KEY (`item_id`) REFERENCES `Item` (`item_id`);
+
+--
+-- Constraints for table `Payment`
+--
+ALTER TABLE `Payment`
+  ADD CONSTRAINT `Payment_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `Order` (`order_id`);
 
 --
 -- Constraints for table `User_Outlet`
