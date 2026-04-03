@@ -37,7 +37,7 @@ public class ItemController extends HttpServlet {
 		request.setAttribute("itemList", itemList);
 				
 		// forward to JSP
-		request.getRequestDispatcher("/pages/location-menu.jsp").forward(request, response);
+		request.getRequestDispatcher("location-menu.jsp").forward(request, response);
 	}
 
 	/**
