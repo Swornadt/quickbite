@@ -27,7 +27,11 @@
         <div class="register-container">
           <h1 class="register-heading">Register</h1>
           <!-- Actual Form  -->
-          <form class="register-section">
+          <form
+            class="register-section"
+            action="<%=request.getContextPath()%>/Register"
+            method="post"
+          >
             <!-- First Name and Last Name -->
             <div class="register-name">
               <div class="register-label">
@@ -35,7 +39,7 @@
                 <input
                   id="fname"
                   type="text"
-                  placeholder=""
+                  name="fname"
                   class="register-input"
                 />
               </div>
@@ -44,8 +48,7 @@
                 <input
                   id="lname"
                   type="text"
-                  text
-                  placeholder=""
+                  name="lname"
                   class="register-input"
                 />
               </div>
@@ -57,7 +60,7 @@
               <input
                 id="number"
                 type="text"
-                placeholder=""
+                name="number"
                 class="register-input"
               />
             </div>
@@ -68,7 +71,7 @@
               <input
                 id="email"
                 type="email"
-                placeholder=""
+                name="email"
                 class="register-input"
               />
             </div>
@@ -85,12 +88,7 @@
               </div>
               <div class="register-label">
                 <label for="dob">DOB:</label>
-                <input
-                  id="dob"
-                  type="date"
-                  placeholder=""
-                  class="register-input"
-                />
+                <input id="dob" type="date" name="dob" class="register-input" />
               </div>
             </div>
 
@@ -100,7 +98,7 @@
               <input
                 id="newpass"
                 type="password"
-                placeholder=""
+                name="newpass"
                 class="register-input"
               />
             </div>
@@ -111,20 +109,22 @@
               <input
                 id="confirmpass"
                 type="password"
-                placeholder=""
+                name="confirmpass"
                 class="register-input"
               />
             </div>
 
             <!-- Terms of Use Checkbox -->
             <div class="register-tou">
-              <input type="checkbox" id="terms-of-use" />
+              <input type="checkbox" id="terms-of-use" name="terms" />
               <label for="terms-of-use"
                 >I have read and agreed to <span>Terms of use</span></label
               >
             </div>
 
-            <a href="#" class="register-btn">Create my account</a>
+            <button type="submit" class="register-btn">
+              Create my account
+            </button>
           </form>
 
           <a href=" # " class="no-acc-btn"
