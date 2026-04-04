@@ -49,7 +49,14 @@ public class RegisterServlet extends HttpServlet {
         
         
         //Checking for empty values
-        if (fname.trim().isEmpty() || lname.trim().isEmpty() || number.trim().isEmpty() || email.trim().isEmpty() || gender.trim().isEmpty()|| dob.trim().isEmpty() ||newpass.trim().isEmpty() || confirmpass.trim().isEmpty()) {
+        if (fname == null || fname.trim().isEmpty() ||
+                lname == null || lname.trim().isEmpty() ||
+                number == null || number.trim().isEmpty() ||
+                email == null || email.trim().isEmpty() ||
+                gender == null || gender.trim().isEmpty() ||
+                dob == null || dob.trim().isEmpty() ||
+                newpass == null || newpass.trim().isEmpty() ||
+                confirmpass == null || confirmpass.trim().isEmpty()) {
         	request.setAttribute("error", "All fields are required.");
         	request.getRequestDispatcher("pages/register.jsp").forward(request,response);
         	return;

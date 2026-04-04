@@ -13,17 +13,28 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
       rel="stylesheet"
     />
-<link rel="stylesheet" href="../css/register.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/register.css" />
 </head>
 <body>
 <div class="register-page-container">
       <!-- Left Side (Image Container) -->
       <div class="register-page-image-container">
-        <img src="../assets/Register.jpeg" class="register-page-image" />
+        <img src="<%=request.getContextPath() %>/assets/Register.jpeg" class="register-page-image" />
       </div>
 
       <!-- Right Side (Form Container) -->
       <div class="register-page-section">
+      <!-- Error / Success Messages -->
+		<% if (request.getAttribute("error") != null) { %>
+    		<p style="color: red;" class='register-message'>
+        		<%= request.getAttribute("error") %>
+    		</p>
+		<% } %>
+		<% if (request.getAttribute("success") != null) { %>
+    		<p style="color: green;"  class='register-message'>
+        		<%= request.getAttribute("success") %>
+    		</p>
+		<% } %>
         <div class="register-container">
           <h1 class="register-heading">Register</h1>
           <!-- Actual Form  -->
