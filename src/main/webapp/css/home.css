@@ -136,6 +136,48 @@ h1 {
     opacity: 0;
 }
 
+/* Contact Us Section */
+.contact-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 50px;
+  border-top: 1px solid #cecece;
+  border-bottom: 1px solid #cecece;
+  padding: 50px 0px 50px 0px ;
+}
+
+.contact-title {
+  font-size: 50px;
+  color: #db4a1e;
+}
+
+.feedback-qs {
+  font-size: 20px;
+  color: #0ace0e;
+  margin-top: 20px;
+}
+
+.feedback-desc {
+  font-size: 16px;
+  color: #000000;
+  text-align: center;
+  max-width: 600px;
+  margin-top: 10px;
+}
+
+.feedback-section-button {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #db4a1e;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
 @media (max-width: 768px) {
     .banner {
         flex-direction: column;

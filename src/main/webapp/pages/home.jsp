@@ -40,6 +40,49 @@
             </div>
         </div>
 
+        <div class="contact-section">
+            <div class="contact-title">Contact Us</div>
+            <span class="feedback-qs">Have some feedbacks?</span>
+            <span class="feedback-desc">Share your feedback, suggestions, or any concerns below. Whether it's about your recent order, our menu, or
+            how we can improve, we're listening and will make your experience even better.</span>
+            <button onclick="" class="feedback-section-button">Share your feedbacks!</button>
+        </div>
+
+        <script>
+            const thumbnails = document.querySelectorAll('.thumbnails div');
+            const mainImg = document.querySelector('.main-img');
+            const container = document.querySelector('.image-container');
+
+            thumbnails.forEach(thumb => {
+                thumb.addEventListener('click', () => {
+                    const currentActive = document.querySelector('.thumbnails .active');
+                    if (thumb === currentActive) return;
+
+                    const ghostImg = mainImg.cloneNode();
+                    ghostImg.classList.add('main-img');
+                    container.appendChild(ghostImg);
+
+                    requestAnimationFrame(() => {
+                        ghostImg.classList.add('exit-bottom');
+                    });
+
+                    mainImg.style.transition = 'none';
+                    mainImg.classList.add('exit-top');
+                    mainImg.classList.remove('exit-bottom');
+                    mainImg.offsetHeight;
+
+                    mainImg.src = thumb.querySelector('img').src;
+                    currentActive.classList.remove('active');
+                    thumb.classList.add('active');
+
+                    requestAnimationFrame(() => {
+                        mainImg.style.transition = 'transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease';
+                        mainImg.classList.remove('exit-top');
+                    });
+
+                    setTimeout(() => {
+                        ghostImg.remove();
+                    }, 800);
         <!-- FAQ Section-->
         <div class="faq-container">
             <div class="faq-title">Frequently Asked Questions</div>
