@@ -13,21 +13,36 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
       rel="stylesheet"
     />
-<link rel="stylesheet" href="../css/register.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/register.css" />
 </head>
 <body>
 <div class="register-page-container">
       <!-- Left Side (Image Container) -->
       <div class="register-page-image-container">
-        <img src="../assets/Register.jpeg" class="register-page-image" />
+        <img src="<%=request.getContextPath() %>/assets/Register.jpeg" class="register-page-image" />
       </div>
 
       <!-- Right Side (Form Container) -->
       <div class="register-page-section">
+      <!-- Error / Success Messages -->
+		<% if (request.getAttribute("error") != null) { %>
+    		<p style="color: red;" class='register-message'>
+        		<%= request.getAttribute("error") %>
+    		</p>
+		<% } %>
+		<% if (request.getAttribute("success") != null) { %>
+    		<p style="color: green;"  class='register-message'>
+        		<%= request.getAttribute("success") %>
+    		</p>
+		<% } %>
         <div class="register-container">
           <h1 class="register-heading">Register</h1>
           <!-- Actual Form  -->
-          <form class="register-section">
+          <form
+            class="register-section"
+            action="<%=request.getContextPath()%>/Register"
+            method="post"
+          >
             <!-- First Name and Last Name -->
             <div class="register-name">
               <div class="register-label">
@@ -35,7 +50,7 @@
                 <input
                   id="fname"
                   type="text"
-                  placeholder=""
+                  name="fname"
                   class="register-input"
                 />
               </div>
@@ -44,8 +59,7 @@
                 <input
                   id="lname"
                   type="text"
-                  text
-                  placeholder=""
+                  name="lname"
                   class="register-input"
                 />
               </div>
@@ -57,7 +71,7 @@
               <input
                 id="number"
                 type="text"
-                placeholder=""
+                name="number"
                 class="register-input"
               />
             </div>
@@ -68,7 +82,7 @@
               <input
                 id="email"
                 type="email"
-                placeholder=""
+                name="email"
                 class="register-input"
               />
             </div>
@@ -85,12 +99,7 @@
               </div>
               <div class="register-label">
                 <label for="dob">DOB:</label>
-                <input
-                  id="dob"
-                  type="date"
-                  placeholder=""
-                  class="register-input"
-                />
+                <input id="dob" type="date" name="dob" class="register-input" />
               </div>
             </div>
 
@@ -100,7 +109,7 @@
               <input
                 id="newpass"
                 type="password"
-                placeholder=""
+                name="newpass"
                 class="register-input"
               />
             </div>
@@ -111,20 +120,22 @@
               <input
                 id="confirmpass"
                 type="password"
-                placeholder=""
+                name="confirmpass"
                 class="register-input"
               />
             </div>
 
             <!-- Terms of Use Checkbox -->
             <div class="register-tou">
-              <input type="checkbox" id="terms-of-use" />
+              <input type="checkbox" id="terms-of-use" name="terms" />
               <label for="terms-of-use"
                 >I have read and agreed to <span>Terms of use</span></label
               >
             </div>
 
-            <a href="#" class="register-btn">Create my account</a>
+            <button type="submit" class="register-btn">
+              Create my account
+            </button>
           </form>
 
           <a href=" # " class="no-acc-btn"
