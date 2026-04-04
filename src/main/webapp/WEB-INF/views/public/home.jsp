@@ -15,34 +15,34 @@
 
     <body>
     <!-- Header -->
-	<%@ include file="./navbar1.jsp" %>
+	<%@ include file="../common/navbar1.jsp" %>
 	
 	<!-- Hero Section -->
-        <div class="banner">
-            <div class="content">
-                <span class="sub-heading">Today's Special</span>
-                <h1>Mo:Mo thoughts?</h1>
-                <h2 class="green-text">We are listening</h2>
+    <div class="banner">
+    	<div class="content">
+			<span class="sub-heading">Today's Special</span>
+            <h1>Mo:Mo thoughts?</h1>
+            <h2 class="green-text">We are listening</h2>
 
-                <p class="description">
-                    Pre-order fresh momo from your campus canteens. Ready exactly when your break starts. No queues, no
-                    waiting.
-                </p>
+            <p class="description">
+                Pre-order fresh momo from your campus canteens. Ready exactly when your break starts. No queues, no
+                waiting.
+            </p>
 
-                <div class="thumbnails">
-                    <div class="active"> <img src="../assets/home/momo1.png" alt="Momo 1"> </div>
-                    <div> <img src="../assets/home/momo2.png" alt="Momo 2"> </div>
-                    <div> <img src="../assets/home/momo3.png" alt="Momo 3"> </div>
-                    <div> <img src="../assets/home/momo4.png" alt="Momo 4"> </div>
-                </div>
+            <div class="thumbnails">
+                 <div class="active"> <img src="../assets/home/momo1.png" alt="Momo 1"> </div>
+                 <div> <img src="../assets/home/momo2.png" alt="Momo 2"> </div>
+                 <div> <img src="../assets/home/momo3.png" alt="Momo 3"> </div>
+                 <div> <img src="../assets/home/momo4.png" alt="Momo 4"> </div>
+			</div>
 
-                <button class="order-btn">Order Now</button>
-            </div>
-
-            <div class="image-container">
-                <img src="../assets/home/momo1.png" alt="Main Plate" class="main-img">
-            </div>
-        </div>
+			<button class="order-btn">Order Now</button>
+		</div>
+		
+		<div class="image-container">
+			<img src="../assets/home/momo1.png" alt="Main Plate" class="main-img">
+		</div>
+	</div>
 
 	<!-- FAQ Section -->
 	<%@ include file="./faq.jsp" %>
@@ -51,7 +51,7 @@
 	<%@ include file="./contact-us.jsp" %>
         
     <!-- Footer Section -->
-	<%@ include file="./footer.jsp" %>
+	<%@ include file="../common/footer.jsp" %>
 
         <script>
             const thumbnails = document.querySelectorAll('.thumbnails div');
