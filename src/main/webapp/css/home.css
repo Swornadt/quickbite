@@ -180,6 +180,10 @@ h1 {
   cursor: pointer;
 }
 
+.feedback-section-button:hover {
+  transform: scale(1.02);
+}
+
 @media (max-width: 768px) {
     .banner {
         flex-direction: column;
