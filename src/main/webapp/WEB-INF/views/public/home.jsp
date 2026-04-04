@@ -8,7 +8,7 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
             rel="stylesheet">
-        <link rel="stylesheet" href="../css/home.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/home.css">
         <title>Home | QuickBite</title>
     </head>
 
@@ -29,17 +29,17 @@
             </p>
 
             <div class="thumbnails">
-                 <div class="active"> <img src="../assets/home/momo1.png" alt="Momo 1"> </div>
-                 <div> <img src="../assets/home/momo2.png" alt="Momo 2"> </div>
-                 <div> <img src="../assets/home/momo3.png" alt="Momo 3"> </div>
-                 <div> <img src="../assets/home/momo4.png" alt="Momo 4"> </div>
+                 <div class="active"> <img src="${pageContext.request.contextPath}/assets/home/momo1.png" alt="Momo 1"> </div>
+                 <div> <img src="${pageContext.request.contextPath}/assets/home/momo2.png" alt="Momo 2"> </div>
+                 <div> <img src="${pageContext.request.contextPath}/assets/home/momo3.png" alt="Momo 3"> </div>
+                 <div> <img src="${pageContext.request.contextPath}/assets/home/momo4.png" alt="Momo 4"> </div>
 			</div>
 
 			<button class="order-btn">Order Now</button>
 		</div>
 		
 		<div class="image-container">
-			<img src="../assets/home/momo1.png" alt="Main Plate" class="main-img">
+			<img src="${pageContext.request.contextPath}/assets/home/momo1.png" alt="Main Plate" class="main-img">
 		</div>
 	</div>
 

@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>FAQ | QuickBite</title>
-<link rel="stylesheet" href="../css/faq.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/faq.css">
 </head>
 <body>
 <!-- FAQ Section-->
