@@ -10,7 +10,7 @@ import java.io.IOException;
 /**
  * Servlet implementation class LoginServlet
  */
-@WebServlet(asyncSupported = true, urlPatterns = { "/Login" })
+@WebServlet(asyncSupported = true, urlPatterns = { "/login" })
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -27,7 +27,7 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.getRequestDispatcher("/pages/login.jsp").forward(request,response);
+		request.getRequestDispatcher("/WEB-INF/views/auth/login.jsp").forward(request,response);
 	}
 
 	/**

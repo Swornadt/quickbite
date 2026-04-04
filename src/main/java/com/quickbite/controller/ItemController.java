@@ -13,7 +13,7 @@ import com.quickbite.model.Item;
 /**
  * Servlet implementation class ItemController
  */
-@WebServlet(asyncSupported = true, urlPatterns = { "/ItemController" })
+@WebServlet(asyncSupported = true, urlPatterns = { "/location-menu" })
 public class ItemController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -37,7 +37,7 @@ public class ItemController extends HttpServlet {
 		request.setAttribute("itemList", itemList);
 				
 		// forward to JSP
-		request.getRequestDispatcher("location-menu.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/customer/location-menu.jsp").forward(request, response);
 	}
 
 	/**
