@@ -7,6 +7,8 @@
 }
 
 body {
+	display: flex;
+	flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
@@ -15,7 +17,7 @@ body {
 
 .banner {
     background-color: #fcd5b4;
-    width: 95%;
+    width: 90%;
     height: 90vh;
     border-radius: 20px;
     display: flex;

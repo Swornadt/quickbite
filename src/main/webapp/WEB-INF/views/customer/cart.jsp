@@ -15,7 +15,7 @@
 
 <body>
 <!-- Header -->
-<%@ include file="./navbar1.jsp" %>
+<%@ include file="../common/navbar1.jsp" %>
 
 <!-- Main container -->
 <div class="container">
@@ -109,7 +109,7 @@
 </div>
 
 <!-- Footer -->
-<%@ include file="./footer.jsp" %>
+<%@ include file="../common/footer.jsp" %>
 
 </body>
 

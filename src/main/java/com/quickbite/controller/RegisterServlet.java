@@ -11,7 +11,7 @@ import java.time.LocalDate;
 /**
  * Servlet implementation class RegisterServlet
  */
-@WebServlet(asyncSupported = true, urlPatterns = { "/Register" })
+@WebServlet(asyncSupported = true, urlPatterns = { "/register" })
 public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -28,7 +28,7 @@ public class RegisterServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.getRequestDispatcher("/pages/register.jsp").forward(request,response);
+		request.getRequestDispatcher("/WEB-INF/views/auth/register.jsp").forward(request,response);
 	}
 
 	/**
