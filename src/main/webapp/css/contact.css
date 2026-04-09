@@ -12,7 +12,7 @@ body {
 .hero-image {
   height: 35vh;
   width: 100%;
-  background-image: url('../assets/contact.jpg');
+  background-image: url('${pageContext.request.contextPath}/assets/contact.jpg');
   background-size: cover;
   background-position: center;
   display: flex;
