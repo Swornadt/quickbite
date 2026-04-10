@@ -9,3 +9,4 @@ release.properties
 
 src/main/webapp/assets/**/*.png
 src/main/webapp/assets/**/*.jpg
+/bin/
