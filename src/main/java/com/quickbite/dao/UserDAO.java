@@ -9,7 +9,7 @@ public class UserDAO {
 		Connection con = DBconfig.getConnection();
 		
 		//? marks serves as the placeholders which is later filled using prepared statement below
-		String sql = "INSERT INTO users(fname, lname,number, email,gender,dob,password)"+ "VALUES (?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO user(fname, lname,number, email,gender,dob,password)"+ "VALUES (?, ?, ?, ?, ?, ?, ?)";
 		
 		//Each setString fills one ? in order
 		PreparedStatement pst = con.prepareStatement(sql);
