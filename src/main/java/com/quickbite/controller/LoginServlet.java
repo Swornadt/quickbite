@@ -45,14 +45,14 @@ public class LoginServlet extends HttpServlet {
 		//Checking for empty value in Number and password input field
 		if (number == null || number.trim().isEmpty() || pass == null|| pass.trim().isEmpty()) {
 		  request.setAttribute("error", "Phone number and password are required");
-		  request.getRequestDispatcher("/pages/login.jsp").forward(request, response);
+		  request.getRequestDispatcher("/WEB-INF/views/auth/login.jsp").forward(request, response);
 		  return;
 		}
 		
 		//Phone number length validation
 		if (number.trim().length() != 10) {
             request.setAttribute("error", "Phone number must be 10 characters (e.g. 9812345678).");
-            request.getRequestDispatcher("/pages/login.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/views/auth/login.jsp").forward(request, response);
             return;
         }
 		
@@ -63,7 +63,7 @@ public class LoginServlet extends HttpServlet {
                 !pass.matches(".*[!@#$%^&*].*")) {
 
                 request.setAttribute("error", "Password must be more than 6 characters and include an uppercase letter, a number, and a special character (!@#$%^&*).");
-                request.getRequestDispatcher("pages/login.jsp").forward(request, response);
+                request.getRequestDispatcher("/WEB-INF/views/auth/login.jsp").forward(request, response);
                 return;
             }
         
