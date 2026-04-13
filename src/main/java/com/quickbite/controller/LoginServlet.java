@@ -7,6 +7,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import com.quickbite.model.UserModel;
+import com.quickbite.service.LoginService;
+import com.quickbite.utils.CookieUtil;
+import com.quickbite.utils.SessionUtil;
+
 /**
  * Servlet implementation class LoginServlet
  */
@@ -62,9 +67,18 @@ public class LoginServlet extends HttpServlet {
                 return;
             }
         
-		
-		request.setAttribute("success","Login successful!");
-		request.getRequestDispatcher("/pages/login.jsp").forward(request, response);
+		// Password Verification
+        LoginService loginService = new LoginService();
+        UserModel user = loginService.authenticate(number, pass);
+        
+        if (user != null) {        	
+        	SessionUtil.setAttribute(request, "number", number);
+        	request.setAttribute("success","Login successful!");
+        	response.sendRedirect(request.getContextPath()+"/home");
+        } else {
+        	request.setAttribute("error", "Invalid phone number or password.");
+        	request.getRequestDispatcher("/WEB-INF/views/auth/login.jsp").forward(request, response);
+        }
 	}
 
 }
