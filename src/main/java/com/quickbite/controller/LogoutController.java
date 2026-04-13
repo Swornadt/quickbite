@@ -13,7 +13,7 @@ import com.quickbite.utils.SessionUtil;
 /**
  * Servlet implementation class LogoutController
  */
-@WebServlet(asyncSupported = true, urlPatterns = { "/LogoutController" })
+@WebServlet(asyncSupported = true, urlPatterns = { "/logout" })
 public class LogoutController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
