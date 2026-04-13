@@ -40,7 +40,7 @@
           <!-- Actual Form  -->
           <form
             class="register-section"
-            action="<%=request.getContextPath()%>/Register"
+            action="<%=request.getContextPath()%>/register"
             method="post"
           >
             <!-- First Name and Last Name -->

@@ -8,6 +8,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import java.time.LocalDate;
+
+import com.quickbite.service.RegisterService;
 /**
  * Servlet implementation class RegisterServlet
  */
@@ -58,35 +60,35 @@ public class RegisterServlet extends HttpServlet {
                 newpass == null || newpass.trim().isEmpty() ||
                 confirmpass == null || confirmpass.trim().isEmpty()) {
         	request.setAttribute("error", "All fields are required.");
-        	request.getRequestDispatcher("pages/register.jsp").forward(request,response);
+        	request.getRequestDispatcher("/WEB-INF/views/auth/register.jsp").forward(request,response);
         	return;
         }
         
         //First Name validation
         if (!fname.matches("[a-zA-Z ]+")) {
             request.setAttribute("error", "First name must contain letters only.");
-            request.getRequestDispatcher("pages/register.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/views/auth/register.jsp").forward(request,response);
             return;
         }
         
         //Second Name validation
         if (!lname.matches("[a-zA-Z ]+")) {
             request.setAttribute("error", "Last name must contain letters only.");
-            request.getRequestDispatcher("pages/register.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/views/auth/register.jsp").forward(request,response);
             return;
         } 
         
         //Phone Number length validation
         if ( number.length() != 10) {
             request.setAttribute("error", "Phone number must be 10 characters (e.g. 9812345678).");
-            request.getRequestDispatcher("pages/register.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/views/auth/register.jsp").forward(request,response);
             return;
         }
         
         //Email validation
         if (!email.contains("@gmail.com")) {
             request.setAttribute("error", "Email address must contain '@gmail.com'");
-            request.getRequestDispatcher("pages/register.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/views/auth/register.jsp").forward(request,response);
             return;
         }
         
@@ -95,12 +97,12 @@ public class RegisterServlet extends HttpServlet {
             LocalDate dobDate = LocalDate.parse(dob);
             if (!dobDate.isBefore(LocalDate.now())) {
                 request.setAttribute("error", "Date of birth must be in the past.");
-                request.getRequestDispatcher("pages/register.jsp").forward(request, response);
+                request.getRequestDispatcher("/WEB-INF/views/auth/register.jsp").forward(request,response);
                 return;
             }
         } catch (Exception e) {
             request.setAttribute("error", "Invalid date format.");
-            request.getRequestDispatcher("pages/register.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/views/auth/register.jsp").forward(request,response);
             return;
         }
         
@@ -111,27 +113,37 @@ public class RegisterServlet extends HttpServlet {
                 !newpass.matches(".*[!@#$%^&*].*")) {
 
                 request.setAttribute("error", "Password must be more than 6 characters and include an uppercase letter, a number, and a special character (!@#$%^&*).");
-                request.getRequestDispatcher("pages/register.jsp").forward(request, response);
+                request.getRequestDispatcher("/WEB-INF/views/auth/register.jsp").forward(request,response);
                 return;
             }
         
         //Confirm password matching new password validation
         if (!newpass.equals(confirmpass)) {
             request.setAttribute("error", "Passwords do not match.");
-            request.getRequestDispatcher("pages/register.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/views/auth/register.jsp").forward(request,response);
             return;
         }
         
         //Terms must be checked
         if (terms == null) {
             request.setAttribute("error", "You must agree to the Terms of Use.");
-            request.getRequestDispatcher("pages/register.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/views/auth/register.jsp").forward(request,response);
             return;
         }
         
-        request.setAttribute("success", "Registration sucessful!");
-        request.getRequestDispatcher("pages/register.jsp").forward(request, response);
-        
+        try {
+        	RegisterService service = new RegisterService();
+        	service.registerUser(fname, lname, number, email, gender, dob, newpass);
+        	System.out.println("Registartion successful for:" + fname + " " + lname);
+        	request.setAttribute("success", "Registration successful!");
+        	request.getRequestDispatcher("/WEB-INF/views/public/home.jsp").forward(request,response);
+        }catch(Exception e) {
+        	//This shows error message
+        	e.printStackTrace();
+        	request.setAttribute("error", "Something went wrong. Please try again.");
+            request.getRequestDispatcher("/WEB-INF/views/auth/register.jsp")
+                   .forward(request, response);
+        }
 	}
 	
 
