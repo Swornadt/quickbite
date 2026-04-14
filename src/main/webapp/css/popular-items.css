@@ -1,0 +1,25 @@
+@charset "UTF-8";
+
+#cardsDiv .card:nth-child(n+5) {
+    display: none;
+}
+
+h2 {
+    font-size: 30px;
+    color: #DB4A1E;
+}
+
+.popular-title p {
+    font-size: 20px;
+    color: #BCBCBC;
+}
+
+.popular-title {
+    margin-bottom: 40px;
+}
+
+.popular-title h2 {
+    font-size: 50px;
+    margin-bottom: 10px;
+
+}
