@@ -1,5 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="jakarta.servlet.http.HttpSession" %>
+<%@ page import="jakarta.servlet.http.HttpServletRequest" %>
+
+<%
+	HttpSession userSession = request.getSession(false);
+	String currentUser = (String) (userSession != null ? userSession.getAttribute("username") : null);
+	String contextPath = request.getContextPath();
+	
+	String actionUrl;
+	String formMethod;
+	String buttonLabel;
+	
+	if(currentUser != null) {
+		actionUrl = contextPath + "/logout";
+		formMethod = "post";
+		buttonLabel = "Logout";
+	} else {
+		actionUrl = contextPath + "/login";
+		formMethod = "get";
+		buttonLabel = "Login";
+	}
+%>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -44,9 +67,11 @@
         </div>
 
         <!-- Navbar login button  -->
-        <a href="#" class="nav-login-btn-container">
-          <button class="nav-login-btn">Login</button>
-        </a>
+        <div class="nav-login-btn-container">
+        	<form action="<%= actionUrl %>" method="<%= formMethod %>">
+        		<input class="nav-login-btn" type="submit" value="<%= buttonLabel %>"/>
+        	</form>
+        </div>
       </div>
 
       <!-- For Mobile Responsiveness  -->
