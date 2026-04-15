@@ -5,7 +5,7 @@
 
 <%
 	HttpSession userSession = request.getSession(false);
-	String currentUser = (String) (userSession != null ? userSession.getAttribute("username") : null);
+	String currentUser = (String) (userSession != null ? userSession.getAttribute("number") : null);
 	String contextPath = request.getContextPath();
 	
 	String actionUrl;

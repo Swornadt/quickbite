@@ -10,6 +10,8 @@ public class UserModel {
 	private String gender;
 	private String dob;
 	private String password;
+	private String role = "customer";
+    private String status = "pending";
 	
 	//Getter and Setter 
 	public String getFname() {
@@ -66,5 +68,21 @@ public class UserModel {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
