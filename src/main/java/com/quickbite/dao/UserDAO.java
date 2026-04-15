@@ -37,7 +37,7 @@ public class UserDAO {
 	}
 	
 	public UserModel getUserByNumber(String number) {
-		String sql = "SLECT * FROM user WHERE number = ?";
+		String sql = "SELECT * FROM user WHERE number = ?";
 		
 		try (Connection conn = DBconfig.getConnection();
 				PreparedStatement pst = conn.prepareStatement(sql)) {
