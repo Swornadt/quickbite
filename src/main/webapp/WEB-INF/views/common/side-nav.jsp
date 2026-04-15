@@ -33,6 +33,8 @@
 			<a href=""><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a>
 		</div>
     </div>
+    <div class="under-side-nav">
+   	</div>
 <script src="<%=request.getContextPath() %>/js/side-nav.js"></script>
 </body>
 </html>
