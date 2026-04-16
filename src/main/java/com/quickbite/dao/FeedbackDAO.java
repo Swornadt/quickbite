@@ -8,7 +8,7 @@ import com.quickbite.utils.DBconfig;
 public class FeedbackDAO {
 
     public void insertFeedback(int userId, int rating, String message) throws Exception {
-        String sql = "INSERT INTO Feedback (user_id, rating_value, feedback_description, rating_date) "
+        String sql = "INSERT INTO feedback (user_id, rating_value, feedback_description, rating_date) "
                    + "VALUES (?, ?, ?, ?)";
 
         try (Connection con = DBconfig.getConnection();

@@ -15,7 +15,7 @@ public class UserDAO {
 		Connection con = DBconfig.getConnection();
 		
 		//? marks serves as the placeholders which is later filled using prepared statement below
-		String sql = "INSERT INTO user(fname, lname,number, email,gender,dob,password)"+ "VALUES (?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO user(fname, lname, number, email, gender, dob, password, role, status)"+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		//Each setString fills one ? in order
 		PreparedStatement pst = con.prepareStatement(sql);
@@ -26,6 +26,8 @@ public class UserDAO {
 	     pst.setString(5, gender);
 	     pst.setString(6, dob);
 	     pst.setString(7, password);
+	     pst.setString(8, "customer");
+	     pst.setString(9, "pending");
 	     
 	     //This executes the query and saves data to the quickbite database
 	     pst.executeUpdate();
