@@ -53,8 +53,8 @@
           </div>
 
           <a href="#" class="nav-logo-container">
-            <p class="logo-text">Quick</p>
-            <p class="logo-text">Bite</p>
+	            <p class="logo-text">Quick</p>
+	            <p class="logo-text">Bite</p>
           </a>
         </div>
 
