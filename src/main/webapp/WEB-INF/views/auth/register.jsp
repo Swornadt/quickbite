@@ -138,7 +138,7 @@
             </button>
           </form>
 
-          <a href=" # " class="no-acc-btn"
+          <a href="<%=request.getContextPath() %>/login" class="no-acc-btn"
             >Already have an account? <span>Login</span></a
           >
         </div>
