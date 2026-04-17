@@ -1,12 +1,25 @@
 @charset "UTF-8";
 
-.page-hero {
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+ 
+body {
+    margin: 0;
+    padding-top: 100px;
+    background-color: #f0f0f0;
+}
+
+.checkout-heading {
     background-color: #FAF4F0;
     padding: 30px 0;
     margin-bottom: 0;
 }
 
-.page-hero-inner {
+.heading-inner {
     width: 90%;
     margin: 0 auto;
     padding: 0 20px;
@@ -17,6 +30,30 @@
     font-weight: 400;
     color: #333;
     letter-spacing: 0.01em;
+}
+
+.container {
+    display: flex;
+    width: 90%;
+    padding: 20px;
+    margin: 0 auto;
+    gap: 5%;
+    align-items: flex-start;
+}
+ 
+.left-container {
+    width: 60%;
+}
+ 
+.right-container {
+    width: 35%;
+    height: fit-content;
+    background-color: #F9F8F7;
+    padding: 30px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
 
 .checkout-card {
@@ -32,8 +69,8 @@
 }
 
 .checkout-card-heading p {
-    font-size: 0.85rem;
-    font-weight: 700;
+    font-size: 0.9rem;
+    font-weight: 600;
     color: #444;
     letter-spacing: 0.06em;
     text-transform: uppercase;
@@ -179,7 +216,7 @@
     gap: 16px;
 }
 
-.btn-back {
+.back-button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -198,11 +235,11 @@
     cursor: pointer;
 }
 
-.btn-back:hover {
+.back-button:hover {
     background-color: #ddd;
 }
 
-.btn-continue {
+.continue-button {
     height: 50px;
     padding: 0 52px;
     background-color: #C0392B;
@@ -218,7 +255,7 @@
     transition: background-color 0.2s;
 }
 
-.btn-continue:hover {
+.continue-button:hover {
     background-color: #a93226;
 }
 
@@ -294,6 +331,33 @@
 .empty-cart-msg a {
     color: #C0392B;
     text-decoration: none;
+}
+
+.summary-divider {
+    height: 1px;
+    background: #eee;
+}
+ 
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: #666;
+}
+ 
+.muted {
+    font-size: 0.8rem;
+    color: #999;
+}
+ 
+.grand-total {
+    font-weight: 700;
+    color: #333;
+}
+ 
+.total-price {
+    color: #e67e22;
+    font-size: 1rem;
 }
 
 @media (max-width: 768px) {

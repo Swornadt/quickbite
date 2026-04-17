@@ -7,19 +7,18 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../css/cart.css">
-<link rel="stylesheet" href="../css/checkout.css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/checkout.css" />
 <title>Checkout | QuickBite</title>
 </head>
 
 <body>
 
 <!-- Header -->
-<%@ include file="../common/header.jsp" %>
+<%@ include file="../common/navbar1.jsp"%>
 
 <!-- Page Hero -->
-<div class="page-hero">
-    <div class="page-hero-inner">
+<div class="checkout-heading">
+    <div class="heading-inner">
         <h1 class="page-title">Checkout</h1>
     </div>
 </div>
@@ -103,8 +102,8 @@
 
         <!-- Action Buttons -->
         <div class="action-buttons">
-            <a href="cart.jsp" class="btn-back">GO BACK</a>
-            <button class="btn-continue" onclick="submitCheckout()">CONTINUE</button>
+            <a href="cart.jsp" class="back-button">GO BACK</a>
+            <button class="continue-button" onclick="submitCheckout()">CONTINUE</button>
         </div>
 
     </div>
@@ -145,14 +144,14 @@
                 } else {
             %>
             <div class="empty-cart-msg">
-                Your cart is empty. <a href="outlets.jsp">Browse Outlets</a>
+                Your cart is empty. <a href="<%=request.getContextPath() %>/views/customer/outlets">Browse Outlets</a>
             </div>
             <%
                 }
             %>
         </div>
 
-        <a href="menu.jsp" class="add-more-link">+ Add More Items</a>
+        <a href="<%=request.getContextPath() %>/views/customer/outlets" class="add-more-link">+ Add More Items</a>
 
         <div class="summary-divider"></div>
 
