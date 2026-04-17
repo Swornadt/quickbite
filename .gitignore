@@ -1,3 +1,12 @@
-.settings/ 
+/target/
+release.properties
+
+.settings/
+.settings/
 .project
-target/
+.classpath
+.factorypath
+
+src/main/webapp/assets/**/*.png
+src/main/webapp/assets/**/*.jpg
+/bin/

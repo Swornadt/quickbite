@@ -1,0 +1,5 @@
+Step 1: Open phphadmin
+step 2: Create a new amdin or choose an existing database that is empty
+Step 3: Click on import on the navbar
+Step 4: Make sure the format is "SQL"
+Step 5: Press "Go" on the bottom

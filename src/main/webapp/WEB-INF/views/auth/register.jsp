@@ -14,6 +14,7 @@
       rel="stylesheet"
     />
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/register.css" />
+
 </head>
 <body>
 <div class="register-page-container">
@@ -24,23 +25,24 @@
 
       <!-- Right Side (Form Container) -->
       <div class="register-page-section">
-      	
-        <div class="register-container">
-        <% if (request.getAttribute("error") != null) { %>
-    	<p style="color: red; " class='register-message'>
-        	<%= request.getAttribute("error") %>
-    	</p>
+      <!-- Error / Success Messages -->
+		<% if (request.getAttribute("error") != null) { %>
+    		<p style="color: red;" class='register-message'>
+        		<%= request.getAttribute("error") %>
+    		</p>
 		<% } %>
 		<% if (request.getAttribute("success") != null) { %>
-    	<p style="color: green;" class='register-message'>
-        	<%= request.getAttribute("success") %>
-    	</p>
+    		<p style="color: green;"  class='register-message'>
+        		<%= request.getAttribute("success") %>
+    		</p>
 		<% } %>
+
+        <div class="register-container">
           <h1 class="register-heading">Register</h1>
           <!-- Actual Form  -->
           <form
             class="register-section"
-            action="<%=request.getContextPath()%>/Register"
+            action="<%=request.getContextPath()%>/register"
             method="post"
           >
             <!-- First Name and Last Name -->
