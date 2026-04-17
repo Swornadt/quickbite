@@ -39,7 +39,7 @@
         <div class="nav-links">
           <a href="#" class="nav-link">Home</a>
           <a href="#" class="nav-link">Location</a>
-          <a href="#" class="nav-link">About Us</a>
+          <a href="#" class="nav-link">About Us</a> 
           <a href="#" class="nav-link">Contact</a>
         </div>
 
@@ -58,6 +58,6 @@
       </div>
     </nav>
 
-    <script src="../js/navbar.js"></script>
+    <script src="<%=request.getContextPath() %>/js/navbar.js"></script>
   </body>
 </html>
