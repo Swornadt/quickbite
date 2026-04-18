@@ -67,7 +67,7 @@
             This site is protected by reCAPTCHA and the Google
             <span>Privacy Policy</span> and <span>Terms of Service</span> apply
           </p>
-          <a href=" # " class="no-acc-btn"
+          <a href="<%=request.getContextPath()%>/register" class="no-acc-btn"
             >Don't have an account? <span>Sign up</span></a
           >
         </div>
