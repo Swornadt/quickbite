@@ -34,7 +34,7 @@ public class ContactServlet extends HttpServlet {
         }
 
         UserModel user = (UserModel) session.getAttribute("loggedInUser");
-
+        
         String ratingStr = request.getParameter("rating");
         String message = request.getParameter("message");
 

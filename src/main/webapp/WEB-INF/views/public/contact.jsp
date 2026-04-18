@@ -9,6 +9,7 @@
     <title>Contact Us | QuickBite</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/contact.css">
 </head>
+
 <body>
 
     <!-- Header -->
@@ -17,6 +18,18 @@
     <div class="hero-image">
         <div class="hero-title">Contact Us</div>
     </div>
+    
+    <!-- Success / Error Messages -->
+        <% if (request.getAttribute("success") != null) { %>
+            <div style="color:green; text-align:center; margin:25px 0; font-weight:bold; font-size:1.1em;">
+                <%= request.getAttribute("success") %>
+            </div>
+        <% } %>
+        <% if (request.getAttribute("error") != null) { %>
+            <div style="color:red; text-align:center; margin:25px 0; font-weight:bold; font-size:1.1em;">
+                <%= request.getAttribute("error") %>
+            </div>
+        <% } %>
 
     <div class="contact-container">
 
@@ -26,7 +39,7 @@
             <p>Phone: +977 - 4433221</p>
         </div>
 
-        <!-- Simple & Reliable Login Check -->
+        <!-- Login Check -->
         <%
             boolean isLoggedIn = (session != null && session.getAttribute("loggedInUser") != null);
         %>
@@ -66,18 +79,6 @@
                 </p>
                 <a href="${pageContext.request.contextPath}/login" 
                    class="login-btn">Login to Submit Feedback</a>
-            </div>
-        <% } %>
-
-        <!-- Success / Error Messages -->
-        <% if (request.getAttribute("success") != null) { %>
-            <div style="color:green; text-align:center; margin:25px 0; font-weight:bold; font-size:1.1em;">
-                <%= request.getAttribute("success") %>
-            </div>
-        <% } %>
-        <% if (request.getAttribute("error") != null) { %>
-            <div style="color:red; text-align:center; margin:25px 0; font-weight:bold; font-size:1.1em;">
-                <%= request.getAttribute("error") %>
             </div>
         <% } %>
 

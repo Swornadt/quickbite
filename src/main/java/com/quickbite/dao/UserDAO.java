@@ -49,6 +49,8 @@ public class UserDAO {
 			try (ResultSet rs = pst.executeQuery()) {
                 if (rs.next()) {
                     UserModel user = new UserModel();
+                    
+                    user.setUserId(rs.getInt("user_id"));
                     user.setFname(rs.getString("fname"));
                     user.setLname(rs.getString("lname"));
                     user.setNumber(rs.getString("number"));
