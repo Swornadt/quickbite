@@ -102,7 +102,7 @@
 
         <!-- Action Buttons -->
         <div class="action-buttons">
-            <a href="cart.jsp" class="back-button">GO BACK</a>
+            <a href="${pageContext.request.contextPath}/CartServlet" class="back-button">GO BACK</a>
             <button class="continue-button" onclick="submitCheckout()">CONTINUE</button>
         </div>
 
