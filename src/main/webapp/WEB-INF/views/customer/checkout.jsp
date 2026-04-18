@@ -103,7 +103,7 @@
         <!-- Action Buttons -->
         <div class="action-buttons">
             <a href="${pageContext.request.contextPath}/CartServlet" class="back-button">GO BACK</a>
-            <button class="continue-button" onclick="submitCheckout()">CONTINUE</button>
+            <button type="submit" class="continue-button" onclick="submitCheckout()">CONTINUE</button>
         </div>
 
     </div>

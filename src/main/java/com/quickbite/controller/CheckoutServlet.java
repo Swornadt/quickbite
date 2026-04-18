@@ -73,7 +73,7 @@ public class CheckoutServlet extends HttpServlet {
 	    
 	    // TODO: call orderservice to save to DB
 	    try {
-	    	boolean success = cartService.placeOrder(user.getFname(), cart, specialInstructions); //pass correct params
+	    	boolean success = cartService.placeOrder(user, cart, specialInstructions, deliveryTimeType, deliveryDate, timeSlot); //pass correct params
 	    	
 	    	if (success) {
 	    		session.removeAttribute("cart");
