@@ -56,8 +56,8 @@
           </div>
 
           <a href="#" class="nav-logo-container">
-            <span class="logo-text">Quick</span>
-            <span class="logo-text">Bite</span>
+	            <p class="logo-text">Quick</p>
+	            <p class="logo-text">Bite</p>
           </a>
         </div>
 
@@ -65,8 +65,8 @@
         <div class="nav-links">
           <a href="#" class="nav-link">Home</a>
           <a href="#" class="nav-link">Location</a>
-          <a href="#" class="nav-link">About Us</a> 
-          <a href="#" class="nav-link">Contact</a>
+          <a href="#" class="nav-link">About Us</a>
+          <a href="${pageContext.request.contextPath}/ContactServlet" class="nav-link">Contact</a>
         </div>
 
         <!-- Navbar login button  -->

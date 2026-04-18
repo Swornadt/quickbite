@@ -3,6 +3,7 @@ package com.quickbite.model;
 public class UserModel {
 	
 	//Registration form input fields;
+	private int userId;
 	private String fname;
 	private String lname;
 	private String number;
@@ -14,6 +15,10 @@ public class UserModel {
     private String status = "pending";
 	
 	//Getter and Setter 
+    public int getUserId() {
+    	return userId;
+    }
+    
 	public String getFname() {
         return fname;
     }
@@ -40,6 +45,10 @@ public class UserModel {
 
     public String getPassword() {
         return password;
+    }
+    
+    public void setUserId(int userId) {
+    	this.userId = userId;
     }
 
     public void setFname(String fname) {

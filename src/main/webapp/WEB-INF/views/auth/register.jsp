@@ -127,6 +127,16 @@
               />
             </div>
 
+            <div class="profile-image">
+              <label for="profile-img">Profile Image:</label>
+              <input
+                id="profile-img"
+                type="file"
+                name="profileImg"
+                class="register-input"
+              />
+            </div>
+
             <!-- Terms of Use Checkbox -->
             <div class="register-tou">
               <input type="checkbox" id="terms-of-use" name="terms" />
