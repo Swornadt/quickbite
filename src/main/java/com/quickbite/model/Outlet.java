@@ -6,6 +6,7 @@ public class Outlet {
 	private String outlet_status;
 	private String outlet_image;
 
+	//Constructors
 	public Outlet(int outlet_id, String outlet_name, String outlet_status, String outlet_image) {
 		this.outlet_id=outlet_id;
 		this.outlet_name=outlet_name;
@@ -13,6 +14,7 @@ public class Outlet {
 		this.outlet_image=outlet_image;
 	}
 	
+	//Getter Methods
 	public int getOutletId() {
 		return outlet_id;
 	}
@@ -29,4 +31,21 @@ public class Outlet {
 		return outlet_image;
 	}
 	
+	
+	//Setter Methods
+	public void setOutletId(int outlet_id) {
+		this.outlet_id=outlet_id;
+	}
+	
+	public void setOutletName(String outlet_name) {
+		this.outlet_name=outlet_name;
+	}
+	
+	public void setOutletStatus(String outlet_status) {
+		this.outlet_status=outlet_status;
+	}
+	
+	public void setOutletImage(String outlet_image) {
+		this.outlet_image=outlet_image;
+	}
 }
