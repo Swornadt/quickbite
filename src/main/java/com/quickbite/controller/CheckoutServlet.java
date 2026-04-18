@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.List;
 
 import com.quickbite.model.CartItemModel;
+import com.quickbite.model.UserModel;
 import com.quickbite.service.CartService;
 
 @WebServlet(asyncSupported = true, urlPatterns = { "/checkout" })
@@ -50,4 +51,40 @@ public class CheckoutServlet extends HttpServlet {
 		
 		request.getRequestDispatcher("/WEB-INF/views/customer/checkout.jsp").forward(request, response);
 	}
+    
+    @Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession(false);
+		
+		// capture form data from jsp
+		String deliveryTimeType = request.getParameter("deliveryTime"); // asap or schedule
+		String deliveryDate = request.getParameter("deliveryDate");
+		String timeSlot = request.getParameter("deliveryTimeSlot");
+	    String specialInstructions = request.getParameter("specialInstructions");
+	    
+	    // get cart and user
+	    List<CartItemModel> cart = cartService.getCart(session);
+	    UserModel user = (UserModel) session.getAttribute("user");
+	    
+	    if (cart == null || cart.isEmpty()) {
+	    	response.sendRedirect(request.getContextPath()+"/views/customer/outlets");
+	    	return;
+	    }
+	    
+	    // TODO: call orderservice to save to DB
+	    try {
+	    	boolean success = cartService.placeOrder(user.getFname(), cart, specialInstructions); //pass correct params
+	    	
+	    	if (success) {
+	    		session.removeAttribute("cart");
+	    		response.sendRedirect(request.getContextPath()+"/order-success"); //TODO: put correct path
+	    	} else {
+	    		request.setAttribute("error", "Could not proccess order. Please try again.");
+	    		doGet(request, response);
+	    	}
+	    }catch (Exception e) {
+	    	e.printStackTrace();
+	    }
+    }
+		
 }

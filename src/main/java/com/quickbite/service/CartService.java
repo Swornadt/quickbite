@@ -37,4 +37,9 @@ public class CartService {
     public double calculateSubtotal(List<CartItemModel> cart) {
         return cart.stream().mapToDouble(CartItemModel::getTotalPrice).sum();
     }
+
+	public boolean placeOrder(String fname, List<CartItemModel> cart, String specialInstructions) {
+		// TODO add functionality
+		return false;
+	}
 }
