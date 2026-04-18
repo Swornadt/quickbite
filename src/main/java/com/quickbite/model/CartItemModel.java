@@ -11,7 +11,7 @@ public class CartItemModel implements Serializable {
 	private int quantity;
 	
 	//Constructor
-	public CartItemModel() {
+	public CartItemModel(int itemId, int outletId, String itemName, double unitPrice, int quantity) {
 		this.itemId = itemId;
         this.outletId = outletId;
         this.itemName = itemName;
@@ -68,5 +68,13 @@ public class CartItemModel implements Serializable {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+    
+    // Helper Method
+    public void addQuantity(int amount) {
+    	this.quantity += amount;
+    }
 	
+    public double getTotalPrice() {
+    	return this.unitPrice * this.quantity;
+    }
 }
