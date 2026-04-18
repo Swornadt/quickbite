@@ -73,12 +73,8 @@ public class LoginServlet extends HttpServlet {
         LoginService loginService = new LoginService();
         UserModel user = loginService.authenticate(number, pass);
         
-        if (user != null) {   
-        	HttpSession session = request.getSession(true);
-        	session.setAttribute("loggedInUser",  user);
-        	session.setAttribute("userId",  user.getUserId());
-        	
-        	SessionUtil.setAttribute(request, "number", number);
+        if (user != null) {        	
+        	SessionUtil.setAttribute(request, "user", user);
         	request.setAttribute("success","Login successful!");
         	response.sendRedirect(request.getContextPath()+"/home");
         } else {

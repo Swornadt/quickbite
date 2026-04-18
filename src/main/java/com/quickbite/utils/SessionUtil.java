@@ -1,12 +1,14 @@
 package com.quickbite.utils;
 
+import com.quickbite.model.UserModel;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 public class SessionUtil {
-	public static void setAttribute(HttpServletRequest request, String key, String value) {
+	public static void setAttribute(HttpServletRequest request, String key, UserModel user) {
 		HttpSession session = request.getSession(); //default true
-		session.setAttribute(key, value);
+		session.setAttribute(key, user);
 	}
 	
 	public static Object getAttribute(HttpServletRequest request, String key) {

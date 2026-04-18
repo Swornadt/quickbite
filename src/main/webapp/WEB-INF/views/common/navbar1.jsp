@@ -2,10 +2,13 @@
     pageEncoding="UTF-8"%>
 <%@ page import="jakarta.servlet.http.HttpSession" %>
 <%@ page import="jakarta.servlet.http.HttpServletRequest" %>
+<%@ page import="com.quickbite.model.UserModel" %>
 
 <%
 	HttpSession userSession = request.getSession(false);
-	String currentUser = (String) (userSession != null ? userSession.getAttribute("number") : null);
+	UserModel currentUserObj = (userSession != null) ? (UserModel) userSession.getAttribute("user") : null;
+	
+	String currentUser = (currentUserObj != null) ? currentUserObj.getNumber() : null;
 	String contextPath = request.getContextPath();
 	
 	String actionUrl;
@@ -82,7 +85,8 @@
         <a href="#" class="mobile-nav-link">Contact</a>
       </div>
     </nav>
+    <div class="below-nav"></div>
 
-    <script src="../js/navbar.js"></script>
+    <script src="<%=request.getContextPath() %>/js/navbar.js"></script>
   </body>
 </html>
