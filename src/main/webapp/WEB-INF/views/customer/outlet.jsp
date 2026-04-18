@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.quickbite.model.Outlet" %>>
 <%@ page import="java.util.*" %>
 
-<!-- Placeholder data. TODO: connect with DAO -->
-<%
+<%-- <%
     List<Map<String, String>> locations = new ArrayList<>();
     
     locations.add(Map.of("id", "1", "name", "Coffee Station", "photo", "../assets/outlet/coffee-station.png"));
@@ -14,7 +14,9 @@
     locations.add(Map.of("id", "6", "name", "Kumari Cafe", "photo", "../assets/outlet/kumari-cafe.png"));
 
     request.setAttribute("locations", locations);
-%>
+%> 
+
+--%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -27,7 +29,7 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="../css/outlet.css" />
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/outlet.css" />
   </head>
   <body>
     <main class="app-container">
@@ -41,13 +43,13 @@
 
         <div class="location-grid" id="locationGrid">
 		    <%
-		        List<Map<String, String>> locList = (List<Map<String, String>>) request.getAttribute("locations");
+		        List<Outlet> locList = (List<Outlet>) request.getAttribute("locations");
 		        
 		        if (locList != null) {
-		            for (Map<String, String> loc : locList) {
-		                String id = loc.get("id");
-		                String name = loc.get("name");
-		                String photo = loc.get("photo");
+		            for (Outlet loc : locList) {
+		                int id = loc.getOutletId();
+		                String name = loc.getOutletName();
+		                String photo = loc.getOutletImage();
 		                
 		                boolean hasPhoto = (photo != null && !photo.trim().isEmpty());
 		                String photoClass = hasPhoto ? "card-with-photo" : "";
