@@ -53,8 +53,8 @@
           </div>
 
           <a href="#" class="nav-logo-container">
-            <p class="logo-text">Quick</p>
-            <p class="logo-text">Bite</p>
+            <span class="logo-text">Quick</span>
+            <span class="logo-text">Bite</span>
           </a>
         </div>
 
@@ -62,7 +62,7 @@
         <div class="nav-links">
           <a href="#" class="nav-link">Home</a>
           <a href="#" class="nav-link">Location</a>
-          <a href="#" class="nav-link">About Us</a>
+          <a href="#" class="nav-link">About Us</a> 
           <a href="#" class="nav-link">Contact</a>
         </div>
 
@@ -82,7 +82,8 @@
         <a href="#" class="mobile-nav-link">Contact</a>
       </div>
     </nav>
+    <div class="below-nav"></div>
 
-    <script src="../js/navbar.js"></script>
+    <script src="<%=request.getContextPath() %>/js/navbar.js"></script>
   </body>
 </html>
