@@ -5,6 +5,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
+
 import java.io.IOException;
 
 import java.time.LocalDate;
@@ -49,6 +51,17 @@ public class RegisterServlet extends HttpServlet {
         String confirmpass= request.getParameter("confirmpass");
         String terms= request.getParameter("terms");
         
+        //Image Upload
+        Part filePart = request.getPart("image");
+		String fileName = (filePart != null) ? filePart.getSubmittedFileName() : null;
+		
+		String imagePath;
+		
+		if (fileName != null && !fileName.isEmpty()) {
+			imagePath = "u[loads/" + fileName;
+		} else {
+			imagePath = "uploads/default.png";
+		}
         
         //Checking for empty values
         if (fname == null || fname.trim().isEmpty() ||
