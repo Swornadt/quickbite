@@ -134,7 +134,7 @@
               <input
                 id="profile-img"
                 type="file"
-                name="profileImg"
+                name="image"
                 class="register-input"
               />
             </div>
