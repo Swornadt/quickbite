@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="<%=request.getContextPath() %>/css/checkout.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/checkout.css" />
 <title>Checkout | QuickBite</title>
 </head>
 
@@ -109,7 +109,7 @@
         <form id="checkout-form" action="${pageContext.request.contextPath}/checkout" method="post">
 	        <div class="action-buttons">
 	            <a href="${pageContext.request.contextPath}/cart" class="back-button">GO BACK</a>
-	            <button type="submit" class="continue-button" onclick="submitCheckout()">CONTINUE</button>
+	            <button type="submit" class="continue-button">CONTINUE</button>
 	        </div>
         </form>
 
@@ -138,7 +138,7 @@
             	</c:when>
             	<c:otherwise>
             		<div class="empty-cart-msg">
-		                Your cart is empty. <a href="<%=request.getContextPath() %>/views/customer/outlets">Browse Outlets</a>
+		                Your cart is empty. <a href="${pageContext.request.contextPath}/views/customer/outlets">Browse Outlets</a>
 		            </div>
             	</c:otherwise>
             </c:choose>
@@ -161,7 +161,9 @@
 
         <div class="summary-row grand-total">
             <span>GRAND TOTAL</span>
-            <span class="total-price">Rs. ${subtotal}</span>
+            <span class="total-price">
+            	Rs. <fmt:formatNumber value="${subtotal}" pattern="#,##0.00"/>
+            </span>	
         </div>
     </div>
 
