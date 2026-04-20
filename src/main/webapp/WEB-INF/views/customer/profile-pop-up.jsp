@@ -96,13 +96,14 @@
 </head>
 
 <body>
+<%@ include file="../common/navbar1.jsp"%>
 
     <div class="profile-container">
         <h2 class="title">MY PROFILE</h2>
 
         <div class="profile-header">
-            <img src="../../../assets/Login.jpeg" alt="Profile Image" class="avatar">
-            <h3 class="username">Gladiolus Bat</h3>
+            <img src="${pageContext.request.contextPath}/${user.image}" alt="Profile Image" class="avatar" onerror="this.style.display='none'">
+            <h3 class="username">${user.fname} ${user.lname}</h3>
             <a href="#" class="edit-profile">Edit Profile</a>
         </div>
 

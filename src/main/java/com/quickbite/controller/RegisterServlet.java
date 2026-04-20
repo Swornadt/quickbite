@@ -13,15 +13,20 @@ import java.io.IOException;
 import java.time.LocalDate;
 
 import com.quickbite.service.RegisterService;
+import com.quickbite.utils.ImageUtil;
 /**
  * Servlet implementation class RegisterServlet
  */
+
+
+
+
 
 @WebServlet(asyncSupported = true, urlPatterns = { "/register" })
 @MultipartConfig
 public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -55,15 +60,10 @@ public class RegisterServlet extends HttpServlet {
         String terms= request.getParameter("terms");
         
         //Image Upload
-        String imagePath;
+        ImageUtil imageUtil = new ImageUtil();
         Part filePart = request.getPart("image");
-		String fileName = (filePart != null) ? filePart.getSubmittedFileName() : null;
-		
-		if (fileName != null && !fileName.isEmpty()) {
-			imagePath = "uploads/" + fileName;
-		} else {
-			imagePath = "uploads/default.png";
-		}
+        
+        String imagePath = imageUtil.uploadProfileImage(filePart, "uploads", getServletContext());
 		
 		if (fname == null || fname.trim().isEmpty() ||
                 lname == null || lname.trim().isEmpty() ||

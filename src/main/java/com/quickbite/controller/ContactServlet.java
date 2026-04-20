@@ -11,7 +11,7 @@ import java.io.IOException;
 import com.quickbite.model.UserModel;
 import com.quickbite.service.FeedbackService;
 
-@WebServlet(asyncSupported = true, urlPatterns = { "/ContactServlet" })
+@WebServlet(asyncSupported = true, urlPatterns = { "/contact" })
 public class ContactServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
