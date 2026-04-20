@@ -96,7 +96,6 @@
 </head>
 
 <body>
-<%@ include file="../common/navbar1.jsp"%>
 
     <div class="profile-container">
         <h2 class="title">MY PROFILE</h2>
