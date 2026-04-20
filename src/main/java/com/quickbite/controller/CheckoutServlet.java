@@ -56,6 +56,11 @@ public class CheckoutServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 		
+		if (session == null || session.getAttribute("user")==null) {
+			response.sendRedirect(request.getContextPath()+"/login");
+			return;
+		}
+		
 		// capture form data from jsp
 		String deliveryTimeType = request.getParameter("deliveryTime"); // asap or schedule
 		String deliveryDate = request.getParameter("deliveryDate");
@@ -71,7 +76,6 @@ public class CheckoutServlet extends HttpServlet {
 	    	return;
 	    }
 	    
-	    // TODO: call orderservice to save to DB
 	    try {
 	    	boolean success = cartService.placeOrder(user, cart, specialInstructions, deliveryTimeType, deliveryDate, timeSlot); //pass correct params
 	    	

@@ -41,7 +41,7 @@
 
         <!-- Login Check -->
         <%
-            boolean isLoggedIn = (session != null && session.getAttribute("loggedInUser") != null);
+            boolean isLoggedIn = (session != null && session.getAttribute("user") != null);
         %>
 
         <% if (isLoggedIn) { %>

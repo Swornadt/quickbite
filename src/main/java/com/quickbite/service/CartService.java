@@ -1,5 +1,6 @@
 package com.quickbite.service;
 
+import com.quickbite.dao.OrderDAO;
 import com.quickbite.model.CartItemModel;
 import com.quickbite.model.UserModel;
 import com.quickbite.utils.DBconfig;
