@@ -106,10 +106,12 @@
         </div>
 
         <!-- Action Buttons -->
-        <div class="action-buttons">
-            <a href="${pageContext.request.contextPath}/CartServlet" class="back-button">GO BACK</a>
-            <button type="submit" class="continue-button" onclick="submitCheckout()">CONTINUE</button>
-        </div>
+        <form id="checkout-form" action="${pageContext.request.contextPath}/checkout" method="post">
+	        <div class="action-buttons">
+	            <a href="${pageContext.request.contextPath}/cart" class="back-button">GO BACK</a>
+	            <button type="submit" class="continue-button" onclick="submitCheckout()">CONTINUE</button>
+	        </div>
+        </form>
 
     </div>
 
@@ -117,16 +119,8 @@
     <div class="right-container">
         <h3 class="cart-summary-title">MY CART</h3>
 
-        <%
-            List<CartItemModel> cartItems = (List<CartItemModel>) request.getAttribute("cartItems");
-            String locationOfFood = (String) request.getAttribute("locationOfFood");
-            double subtotal = 0;
-
-            if (locationOfFood == null) locationOfFood = "Location of Food";
-        %>
-
         <div class="cart-location-banner">
-            <span><%= locationOfFood %></span>
+            <span>${not empty locationOfFood ? locationOfFood : 'Location of Food'}</span>
         </div>
 
         <div class="cart-items-list">
