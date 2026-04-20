@@ -58,6 +58,7 @@ public class UserDAO {
                     user.setGender(rs.getString("gender"));
                     user.setDob(rs.getString("dob"));
                     user.setPassword(rs.getString("password"));
+                    user.setImage(rs.getString("image"));
                     return user;
                 }
             }

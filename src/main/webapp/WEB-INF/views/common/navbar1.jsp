@@ -66,7 +66,7 @@
           <a href="#" class="nav-link">Home</a>
           <a href="#" class="nav-link">Location</a>
           <a href="#" class="nav-link">About Us</a>
-          <a href="${pageContext.request.contextPath}/ContactServlet" class="nav-link">Contact</a>
+          <a href="${pageContext.request.contextPath}/contact" class="nav-link">Contact</a>
         </div>
 
         <!-- Navbar login button  -->
