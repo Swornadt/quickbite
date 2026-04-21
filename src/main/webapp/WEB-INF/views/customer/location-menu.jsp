@@ -13,17 +13,14 @@
 <p>Number of items: ${fn:length(itemList)}</p>
 <div class="cards" id="cardsDiv">
     <c:forEach var="item" items="${itemList}">
-        <div class="card">
+        <div class="card" data-category="${item.category}">
             <div class="card-image">
                 <img src="${item.itemImage}" alt="${item.itemName}">
             </div>
+            
             <div class="card-details">
                 <div class="item-name">
                     <h2>${item.itemName}</h2>
-                </div>
-
-                <div class="item-price">
-                    <h4>Rs.${item.itemPrice}</h4>
                 </div>
 
                 <div class="item-ingredients">
@@ -41,7 +38,6 @@
                     <span class="circle"></span>
                     <span class="btn-text">Add to Cart</span>
                 </button>
-
             </div>
         </div>
     </c:forEach>
