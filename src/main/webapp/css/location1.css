@@ -1,0 +1,63 @@
+@charset "UTF-8";
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.category-btn {
+    padding: 10px 26px;
+    margin-right: 20px;
+    border: none;
+    cursor: pointer;
+    background-color: #ddd;
+    border-radius: 10px;
+    font-size: 30px;
+}
+
+.category-btn.active {
+    background-color: #DB4A1E;
+    color: white;
+}
+
+.hidden {
+    display: none;
+}
+
+.canteen-name {
+    margin-bottom: 30px;
+}
+
+.canteen-name h1 {
+    font-size: 80px;
+}
+
+.main-category-container {
+    display: flex;
+    align-items: center;
+    border: 1px solid #E5E7EB;
+    border-radius: 9px;
+    padding: 20px;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+
+}
+
+.search-bar #searchBar {
+    font-size: 30px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #F1F1F1;
+    border: none;
+    width: 750px;
+}
+
+.search-bar{
+    margin-left: auto;
+}
+
+.search-bar input::placeholder{
+    color: #B8B8B8;
+}

@@ -36,7 +36,7 @@ public class ItemController extends HttpServlet {
 		// pass list to JSP
 		request.setAttribute("itemList", itemList);
 				
-		// forward to JSP
+		// forward to JSP2`
 		request.getRequestDispatcher("/WEB-INF/views/customer/location-menu.jsp").forward(request, response);
 	}
 

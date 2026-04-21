@@ -2,27 +2,37 @@ package com.quickbite.model;
 
 public class Item {
 	
-	private String itemName;
-	private String category;
-	private String itemType;
-	private String itemStatus;
-	private String itemIngredient;
-	private String itemAllergy;
-	private String itemImage;
+	private int itemId;           
+    private String itemName;
+    private String category;
+    private String itemType;
+    private String itemDescription; 
+    private String itemStatus;
+    private String itemIngredient;
+    private String itemAllergy;
+    private String itemImage;
 	
 	//Constructor
-	public Item(String itemName, String category, String itemType, String itemStatus, String itemIngredient, String itemAllergy, String itemImage) {
-	    this.itemName = itemName;
-	    this.category = category;
-	    this.itemType = itemType;
-	    this.itemStatus = itemStatus;
-	    this.itemIngredient = itemIngredient;
-	    this.itemAllergy = itemAllergy;
-	    this.itemImage = itemImage;
-		}
+    public Item(int itemId, String itemName, String category, String itemType,
+            String itemDescription, String itemStatus, String itemIngredient,
+            String itemAllergy, String itemImage) {
+    this.itemId = itemId;
+    this.itemName = itemName;
+    this.category = category;
+    this.itemType = itemType;
+    this.itemDescription = itemDescription;
+    this.itemStatus = itemStatus;
+    this.itemIngredient = itemIngredient;
+    this.itemAllergy = itemAllergy;
+    this.itemImage = itemImage;
+}
 	
 	//Getters - to retrieve data from DB
-	public String getItemName() {
+    public int getItemId() { 
+    	return itemId; 
+    }
+    
+    public String getItemName() {
 		return itemName;
 	}
 	
@@ -33,6 +43,10 @@ public class Item {
 	public String getItemType() {
 		return itemType;
 	}
+	
+	 public String getItemDescription() { 
+		 return itemDescription; 
+	 }
 	
 	public String getItemStatus() {
 		return itemStatus;
@@ -61,6 +75,10 @@ public class Item {
 	
 	public void setItemType(String itemType) {
 		this.itemType = itemType;
+	}
+	
+	public void setItemDescription(String itemDescription) { 
+		this.itemDescription = itemDescription; 
 	}
 	
 	public void setItemStatus(String itemStatus) {
