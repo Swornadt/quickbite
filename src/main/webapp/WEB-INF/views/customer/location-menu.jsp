@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,9 +21,7 @@
                     <h2>${item.itemName}</h2>
                 </div>
 
-                <div class="item-price">
-                    <h4>Rs.${item.itemPrice}</h4>
-                </div>
+              
 
                 <div class="item-ingredients">
                     <div class="ingredients-title">
