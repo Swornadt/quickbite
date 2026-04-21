@@ -1,0 +1,24 @@
+package com.quickbite.service;
+
+import com.quickbite.dao.UserDAO;
+import com.quickbite.model.UserModel;
+import com.quickbite.utils.PasswordUtil;
+
+public class LoginService {
+    private UserDAO userDAO = new UserDAO();
+
+    public UserModel authenticate(String number, String plainPassword) {
+        // 1. Fetch user from DB by phone number
+        UserModel user = userDAO.getUserByNumber(number);
+
+        // 2. If user exists check the password hash
+        if (user != null) {
+            boolean isPasswordMatch = PasswordUtil.checkPassword(plainPassword, user.getPassword());
+            if (isPasswordMatch) {
+                return user;
+            }
+        }
+        
+        return null;
+    }
+}

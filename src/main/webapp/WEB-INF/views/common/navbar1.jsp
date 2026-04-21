@@ -1,5 +1,31 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="jakarta.servlet.http.HttpSession" %>
+<%@ page import="jakarta.servlet.http.HttpServletRequest" %>
+<%@ page import="com.quickbite.model.UserModel" %>
+
+<%
+	HttpSession userSession = request.getSession(false);
+	UserModel currentUserObj = (userSession != null) ? (UserModel) userSession.getAttribute("user") : null;
+	
+	String currentUser = (currentUserObj != null) ? currentUserObj.getNumber() : null;
+	String contextPath = request.getContextPath();
+	
+	String actionUrl;
+	String formMethod;
+	String buttonLabel;
+	
+	if(currentUser != null) {
+		actionUrl = contextPath + "/logout";
+		formMethod = "post";
+		buttonLabel = "Logout";
+	} else {
+		actionUrl = contextPath + "/login";
+		formMethod = "get";
+		buttonLabel = "Login";
+	}
+%>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -30,8 +56,8 @@
           </div>
 
           <a href="#" class="nav-logo-container">
-            <p class="logo-text">Quick</p>
-            <p class="logo-text">Bite</p>
+	            <p class="logo-text">Quick</p>
+	            <p class="logo-text">Bite</p>
           </a>
         </div>
 
@@ -40,13 +66,15 @@
           <a href="#" class="nav-link">Home</a>
           <a href="#" class="nav-link">Location</a>
           <a href="#" class="nav-link">About Us</a>
-          <a href="#" class="nav-link">Contact</a>
+          <a href="${pageContext.request.contextPath}/ContactServlet" class="nav-link">Contact</a>
         </div>
 
         <!-- Navbar login button  -->
-        <a href="#" class="nav-login-btn-container">
-          <button class="nav-login-btn">Login</button>
-        </a>
+        <div class="nav-login-btn-container">
+        	<form action="<%= actionUrl %>" method="<%= formMethod %>">
+        		<input class="nav-login-btn" type="submit" value="<%= buttonLabel %>"/>
+        	</form>
+        </div>
       </div>
 
       <!-- For Mobile Responsiveness  -->
@@ -57,7 +85,8 @@
         <a href="#" class="mobile-nav-link">Contact</a>
       </div>
     </nav>
+    <div class="below-nav"></div>
 
-    <script src="../js/navbar.js"></script>
+    <script src="<%=request.getContextPath() %>/js/navbar.js"></script>
   </body>
 </html>

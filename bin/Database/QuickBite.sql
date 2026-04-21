@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 19, 2026 at 07:07 AM
+-- Generation Time: Apr 02, 2026 at 04:27 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -64,15 +64,6 @@ CREATE TABLE `Item` (
   `item_image` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `Item`
---
-
-INSERT INTO `Item` (`item_id`, `item_name`, `category`, `item_type`, `item_description`, `item_status`, `item_ingredient`, `item_allergy`, `item_image`) VALUES
-(1, 'Samosa', 'Main Canteen', 'Food', 'Samosa', 'available', 'Aloo, Cumin, Maida', NULL, '../assets/images/Samosa.png'),
-(2, 'Veg Thukpa', 'Main Canteen', 'Food', 'Veg Thukpa', 'available', 'Mushroom, Mustard, Carrot', NULL, '../assets/images/VegThukpa.png'),
-(3, 'Veg Thukpa', 'Main Canteen', 'Food', 'Veg Thukpa', 'available', 'Mushroom, Mustard, Carrot', NULL, '../assets/images/VegThukpa.png');
-
 -- --------------------------------------------------------
 
 --
@@ -90,12 +81,11 @@ CREATE TABLE `Order` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Order_Outlet_Item`
+-- Table structure for table `Order_Item`
 --
 
-CREATE TABLE `Order_Outlet_Item` (
+CREATE TABLE `Order_Item` (
   `order_id` smallint(5) UNSIGNED NOT NULL,
-  `outlet_id` tinyint(3) UNSIGNED NOT NULL,
   `item_id` smallint(5) UNSIGNED NOT NULL,
   `item_qty` tinyint(3) UNSIGNED NOT NULL,
   `order_subtotal` decimal(10,2) NOT NULL
@@ -148,16 +138,13 @@ CREATE TABLE `Payment` (
 
 CREATE TABLE `User` (
   `user_id` smallint(5) UNSIGNED NOT NULL,
-  `fname` varchar(50) NOT NULL,
-  `lname` varchar(50) NOT NULL,
-  `number` varchar(15) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `gender` varchar(10) DEFAULT NULL,
-  `dob` date DEFAULT NULL,
-  `password` varchar(255) NOT NULL,
-  `role` varchar(20) NOT NULL,
-  `status` varchar(20) NOT NULL,
-  `image` longtext DEFAULT NULL
+  `user_name` varchar(100) NOT NULL,
+  `user_email` varchar(100) NOT NULL,
+  `user_phone_number` varchar(15) NOT NULL,
+  `user_password` varchar(255) NOT NULL,
+  `user_role` tinyint(3) UNSIGNED NOT NULL,
+  `user_status` tinyint(3) UNSIGNED NOT NULL,
+  `user_image` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -203,12 +190,11 @@ ALTER TABLE `Order`
   ADD KEY `Order_user` (`user_id`);
 
 --
--- Indexes for table `Order_Outlet_Item`
+-- Indexes for table `Order_Item`
 --
-ALTER TABLE `Order_Outlet_Item`
-  ADD PRIMARY KEY (`order_id`,`outlet_id`,`item_id`),
-  ADD KEY `Order_Item_2` (`item_id`),
-  ADD KEY `fk_orderitem_outletitem` (`outlet_id`,`item_id`);
+ALTER TABLE `Order_Item`
+  ADD PRIMARY KEY (`order_id`,`item_id`),
+  ADD KEY `Order_Item_2` (`item_id`);
 
 --
 -- Indexes for table `Outlet`
@@ -257,7 +243,7 @@ ALTER TABLE `Feedback`
 -- AUTO_INCREMENT for table `Item`
 --
 ALTER TABLE `Item`
-  MODIFY `item_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `item_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `Order`
@@ -301,12 +287,11 @@ ALTER TABLE `Order`
   ADD CONSTRAINT `Order_user` FOREIGN KEY (`user_id`) REFERENCES `User` (`user_id`);
 
 --
--- Constraints for table `Order_Outlet_Item`
+-- Constraints for table `Order_Item`
 --
-ALTER TABLE `Order_Outlet_Item`
+ALTER TABLE `Order_Item`
   ADD CONSTRAINT `Order_Item_1` FOREIGN KEY (`order_id`) REFERENCES `Order` (`order_id`),
-  ADD CONSTRAINT `Order_Item_2` FOREIGN KEY (`item_id`) REFERENCES `Item` (`item_id`),
-  ADD CONSTRAINT `fk_orderitem_outletitem` FOREIGN KEY (`outlet_id`,`item_id`) REFERENCES `Outlet_Item` (`outlet_id`, `item_id`);
+  ADD CONSTRAINT `Order_Item_2` FOREIGN KEY (`item_id`) REFERENCES `Item` (`item_id`);
 
 --
 -- Constraints for table `Outlet_Item`
