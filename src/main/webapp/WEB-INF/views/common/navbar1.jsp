@@ -3,10 +3,13 @@
 <%@ page import="jakarta.servlet.http.HttpSession" %>
 <%@ page import="jakarta.servlet.http.HttpServletRequest" %>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
+<%@ page import="com.quickbite.model.UserModel" %>
 
 <%
 	HttpSession userSession = request.getSession(false);
-	String currentUser = (String) (userSession != null ? userSession.getAttribute("number") : null);
+	UserModel currentUserObj = (userSession != null) ? (UserModel) userSession.getAttribute("user") : null;
+	
+	String currentUser = (currentUserObj != null) ? currentUserObj.getNumber() : null;
 	String contextPath = request.getContextPath();
 	
 	String actionUrl;
@@ -66,8 +69,8 @@
           </div>
 
           <a href="#" class="nav-logo-container">
-            <span class="logo-text">Quick</span>
-            <span class="logo-text">Bite</span>
+	            <p class="logo-text">Quick</p>
+	            <p class="logo-text">Bite</p>
           </a>
         </div>
 
@@ -75,8 +78,8 @@
         <div class="nav-links">
           <a href="#" class="nav-link">Home</a>
           <a href="#" class="nav-link">Location</a>
-          <a href="#" class="nav-link">About Us</a> 
-          <a href="#" class="nav-link">Contact</a>
+          <a href="#" class="nav-link">About Us</a>
+          <a href="${pageContext.request.contextPath}/ContactServlet" class="nav-link">Contact</a>
         </div>
 
         <!-- Navbar login button  -->

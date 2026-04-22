@@ -136,7 +136,7 @@ public class RegisterServlet extends HttpServlet {
         	service.registerUser(fname, lname, number, email, gender, dob, newpass);
         	System.out.println("Registartion successful for:" + fname + " " + lname);
         	request.setAttribute("success", "Registration successful!");
-        	request.getRequestDispatcher("/WEB-INF/views/public/home.jsp").forward(request,response);
+        	request.getRequestDispatcher("/WEB-INF/views/auth/login.jsp").forward(request,response);
         }catch(Exception e) {
         	//This shows error message
         	e.printStackTrace();

@@ -5,6 +5,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 
 import com.quickbite.model.UserModel;
@@ -72,7 +74,7 @@ public class LoginServlet extends HttpServlet {
         UserModel user = loginService.authenticate(number, pass);
         
         if (user != null) {        	
-        	SessionUtil.setAttribute(request, "number", number);
+        	SessionUtil.setAttribute(request, "user", user);
         	request.setAttribute("success","Login successful!");
         	response.sendRedirect(request.getContextPath()+"/home");
         } else {

@@ -7,20 +7,21 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
-import com.quickbite.dao.ItemDAO;
-import com.quickbite.model.Item;
+
+import com.quickbite.dao.OutletDAO;
+import com.quickbite.model.Outlet;
 
 /**
- * Servlet implementation class ItemController
+ * Servlet implementation class OutletServlet
  */
-@WebServlet(asyncSupported = true, urlPatterns = { "/location-menu" })
-public class ItemController extends HttpServlet {
+@WebServlet("/outlet")
+public class OutletServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ItemController() {
+    public OutletServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,14 +31,12 @@ public class ItemController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		ItemDAO itemDAO = new ItemDAO();
-		List<Item> itemList = itemDAO.getAllItems();
+		OutletDAO dao = new OutletDAO();
+		List<Outlet> list = dao.getAllOutlets();
 		
-		// pass list to JSP
-		request.setAttribute("itemList", itemList);
-				
-		// forward to JSP2`
-		request.getRequestDispatcher("/WEB-INF/views/customer/location-menu.jsp").forward(request, response);
+		request.setAttribute("locations", list);
+		
+		request.getRequestDispatcher("/WEB-INF/views/customer/outlet.jsp").forward(request, response);
 	}
 
 	/**
