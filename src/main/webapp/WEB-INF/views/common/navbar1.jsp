@@ -53,7 +53,7 @@
     <nav>
     
     <!--If user isnot  logged in -->
-    <c:if test= "${not empty sessionScope.username}">
+    <c:if test= "${empty sessionScope.number}">
       <div class="nav-container">
         <!-- Navbar left side (logo and hamburger menu)  -->
         <div class="nav-left">
@@ -97,7 +97,7 @@
     </c:if>
     
     <!-- If user is logged in -->
-    <c:if test="${empty sessionScopt.username }">
+    <c:if test="${not empty sessionScope.number }">
     	<div class="nav-container">
         <!-- Navbar left side (logo and hamburger menu)  -->
         <div class="nav-left">
@@ -129,7 +129,7 @@
 
           <div class="nav-image-container">
             <img
-              src="/assets/user-image.jpg"
+              src="<%=request.getContextPath() %>/assets/user-image.jpg"
               alt="Profile Image"
               class="nav-profile-image"
             />
