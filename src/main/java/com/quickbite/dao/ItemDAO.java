@@ -20,18 +20,19 @@ public class ItemDAO {
 		      ResultSet rs = ps.executeQuery()) {
 
 			 while (rs.next()) {
-				 Item item = new Item(         
-						 rs.getString("item_name"),
-						 rs.getString("category"),
-						 rs.getString("item_type"),
-						 rs.getString("item_status"),
-						 rs.getString("item_ingredient"),
-						 rs.getString("item_allergy"),
-						 rs.getString("item_image")
-					);
-		    	  
-			            itemList.add(item);           
-			 }
+				 	Item item = new Item(
+				 			rs.getInt("item_id"),              
+				            rs.getString("item_name"),
+				            rs.getString("category"),
+				            rs.getString("item_type"),
+				            rs.getString("item_description"),  
+				            rs.getString("item_status"),
+				            rs.getString("item_ingredient"),
+				            rs.getString("item_allergy"),
+				            rs.getString("item_image")
+				        );
+				 	itemList.add(item);
+				    }
 
 		 } 
 		 

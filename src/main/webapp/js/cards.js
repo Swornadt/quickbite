@@ -62,7 +62,7 @@ const data = [
 
 const cardsDiv = document.getElementById("cardsDiv");
 
-data.forEach(item => {
+/*data.forEach(item => {
     let ingredientsList = "";
     item["item-ingredients"].forEach(ingredient => {
         ingredientsList += `<li>${ingredient}</li>`
@@ -100,3 +100,4 @@ data.forEach(item => {
         </div>
     `;
 });
+*/

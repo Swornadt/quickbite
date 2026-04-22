@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.List, java.util.Map" %>
+<%@ page import="com.quickbite.model.CartItemModel" %>
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
+<%@ taglib uri="jakarta.tags.fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="<%=request.getContextPath() %>/css/checkout.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/checkout.css" />
 <title>Checkout | QuickBite</title>
 </head>
 
@@ -60,6 +63,10 @@
                         <label class="field-label">TIME</label>
                         <select class="field-input" id="deliveryTime" name="deliveryTimeSlot">
                             <option value="" selected disabled>--Select--</option>
+                            <option value="07:00">07:00 AM</option>
+                            <option value="07:30">07:30 AM</option>
+                            <option value="08:00">08:00 AM</option>
+                            <option value="08:30">08:30 AM</option>
                             <option value="09:00">09:00 AM</option>
                             <option value="09:30">09:30 AM</option>
                             <option value="10:00">10:00 AM</option>
@@ -77,8 +84,6 @@
                             <option value="16:00">04:00 PM</option>
                             <option value="16:30">04:30 PM</option>
                             <option value="17:00">05:00 PM</option>
-                            <option value="17:30">05:30 PM</option>
-                            <option value="18:00">06:00 PM</option>
                         </select>
                     </div>
                 </div>
@@ -101,10 +106,12 @@
         </div>
 
         <!-- Action Buttons -->
-        <div class="action-buttons">
-            <a href="cart.jsp" class="back-button">GO BACK</a>
-            <button class="continue-button" onclick="submitCheckout()">CONTINUE</button>
-        </div>
+        <form id="checkout-form" action="${pageContext.request.contextPath}/checkout" method="post">
+	        <div class="action-buttons">
+	            <a href="${pageContext.request.contextPath}/cart" class="back-button">GO BACK</a>
+	            <button type="submit" class="continue-button">CONTINUE</button>
+	        </div>
+        </form>
 
     </div>
 
@@ -112,43 +119,29 @@
     <div class="right-container">
         <h3 class="cart-summary-title">MY CART</h3>
 
-        <%
-            List<Map<String, Object>> cartItems = (List<Map<String, Object>>) request.getAttribute("cartItems");
-            String locationOfFood = (String) request.getAttribute("locationOfFood");
-            double subtotal = 0;
-
-            if (locationOfFood == null) locationOfFood = "Location of Food";
-        %>
-
         <div class="cart-location-banner">
-            <span><%= locationOfFood %></span>
+            <span>${not empty locationOfFood ? locationOfFood : 'Location of Food'}</span>
         </div>
 
         <div class="cart-items-list">
-            <%
-                if (cartItems != null && !cartItems.isEmpty()) {
-                    for (Map<String, Object> item : cartItems) {
-                        String name  = (String)  item.get("name");
-                        double price = (Double)  item.get("price");
-                        int quantity = (Integer) item.get("quantity");
-                        int id       = (Integer) item.get("id");
-                        subtotal += price * quantity;
-            %>
-            <div class="cart-item-row">
-                <span class="cart-item-qty"><%= quantity %>x</span>
-                <span class="cart-item-name"><%= name %></span>
-                <span class="cart-item-price">Rs. <%= String.format("%.2f", price * quantity) %></span>
-            </div>
-            <%
-                    }
-                } else {
-            %>
-            <div class="empty-cart-msg">
-                Your cart is empty. <a href="<%=request.getContextPath() %>/views/customer/outlets">Browse Outlets</a>
-            </div>
-            <%
-                }
-            %>
+            <c:choose>
+            	<c:when test="${not empty cartItems}">
+            		<c:forEach var="item" items="${cartItems}">
+            			<div class="cart-item-row">
+			                <span class="cart-item-qty">${item.quantity}x</span>
+			                <span class="cart-item-name">${item.itemName}</span>
+			                <span class="cart-item-price">
+			                	Rs. <fmt:formatNumber value="${item.totalPrice}" pattern="#,##0.00"/>
+							</span>
+			            </div>
+            		</c:forEach>
+            	</c:when>
+            	<c:otherwise>
+            		<div class="empty-cart-msg">
+		                Your cart is empty. <a href="${pageContext.request.contextPath}/views/customer/outlets">Browse Outlets</a>
+		            </div>
+            	</c:otherwise>
+            </c:choose>
         </div>
 
         <a href="<%=request.getContextPath() %>/views/customer/outlets" class="add-more-link">+ Add More Items</a>
@@ -157,7 +150,7 @@
 
         <div class="summary-row">
             <span>SUB TOTAL</span>
-            <span><%= (int) subtotal %></span>
+            <span>Rs. ${subtotal}</span>
         </div>
         <div class="summary-row">
             <span>VAT</span>
@@ -168,7 +161,9 @@
 
         <div class="summary-row grand-total">
             <span>GRAND TOTAL</span>
-            <span class="total-price"><%= (int) subtotal %></span>
+            <span class="total-price">
+            	Rs. <fmt:formatNumber value="${subtotal}" pattern="#,##0.00"/>
+            </span>	
         </div>
     </div>
 
@@ -177,5 +172,13 @@
 <!-- Footer -->
 <%@ include file="../common/footer.jsp" %>
 
+<script>
+	const radioLater = document.getElementById('radioLater');
+	const radioAsap = document.getElementById('radioAsap');
+	const datetimeRow = document.getElementById('datetimeRow');
+	
+	radioLater.addEventListener('change', () => datetimeRow.style.display = 'flex');
+	radioAsap.addEventListener('change', () => datetimeRow.style.display = 'none');
+</script>
 </body>
 </html>
