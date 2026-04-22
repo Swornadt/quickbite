@@ -42,6 +42,12 @@
 			<img src="${pageContext.request.contextPath}/assets/home/momo1.png" alt="Main Plate" class="main-img">
 		</div>
 	</div>
+	
+	<!-- Popular Items Section -->
+	<%@ include file="./popular-items.jsp" %>
+	
+	<!-- About Us Section -->
+	<%@ include file="./about-section.jsp" %>
 
 	<!-- FAQ Section -->
 	<%@ include file="./faq.jsp" %>
@@ -87,6 +93,8 @@
                     setTimeout(() => {
                         ghostImg.remove();
                     }, 800);
+				});
+            });
         </script>
     </body>
 
