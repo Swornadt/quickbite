@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="jakarta.servlet.http.HttpSession" %>
 <%@ page import="jakarta.servlet.http.HttpServletRequest" %>
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
 
 <%
 	HttpSession userSession = request.getSession(false);
@@ -41,6 +42,9 @@
   </head>
   <body>
     <nav>
+    
+    <!--If user is logged in -->
+    <c:if test= "${not empty sessionScope.username}">
       <div class="nav-container">
         <!-- Navbar left side (logo and hamburger menu)  -->
         <div class="nav-left">
@@ -81,9 +85,57 @@
         <a href="#" class="mobile-nav-link">About Us</a>
         <a href="#" class="mobile-nav-link">Contact</a>
       </div>
-    </nav>
-    <div class="below-nav"></div>
+    </c:if>
+    <c:if test="${empty sessionScopt.username }">
+    	<div class="nav-container">
+        <!-- Navbar left side (logo and hamburger menu)  -->
+        <div class="nav-left">
+          <div class="hamburger-container">
+            <button class="hamburger">
+              <span class="hamburger-line" id="hamburger-first-line"></span>
+              <span class="hamburger-line" id="hamburger-second-line"></span>
+              <span class="hamburger-line" id="hamburger-third-line"></span>
+            </button>
+          </div>
 
+          <a href="#" class="nav-logo-container">
+            <span class="logo-text">Quick</span>
+            <span class="logo-text">Bite</span>
+          </a>
+        </div>
+
+        <!-- Navbar right side  -->
+        <div class="nav-right">
+          <div class="nav-links">
+            <a href="#" class="nav-link">Menu</a>
+            <a href="#" class="nav-link">Contact Us</a>
+          </div>
+
+          <div class="nav-symbols">
+            <i class="fa-solid fa-bell" id="nav-bell"></i>
+            <i class="fa-solid fa-cart-shopping" id="nav-cart"></i>
+          </div>
+
+          <div class="nav-image-container">
+            <img
+              src="../assets/user-image.jpg"
+              alt="Profile Image"
+              class="nav-profile-image"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- For Mobile Responsiveness  -->
+      <div class="nav-mobile-menu">
+        <a href="#" class="mobile-nav-link">Menu</a>
+        <a href="#" class="mobile-nav-link">Contact Us</a>
+      </div>
+    </c:if>
+    </nav>
+    
+    <div class="below-nav"></div>
+	
     <script src="<%=request.getContextPath() %>/js/navbar.js"></script>
   </body>
 </html>
