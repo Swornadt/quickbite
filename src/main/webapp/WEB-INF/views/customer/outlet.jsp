@@ -55,6 +55,7 @@
 		                String photoClass = hasPhoto ? "card-with-photo" : "";
 		                String styleAttr = hasPhoto ? "style=\"--bg-image: url('" + photo + "');\"" : "";
 		    %>
+		    <a href="%request.getContectPath()%>/location-menu?outletId=<%=id%>" style="text-decoration: none; color: inherit; width: 30%;"></a>
 				<div class="location-card <%= photoClass %>" 
 		             onclick="selectLocation(this, '<%= id %>', '<%= name %>')"
 		             <%= styleAttr %>>

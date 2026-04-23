@@ -23,7 +23,7 @@
                 </div>
 
                 <div class="item-price">
-                    <h4>Rs.${item.itemPrice}</h4>
+                    <h4>Rs. ${item.itemPrice}</h4>
                 </div>
 
                 <div class="item-ingredients">

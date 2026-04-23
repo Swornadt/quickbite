@@ -30,8 +30,18 @@ public class ItemController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		String outletIdParam=request.getParameter("outletId");
+		
 		ItemDAO itemDAO = new ItemDAO();
 		List<Item> itemList = itemDAO.getAllItems();
+		
+		if(outletIdParam !=null) {
+			int outletId=Integer.parseInt(outletIdParam);
+			itemList=itemDAO.getItemsByOutlet(outletId);
+		}
+		else {
+			itemList=itemDAO.getAllItems();
+		}
 		
 		// pass list to JSP
 		request.setAttribute("itemList", itemList);

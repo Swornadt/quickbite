@@ -9,9 +9,10 @@ public class Item {
 	private String itemIngredient;
 	private String itemAllergy;
 	private String itemImage;
+	private double itemPrice;
 	
 	//Constructor
-	public Item(String itemName, String category, String itemType, String itemStatus, String itemIngredient, String itemAllergy, String itemImage) {
+	public Item(String itemName, String category, String itemType, String itemStatus, String itemIngredient, String itemAllergy, String itemImage, double itemPrice) {
 	    this.itemName = itemName;
 	    this.category = category;
 	    this.itemType = itemType;
@@ -19,6 +20,7 @@ public class Item {
 	    this.itemIngredient = itemIngredient;
 	    this.itemAllergy = itemAllergy;
 	    this.itemImage = itemImage;
+	    this.itemPrice = itemPrice;
 		}
 	
 	//Getters - to retrieve data from DB
@@ -50,6 +52,10 @@ public class Item {
 		return itemImage;
 	}
 	
+	public double getItemPrice() {
+		return itemPrice;
+	}
+	
 	// Setters - to manipulate data of exiting records
 	public void setItemName(String itemName) {
 		this.itemName = itemName;
@@ -77,6 +83,10 @@ public class Item {
 	
 	public void setItemImage(String itemImage) {
 		this.itemImage = itemImage;
+	}
+	
+	public void setItemPrice(double itemPrice) {
+		this.itemPrice = itemPrice;
 	}
 	
 }
