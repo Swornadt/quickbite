@@ -27,13 +27,13 @@ public class ContactServlet extends HttpServlet {
 
         HttpSession session = request.getSession(false);
 
-        if (session == null || session.getAttribute("loggedInUser") == null) {
+        if (session == null || session.getAttribute("user") == null) {
             request.setAttribute("error", "You must be logged in to submit feedback.");
             request.getRequestDispatcher("/WEB-INF/views/public/contact.jsp").forward(request, response);
             return;
         }
 
-        UserModel user = (UserModel) session.getAttribute("loggedInUser");
+        UserModel user = (UserModel) session.getAttribute("user");
         
         String ratingStr = request.getParameter("rating");
         String message = request.getParameter("message");
