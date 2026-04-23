@@ -68,7 +68,8 @@ public class ItemDAO {
 				}
 			}
 		}
+		catch (SQLException e) {
+			System.out.println(e.getMessage());		}
 		return itemList;
-	}
 	}
 }
