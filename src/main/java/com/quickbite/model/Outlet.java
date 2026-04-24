@@ -1,51 +1,51 @@
 package com.quickbite.model;
 
 public class Outlet {
-	private int outlet_id;
-	private String outlet_name;
-	private String outlet_status;
-	private String outlet_image;
+	private int outletId;
+	private String outletName;
+	private String outletStatus;
+	private String outletImage;
 
 	//Constructors
-	public Outlet(int outlet_id, String outlet_name, String outlet_status, String outlet_image) {
-		this.outlet_id=outlet_id;
-		this.outlet_name=outlet_name;
-		this.outlet_status=outlet_status;
-		this.outlet_image=outlet_image;
+	public Outlet(int outletId, String outletName, String outletStatus, String outletImage) {
+		this.outletId=outletId;
+		this.outletName=outletName;
+		this.outletStatus=outletStatus;
+		this.outletImage=outletImage;
 	}
 	
 	//Getter Methods
 	public int getOutletId() {
-		return outlet_id;
+		return outletId;
 	}
 	
 	public String getOutletName() {
-		return outlet_name;
+		return outletName;
 	}
 	
 	public String getOutletStatus() {
-		return outlet_status;
+		return outletStatus;
 	}
 	
 	public String getOutletImage() {
-		return outlet_image;
+		return outletImage;
 	}
 	
 	
 	//Setter Methods
-	public void setOutletId(int outlet_id) {
-		this.outlet_id=outlet_id;
+	public void setOutletId(int outletId) {
+		this.outletId=outletId;
 	}
 	
-	public void setOutletName(String outlet_name) {
-		this.outlet_name=outlet_name;
+	public void setOutletName(String outletName) {
+		this.outletName=outletName;
 	}
 	
-	public void setOutletStatus(String outlet_status) {
-		this.outlet_status=outlet_status;
+	public void setOutletStatus(String outletStatus) {
+		this.outletStatus=outletStatus;
 	}
 	
-	public void setOutletImage(String outlet_image) {
-		this.outlet_image=outlet_image;
+	public void setOutletImage(String outletImage) {
+		this.outletImage=outletImage;
 	}
 }
