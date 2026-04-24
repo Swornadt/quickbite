@@ -7,8 +7,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
-import com.quickbite.dao.ItemDAO;
-import com.quickbite.model.Item;
+import com.quickbite.dao.OutletItemDAO;
+import com.quickbite.model.OutletItem;
 
 /**
  * Servlet implementation class ItemController
@@ -30,12 +30,18 @@ public class ItemController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		ItemDAO itemDAO = new ItemDAO();
-		List<Item> itemList = itemDAO.getAllItems();
+		String outletIdParam=request.getParameter("outletId");
 		
-		// pass list to JSP
-		request.setAttribute("itemList", itemList);
-				
+		if(outletIdParam !=null) {
+			int outletId=Integer.parseInt(outletIdParam);
+			//fetch from DA)
+			OutletItemDAO outletItemDAO = new OutletItemDAO();
+			List<OutletItem> outletItems = outletItemDAO.getItemsByOutlet(outletId);
+		
+			//setting data
+			request.setAttribute("outletitems", outletItems);
+			request.setAttribute("outlet", outletId);
+		}
 		// forward to JSP2`
 		request.getRequestDispatcher("/WEB-INF/views/customer/location-menu.jsp").forward(request, response);
 	}

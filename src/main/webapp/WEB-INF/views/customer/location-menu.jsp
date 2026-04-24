@@ -6,12 +6,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Location Menu</title>
-<link rel="stylesheet" href="../css/location-menu.css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/location-menu.css">
 </head>
 <body>
 <p>Number of items: ${fn:length(itemList)}</p>
 <div class="cards" id="cardsDiv">
-    <c:forEach var="item" items="${itemList}">
+    <c:forEach var="item" items="${outletitems}">
         <div class="card" data-category="${item.category}">
             <div class="card-image">
                 <img src="${item.itemImage}" alt="${item.itemName}">

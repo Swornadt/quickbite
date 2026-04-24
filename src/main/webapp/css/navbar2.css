@@ -51,7 +51,7 @@ nav {
 }
 
 /* Desktop Links  */
-.nav-links {
+.loggedin-nav-links {
   display: flex;
   gap: 1.75rem;
   font-family: "DM Sans";

@@ -78,6 +78,8 @@ public class Item {
 		return itemImage;
 	}
 	
+
+	
 	// Setters - to manipulate data of exiting records
 	public void setItemName(String itemName) {
 		this.itemName = itemName;
@@ -110,5 +112,7 @@ public class Item {
 	public void setItemImage(String itemImage) {
 		this.itemImage = itemImage;
 	}
+	
+
 	
 }

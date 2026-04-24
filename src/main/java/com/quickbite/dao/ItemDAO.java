@@ -43,6 +43,7 @@ public class ItemDAO {
 		return itemList;
 	}
 	
+	
 	public boolean addItem(Item item) {
         String sql = "INSERT INTO Item (item_name, category, item_type, item_description, item_status, item_ingredient, item_allergy, item_image) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = DBconfig.getConnection();
