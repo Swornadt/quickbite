@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
-
 <section class="popular-items-section">
     <div class="popular-title">
             <h2>Popular Among Students</h2>
