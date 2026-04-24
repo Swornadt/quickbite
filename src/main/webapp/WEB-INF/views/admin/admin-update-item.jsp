@@ -13,7 +13,6 @@
             <main class="content">
                 <div class="page-header">
                     <h2>Edit Item</h2>
-                    <a href="<%=request.getContextPath()%>/AdminMenuServlet?outletId=${item.outletId}" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Menu</a>
                 </div>
 
                 <div class="form-container">

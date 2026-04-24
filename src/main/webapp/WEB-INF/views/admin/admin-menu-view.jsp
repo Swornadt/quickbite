@@ -47,7 +47,7 @@
                 <option>Main Canteen</option>
                 <option>Coffee Station</option>
               </select>
-              <button class="add-item-btn">+ Add Item</button>
+              <button class="add-item-btn" onclick="openAddModal()">+ Add Item</button>
             </header>
 
             <!-- Table -->
@@ -68,24 +68,24 @@
                   <td>Chicken momo</td>
                   <td>Snacks</td>
                   <td>150</td>
-                  <td><button class="edit-btn">Edit</button></td>
-                  <td><button class="delete-btn">Delete</button></td>
+                  <td><button class="edit-btn" onclick="openUpdateModal()">Edit</button></td>
+                  <td><button class="delete-btn" onclick="openDeleteModal()">Delete</button></td>
                 </tr>
                 <tr>
                   <td>002</td>
                   <td>Veg Sandwich</td>
                   <td>Breakfast</td>
                   <td>140</td>
-                  <td><button class="edit-btn">Edit</button></td>
-                  <td><button class="delete-btn">Delete</button></td>
+                  <td><button class="edit-btn" onclick="openUpdateModal()">Edit</button></td>
+                  <td><button class="delete-btn" onclick="openDeleteModal()">Delete</button></td>
                 </tr>
                 <tr>
                   <td>003</td>
                   <td>French Fries</td>
                   <td>Snacks</td>
                   <td>110</td>
-                  <td><button class="edit-btn">Edit</button></td>
-                  <td><button class="delete-btn">Delete</button></td>
+                  <td><button class="edit-btn" onclick="openUpdateModal()">Edit</button></td>
+                  <td><button class="delete-btn" onclick="openDeleteModal()">Delete</button></td>
                 </tr>
               </tbody>
             </table>
@@ -94,6 +94,56 @@
         </div>
       </div>
       </div>
+      
+<!-- ADD ITEM MODAL -->
+<div id="addItemModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeAddModal()">&times;</span>
+    <iframe src="<%=request.getContextPath()%>/AddItem" class="modal-iframe"></iframe>
+  </div>
+</div>
+
+<!-- UPDATE ITEM MODAL -->
+<div id="updateItemModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeUpdateModal()">&times;</span>
+    <iframe src="<%=request.getContextPath()%>/UpdateItem" class="modal-iframe"></iframe>
+  </div>
+</div>
+
+<!-- DELETE ITEM MODAL -->
+<div id="deleteItemModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeDeleteModal()">&times;</span>
+    <iframe src="<%=request.getContextPath()%>/DeleteItem" class="modal-iframe"></iframe>
+  </div>
+</div>
+
+<script>
+function openAddModal() {
+  document.getElementById("addItemModal").style.display = "block";
+}
+
+function closeAddModal() {
+  document.getElementById("addItemModal").style.display = "none";
+}
+
+function openUpdateModal() {
+	  document.getElementById("updateItemModal").style.display = "block";
+	}
+
+	function closeUpdateModal() {
+	  document.getElementById("updateItemModal").style.display = "none";
+	}
+
+	function openDeleteModal() {
+		  document.getElementById("deleteItemModal").style.display = "block";
+		}
+
+		function closeDeleteModal() {
+		  document.getElementById("deleteItemModal").style.display = "none";
+		}
+</script>
 
 </body>
 

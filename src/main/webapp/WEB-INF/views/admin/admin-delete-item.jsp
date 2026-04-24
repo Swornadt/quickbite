@@ -5,13 +5,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Delete Item | Quickbite</title>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/adminAddMenu.css" />
 </head>
 <body>
 <div class="admin-right-body">
             <main class="content">
                 <div class="page-header">
-                    <h2>Add New Item</h2>
-                    <a href="<%=request.getContextPath()%>/AdminMenuServlet" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Menu</a>
+                    <h2>Delete Item</h2>
                 </div>
 
                 <div class="form-container">
