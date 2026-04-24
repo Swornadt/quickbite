@@ -9,6 +9,21 @@
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/location-menu.css">
 </head>
 <body>
+<%@ include file="../common/navbar1.jsp" %>
+<div class="main-container">
+        <div class="canteen-name">
+            <h1>Main Canteen</h1>
+        </div>
+<div class="main-category-container">
+            <div class="category-container">
+                <button class="category-btn active" data-category="all">All</button>
+                <button class="category-btn" data-category="breakfast">Breakfast</button>
+                <button class="category-btn" data-category="snacks">Snacks</button>
+            </div>
+            <div class="search-bar">
+                <input type="text" id="searchBar" placeholder="Search your cravings!">
+            </div>
+        </div>
 <div class="cards" id="cardsDiv">
     <c:forEach var="item" items="${outletitems}">
         <div class="card" data-category="${item.item.category}">
@@ -39,6 +54,7 @@
             </div>
         </div>
     </c:forEach>
+</div>
 </div>
 </body>
 
