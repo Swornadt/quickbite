@@ -22,15 +22,33 @@
 	background: #DB4A1E;
 }
 
-.delete-btn, .edit-btn, .add-item-btn {
+.add-item-btn {
+	color: #ffffff;
+	display: flex;
+	width: 126px;
+	padding: 8px 15px;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+	border-radius: 20px;
+	border: none;
+}
+
+.delete-btn, .edit-btn {
 	display: flex;
 	width: 65px;
-	height: 20px;
+	height: 25px;
 	padding: 10px;
 	justify-content: center;
 	align-items: center;
 	gap: 10px;
 	border-radius: 20px;
+	color: #ffffff;
+	border: none;
+}
+
+.delete-btn:hover, .edit-btn:hover, .add-item-btn:hover {
+	background: #000000;
 }
 
 
@@ -62,3 +80,38 @@ tbody tr {
   border-bottom: 1px solid #eee;
 }
 
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+  width: 700px;
+  height: 500px;
+  margin: 5% auto;
+  background: #fff;
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.modal-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.close-btn {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  font-size: 22px;
+  cursor: pointer;
+  z-index: 1000;
+}

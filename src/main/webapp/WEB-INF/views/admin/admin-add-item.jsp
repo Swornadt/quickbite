@@ -13,7 +13,6 @@
             <main class="content">
                 <div class="page-header">
                     <h2>Add New Item</h2>
-                    <a href="<%=request.getContextPath()%>/AdminMenuServlet" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Menu</a>
                 </div>
 
                 <div class="form-container">
@@ -37,7 +36,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Location</label>
-                                <select name="outletId" required>
+                                <select name="outletId">
                                     <option value="" disabled selected>-- Choose a location --</option>
                                     
                                 </select>
