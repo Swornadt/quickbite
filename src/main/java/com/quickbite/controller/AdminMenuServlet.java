@@ -27,7 +27,7 @@ public class AdminMenuServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.getRequestDispatcher("/WEB-INF/views/admin/admin-add-item.jsp").forward(request,response);
+		request.getRequestDispatcher("/WEB-INF/views/admin/admin-menu-view.jsp").forward(request,response);
 	}
 
 	/**

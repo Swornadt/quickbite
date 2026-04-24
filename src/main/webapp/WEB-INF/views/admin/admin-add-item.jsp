@@ -21,7 +21,7 @@
                         <div class="form-grid">
                             <div class="form-group">
                                 <label>Item Name</label>
-                                <input type="text" name="itemName" required placeholder="Enter item name">
+                                <input type="text" name="itemName" placeholder="Enter item name">
                             </div>
                             <div class="form-group">
                                 <label>Category</label>
@@ -33,7 +33,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Price</label>
-                                <input type="number" step="0.01" name="price" required placeholder="0.00">
+                                <input type="number" step="0.01" name="price" placeholder="0.00">
                             </div>
                             <div class="form-group">
                                 <label>Location</label>
