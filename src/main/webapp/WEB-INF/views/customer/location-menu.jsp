@@ -17,6 +17,11 @@
             </div>
             
             <div class="card-details">
+            <form action="${pageContext.request.contextPath}/add-to-cart" method="POST">
+	            <input type="hidden" name="itemId" value="${item.item.itemId}">
+	            <input type="hidden" name="itemName" value="${item.item.itemName}">
+	            <input type="hidden" name="unitPrice" value="${item.outletItemPrice}">
+	            <input type="hidden" name="outletId" value="${outlet}"> <input type="hidden" name="quantity" value="1">
                 <div class="item-name">
                     <h2>${item.item.itemName}</h2>
                 </div>
@@ -32,10 +37,11 @@
                     </div>
                 </div>
 
-                <button class="Add-to-Cart">
+                <button type="submit" class="Add-to-Cart">
                     <span class="circle"></span>
                     <span class="btn-text">Add to Cart</span>
                 </button>
+			</form>
             </div>
         </div>
     </c:forEach>
