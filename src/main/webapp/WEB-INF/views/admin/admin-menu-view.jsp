@@ -27,7 +27,7 @@
               </div>
               <div class="admin-info-container">
                 <div class="admin-name-role">
-                  <p class="admin-name">Sanskar Piya</p>
+                  <p class="admin-name">Alison Burgeres</p>
                   <p class="admin-role">Admin</p>
                 </div>
                 <div class="admin-image">
@@ -47,6 +47,7 @@
                 <option>Main Canteen</option>
                 <option>Coffee Station</option>
               </select>
+              <button class="add-item-btn">+ Add Item</button>
             </header>
 
             <!-- Table -->
@@ -57,7 +58,8 @@
                   <th>Item Name</th>
                   <th>Category</th>
                   <th>Price</th>
-                  <th>Availability</th>
+                  <th></th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
@@ -66,66 +68,31 @@
                   <td>Chicken momo</td>
                   <td>Snacks</td>
                   <td>150</td>
-                  <td>available</td>
+                  <td><button class="edit-btn">Edit</button></td>
+                  <td><button class="delete-btn">Delete</button></td>
                 </tr>
                 <tr>
                   <td>002</td>
                   <td>Veg Sandwich</td>
                   <td>Breakfast</td>
                   <td>140</td>
-                  <td>available</td>
+                  <td><button class="edit-btn">Edit</button></td>
+                  <td><button class="delete-btn">Delete</button></td>
                 </tr>
                 <tr>
                   <td>003</td>
                   <td>French Fries</td>
                   <td>Snacks</td>
                   <td>110</td>
-                  <td>not available</td>
+                  <td><button class="edit-btn">Edit</button></td>
+                  <td><button class="delete-btn">Delete</button></td>
                 </tr>
               </tbody>
             </table>
 
-            <!-- Buttons -->
-            <div class="actions">
-              <button class="active">Add Item</button>
-              <button>Update Item</button>
-              <button>Delete Item</button>
-            </div>
-
-            <!-- Form -->
-            <div class="form">
-              <div class="row">
-                <input type="text" placeholder="Item ID">
-                <input type="text" placeholder="Item Name">
-              </div>
-
-              <div class="row">
-                <select>
-                  <option value="" disabled selected>-- Choose an option --</option>
-                  <option>Snacks</option>
-                  <option>Breakfast</option>
-                </select>
-
-                <input type="number" placeholder="Price">
-              </div>
-
-              <div class="row">
-                <input type="text" placeholder="Image URL">
-
-                <select>
-                  <option value="" disabled selected>-- Choose a location --</option>
-                  <option>Main Canteen</option>
-                  <option>Coffee Station</option>
-                </select>
-              </div>
-
-              <textarea placeholder="Description"></textarea>
-
-              <button class="submit">Add Item</button>
-            </div>
-
           </div>
         </div>
+      </div>
       </div>
 
 </body>

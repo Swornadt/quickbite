@@ -14,12 +14,33 @@
   margin-bottom: 20px;
 }
 
+.edit-btn {
+	background: #9E9E9E;
+}
+
+.delete-btn, .add-item-btn {
+	background: #DB4A1E;
+}
+
+.delete-btn, .edit-btn, .add-item-btn {
+	display: flex;
+	width: 65px;
+	height: 20px;
+	padding: 10px;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+	border-radius: 20px;
+}
+
+
 .canteen-btn {
   background: #fff;
   border: 1px solid #ddd;
   padding: 8px 15px;
   border-radius: 6px;
   cursor: pointer;
+  width: 200px;
 }
 
 table {
@@ -41,56 +62,3 @@ tbody tr {
   border-bottom: 1px solid #eee;
 }
 
-.actions {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-.actions button {
-  padding: 10px 15px;
-  border: none;
-  background: #eee;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.actions .active {
-  background: #ff5722;
-  color: white;
-}
-
-.form {
-  background: #fafafa;
-  padding: 20px;
-  border-radius: 10px;
-}
-
-.row {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 15px;
-}
-
-input, select, textarea {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-}
-
-textarea {
-  height: 80px;
-  resize: none;
-  margin-bottom: 15px;
-}
-
-.submit {
-  width: 100%;
-  background: #ff5722;
-  color: white;
-  border: none;
-  padding: 12px;
-  border-radius: 6px;
-  cursor: pointer;
-}
