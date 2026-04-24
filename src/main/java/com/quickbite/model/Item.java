@@ -64,9 +64,7 @@ public class Item {
 		return itemImage;
 	}
 	
-	public double getItemPrice() {
-		return itemPrice;
-	}
+
 	
 	// Setters - to manipulate data of exiting records
 	public void setItemName(String itemName) {
@@ -101,8 +99,6 @@ public class Item {
 		this.itemImage = itemImage;
 	}
 	
-	public void setItemPrice(double itemPrice) {
-		this.itemPrice = itemPrice;
-	}
+
 	
 }

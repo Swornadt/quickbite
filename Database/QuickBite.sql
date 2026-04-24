@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 19, 2026 at 07:07 AM
+-- Generation Time: Apr 23, 2026 at 06:18 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `QuickBite`
+-- Database: `quickbite`
 --
 
 -- --------------------------------------------------------
@@ -69,9 +69,20 @@ CREATE TABLE `Item` (
 --
 
 INSERT INTO `Item` (`item_id`, `item_name`, `category`, `item_type`, `item_description`, `item_status`, `item_ingredient`, `item_allergy`, `item_image`) VALUES
-(1, 'Samosa', 'Main Canteen', 'Food', 'Samosa', 'available', 'Aloo, Cumin, Maida', NULL, '../assets/images/Samosa.png'),
-(2, 'Veg Thukpa', 'Main Canteen', 'Food', 'Veg Thukpa', 'available', 'Mushroom, Mustard, Carrot', NULL, '../assets/images/VegThukpa.png'),
-(3, 'Veg Thukpa', 'Main Canteen', 'Food', 'Veg Thukpa', 'available', 'Mushroom, Mustard, Carrot', NULL, '../assets/images/VegThukpa.png');
+(4, 'Breakfast Set', 'Breakfast', 'Non Veg', 'Complete breakfast set', 'Available', 'Egg, Bread, Sausage', 'Egg', 'BreakfastSet.png'),
+(5, 'Buff Chowmein', 'Lunch', 'Non Veg', 'Buff chowmein noodles', 'Available', 'Noodles, Buff, Vegetables', 'Gluten', 'BuffChowmein.png'),
+(6, 'Chatpate', 'Snack', 'Veg', 'Spicy Nepali street snack', 'Available', 'Puffed rice, spices, onion', NULL, 'Chatpate.png'),
+(7, 'Chicken Fried Momo', 'Snack', 'Non Veg', 'Fried chicken dumplings', 'Available', 'Chicken, Flour, Oil', 'Gluten', 'ChickenFriedMomo.png'),
+(8, 'Chicken Jhol Momo', 'Lunch', 'Non Veg', 'Chicken momo in soup', 'Available', 'Chicken, Flour, Soup broth', NULL, 'ChickenJholMomo.png'),
+(9, 'Chicken Tandoori With Naan', 'Lunch', 'Non Veg', 'Tandoori chicken with naan bread', 'Available', 'Chicken, Spices, Wheat', NULL, 'ChickenTandooriWithNaan.png'),
+(10, 'Club Sandwich', 'Snack', 'Non Veg', 'Layered club sandwich', 'Available', 'Bread, Chicken, Egg, Veggies', 'Egg', 'ClubSandwich.png'),
+(11, 'Fruit Bowl', 'Breakfast', 'Veg', 'Mixed fresh fruit bowl', 'Available', 'Seasonal fruits', NULL, 'FruitBowl.png'),
+(12, 'Non Veg Thakali', 'Lunch', 'Non Veg', 'Traditional non-veg Nepali set', 'Available', 'Rice, Meat, Curry, Vegetables', NULL, 'NonVegThakali.png'),
+(13, 'Potato Wedges', 'Snack', 'Veg', 'Crispy potato wedges', 'Available', 'Potato, Oil, Salt', NULL, 'PotatoWedges.png'),
+(14, 'Samosa', 'Snack', 'Veg', 'Fried stuffed pastry', 'Available', 'Flour, Potato, Spices', 'Gluten', 'Samosa.png'),
+(15, 'Steamed Buff Momo', 'Snack', 'Non Veg', 'Steamed buffalo dumplings', 'Available', 'Buff, Flour, Spices', NULL, 'SteamedBuffMomo.png'),
+(16, 'Steamed Chicken Momo', 'Snack', 'Non Veg', 'Steamed chicken dumplings', 'Available', 'Chicken, Flour, Spices', NULL, 'SteamedChickenMomo.png'),
+(17, 'Veg Thukpa', 'Lunch', 'Veg', 'Vegetable noodle soup', 'Available', 'Noodles, Vegetables, Broth', NULL, 'VegThukpa.png');
 
 -- --------------------------------------------------------
 
@@ -114,6 +125,18 @@ CREATE TABLE `Outlet` (
   `outlet_image` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `Outlet`
+--
+
+INSERT INTO `Outlet` (`outlet_id`, `outlet_name`, `outlet_status`, `outlet_image`) VALUES
+(1, 'Canteen', 'Active', NULL),
+(2, 'Coffee Station', 'Active', NULL),
+(3, 'Momo Station', 'Active', NULL),
+(4, 'Chautari', 'Active', NULL),
+(5, 'Birt Cafe', 'Active', NULL),
+(6, 'Kumari', 'Active', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -125,6 +148,49 @@ CREATE TABLE `Outlet_Item` (
   `item_id` smallint(5) UNSIGNED NOT NULL,
   `outlet_item_price` decimal(8,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `Outlet_Item`
+--
+
+INSERT INTO `Outlet_Item` (`outlet_id`, `item_id`, `outlet_item_price`) VALUES
+(1, 4, 175.00),
+(1, 5, 150.00),
+(1, 6, 85.00),
+(1, 7, 120.00),
+(1, 8, 150.00),
+(1, 9, 300.00),
+(1, 10, 350.00),
+(1, 11, 160.00),
+(1, 12, 210.00),
+(1, 13, 100.00),
+(1, 14, 30.00),
+(1, 15, 140.00),
+(1, 16, 150.00),
+(1, 17, 100.00),
+(3, 7, 120.00),
+(3, 15, 140.00),
+(3, 16, 150.00),
+(4, 5, 150.00),
+(4, 6, 85.00),
+(4, 8, 150.00),
+(4, 9, 300.00),
+(4, 10, 350.00),
+(4, 11, 160.00),
+(4, 12, 210.00),
+(4, 13, 100.00),
+(4, 14, 30.00),
+(4, 17, 100.00),
+(5, 6, 85.00),
+(5, 10, 350.00),
+(5, 11, 160.00),
+(5, 13, 100.00),
+(5, 14, 30.00),
+(6, 6, 85.00),
+(6, 10, 350.00),
+(6, 11, 160.00),
+(6, 13, 100.00),
+(6, 14, 30.00);
 
 -- --------------------------------------------------------
 
@@ -257,7 +323,7 @@ ALTER TABLE `Feedback`
 -- AUTO_INCREMENT for table `Item`
 --
 ALTER TABLE `Item`
-  MODIFY `item_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `item_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `Order`

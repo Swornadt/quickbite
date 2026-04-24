@@ -2,15 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Popular Items</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/home.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/cards.css">
-</head>
-<body>
 <section class="popular-items-section">
     <div class="popular-title">
             <h2>Popular Among Students</h2>
@@ -54,9 +45,6 @@
             </div>
 	</div>
 </section>
-</body>
-</html>
-
 
 
 

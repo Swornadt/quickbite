@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.quickbite.model.Outlet" %>>
+<%@ page import="com.quickbite.model.Outlet" %>
 <%@ page import="java.util.*" %>
 
 <%-- <%
@@ -29,7 +29,7 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/outlet.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/outlet.css" />
   </head>
   <body>
     <main class="app-container">
