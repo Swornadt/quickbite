@@ -68,7 +68,7 @@
             </button>
           </div>
 
-          <a href="#" class="nav-logo-container">
+          <a href="<%=request.getContextPath()%>/home" class="nav-logo-container">
             <span class="logo-text">Quick</span>
             <span class="logo-text">Bite</span>
           </a>
@@ -116,7 +116,7 @@
             </button>
           </div>
 
-          <a href="#" class="nav-logo-container">
+          <a href="<%=request.getContextPath()%>/home" class="nav-logo-container">
 	            <p class="logo-text">Quick</p>
 	            <p class="logo-text">Bite</p>
           </a>
@@ -124,9 +124,9 @@
 
         <!-- Center nav links  -->
         <div class="nav-links">
-          <a href="#" class="nav-link">Home</a>
-          <a href="#" class="nav-link">Location</a>
-          <a href="#" class="nav-link">About Us</a>
+          <a href="<%=request.getContextPath()%>/home" class="nav-link">Home</a>
+          <a href="<%=request.getContextPath()%>/outlet" class="nav-link">Location</a>
+          <a href="<%=request.getContextPath()%>/aboutus" class="nav-link">About Us</a>
           <a href="${pageContext.request.contextPath}/ContactServlet" class="nav-link">Contact</a>
         </div>
 
@@ -140,10 +140,10 @@
 
       <!-- For Mobile Responsiveness  -->
       <div class="nav-mobile-menu">
-        <a href="#" class="mobile-nav-link">Home</a>
-        <a href="#" class="mobile-nav-link">Location</a>
-        <a href="#" class="mobile-nav-link">About Us</a>
-        <a href="#" class="mobile-nav-link">Contact</a>
+        <a href="<%=request.getContextPath()%>/home" class="mobile-nav-link">Home</a>
+        <a href="<%=request.getContextPath()%>/outlet" class="mobile-nav-link">Location</a>
+        <a href="<%=request.getContextPath()%>/aboutus" class="mobile-nav-link">About Us</a>
+        <a href="<%=request.getContextPath()%>/ContactServlet" class="mobile-nav-link">Contact</a>
       </div>
     </c:if>
 
