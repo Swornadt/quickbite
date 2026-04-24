@@ -23,6 +23,7 @@
             color: inherit;
         }
 
+        /* NAVBAR */
         .navbar {
             width: 100%;
             background: #ffffff;
@@ -53,13 +54,14 @@
             border-radius: 6px;
         }
 
-
+        /* MAIN */
         .page-wrap {
             max-width: 1200px;
             margin: auto;
             padding: 40px;
         }
-        
+
+        /* TEAM */
         .team-section {
             display: grid;
             grid-template-columns: 300px 1fr;
@@ -90,6 +92,7 @@
             margin-bottom: 15px;
         }
 
+        /* MEMBERS */
         .members-section h2 {
             font-size: 35px;
             margin-bottom: 20px;
@@ -108,8 +111,8 @@
         }
 
         .member-card {
-            min-width: 200px;
-            height: 260px;
+            min-width: 300px;
+            height: 360px;
             position: relative;
             border-radius: 12px;
             overflow: hidden;
@@ -143,6 +146,7 @@
             }
         }
 
+        /* FOOTER */
         .footer {
             background: #ffffff;
             margin-top: 60px;
@@ -272,6 +276,7 @@
 
 </main>
 
+<!-- FOOTER -->
 <footer class="footer">
     <div class="footer-top">
         <div class="footer-logo">
@@ -298,6 +303,7 @@
 <script>
 const slider = document.getElementById("slider");
 
+// duplicate cards for smooth infinite effect
 slider.innerHTML += slider.innerHTML;
 </script>
 
