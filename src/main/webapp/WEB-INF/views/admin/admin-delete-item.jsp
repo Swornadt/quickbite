@@ -18,7 +18,7 @@
                     <form action="<%=request.getContextPath()%>/AddMenuServlet" method="post" enctype="multipart/form-data">
                         <div class="form-grid">
                             <div class="form-group">
-                                <label>Enter Item Name:</label>
+                                <label>Enter item name again to confirm:</label>
                                 <input type="text" name="itemName">
                             </div>
  						</div>
