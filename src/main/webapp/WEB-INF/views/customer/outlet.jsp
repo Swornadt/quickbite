@@ -29,7 +29,7 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/outlet.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/outlet.css" />
   </head>
   <body>
     <main class="app-container">
@@ -55,7 +55,7 @@
 		                String photoClass = hasPhoto ? "card-with-photo" : "";
 		                String styleAttr = hasPhoto ? "style=\"--bg-image: url('" + photo + "');\"" : "";
 		    %>
-		    <a href="%request.getContectPath()%>/location-menu?outletId=<%=id%>" style="text-decoration: none; color: inherit; width: 30%;"></a>
+		    <a href="${pageContext.request.contextPath}/location-menu?outletId=<%=id%>" style="text-decoration: none; color: inherit; width: 30%;"></a>
 				<div class="location-card <%= photoClass %>" 
 		             onclick="selectLocation(this, '<%= id %>', '<%= name %>')"
 		             <%= styleAttr %>>

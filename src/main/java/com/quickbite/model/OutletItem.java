@@ -5,6 +5,7 @@ public class OutletItem {
 	private Item item;
 	private double outletItemPrice;
 	
+	
 	public OutletItem(Item item, double outletItemPrice) {
 		this.item = item;
 		this.outletItemPrice = outletItemPrice;
