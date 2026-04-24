@@ -11,11 +11,7 @@
 <body>
 <div class="cards" id="cardsDiv">
     <c:forEach var="item" items="${outletitems}">
-<<<<<<< HEAD
-        <div class="card" data-category="${item.category}">
-=======
         <div class="card" data-category="${item.item.category}">
->>>>>>> 729dfbf (fix: frontend typo, menu items now displaying)
             <div class="card-image">
                 <img src="${item.item.itemImage}" alt="${item.item.itemName}">
             </div>
