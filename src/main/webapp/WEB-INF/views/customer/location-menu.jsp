@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.List" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
@@ -9,7 +10,7 @@
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/location-menu.css">
 </head>
 <body>
-<%@ include file="../common/navbar1.jsp" %>
+
 <div class="main-container">
         <div class="canteen-name">
             <h1>Main Canteen</h1>
@@ -17,8 +18,18 @@
 <div class="main-category-container">
             <div class="category-container">
                 <button class="category-btn active" data-category="all">All</button>
-                <button class="category-btn" data-category="breakfast">Breakfast</button>
-                <button class="category-btn" data-category="snacks">Snacks</button>
+                <%
+                	List <String> categories = (List<String>) request.getAttribute("categories");
+               
+                if(categories !=null){
+                	for(String cat: categories){
+                		%>
+                		<button class="category-btn" data-category="<%= cat.toLowerCase()%>"> <%= cat %>
+                		</button>
+                <%
+                	}
+                }
+                %>
             </div>
             <div class="search-bar">
                 <input type="text" id="searchBar" placeholder="Search your cravings!">
@@ -56,6 +67,8 @@
     </c:forEach>
 </div>
 </div>
+
+
 </body>
 
 </html>

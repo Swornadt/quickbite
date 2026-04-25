@@ -5,9 +5,15 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jdk.jfr.Category;
+
 import java.io.IOException;
 import java.util.List;
+
+import com.quickbite.dao.ItemDAO;
+import com.quickbite.dao.OutletDAO;
 import com.quickbite.dao.OutletItemDAO;
+import com.quickbite.model.Outlet;
 import com.quickbite.model.OutletItem;
 
 /**
@@ -38,9 +44,15 @@ public class ItemController extends HttpServlet {
 			OutletItemDAO outletItemDAO = new OutletItemDAO();
 			List<OutletItem> outletItems = outletItemDAO.getItemsByOutlet(outletId);
 		
+				
+			ItemDAO itemDAO= new ItemDAO();
+			List<String> categoryList = itemDAO.getCategoriesByOutlet(outletId);
+			
 			//setting data
 			request.setAttribute("outletitems", outletItems);
 			request.setAttribute("outlet", outletId);
+			request.setAttribute("categories", categoryList);
+			
 		}
 		// forward to JSP2`
 		request.getRequestDispatcher("/WEB-INF/views/customer/location-menu.jsp").forward(request, response);
