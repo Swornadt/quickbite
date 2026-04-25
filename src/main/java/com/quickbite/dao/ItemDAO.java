@@ -5,8 +5,6 @@ import java.util.List;
 import com.quickbite.model.Item;
 import com.quickbite.utils.DBconfig;
 
-import jdk.jfr.Category;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
