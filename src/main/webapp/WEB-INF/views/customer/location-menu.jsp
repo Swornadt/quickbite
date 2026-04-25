@@ -13,7 +13,7 @@
 
 <div class="main-container">
         <div class="canteen-name">
-            <h1>Main Canteen</h1>
+            <h1>${outlet.outletName}</h1>
         </div>
 <div class="main-category-container">
             <div class="category-container">
@@ -36,7 +36,7 @@
             </div>
         </div>
 <div class="cards" id="cardsDiv">
-    <c:forEach var="item" items="${outletitems}">
+    <c:forEach var="item" items="${outletItems}">
         <div class="card" data-category="${item.item.category}">
             <div class="card-image">
                 <img src="${item.item.itemImage}" alt="${item.item.itemName}">
@@ -45,6 +45,9 @@
             <div class="card-details">
                 <div class="item-name">
                     <h2>${item.item.itemName}</h2>
+                </div>
+                <div class="item-price">
+                	<h4>Rs. ${item.outletItemPrice}</h4>
                 </div>
 
                 <div class="item-ingredients">
@@ -65,9 +68,8 @@
             </div>
         </div>
     </c:forEach>
+	</div>
 </div>
-</div>
-
 
 </body>
 
