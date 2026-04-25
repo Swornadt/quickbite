@@ -46,6 +46,9 @@
                 <div class="item-name">
                     <h2>${item.item.itemName}</h2>
                 </div>
+                <div class="item-price">
+                	<h4>Rs. ${item.outletItemPrice}</h4>
+                </div>
 
                 <div class="item-ingredients">
                     <div class="ingredients-title">
@@ -65,9 +68,8 @@
             </div>
         </div>
     </c:forEach>
+	</div>
 </div>
-</div>
-
 
 </body>
 
