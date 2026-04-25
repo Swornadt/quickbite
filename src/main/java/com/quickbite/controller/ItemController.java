@@ -5,12 +5,11 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jdk.jfr.Category;
+
 
 import java.io.IOException;
 import java.util.List;
 
-import com.quickbite.dao.ItemDAO;
 import com.quickbite.dao.OutletDAO;
 import com.quickbite.dao.OutletItemDAO;
 import com.quickbite.model.Outlet;
