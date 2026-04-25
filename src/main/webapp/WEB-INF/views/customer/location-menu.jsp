@@ -36,7 +36,7 @@
             </div>
         </div>
 <div class="cards" id="cardsDiv">
-    <c:forEach var="item" items="${outletitems}">
+    <c:forEach var="item" items="${outletItems}">
         <div class="card" data-category="${item.item.category}">
             <div class="card-image">
                 <img src="${item.item.itemImage}" alt="${item.item.itemName}">
