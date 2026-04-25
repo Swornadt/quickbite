@@ -16,7 +16,7 @@ public class ItemDAO {
 	
 	public List<Item> getAllItems(){
 		List<Item> itemList= new ArrayList<>();
-		String sql = "SELECT * FROM Item";
+		String sql = "SELECT * FROM item";
 		
 		try (Connection conn = DBconfig.getConnection();
 		      PreparedStatement ps = conn.prepareStatement(sql);
@@ -48,7 +48,7 @@ public class ItemDAO {
 	
 	public List<String> getCategoriesByOutlet(int outletId){
 		List<String> list = new ArrayList<>();
-		String query = "Select distinct i.category from Item i "+"join Outlet_Item oi on i.item_id=oi.item_id "+"where oi.outlet_id=?";
+		String query = "Select distinct i.category from item i "+"join outlet_item oi on i.item_id=oi.item_id "+"where oi.outlet_id=?";
 		try (Connection conn = DBconfig.getConnection();
 				PreparedStatement ps = conn.prepareStatement(query)){
 						ps.setInt(1, outletId);
