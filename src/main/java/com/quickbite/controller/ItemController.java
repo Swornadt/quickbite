@@ -36,26 +36,19 @@ public class ItemController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String outletIdParam=request.getParameter("outletId");
-		
-		if(outletIdParam !=null) {
-			int outletId=Integer.parseInt(outletIdParam);
-			//fetch from DA)
-			OutletItemDAO outletItemDAO = new OutletItemDAO();
-			List<OutletItem> outletItems = outletItemDAO.getItemsByOutlet(outletId);
-		
-				
-			ItemDAO itemDAO= new ItemDAO();
-			List<String> categoryList = itemDAO.getCategoriesByOutlet(outletId);
-			
-			//setting data
-			request.setAttribute("outletitems", outletItems);
-			request.setAttribute("outlet", outletId);
-			request.setAttribute("categories", categoryList);
-			
-		}
-		// forward to JSP2`
-		request.getRequestDispatcher("/WEB-INF/views/customer/location-menu.jsp").forward(request, response);
+		String outletName = request.getPathInfo().substring(1);
+	    
+	    OutletDAO outletDAO = new OutletDAO();
+	    Outlet outlet = outletDAO.getOutletByName(outletName);
+	    
+	    OutletItemDAO outletItemDAO = new OutletItemDAO();
+	    List<OutletItem> outletItems = outletItemDAO.getItemsByOutlet(outlet.getOutletId());
+	    
+	    request.setAttribute("outletItems", outletItems);
+	    request.setAttribute("outlet", outlet);
+	    
+	    request.getRequestDispatcher("/WEB-INF/views/customer/location-menu.jsp")
+	           .forward(request, response);
 	}
 
 	/**
