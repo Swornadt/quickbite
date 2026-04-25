@@ -13,7 +13,7 @@
 
 <div class="main-container">
         <div class="canteen-name">
-            <h1>Main Canteen</h1>
+            <h1>${outlet.outletName}</h1>
         </div>
 <div class="main-category-container">
             <div class="category-container">
