@@ -16,7 +16,7 @@ public class OutletItemDAO {
 	public List<OutletItem> getItemsByOutlet(int outletId){
 		List<OutletItem> outletItems=new ArrayList<>();
 		String sql= "select i.*, oi.outlet_item_price " +
-                "from Item i " +
+                "from item i " +
                 "join outlet_item oi ON i.item_id = oi.item_id " +
                 "where oi.outlet_id = ?";
 		
