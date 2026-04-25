@@ -14,7 +14,7 @@ import com.quickbite.model.Outlet;
 /**
  * Servlet implementation class OutletServlet
  */
-@WebServlet("/outlet")
+@WebServlet("/outlets")
 public class OutletServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

@@ -19,7 +19,7 @@ import com.quickbite.model.OutletItem;
 /**
  * Servlet implementation class ItemController
  */
-@WebServlet(asyncSupported = true, urlPatterns = { "/location-menu" })
+@WebServlet("/outlet/*")
 public class ItemController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
