@@ -263,6 +263,22 @@ about-container {
     max-width: 1200px;
 }
 
+.Add-to-Cart {
+    margin-top: 15px;
+    background-color: #e64a19;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.Add-to-Cart:hover {
+    background-color: #d35400;
+}
+
 #cardsDiv {
     display: flex;
     flex-wrap: wrap;

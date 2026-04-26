@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import com.quickbite.model.Item;
 import com.quickbite.utils.DBconfig;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,7 +14,7 @@ public class ItemDAO {
 	
 	public List<Item> getAllItems(){
 		List<Item> itemList= new ArrayList<>();
-		String sql = "SELECT * FROM Item";
+		String sql = "SELECT * FROM item";
 		
 		try (Connection conn = DBconfig.getConnection();
 		      PreparedStatement ps = conn.prepareStatement(sql);
