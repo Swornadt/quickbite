@@ -7,6 +7,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import com.quickbite.model.Item;
+
 /**
  * Servlet implementation class UpdateItem
  */
@@ -19,23 +21,24 @@ public class UpdateItem extends HttpServlet {
      */
     public UpdateItem() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		request.getRequestDispatcher("/WEB-INF/views/admin/admin-update-item.jsp").forward(request,response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		String itemName = request.getParameter("itemName");
+		String category = request.getParameter("category");
+		String itemType = request.getParameter("itemType");
+		Double price = Double.parseDouble(request.getParameter("price"));
+		String itemDescription = request.getParameter("itemDescription");
+		String itemIngredient = request.getParameter("itemIngredient");
+		String itemAllergy = request.getParameter("itemAllergy");
+		
+		Item item = new Item();
 	}
 
 }
