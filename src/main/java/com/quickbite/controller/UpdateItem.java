@@ -23,22 +23,27 @@ public class UpdateItem extends HttpServlet {
         super();
     }
 
-	@Override
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("/WEB-INF/views/admin/admin-update-item.jsp").forward(request,response);
 	}
 
-	@Override
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int itemId = Integer.parseInt(request.getParameter("itemId"));
 		String itemName = request.getParameter("itemName");
 		String category = request.getParameter("category");
 		String itemType = request.getParameter("itemType");
 		Double price = Double.parseDouble(request.getParameter("price"));
 		String itemDescription = request.getParameter("itemDescription");
+		String itemStatus = request.getParameter("Status");
 		String itemIngredient = request.getParameter("itemIngredient");
 		String itemAllergy = request.getParameter("itemAllergy");
+		String itemImage = request.getParameter("itemImage");
 		
-		Item item = new Item();
+		Item item = new Item(itemId, itemName, category, itemType, itemDescription, itemStatus, itemIngredient,
+	           itemAllergy, itemImage);
+		
 	}
 
 }
