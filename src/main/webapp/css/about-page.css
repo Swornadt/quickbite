@@ -6,9 +6,10 @@
         }
 
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', Arial, sans-serif;
             background: #ffffff;
             color: #111;
+            overflow-x: hidden;
         }
 
         a {
@@ -19,23 +20,25 @@
         /* MAIN */
         .page-wrap {
             max-width: 1200px;
-            margin: auto;
-            padding: 40px;
+            margin: 60px auto;
+            padding: 0 40px;
         }
 
         /* TEAM */
         .team-section {
             display: grid;
-            grid-template-columns: 300px 1fr;
-            gap: 50px;
-            margin-bottom: 60px;
+            grid-template-columns: 300px 500px;
+            gap: 60px;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 100px auto;
+            text-align: center;
         }
 
         .team-image-box {
             width: 100%;
             height: 350px;
-            border: 2px solid #4da8ff;
-            border-radius: 10px;
+            border-radius: 20px;
             overflow: hidden;
         }
 
@@ -46,12 +49,23 @@
         }
 
         .team-content {
-            text-align: center;
+        	display: flex;
+        	flex-direction: column;
+            justify-content: center;
         }
 
         .team-content h2 {
-            font-size: 40px;
-            margin-bottom: 15px;
+            font-size: 48px;
+		    font-weight: 700;
+		    margin-bottom: 25px;
+		    position: relative;
+        }
+        
+        .team-content p {
+        	font-size: 1.1rem;
+		    line-height: 1.8;
+		    color: #555;
+		    max-width: 500px;
         }
 
         /* MEMBERS */
@@ -69,8 +83,12 @@
             display: flex;
             gap: 20px;
             width: max-content;
-            animation: scroll 15s linear infinite;
+            animation: scroll 25s linear infinite;
         }
+        
+        .members-row:hover {
+		    animation-play-state: paused;
+		}
 
         .member-card {
             min-width: 200px;
