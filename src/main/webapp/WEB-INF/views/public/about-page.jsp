@@ -17,7 +17,7 @@
 <!-- TEAM -->
 <section class="team-section">
     <div class="team-image-box">
-        <img src="team.png">
+        <img src="assets/about/team.png">
     </div>
 
     <div class="team-content">
