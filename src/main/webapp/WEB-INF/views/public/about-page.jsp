@@ -186,20 +186,8 @@
 
 <body>
 
-<header class="navbar">
-    <a href="index.html" class="logo">
-        <img src="logo.png">
-    </a>
-
-    <nav class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="#">Menu</a>
-        <a href="about-final.html">About Us</a>
-        <a href="#">Contact</a>
-    </nav>
-
-    <a href="#" class="login-btn">Login</a>
-</header>
+<!-- HEADER -->
+<%@ include file="../common/navbar1.jsp" %>
 
 <main class="page-wrap">
 
@@ -224,42 +212,42 @@
     <div class="members-wrapper">
         <div class="members-row" id="slider">
 
-            <a href="hridishna.html">
+            <a href="about/hridishna">
                 <div class="member-card">
                     <img src="hridishna.jpg">
                     <div class="member-name">Hridishna Deula</div>
                 </div>
             </a>
 
-            <a href="resha.html">
+            <a href="about/resha">
                 <div class="member-card">
                     <img src="resha.jpg">
                     <div class="member-name">Resha Koju</div>
                 </div>
             </a>
 
-            <a href="sabrina.html">
+            <a href="about/sabrina">
                 <div class="member-card">
                     <img src="sabrina.jpg">
                     <div class="member-name">Sabrina Pradhan</div>
                 </div>
             </a>
 
-            <a href="sworna.html">
+            <a href="about/sworna">
                 <div class="member-card">
                     <img src="sworna.jpg">
                     <div class="member-name">Sworna D Tuladhar</div>
                 </div>
             </a>
 
-            <a href="sahil.html">
+            <a href="about/sahil">
                 <div class="member-card">
                     <img src="sahil.jpg">
                     <div class="member-name">Sahil Shrestha</div>
                 </div>
             </a>
 
-            <a href="sanskar.html">
+            <a href="about/sanskar">
                 <div class="member-card">
                     <img src="sanskar.jpg">
                     <div class="member-name">Sanskar Piya</div>
@@ -270,35 +258,10 @@
     </div>
 </section>
 
-        </div>
-    </div>
-</section>
-
 </main>
 
 <!-- FOOTER -->
-<footer class="footer">
-    <div class="footer-top">
-        <div class="footer-logo">
-            <img src="footer.png">
-        </div>
-
-        <div class="footer-links">
-            <div class="footer-col">
-                <h4>Quick Links</h4>
-                <a href="index.html">Home</a>
-                <a href="#">Menu</a>
-                <a href="about-final.html">About Us</a>
-                <a href="#">Contact Us</a>
-                <a href="#">Location</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="footer-bottom">
-        © 2026 QuickBite. All Rights Reserved.
-    </div>
-</footer>
+<%@ include file="../common/footer.jsp" %>
 
 <!-- JS FOR SMOOTH LOOP -->
 <script>
