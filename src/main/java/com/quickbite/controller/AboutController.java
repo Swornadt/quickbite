@@ -11,7 +11,7 @@ import java.io.IOException;
 
 import com.quickbite.model.CartItemModel;
 
-@WebServlet(asyncSupported = true, urlPatterns = { "/about/*" })
+@WebServlet(asyncSupported = true, urlPatterns = { "/about","/about/*" })
 public class AboutController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -22,6 +22,12 @@ public class AboutController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String endpoint = request.getPathInfo();
+		
+		// for /about or /about/
+		if (endpoint == null || endpoint.equals("/")) {
+	        request.getRequestDispatcher("/WEB-INF/views/public/about-page.jsp").forward(request, response);
+	        return;
+	    }
 		
 		// routing on the basis of which endpoint is hit
 		switch (endpoint) {
