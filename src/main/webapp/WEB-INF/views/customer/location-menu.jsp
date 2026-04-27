@@ -61,11 +61,18 @@
                     </div>
                 </div>
 
-                <button class="Add-to-Cart">
-                    <span class="circle"></span>
-                    <span class="btn-text">Add to Cart</span>
-                </button>
-            </div>
+                <form action="${pageContext.request.contextPath}/cart/add" method="POST">
+	                <input type="hidden" name="itemId" value="${item.item.itemId}">
+		            <input type="hidden" name="itemName" value="${item.item.itemName}">
+		            <input type="hidden" name="unitPrice" value="${item.outletItemPrice}">
+		            <input type="hidden" name="outletId" value="${outlet}"> <input type="hidden" name="quantity" value="1">
+				    <input type="hidden" name="itemId" value="${item.item.itemId}">
+				    
+				    <button type="submit" class="Add-to-Cart">
+				    <span class="btn-text">Add to Cart</span>
+				    </button>
+				</form>
+			</div>
         </div>
     </c:forEach>
 	</div>

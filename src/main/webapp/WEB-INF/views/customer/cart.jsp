@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -37,52 +39,36 @@
 
         <!-- Items List -->
         <div class="selection-list">
-        <!--  TODO: Integrate data from DAO -->
-        <%
-        List<Map<String, Object>> cartItems = (List<Map<String, Object>>) request.getAttribute("cartItems");
-        
-        double subtotal = 0;
-        
-        if (cartItems != null && !cartItems.isEmpty()) {
-            for (Map<String, Object> item : cartItems) {
-                String name = (String) item.get("name");
-                double price = (Double) item.get("price");
-                int quantity = (Integer) item.get("quantity");
-                int id = (Integer) item.get("id");
-                
-                subtotal += (price * quantity);
-        %>
-
-            <!-- Rendered forEach -->
-            <div class="selection-item" data-id="<%= id %>">
-                <div class="item-main">
-                    <input type="checkbox" class="item-check">
-                    <span class="item-name"><%= name %></span>
-                </div>
-                <div class="item-details">
-                    <span class="item-price"><%= String.format("%.2f", price) %></span>
-                    <div class="item-actions">
-                        <span class="icon-heart">♡</span> <!-- TODO: toggle fav/unfav -->
-                        <a href="RemoveFromCart?id=<%= id %>" class="icon-trash">🗑️</a> <!-- TODO: remove from cart -->
-                    </div>
-                </div>
-                <div class="quantity-control">
-                	<!--  TODO: manage Cart state -->
-                    <button onclick="updateQty(<%= id %>, -1)">-</button>
-                    <span class="qty"><%= quantity %></span>
-                	<button onclick="updateQty(<%= id %>, 1)">+</button>
-                </div>
-            </div>
-		<% 
-                }
-            } else { 
-        %>
-            <div class="empty-cart-msg" style="padding: 20px; text-align: center;">
-                Your cart is empty. <a href="outlets.jsp">Browse Outlets</a>
-            </div>
-        <% 
-            }
-        %>
+		<c:choose>
+			<c:when test="${not empty userCart}">
+				<c:forEach var="item" items="${userCart}">
+				
+					<div class="selection-item" data-id="${item.itemId}">
+		                <div class="item-main">
+		                    <input type="checkbox" class="item-check">
+		                    <span class="item-name">${item.itemName}</span>
+		                </div>
+		                
+		                <div class="item-details">
+		                    <span class="item-price">
+		                    	Rs. <fmt:formatNumber value="${item.unitPrice}" type="number" minFractionDigits="2"/>
+		                    </span>
+		                    <div class="item-actions">
+		                        <span class="icon-heart">♡</span> <!-- TODO: toggle fav/unfav -->
+		                        <a href="${pageContext.request.contextPath}/remove-from-cart?itemId=${item.itemId}" class="icon-trash">🗑️</a> <!-- TODO: remove from cart -->
+		                    </div>
+		                </div>
+		                
+		                <div class="quantity-control">
+		                	<!-- Manage Cart state -->
+		                    <button onclick="updateQty(${item.itemId}, -1)">-</button>
+		                    <span class="qty">${item.quantity}</span>
+		                	<button onclick="updateQty(${item.itemId}, 1)">+</button>
+		                </div>
+		            </div>
+				</c:forEach>
+			</c:when>
+		</c:choose>
         </div>
     </div>
 
@@ -92,8 +78,8 @@
          <h3>Order Summary</h3>
         <div class="summary-row">
             <span>SUB TOTAL</span>
-            <span>Rs. <%= String.format("%.2f", subtotal) %></span>
-        </div>
+            <span>Rs. <fmt:formatNumber value="${subtotal}" type="number" minFractionDigits="2"/></span>
+   		</div>
         <div class="summary-row">
             <span>VAT</span>
             <span class="muted">Included in price</span>
@@ -101,7 +87,7 @@
         <div class="summary-divider"></div>
         <div class="summary-row grand-total">
             <span>GRAND TOTAL</span>
-            <span class="total-price">Rs. <%= String.format("%.2f", subtotal) %></span>
+            <span class="total-price">Rs. <fmt:formatNumber value="${subtotal}" type="number" minFractionDigits="2"/></span>
         </div>
         <!-- Button -->
         <button class="checkout-btn">Proceed To Checkout</button>
