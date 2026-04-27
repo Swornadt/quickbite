@@ -5,14 +5,21 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
+import java.util.List;
+
+import com.quickbite.model.CartItemModel;
+import com.quickbite.service.CartService;
 
 /**
  * Servlet implementation class CartServlet
  */
-@WebServlet(asyncSupported = true, urlPatterns = { "/cart" })
+@WebServlet(asyncSupported = true, urlPatterns = { "/cart","/cart/*" })
 public class CartServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private CartService cartService = new CartService();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -26,6 +33,19 @@ public class CartServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		CartService cartService = new CartService();
+		HttpSession session = request.getSession();
+		
+		// get current cart from the session
+		List<CartItemModel> cart = cartService.getCart(session);
+		
+		// calculate the subtotal
+		double subtotal = cartService.calculateSubtotal(cart);
+		
+		// passing attributes
+		request.setAttribute("userCart", cart);
+		request.setAttribute("subtotal", subtotal);
+		
 		request.getRequestDispatcher("/WEB-INF/views/customer/cart.jsp").forward(request, response);
 	}
 
@@ -33,8 +53,40 @@ public class CartServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		String endpoint = request.getPathInfo();
+		
+		if (endpoint==null || endpoint.equals("/")) {
+			doGet(request, response);
+		} else if (endpoint.equals("/add")) {
+			handleAddToCart(request, response);
+		} else if (endpoint.equals("/remove")) {
+			//TODO: handleRemoveFromCart(request, response);
+		}
+	}
+	
+	private void handleAddToCart(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		try {
+			// extract data
+			int itemId = Integer.parseInt(request.getParameter("itemId"));
+            int outletId = Integer.parseInt(request.getParameter("outletId"));
+            String itemName = request.getParameter("itemName");
+            double unitPrice = Double.parseDouble(request.getParameter("unitPrice"));
+            int quantity = Integer.parseInt(request.getParameter("quantity"));
+            
+            // create model
+            CartItemModel newItem = new CartItemModel(itemId, outletId, itemName, unitPrice, quantity);
+            
+            // update session via service
+            HttpSession session = request.getSession(); 
+            cartService.addToCart(session, newItem);
+            
+            response.sendRedirect(request.getContextPath() + "/location-menu?outletId=" + outletId);
+            
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+			response.sendRedirect(request.getContextPath()+"/home");
+		}
 	}
 
 }
