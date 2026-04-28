@@ -111,8 +111,8 @@
         }
 
         .member-card {
-            min-width: 200px;
-            height: 260px;
+            min-width: 300px;
+            height: 360px;
             position: relative;
             border-radius: 12px;
             overflow: hidden;
@@ -300,7 +300,6 @@
     </div>
 </footer>
 
-<!-- JS FOR SMOOTH LOOP -->
 <script>
 const slider = document.getElementById("slider");
 
