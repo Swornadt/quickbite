@@ -73,10 +73,32 @@ public class LoginServlet extends HttpServlet {
         LoginService loginService = new LoginService();
         UserModel user = loginService.authenticate(number, pass);
         
-        if (user != null) {        	
+        if (user != null) {   
+        	
+        	//When user status is pending
+        	if (user.getStatus().equals("pending")) {
+        		request.setAttribute("error", "Your account is in pending status and requires admin approval");
+        		request.getRequestDispatcher("/WEB-INF/views/auth/login.jsp").forward(request,response);
+        		return;
+        	}
+        	
+        	//When user status is rejected
+        	if (user.getStatus().equals("rejected")) {
+        		request.setAttribute("error", "Your account has been rejected. Please contact support.");
+        		request.getRequestDispatcher("/WEB-INF/views/auth/login.jsp").forward(request,response);
+        		return;
+        	}
+        	
+        	//When user status is active
         	SessionUtil.setAttribute(request, "user", user);
         	request.setAttribute("success","Login successful!");
-        	response.sendRedirect(request.getContextPath()+"/home");
+        	
+        	//Redirection based on role
+        	if (user.getRole().equals("admin")) {
+        		response.sendRedirect(request.getContextPath() + "/admin/customers");
+        	}else {
+        		response.sendRedirect(request.getContextPath() + "/home");
+        	}
         } else {
         	request.setAttribute("error", "Invalid phone number or password.");
         	request.getRequestDispatcher("/WEB-INF/views/auth/login.jsp").forward(request, response);
