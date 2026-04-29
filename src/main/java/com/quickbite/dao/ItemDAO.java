@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import com.quickbite.model.Item;
 import com.quickbite.utils.DBconfig;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,7 +14,7 @@ public class ItemDAO {
 	
 	public List<Item> getAllItems(){
 		List<Item> itemList= new ArrayList<>();
-		String sql = "SELECT * FROM Item";
+		String sql = "SELECT * FROM item";
 		
 		try (Connection conn = DBconfig.getConnection();
 		      PreparedStatement ps = conn.prepareStatement(sql);
@@ -43,4 +44,24 @@ public class ItemDAO {
 		return itemList;
 	}
 	
+	public List<String> getCategoriesByOutlet(int outletId){
+		List<String> list = new ArrayList<>();
+		String query = "Select distinct i.category from item i "+"join outlet_item oi on i.item_id=oi.item_id "+"where oi.outlet_id=?";
+		try (Connection conn = DBconfig.getConnection();
+				PreparedStatement ps = conn.prepareStatement(query)){
+						ps.setInt(1, outletId);
+				try(ResultSet rs = ps.executeQuery()){
+					while(rs.next()) {
+						String cat = rs.getString("category");
+						if (cat != null) {
+							list.add(cat);
+						}
+				}
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 }
