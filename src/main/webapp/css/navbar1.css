@@ -191,9 +191,10 @@ nav {
 }
 
 /* Navbar Symbols  */
-.nav-symbols i {
+.nav-symbols a {
   color: #363636;
   font-size: 1.25rem;
+  text-decoration: none;
   cursor: pointer;
   transform: scale(1);
   transition: all 0.3s ease;
@@ -202,10 +203,14 @@ nav {
 .nav-symbols {
   display: flex;
   gap: 1.5rem;
+  align-items: center;
 }
 
-.nav-symbols i:hover {
+.nav-symbols a:hover {
   color: black;
+}
+#nav-cart:visited {
+  color: #363636;
 }
 
 /* Navbar User Image  */
