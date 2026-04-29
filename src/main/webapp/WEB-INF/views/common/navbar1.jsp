@@ -83,7 +83,7 @@
 
           <div class="nav-symbols">
             <i class="fa-solid fa-bell" id="nav-bell"></i>
-            <i class="fa-solid fa-cart-shopping" id="nav-cart"></i>
+            <a href="${pageContext.request.contextPath}/cart" class="fa-solid fa-cart-shopping" id="nav-cart"></a>
           </div>
 
           <div class="nav-image-container">
