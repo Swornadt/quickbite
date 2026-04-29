@@ -69,6 +69,11 @@ public class CheckoutServlet extends HttpServlet {
 		String timeSlot = request.getParameter("deliveryTimeSlot");
 	    String specialInstructions = request.getParameter("specialInstructions");
 	    
+	    // for asap:
+	    if ("asap".equals(deliveryTimeType)) {
+	    	specialInstructions = "[ASAP] "+(specialInstructions != null ? specialInstructions : "");
+	    }
+	    
 	    // get cart and user
 	    List<CartItemModel> cart = cartService.getCart(session);
 	    UserModel user = (UserModel) session.getAttribute("user");
