@@ -106,6 +106,9 @@
 				});
             });
         </script>
+        
+        <script src="${pageContent.request.contextPath}/js/order-success.js">
+        </script>
     </body>
 
     </html>
