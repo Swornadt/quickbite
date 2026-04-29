@@ -2,7 +2,7 @@
 document.addEventListener("DOMContentLoaded", function() {
     // check the URL for orderStatus=success
     const params = new URLSearchParams(window.location.search);
-    const modal = document.getElementById("successModal");
+    const modal = document.getElementById("success");
 
     if (params.get('orderStatus') === 'success') {
         // show the modal
