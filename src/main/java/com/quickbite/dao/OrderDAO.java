@@ -13,8 +13,8 @@ import com.quickbite.utils.DBconfig;
 public class OrderDAO {
 
 	public boolean createOrder (int userId, List<CartItemModel> cart, String instructions) {
-		String orderSql = "INSERT INTO order (user_id, order_date, order_status, order_note)"
-							+ "VALUES (?, ?, NOW(), 0, ?)";
+		String orderSql = "INSERT INTO `order` (user_id, order_date, order_status, order_note)"
+							+ "VALUES (?, NOW(), 0, ?)";
 		String itemSql = "INSERT INTO order_outlet_item (order_id, outlet_id, item_id, item_qty, order_subtotal)"
 							+ "VALUES (?, ?, ?, ?, ?)";
 		
