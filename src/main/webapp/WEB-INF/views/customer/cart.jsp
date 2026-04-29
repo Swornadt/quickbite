@@ -90,7 +90,9 @@
             <span class="total-price">Rs. <fmt:formatNumber value="${subtotal}" type="number" minFractionDigits="2"/></span>
         </div>
         <!-- Button -->
-        <button class="checkout-btn">Proceed To Checkout</button>
+        <a href="${pageContext.request.contextPath}/checkout">
+		    <button class="checkout-btn">Proceed To Checkout</button>
+		</a>
     </div>
 </div>
 
