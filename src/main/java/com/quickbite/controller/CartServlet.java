@@ -73,6 +73,7 @@ public class CartServlet extends HttpServlet {
             String itemName = request.getParameter("itemName");
             double unitPrice = Double.parseDouble(request.getParameter("unitPrice"));
             int quantity = Integer.parseInt(request.getParameter("quantity"));
+            String outletName = request.getParameter("outletName");
             
             // create model
             CartItemModel newItem = new CartItemModel(itemId, outletId, itemName, unitPrice, quantity);
@@ -81,7 +82,7 @@ public class CartServlet extends HttpServlet {
             HttpSession session = request.getSession(); 
             cartService.addToCart(session, newItem);
             
-            response.sendRedirect(request.getContextPath() + "/location-menu?outletId=" + outletId);
+            response.sendRedirect(request.getContextPath() + "/outlet/" + outletName);
             
 		} catch (NumberFormatException e) {
 			e.printStackTrace();

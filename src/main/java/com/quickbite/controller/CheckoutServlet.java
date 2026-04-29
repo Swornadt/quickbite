@@ -59,6 +59,7 @@ public class CheckoutServlet extends HttpServlet {
 		
 		if (session == null || session.getAttribute("user")==null) {
 			response.sendRedirect(request.getContextPath()+"/login");
+			System.out.println("User session null! checkoutservlet");
 			return;
 		}
 		

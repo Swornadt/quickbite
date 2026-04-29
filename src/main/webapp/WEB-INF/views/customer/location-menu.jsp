@@ -65,8 +65,9 @@
 	                <input type="hidden" name="itemId" value="${item.item.itemId}">
 		            <input type="hidden" name="itemName" value="${item.item.itemName}">
 		            <input type="hidden" name="unitPrice" value="${item.outletItemPrice}">
-		            <input type="hidden" name="outletId" value="${outlet}"> <input type="hidden" name="quantity" value="1">
+		            <input type="hidden" name="outletId" value="${outlet.outletId}"> <input type="hidden" name="quantity" value="1">
 				    <input type="hidden" name="itemId" value="${item.item.itemId}">
+				    <input type="hidden" name="outletName" value="${outlet.outletName}">
 				    
 				    <button type="submit" class="Add-to-Cart">
 				    <span class="btn-text">Add to Cart</span>
