@@ -82,7 +82,7 @@ public class CheckoutServlet extends HttpServlet {
 	    	
 	    	if (success) {
 	    		session.removeAttribute("cart");
-	    		response.sendRedirect(request.getContextPath()+"/order-success"); //TODO: put correct path
+	    		response.sendRedirect(request.getContextPath()+"/home?orderStatus=success");
 	    	} else {
 	    		request.setAttribute("error", "Could not proccess order. Please try again.");
 	    		doGet(request, response);

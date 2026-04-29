@@ -16,6 +16,16 @@
     <!-- Header -->
 	<%@ include file="../common/navbar1.jsp" %>
 	
+	<!-- Order Success Modal -->
+	<div id="success" class="order-success">
+	    <div class="modal-content">
+	        <div class="modal-icon">✔</div>
+	        <h2>Order Successful!</h2>
+	        <p>Your meal is being prepared. Check "My Orders" for updates.</p>
+	        <button onclick="closeModal()" class="modal-btn">Awesome</button>
+	    </div>
+	</div>
+	
 	<!-- Hero Section -->
     <div class="banner">
     	<div class="content">
