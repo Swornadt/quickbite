@@ -77,7 +77,7 @@
         <!-- Navbar right side  -->
         <div class="nav-right">
           <div class="loggedin-nav-links">
-            <a href="<%=request.getContextPath()%>/outlet" class="nav-link">Outlet</a>
+            <a href="<%=request.getContextPath()%>/outlets" class="nav-link">Outlet</a>
             <a href="<%=request.getContextPath()%>/ContactServlet" class="nav-link">Contact Us</a>
           </div>
 
