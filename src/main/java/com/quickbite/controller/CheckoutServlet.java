@@ -38,23 +38,6 @@ public class CheckoutServlet extends HttpServlet {
 		
 		// fetch cart items using service layer
 		List<CartItemModel> cartItems = cartService.getCart(session);
-		
-//		// SIMULATION START: Manually creating a cart
-//		List<CartItemModel> mockCart = new ArrayList<>();
-//		mockCart.add(new CartItemModel(1, 1, "Samosa", 25.00, 2));
-//	    mockCart.add(new CartItemModel(2, 1, "Veg Thukpa", 120.00, 1));
-//	    mockCart.add(new CartItemModel(5, 2, "Iced Americano", 180.00, 1));
-//	    session.setAttribute("cart", mockCart);
-//	    double subtotal = 0;
-//	    for (CartItemModel item : mockCart) {
-//	        subtotal += item.getUnitPrice() * item.getQuantity();
-//	    }
-//	    request.setAttribute("cartItems", mockCart);
-//	    request.setAttribute("subtotal", subtotal);
-//	    request.setAttribute("locationOfFood", "Multiple Outlets");
-//
-//	    request.getRequestDispatcher("/WEB-INF/views/customer/checkout.jsp").forward(request, response);
-//	    // SIMULATION END
 	    
 		// calculations
 		double subtotal = 0;
