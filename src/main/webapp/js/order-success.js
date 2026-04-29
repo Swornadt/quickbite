@@ -16,5 +16,5 @@ document.addEventListener("DOMContentLoaded", function() {
 
 // hide the modal
 function closeModal() {
-    document.getElementById("successModal").style.display = "none";
+    document.getElementById("success").style.display = "none";
 }
