@@ -60,7 +60,9 @@ public class CartServlet extends HttpServlet {
 		} else if (endpoint.equals("/add")) {
 			handleAddToCart(request, response);
 		} else if (endpoint.equals("/remove")) {
-			//TODO: handleRemoveFromCart(request, response);
+			handleRemoveFromCart(request, response);
+		} else if (endpoint.equals("/update")) {
+			handleUpdateQuantity(request, response);
 		}
 	}
 	
@@ -73,6 +75,7 @@ public class CartServlet extends HttpServlet {
             String itemName = request.getParameter("itemName");
             double unitPrice = Double.parseDouble(request.getParameter("unitPrice"));
             int quantity = Integer.parseInt(request.getParameter("quantity"));
+            String outletName = request.getParameter("outletName");
             
             // create model
             CartItemModel newItem = new CartItemModel(itemId, outletId, itemName, unitPrice, quantity);
@@ -81,11 +84,45 @@ public class CartServlet extends HttpServlet {
             HttpSession session = request.getSession(); 
             cartService.addToCart(session, newItem);
             
-            response.sendRedirect(request.getContextPath() + "/location-menu?outletId=" + outletId);
+            // get source url
+            String referer = request.getHeader("Referer");
+            String url;
+            // append success param
+            if (referer != null && !referer.isEmpty()) {
+            	url = referer.contains("?") ? referer + "&added=true" : referer + "?added=true";
+            } else {
+            	// fallback to home
+            	url = request.getContextPath()+"/home?added=true";
+            }
+            
+            response.sendRedirect(url);
+            return;
             
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 			response.sendRedirect(request.getContextPath()+"/home");
+		}
+	}
+	
+	private void handleRemoveFromCart (HttpServletRequest request, HttpServletResponse response) throws IOException {
+		try {
+			int itemId = Integer.parseInt(request.getParameter("itemId"));
+			cartService.removeFromCart(request.getSession(), itemId);
+			response.sendRedirect(request.getContextPath() + "/cart");
+		} catch (Exception e) {
+			response.sendRedirect(request.getContextPath() + "/cart?error=true");
+		}
+	}
+	
+	private void handleUpdateQuantity(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		try {
+			int itemId = Integer.parseInt(request.getParameter("itemId"));
+			int amount = Integer.parseInt(request.getParameter("amount"));
+			cartService.updateQuantity(request.getSession(), itemId, amount);
+			response.sendRedirect(request.getContextPath() + "/cart");
+			
+		} catch (Exception e) {
+			response.sendRedirect(request.getContextPath() + "/cart?error=true");
 		}
 	}
 

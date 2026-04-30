@@ -191,9 +191,10 @@ nav {
 }
 
 /* Navbar Symbols  */
-.nav-symbols i {
+.nav-symbols a {
   color: #363636;
   font-size: 1.25rem;
+  text-decoration: none;
   cursor: pointer;
   transform: scale(1);
   transition: all 0.3s ease;
@@ -202,10 +203,14 @@ nav {
 .nav-symbols {
   display: flex;
   gap: 1.5rem;
+  align-items: center;
 }
 
-.nav-symbols i:hover {
+.nav-symbols a:hover {
   color: black;
+}
+#nav-cart:visited {
+  color: #363636;
 }
 
 /* Navbar User Image  */
@@ -227,6 +232,41 @@ nav {
 
 .nav-profile-image:hover {
   transform: scale(1.07);
+}
+
+
+/* Toast Notifications */
+.toast {
+    visibility: hidden;
+    min-width: 250px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 8px;
+    padding: 16px;
+    position: fixed;
+    z-index: 10000;
+    right: 30px;
+    bottom: 30px;
+    font-family: 'Poppins', sans-serif;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    opacity: 0;
+    transition: opacity 0.5s, visibility 0.5s;
+}
+
+.toast.show {
+    visibility: visible;
+    opacity: 1;
+}
+
+.toast-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.toast-content i {
+    color: #4CAF50;
 }
 
 /* Adding Responsiveness through media queries  */

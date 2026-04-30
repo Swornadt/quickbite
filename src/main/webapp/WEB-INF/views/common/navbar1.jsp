@@ -77,13 +77,13 @@
         <!-- Navbar right side  -->
         <div class="nav-right">
           <div class="loggedin-nav-links">
-            <a href="<%=request.getContextPath()%>/outlet" class="nav-link">Outlet</a>
+            <a href="<%=request.getContextPath()%>/outlets" class="nav-link">Outlet</a>
             <a href="<%=request.getContextPath()%>/ContactServlet" class="nav-link">Contact Us</a>
           </div>
 
           <div class="nav-symbols">
             <i class="fa-solid fa-bell" id="nav-bell"></i>
-            <i class="fa-solid fa-cart-shopping" id="nav-cart"></i>
+            <a href="${pageContext.request.contextPath}/cart" class="fa-solid fa-cart-shopping" id="nav-cart"></a>
           </div>
 
           <div class="nav-image-container">
@@ -151,6 +151,15 @@
     
     <div class="below-nav"></div>
 	
+	<!-- Toast Notification  -->
+	<div id="cart-toast" class="toast">
+	    <div class="toast-content">
+	        <i class="fa-solid fa-circle-check"></i>
+	        <span>Item added to cart!</span>
+	    </div>
+	</div>
+	
     <script src="<%=request.getContextPath() %>/js/navbar.js"></script>
+    <script src="${pageContext.request.contextPath}/js/toast.js"></script>
   </body>
 </html>
