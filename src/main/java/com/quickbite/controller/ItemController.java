@@ -40,6 +40,11 @@ public class ItemController extends HttpServlet {
 	    OutletDAO outletDAO = new OutletDAO();
 	    Outlet outlet = outletDAO.getOutletByName(outletName);
 	    
+	    if (outlet==null) {
+	    	response.sendRedirect(request.getContextPath() + "/outlets");
+	    	return;
+	    }
+	    
 	    OutletItemDAO outletItemDAO = new OutletItemDAO();
 	    List<OutletItem> outletItems = outletItemDAO.getItemsByOutlet(outlet.getOutletId());
 	    

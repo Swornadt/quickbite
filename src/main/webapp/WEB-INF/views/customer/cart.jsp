@@ -55,15 +55,29 @@
 		                    </span>
 		                    <div class="item-actions">
 		                        <span class="icon-heart">♡</span> <!-- TODO: toggle fav/unfav -->
-		                        <a href="${pageContext.request.contextPath}/remove-from-cart?itemId=${item.itemId}" class="icon-trash">🗑️</a> <!-- TODO: remove from cart -->
+		                        <form action="${pageContext.request.contextPath}/cart/remove" method="POST" style="display:inline;">
+				    <input type="hidden" name="itemId" value="${item.itemId}">
+				    <button type="submit" class="icon-trash-btn">🗑️</button>
+				</form>
 		                    </div>
 		                </div>
 		                
 		                <div class="quantity-control">
 		                	<!-- Manage Cart state -->
-		                    <button onclick="updateQty(${item.itemId}, -1)">-</button>
+		                	
+		                    <form action="${pageContext.request.contextPath}/cart/update" method="POST" style="display:inline;">
+						        <input type="hidden" name="itemId" value="${item.itemId}">
+						        <input type="hidden" name="amount" value="-1">
+						        <button type="submit">-</button>
+						    </form>
+						    
 		                    <span class="qty">${item.quantity}</span>
-		                	<button onclick="updateQty(${item.itemId}, 1)">+</button>
+		                    
+		                	<form action="${pageContext.request.contextPath}/cart/update" method="POST" style="display:inline;">
+						        <input type="hidden" name="itemId" value="${item.itemId}">
+						        <input type="hidden" name="amount" value="1">
+						        <button type="submit">+</button>
+						    </form>
 		                </div>
 		            </div>
 				</c:forEach>
@@ -90,13 +104,23 @@
             <span class="total-price">Rs. <fmt:formatNumber value="${subtotal}" type="number" minFractionDigits="2"/></span>
         </div>
         <!-- Button -->
-        <button class="checkout-btn">Proceed To Checkout</button>
+        <c:choose>
+        	<c:when test="${not empty userCart}">
+		        <a href="${pageContext.request.contextPath}/checkout">
+				    <button class="checkout-btn">Proceed To Checkout</button>
+				</a>
+			</c:when>
+			<c:otherwise>
+				<button class="checkout-btn" disabled style="background: #ccc;">Proceed To Checkout</button>
+			</c:otherwise>
+		</c:choose>
     </div>
 </div>
 
 <!-- Footer -->
 <%@ include file="../common/footer.jsp" %>
 
+<script src="${pageContext.request.contextPath}/js/cart.js"></script>
 </body>
 
 </html>
