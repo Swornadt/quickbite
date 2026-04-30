@@ -151,6 +151,15 @@
     
     <div class="below-nav"></div>
 	
+	<!-- Toast Notification  -->
+	<div id="cart-toast" class="toast">
+	    <div class="toast-content">
+	        <i class="fa-solid fa-circle-check"></i>
+	        <span>Item added to cart!</span>
+	    </div>
+	</div>
+	
     <script src="<%=request.getContextPath() %>/js/navbar.js"></script>
+    <script src="${pageContext.request.contextPath}/js/toast.js"></script>
   </body>
 </html>

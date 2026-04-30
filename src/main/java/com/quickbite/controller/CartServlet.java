@@ -82,7 +82,19 @@ public class CartServlet extends HttpServlet {
             HttpSession session = request.getSession(); 
             cartService.addToCart(session, newItem);
             
-            response.sendRedirect(request.getContextPath() + "/outlet/" + outletName);
+            // get source url
+            String referer = request.getHeader("Referer");
+            String url;
+            // append success param
+            if (referer != null && !referer.isEmpty()) {
+            	url = referer.contains("?") ? referer + "&added=true" : referer + "?added=true";
+            } else {
+            	// fallback to home
+            	url = request.getContextPath()+"/home?added=true";
+            }
+            
+            response.sendRedirect(url);
+            return;
             
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
