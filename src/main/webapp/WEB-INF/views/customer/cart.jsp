@@ -99,6 +99,7 @@
 <!-- Footer -->
 <%@ include file="../common/footer.jsp" %>
 
+<script src="${pageContext.request.contextPath}/js/cart.js"></script>
 </body>
 
 </html>

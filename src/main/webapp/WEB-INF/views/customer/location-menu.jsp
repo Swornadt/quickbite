@@ -81,7 +81,7 @@
 	</div>
 </div>
 
-<!-- Header -->
+<!-- Footer -->
 <%@ include file="../common/footer.jsp" %>
 </body>
 

@@ -42,7 +42,26 @@ public class CartService {
         }
         cart.add(newItem);
     }
+    
+    public void removeFromCart(HttpSession session, int itemId) {
+    	List<CartItemModel> cart = getCart(session);
+    	cart.removeIf(item -> item.getItemId() == itemId);
+    }
 
+    public void updateQuantity(HttpSession session, int itemId, int amount) {
+    	List<CartItemModel> cart = getCart(session);
+    	for (CartItemModel item : cart) {
+    		if (item.getItemId() == itemId) {
+    			int newQty = item.getQuantity()+amount;
+    			// validation for non-negative
+    			if (newQty > 0) {
+    				item.setQuantity(newQty);
+    			}
+    			return;
+    		}
+    	}
+    }
+    
     public double calculateSubtotal(List<CartItemModel> cart) {
         return cart.stream().mapToDouble(CartItemModel::getTotalPrice).sum();
     }
