@@ -99,7 +99,7 @@
       <!-- For Mobile Responsiveness  -->
       <div class="nav-mobile-menu">
         <a href="<%=request.getContextPath()%>/outlet" class="mobile-nav-link">Outlet</a>
-        <a href="<%=request.getContextPath()%>/ContactServlet" class="mobile-nav-link">Contact Us</a>
+        <a href="<%=request.getContextPath()%>/contact" class="mobile-nav-link">Contact Us</a>
       </div>
     </c:if>
     
