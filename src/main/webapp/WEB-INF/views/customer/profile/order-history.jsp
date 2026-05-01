@@ -36,9 +36,12 @@
 						<div class="divider"></div>
 						<div class="order-card">
 							<p> Order ID: <span>#${order.orderId}</span></p>
-							<p> Order Date: <span><fmt:formatDate value="${order.orderDate}" pattern="dd MMM yyyy"/></span></p>
-							<p> Order Status: <span class="status-pending">${order.status}</span></p>
-							<p> Order ID: <span>${order.locationName}</span></p>
+							<p> Order Date: <span><fmt:formatDate value="${order.orderDateAsDate}" pattern="dd MMM yyyy"/></span></p>
+							<p> Order Status: 
+							    <span class="${order.orderStatus == 2 ? 'status-completed' : 'status-current'}">
+							        ${order.statusText}
+							    </span>
+							</p>
 						</div>
 					</c:forEach>
 				</c:when>
@@ -55,13 +58,16 @@
 			
 			<c:choose>
 				<c:when test="${not empty pastOrders}">
-					<c:forEach var="order" items="${currentOrders}">
+					<c:forEach var="order" items="${pastOrders}">
 						<div class="divider"></div>
 						<div class="order-card">
 							<p> Order ID: <span>#${order.orderId}</span></p>
-							<p> Order Date: <span><fmt:formatDate value="${order.orderDate}" pattern="dd MMM yyyy"/></span></p>
-							<p> Order Status: <span class="status-pending">Completed</span></p>
-							<p> Order ID: <span>${order.locationName}</span></p>
+							<p> Order Date: <span><fmt:formatDate value="${order.orderDateAsDate}" pattern="dd MMM yyyy"/></span></p>
+							<p> Order Status: 
+							    <span class="${order.orderStatus == 2 ? 'status-completed' : 'status-current'}">
+							        ${order.statusText}
+							    </span>
+							</p>
 						</div>
 					</c:forEach>
 				</c:when>

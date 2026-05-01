@@ -1,7 +1,8 @@
 package com.quickbite.model;
 
-import java.time.LocalDate;
+import java.util.Date;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 public class OrderModel {
 	
@@ -50,5 +51,17 @@ public class OrderModel {
 	public void setOrderNote(String orderNote) {
 		this.orderNote = orderNote;
 	}
+	
+	public String getStatusText() {
+        if (this.orderStatus == 0) return "Pending";
+        if (this.orderStatus == 1) return "Processing";
+        if (this.orderStatus == 2) return "Completed";
+        return "Unknown";
+    }
+	
+	public Date getOrderDateAsDate() {
+        if (this.orderDate == null) return null;
+        return Date.from(this.orderDate.atZone(ZoneId.systemDefault()).toInstant());
+    }
 	
 }
