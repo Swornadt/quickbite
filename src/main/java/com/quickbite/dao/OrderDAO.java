@@ -5,9 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.quickbite.model.CartItemModel;
+import com.quickbite.model.OrderModel;
 import com.quickbite.utils.DBconfig;
 
 public class OrderDAO {
@@ -68,5 +70,35 @@ public class OrderDAO {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public List<OrderModel> getOrdersByStatus(int userId, boolean isCurrent) {
+		List<OrderModel> orders = new ArrayList<>();
+		
+		// 0: pending; 1: processing; 2: completed"
+		String statusCondition = isCurrent ? "IN (0, 1)" : "NOT IN (0, 1)";
+		String query = "SELECT order_id, order_date, status FROM orders "+
+						"WHERE user_id = ? AND status "+ statusCondition + 
+						"ORDER BY order_date DESC";
+		
+		try (Connection conn = DBconfig.getConnection();
+			PreparedStatement pre = conn.prepareStatement(query)) {
+			
+			pre.setInt(1, userId);
+			ResultSet rs = pre.executeQuery();
+			
+			while(rs.next()) {
+				OrderModel order = new OrderModel();
+				order.setOrderId(rs.getInt("order_id"));
+				order.setOrderDate(rs.getTimestamp("order_date").toLocalDateTime());
+                order.setOrderStatus(rs.getInt("status"));
+                orders.add(order);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return orders;
 	}
 }
