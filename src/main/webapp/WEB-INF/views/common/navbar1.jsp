@@ -77,7 +77,7 @@
         <!-- Navbar right side  -->
         <div class="nav-right">
           <div class="loggedin-nav-links">
-            <a href="<%=request.getContextPath()%>/outlets" class="nav-link">Outlet</a>
+            <a href="<%=request.getContextPath()%>/outlets" class="nav-link">Location</a>
             <a href="<%=request.getContextPath()%>/ContactServlet" class="nav-link">Contact Us</a>
           </div>
 
@@ -99,11 +99,11 @@
       <!-- For Mobile Responsiveness  -->
       <div class="nav-mobile-menu">
         <a href="<%=request.getContextPath()%>/outlet" class="mobile-nav-link">Outlet</a>
-        <a href="<%=request.getContextPath()%>/ContactServlet" class="mobile-nav-link">Contact Us</a>
+        <a href="<%=request.getContextPath()%>/contact" class="mobile-nav-link">Contact Us</a>
       </div>
     </c:if>
     
-    <!--If user isnot  logged in -->
+    <!--If user is not  logged in -->
     <c:if test= "${empty sessionScope.user}">
       <div class="nav-container">
         <!-- Navbar left side (logo and hamburger menu)  -->
@@ -125,9 +125,9 @@
         <!-- Center nav links  -->
         <div class="nav-links">
           <a href="<%=request.getContextPath()%>/home" class="nav-link">Home</a>
-          <a href="<%=request.getContextPath()%>/outlet" class="nav-link">Location</a>
-          <a href="<%=request.getContextPath()%>/aboutus" class="nav-link">About Us</a>
-          <a href="${pageContext.request.contextPath}/ContactServlet" class="nav-link">Contact</a>
+          <a href="<%=request.getContextPath()%>/outlets" class="nav-link">Location</a>
+          <a href="<%=request.getContextPath()%>/about" class="nav-link">About Us</a>
+          <a href="${pageContext.request.contextPath}/contact" class="nav-link">Contact</a>
         </div>
 
         <!-- Navbar login button  -->
@@ -141,9 +141,9 @@
       <!-- For Mobile Responsiveness  -->
       <div class="nav-mobile-menu">
         <a href="<%=request.getContextPath()%>/home" class="mobile-nav-link">Home</a>
-        <a href="<%=request.getContextPath()%>/outlet" class="mobile-nav-link">Location</a>
-        <a href="<%=request.getContextPath()%>/aboutus" class="mobile-nav-link">About Us</a>
-        <a href="<%=request.getContextPath()%>/ContactServlet" class="mobile-nav-link">Contact</a>
+        <a href="<%=request.getContextPath()%>/outlets" class="mobile-nav-link">Location</a>
+        <a href="<%=request.getContextPath()%>/about" class="mobile-nav-link">About Us</a>
+        <a href="<%=request.getContextPath()%>/contact" class="mobile-nav-link">Contact</a>
       </div>
     </c:if>
 

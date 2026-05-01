@@ -12,6 +12,6 @@
             <br>"Quick Bite" is a platform made by students, for students.
         </p>
 
-        <a href="${pageContext.request.contextPath}/about-us" class="about-btn">Know More ></a>
+        <a href="${pageContext.request.contextPath}/about" class="about-btn">Know More ></a>
     </div>
 </section>
