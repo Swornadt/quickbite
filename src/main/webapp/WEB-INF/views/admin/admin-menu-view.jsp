@@ -1,5 +1,9 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
-<html lang="en">
+<html >
 
 <head>
   <meta charset="UTF-8">
@@ -38,62 +42,68 @@
           </div>
         </div>
         <div class="admin-bottom-info">
+                <div class="container">
+                    <header class="header">
+                        <h2>Menu Management</h2>
+                        
+                        <!-- Outlet Selector -->
+                        <select class="canteen-btn" id="outletSelector" onchange="loadItemsByOutlet()">
+                            <option value="" disabled selected>-- Choose a location --</option>
+                            <c:forEach var="outlet" items="${outlets}">
+                                <option value="${outlet.outletId}">${outlet.outletName}</option>
+                            </c:forEach>
+                        </select>
+                        
+                        <button class="add-item-btn" onclick="openAddModal()">+ Add Item</button>
+                    </header>
 
-          <div class="container">
-            <header class="header">
-              <h2>Menu Management</h2>
-              <select class="canteen-btn">
-                <option value="" disabled selected>-- Choose a location --</option>
-                <option>Main Canteen</option>
-                <option>Coffee Station</option>
-              </select>
-              <button class="add-item-btn" onclick="openAddModal()">+ Add Item</button>
-            </header>
-
-            <!-- Table -->
-            <table>
-              <thead>
-                <tr>
-                  <th>Item ID</th>
-                  <th>Item Name</th>
-                  <th>Category</th>
-                  <th>Price</th>
-                  <th></th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>001</td>
-                  <td>Chicken momo</td>
-                  <td>Snacks</td>
-                  <td>150</td>
-                  <td><button class="edit-btn" onclick="openUpdateModal()">Edit</button></td>
-                  <td><button class="delete-btn" onclick="openDeleteModal()">Delete</button></td>
-                </tr>
-                <tr>
-                  <td>002</td>
-                  <td>Veg Sandwich</td>
-                  <td>Breakfast</td>
-                  <td>140</td>
-                  <td><button class="edit-btn" onclick="openUpdateModal()">Edit</button></td>
-                  <td><button class="delete-btn" onclick="openDeleteModal()">Delete</button></td>
-                </tr>
-                <tr>
-                  <td>003</td>
-                  <td>French Fries</td>
-                  <td>Snacks</td>
-                  <td>110</td>
-                  <td><button class="edit-btn" onclick="openUpdateModal()">Edit</button></td>
-                  <td><button class="delete-btn" onclick="openDeleteModal()">Delete</button></td>
-                </tr>
-              </tbody>
-            </table>
-
-          </div>
+                    <!-- Dynamic Table -->
+                    <table id="menuTable">
+                        <thead>
+                            <tr>
+                                <th>Item ID</th>
+                                <th>Item Name</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Item Description</th>
+                                <th>Status</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+    <c:forEach var="oi" items="${outletItems}">
+        <tr>
+            <td>${oi.item.itemId}</td>
+            <td>${oi.item.itemName}</td>
+            <td>${oi.item.category}</td>
+            <td>${oi.outletItemPrice}</td>
+            <td>${oi.item.itemDescription}</td>
+            <td>${oi.item.itemStatus}</td>
+            <td>
+                <button class="edit-btn" 
+                        onclick="openUpdateModal(${oi.item.itemId})">Edit</button>
+                        </td>
+                        <td>
+                <button class="delete-btn" 
+                        onclick="deleteItem(${oi.item.itemId})">Delete</button>
+            </td>
+        </tr>
+    </c:forEach>
+    
+    <c:if test="${empty outletItems}">
+        <tr>
+            <td colspan="6" style="text-align:center; padding:20px;">
+                No items found for selected outlet. Please select a location.
+            </td>
+        </tr>
+    </c:if>
+</tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-      </div>
-      </div>
+    </div>
       
 <!-- ADD ITEM MODAL -->
 <div id="addItemModal" class="modal">
