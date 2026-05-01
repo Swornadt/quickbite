@@ -6,22 +6,18 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
-
-import com.quickbite.dao.OutletDAO;
-import com.quickbite.model.Outlet;
 
 /**
- * Servlet implementation class OutletServlet
+ * Servlet implementation class UserProfileServlet
  */
-@WebServlet("/outlets")
-public class OutletServlet extends HttpServlet {
+@WebServlet(asyncSupported = true, urlPatterns = { "/UserProfile" })
+public class UserProfileServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public OutletServlet() {
+    public UserProfileServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,12 +27,7 @@ public class OutletServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		OutletDAO dao = new OutletDAO();
-		List<Outlet> list = dao.getAllOutlets();
-		
-		request.setAttribute("locations", list);
-		
-		request.getRequestDispatcher("/WEB-INF/views/customer/outlet.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/customer/userProfile.jsp").forward(request,response);
 	}
 
 	/**
