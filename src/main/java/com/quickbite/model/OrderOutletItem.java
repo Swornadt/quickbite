@@ -17,6 +17,13 @@ public class OrderOutletItem {
 		 this.orderStatus = orderStatus;
 	 }
 	 
+	 //Overloading for distinct
+	 public OrderOutletItem(int orderId, int outletId, int orderStatus) {
+		    this.orderId = orderId;
+		    this.outletId = outletId;
+		    this.orderStatus = orderStatus;
+		}
+	 
 	 public int getOrderId() {
 		 return orderId; 
 	 }
@@ -37,12 +44,12 @@ public class OrderOutletItem {
 		 return orderSubtotal; 
 	 }
 
-	 public double getOrderStatus() {
+	 public int getOrderStatus() {
 		 return orderStatus; 
 	 }
 	 
-	 public void setOrderSubtotal(double orderSubtotal) {
-		 this.orderSubtotal = orderSubtotal;
+	 public void setOrderStatus(int orderStatus) {
+		 this.orderStatus = orderStatus;
 	 }
 }   
 	 
