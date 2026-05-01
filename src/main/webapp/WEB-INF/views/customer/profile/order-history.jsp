@@ -29,11 +29,11 @@
 		<!-- Current Order Section -->
 		<div class="orders-section">
 			<h3 class="order-label">CURRENT ORDERS</h3>
-			<div class="divider"></div>
 			
 			<c:choose>
 				<c:when test="${not empty currentOrders}">
 					<c:forEach var="order" items="${currentOrders}">
+						<div class="divider"></div>
 						<div class="order-card">
 							<p> Order ID: <span>#${order.orderId}</span></p>
 							<p> Order Date: <span><fmt:formatDate value="${order.orderDate}" pattern="dd MMM yyyy"/></span></p>
@@ -48,6 +48,35 @@
 			</c:choose>
 			<div class="divider"></div>
 		</div>
+		
+		<!-- Past Order Section -->
+		<div class="orders-section">
+			<h3 class="order-label">PAST ORDERS</h3>
+			
+			<c:choose>
+				<c:when test="${not empty pastOrders}">
+					<c:forEach var="order" items="${currentOrders}">
+						<div class="divider"></div>
+						<div class="order-card">
+							<p> Order ID: <span>#${order.orderId}</span></p>
+							<p> Order Date: <span><fmt:formatDate value="${order.orderDate}" pattern="dd MMM yyyy"/></span></p>
+							<p> Order Status: <span class="status-pending">Completed</span></p>
+							<p> Order ID: <span>${order.locationName}</span></p>
+						</div>
+					</c:forEach>
+				</c:when>
+				<c:otherwise>
+					<p class="no-orders">No records for past orders found.</p>
+				</c:otherwise>
+			</c:choose>
+		</div>
+		
+		<!-- Pagination -->
+        <div class="pagination">
+            <span class="page-btn">Previous</span>
+            <span class="pager-current">1</span>
+            <span class="pager-btn">Next</span>
+        </div>
 	</div>
 	
 	<%@ include file="../../common/footer.jsp" %>
