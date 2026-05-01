@@ -46,4 +46,43 @@ public class OutletItemDAO {
 			System.out.println(e.getMessage());		}
 		return outletItems;
 	}
+	
+	// Add or Update price for an item in a specific outlet
+	public boolean addOrUpdateOutletItem(int outletId, int itemId, double price) {
+
+	    String checkSql = "SELECT outlet_item_price FROM outlet_item WHERE outlet_id = ? AND item_id = ?";
+	    
+	    try (Connection conn = DBconfig.getConnection();
+	         PreparedStatement checkPs = conn.prepareStatement(checkSql)) {
+	        
+	        checkPs.setInt(1, outletId);
+	        checkPs.setInt(2, itemId);
+	        
+	        try (ResultSet rs = checkPs.executeQuery()) {
+	            if (rs.next()) {
+	                
+	                String updateSql = "UPDATE outlet_item SET outlet_item_price = ? WHERE outlet_id = ? AND item_id = ?";
+	                try (PreparedStatement updatePs = conn.prepareStatement(updateSql)) {
+	                    updatePs.setDouble(1, price);
+	                    updatePs.setInt(2, outletId);
+	                    updatePs.setInt(3, itemId);
+	                    int rows = updatePs.executeUpdate();
+	                    return rows > 0;
+	                }
+	            } else {
+	                String insertSql = "INSERT INTO outlet_item (outlet_id, item_id, outlet_item_price) VALUES (?, ?, ?)";
+	                try (PreparedStatement insertPs = conn.prepareStatement(insertSql)) {
+	                    insertPs.setInt(1, outletId);
+	                    insertPs.setInt(2, itemId);
+	                    insertPs.setDouble(3, price);
+	                    int rows = insertPs.executeUpdate();
+	                    return rows > 0;
+	                }
+	            }
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,12 +12,20 @@
 <div class="admin-body">
         <div class="admin-right-body">
             <main class="content">
+            
+            <!-- Success / Error Message -->
+            <c:if test="${not empty message}">
+                <div class="alert ${status == 'success' ? 'alert-success' : 'alert-error'}">
+                    ${message}
+                </div>
+            </c:if>
+            
                 <div class="page-header">
                     <h2>Add New Item</h2>
                 </div>
-
+	
                 <div class="form-container">
-                    <form action="<%=request.getContextPath()%>/AddMenuServlet" method="post" enctype="multipart/form-data">
+                    <form action="<%=request.getContextPath()%>/AddItem" method="post" enctype="multipart/form-data">
                         <div class="form-grid">
                             <div class="form-group">
                                 <label>Item Name</label>
@@ -35,12 +44,16 @@
                                 <input type="number" step="0.01" name="price" placeholder="0.00">
                             </div>
                             <div class="form-group">
-                                <label>Location</label>
-                                <select name="outletId">
-                                    <option value="" disabled selected>-- Choose a location --</option>
-                                    
-                                </select>
-                            </div>
+                            <label>Location</label>
+                            <select name="outletId" required>
+                                <option value="" disabled selected>-- Choose a location --</option>
+                                <c:forEach var="outlet" items="${outlets}">
+                                    <option value="${outlet.outletId}">
+                                        ${outlet.outletName}
+                                    </option>
+                                </c:forEach>
+                            </select>
+                        </div>
                             <div class="form-group">
                                 <label>Status</label>
                                 <select name="itemStatus">
