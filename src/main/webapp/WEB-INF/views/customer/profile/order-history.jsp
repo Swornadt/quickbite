@@ -30,25 +30,28 @@
 		<div class="orders-section">
 			<h3 class="order-label">CURRENT ORDERS</h3>
 			
-			<c:choose>
-				<c:when test="${not empty currentOrders}">
-					<c:forEach var="order" items="${currentOrders}">
-						<div class="divider"></div>
-						<div class="order-card">
-							<p> Order ID: <span>#${order.orderId}</span></p>
-							<p> Order Date: <span><fmt:formatDate value="${order.orderDateAsDate}" pattern="dd MMM yyyy"/></span></p>
-							<p> Order Status: 
-							    <span class="${order.orderStatus == 2 ? 'status-completed' : 'status-current'}">
-							        ${order.statusText}
-							    </span>
-							</p>
-						</div>
-					</c:forEach>
-				</c:when>
-				<c:otherwise>
-					<p class="no-orders">No current orders found.</p>
-				</c:otherwise>
-			</c:choose>
+			<!-- Scroll Section -->
+			<div class="order-list-scroll">
+				<c:choose>
+					<c:when test="${not empty currentOrders}">
+						<c:forEach var="order" items="${currentOrders}">
+							<div class="divider"></div>
+							<div class="order-card">
+								<p> Order ID: <span>#${order.orderId}</span></p>
+								<p> Order Date: <span><fmt:formatDate value="${order.orderDateAsDate}" pattern="dd MMM yyyy"/></span></p>
+								<p> Order Status: 
+								    <span class="${order.orderStatus == 2 ? 'status-completed' : 'status-current'}">
+								        ${order.statusText}
+								    </span>
+								</p>
+							</div>
+						</c:forEach>
+					</c:when>
+					<c:otherwise>
+						<p class="no-orders">No current orders found.</p>
+					</c:otherwise>
+				</c:choose>
+			</div>
 			<div class="divider"></div>
 		</div>
 		
@@ -56,25 +59,28 @@
 		<div class="orders-section">
 			<h3 class="order-label">PAST ORDERS</h3>
 			
-			<c:choose>
-				<c:when test="${not empty pastOrders}">
-					<c:forEach var="order" items="${pastOrders}">
-						<div class="divider"></div>
-						<div class="order-card">
-							<p> Order ID: <span>#${order.orderId}</span></p>
-							<p> Order Date: <span><fmt:formatDate value="${order.orderDateAsDate}" pattern="dd MMM yyyy"/></span></p>
-							<p> Order Status: 
-							    <span class="${order.orderStatus == 2 ? 'status-completed' : 'status-current'}">
-							        ${order.statusText}
-							    </span>
-							</p>
-						</div>
-					</c:forEach>
-				</c:when>
-				<c:otherwise>
-					<p class="no-orders">No records for past orders found.</p>
-				</c:otherwise>
-			</c:choose>
+			<!-- Scroll Section -->
+			<div class="order-list-scroll">
+				<c:choose>
+					<c:when test="${not empty pastOrders}">
+						<c:forEach var="order" items="${pastOrders}">
+							<div class="divider"></div>
+							<div class="order-card">
+								<p> Order ID: <span>#${order.orderId}</span></p>
+								<p> Order Date: <span><fmt:formatDate value="${order.orderDateAsDate}" pattern="dd MMM yyyy"/></span></p>
+								<p> Order Status: 
+								    <span class="${order.orderStatus == 2 ? 'status-completed' : 'status-current'}">
+								        ${order.statusText}
+								    </span>
+								</p>
+							</div>
+						</c:forEach>
+					</c:when>
+					<c:otherwise>
+						<p class="no-orders">No records for past orders found.</p>
+					</c:otherwise>
+				</c:choose>
+			</div>
 		</div>
 		
 		<!-- Pagination -->

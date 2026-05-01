@@ -90,3 +90,10 @@ body {
     color: #444;
     font-weight: 600;
 }
+
+.order-list-scroll {
+    max-height: 150px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 15px;
+}
