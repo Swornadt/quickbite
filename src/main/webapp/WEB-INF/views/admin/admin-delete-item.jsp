@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Delete Item | Quickbite</title>
-<link rel="stylesheet" href="<%=request.getContextPath() %>/css/adminAddMenu.css" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/adminMenuForm.css" />
 </head>
 <body>
 <div class="admin-right-body">
