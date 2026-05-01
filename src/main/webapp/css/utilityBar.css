@@ -1,0 +1,40 @@
+@charset "UTF-8";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.upper-box {
+  display: flex;
+  background-color: #faf3f1;
+  justify-content: space-around;
+  height: 100px;
+  align-items: center;
+  border:1px solid #F1E4D7;
+}
+
+.acc-setting {
+  font-family: "DM Sans";
+  font-weight: 400;
+  font-size: 1.65rem;
+}
+
+.upper-box-logout-btn {
+  font-family: "Inter";
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-decoration: none;
+  color: white;
+  background-color: #db4a1e;
+  padding: 14px 35px;
+  display: inline-block;
+  border-radius: 5px;
+  transform: scale(1);
+  transition: all 0.5 ease;
+}
+
+.upper-box-logout-btn:hover {
+  transform: scale(1.02);
+}
