@@ -12,7 +12,7 @@ import java.sql.SQLException;
 
 public class OrderOutletItemDAO {
 
-	public List<OrderOutletItem> getOrdersByOutlet(int outletId) {
+	public List<OrderOutletItem> getOrdersDetailByOutlet(int outletId) {
         List<OrderOutletItem> list = new ArrayList<>();
         String sql = "SELECT ooi.order_id, ooi.outlet_id, ooi.item_id, ooi.item_qty, ooi.order_subtotal, o.order_status "
         		+ "FROM order_outlet_item ooi JOIN `order` o ON ooi.order_id = o.order_id "
@@ -40,6 +40,35 @@ public class OrderOutletItemDAO {
         }
         return list;
     }
+	
+	public List<OrderOutletItem> getOrdersByOutlet(int outletId) {
+	    List<OrderOutletItem> list = new ArrayList<>();
+	    String sql =
+	        "SELECT DISTINCT ooi.order_id, ooi.outlet_id, o.order_status "
+	        + "FROM order_outlet_item ooi JOIN `order` o ON ooi.order_id = o.order_id "
+	        + "WHERE ooi.outlet_id = ?";
+
+	    try (Connection conn = DBconfig.getConnection();
+	         PreparedStatement ps = conn.prepareStatement(sql)) {
+	        ps.setInt(1, outletId);
+
+	        try (ResultSet rs = ps.executeQuery()) {
+	            while (rs.next()) {
+	                OrderOutletItem order = new OrderOutletItem(
+	                    rs.getInt("order_id"),
+	                    rs.getInt("outlet_id"),
+	                    rs.getInt("order_status")
+	                );
+	                list.add(order);
+	            }
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return list;
+	}
 	
 	public List<OrderOutletItem> getOrderByStatus(List<OrderOutletItem> orders, int status) {
 	    List<OrderOutletItem> list = new ArrayList<>();
