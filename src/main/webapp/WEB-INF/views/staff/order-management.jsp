@@ -12,20 +12,22 @@
 <div class="orderStatus">
 	<h2 class="title">Pending Orders</h2>
 	<div class="cards">
-		<div class="card">Order</div>
+		<c:forEach var="order" items="${pending}">
+			<div class="card">Order ID: ${order.orderId}</div>
+		</c:forEach>
 	</div>
 </div> 
 <div class="orderStatus">
 	<h2 class="title">Ongoing Orders</h2>
-	<div class="cards">
-		<div class="card">Order</div>
-	</div>
+	<c:forEach var="order" items="${ongoing}">
+			<div class="card">Order ID: ${order.orderId}}</div>
+	</c:forEach>
 </div> 
 <div class="orderStatus">
 	<h2 class="title">Completed Orders</h2>
-	<div class="cards">
-		<div class="card">Order</div>
-	</div>
+	<c:forEach var="order" items="${complete}">
+			<div class="card">Order ID: ${order.orderId}}</div>
+	</c:forEach>
 </div> 
 </body>
 </html>
