@@ -107,7 +107,7 @@
 <div id="updateItemModal" class="modal">
   <div class="modal-content">
     <span class="close-btn" onclick="closeUpdateModal()">&times;</span>
-    <iframe src="<%=request.getContextPath()%>/UpdateItem" class="modal-iframe"></iframe>
+    <iframe src="<%=request.getContextPath()%>/EditItem" class="modal-iframe"></iframe>
   </div>
 </div>
 

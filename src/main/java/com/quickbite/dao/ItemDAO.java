@@ -113,24 +113,60 @@ public class ItemDAO {
     }
 	
 	
-    
-    // Update existing item
-    public boolean updateItem(Item item) {
-        String sql = "UPDATE Item SET item_name=?, category=?, item_type=?, item_description=?, item_status=?, item_ingredient=?, item_allergy=?, item_image=?, price=?, outlet_id=? WHERE item_id=?";
+	public Item getItemById(int itemId) {
+        String sql = "SELECT * FROM item WHERE item_id = ?";
         try (Connection conn = DBconfig.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, item.getItemName());
-            ps.setString(2, item.getCategory());
-            ps.setString(3, item.getItemType());
-            ps.setString(4, item.getItemDescription());
-            ps.setString(5, item.getItemStatus());
-            ps.setString(6, item.getItemIngredient());
-            ps.setString(7, item.getItemAllergy());
-            ps.setString(8, item.getItemImage());
-            ps.setInt(11, item.getItemId());
-            return ps.executeUpdate() > 0;
-        } catch (SQLException e) { e.printStackTrace(); return false; }
+            
+            ps.setInt(1, itemId);
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return new Item(
+                        rs.getInt("item_id"),
+                        rs.getString("item_name"),
+                        rs.getString("category"),
+                        rs.getString("item_type"),
+                        rs.getString("item_description"),
+                        rs.getString("item_status"),
+                        rs.getString("item_ingredient"),
+                        rs.getString("item_allergy"),
+                        rs.getString("item_image")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
+	
+    
+    // Update existing item
+	public boolean updateItem(Item item) {
+	    String sql = "UPDATE item SET item_name=?, category=?, item_type=?, item_description=?, "
+	               + "item_status=?, item_ingredient=?, item_allergy=?, item_image=? "
+	               + "WHERE item_id=?";
+
+	    try (Connection conn = DBconfig.getConnection();
+	         PreparedStatement ps = conn.prepareStatement(sql)) {
+
+	        ps.setString(1, item.getItemName());
+	        ps.setString(2, item.getCategory());
+	        ps.setString(3, item.getItemType());
+	        ps.setString(4, item.getItemDescription());
+	        ps.setString(5, item.getItemStatus());
+	        ps.setString(6, item.getItemIngredient());
+	        ps.setString(7, item.getItemAllergy());
+	        ps.setString(8, item.getItemImage());
+	        ps.setInt(9, item.getItemId());
+
+	        return ps.executeUpdate() > 0;
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
     
     // Delete an item
     public boolean deleteItem(int itemId) {
