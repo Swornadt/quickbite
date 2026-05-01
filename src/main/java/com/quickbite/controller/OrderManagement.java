@@ -37,7 +37,13 @@ public class OrderManagement extends HttpServlet {
 		OrderOutletItemDAO dao = new OrderOutletItemDAO();
 		List<OrderOutletItem> orders = dao.getOrdersByOutlet(outletId);
 		
-		request.setAttribute("orders", orders);
+		List<OrderOutletItem> pending = dao.getOrderByStatus(orders, 0);
+		List<OrderOutletItem> ongoing = dao.getOrderByStatus(orders, 1);
+		List<OrderOutletItem> complete = dao.getOrderByStatus(orders, 2);
+		
+		request.setAttribute("pending", pending);
+		request.setAttribute("ongoing", ongoing);
+		request.setAttribute("complete", complete);
 		request.getRequestDispatcher("/WEB-INF/views/staff/order-management.jsp").forward(request,response);
 	}
 
