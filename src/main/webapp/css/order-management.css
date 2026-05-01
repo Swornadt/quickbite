@@ -15,3 +15,28 @@ body {
     margin: 0;
     padding: 20px;
 }
+
+.orderStatus {
+    border: 1px solid #e5e7eb;
+    border-radius: 9px;
+    padding: 20px;
+    margin-bottom: 35px;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.card {
+    border-radius: 15px;
+    padding: 40px 30px;
+    font-size: 16px;
+}
