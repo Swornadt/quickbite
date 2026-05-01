@@ -32,6 +32,10 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/outlet.css" />
   </head>
   <body>
+  
+  <!-- Header -->
+  <%@ include file="../common/navbar1.jsp" %>
+  
     <main class="app-container">
       <header class="hero">
         <h1>QuickBite Navigator</h1>
@@ -70,6 +74,8 @@
 		</div>
       </section>
     </main>
+  <!-- Footer -->
+  <%@ include file="../common/footer.jsp" %>
 
     <script>
     function selectLocation(element, id, name) {
