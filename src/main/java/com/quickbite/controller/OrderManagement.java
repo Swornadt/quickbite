@@ -5,7 +5,12 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
+import java.util.List;
 import java.io.IOException;
+
+import com.quickbite.dao.OrderOutletItemDAO;
+import com.quickbite.model.OrderOutletItem;
 
 /**
  * Servlet implementation class OrderManagement
@@ -26,7 +31,13 @@ public class OrderManagement extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		//session stores attibutes as object
+		int outletId = (int) request.getSession().getAttribute("outletId");
+		
+		OrderOutletItemDAO dao = new OrderOutletItemDAO();
+		List<OrderOutletItem> orders = dao.getOrdersByOutlet(outletId);
+		
+		request.setAttribute("orders", orders);
 		request.getRequestDispatcher("/WEB-INF/views/staff/order-management.jsp").forward(request,response);
 	}
 
