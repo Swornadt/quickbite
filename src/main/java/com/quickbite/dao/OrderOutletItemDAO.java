@@ -14,7 +14,7 @@ public class OrderOutletItemDAO {
 
 	public List<OrderOutletItem> getOrdersByOutlet(int outletId) {
         List<OrderOutletItem> list = new ArrayList<>();
-        String sql = "SELECT ooi.order_id, ooi.outlet_id, ooi.item_id, ooi.item_qty, ooi.order_subtotal, o.order_status"
+        String sql = "SELECT ooi.order_id, ooi.outlet_id, ooi.item_id, ooi.item_qty, ooi.order_subtotal, o.order_status "
         		+ "FROM order_outlet_item ooi JOIN `order` o ON ooi.order_id = o.order_id "
         		+ "WHERE ooi.outlet_id = ?";
 
