@@ -44,9 +44,9 @@ public class AdminMenuServlet extends HttpServlet {
         List<OutletItem> outletItems = menuService.getMenuItems(outletIdStr);
         
         // Set attributes
-        request.setAttribute("outlets", outlets);
         request.setAttribute("outletItems", outletItems);
-        request.setAttribute("selectedOutletId", outletIdStr);   // for keeping selection
+        request.setAttribute("outlets", outlets);
+        request.setAttribute("selectedOutletId", outletIdStr);
 
         request.getRequestDispatcher("/WEB-INF/views/admin/admin-menu-view.jsp").forward(request, response);
     }

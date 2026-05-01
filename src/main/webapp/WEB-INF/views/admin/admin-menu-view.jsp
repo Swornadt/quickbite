@@ -49,9 +49,6 @@
                         <!-- Outlet Selector -->
                         <form method="GET" action="<%=request.getContextPath()%>/AdminMenuServlet">
                             <select name="outletId" class="canteen-btn" onchange="this.form.submit()">
-                                <option value="" ${empty selectedOutletId || selectedOutletId == '' ? 'selected' : ''}>
-                                    -- Show All Menu --
-                                </option>
                                 <c:forEach var="outlet" items="${outlets}">
                                     <option value="${outlet.outletId}" 
                                             ${outlet.outletId == selectedOutletId ? 'selected' : ''}>
@@ -88,8 +85,10 @@
             <td>${oi.item.itemDescription}</td>
             <td>${oi.item.itemStatus}</td>
             <td>
-                <button class="edit-btn" 
-                        onclick="openUpdateModal(${oi.item.itemId})">Edit</button>
+                <form action="<%=request.getContextPath()%>/EditItem" method="post" target="updateIframe" style="display: inline;">
+        <input type="hidden" name="itemId" value="${oi.item.itemId}" />
+        <button type="button" class="edit-btn" onclick="this.form.submit(); openUpdateModal()">Edit</button>
+    </form>
                         </td>
                         <td>
                 <button class="delete-btn" 
@@ -124,7 +123,8 @@
 <div id="updateItemModal" class="modal">
   <div class="modal-content">
     <span class="close-btn" onclick="closeUpdateModal()">&times;</span>
-    <iframe src="<%=request.getContextPath()%>/EditItem" class="modal-iframe"></iframe>
+    <iframe name="updateIframe" id="updateIframe" src="" class="modal-iframe" 
+            style="width:100%;  border:none;"></iframe>
   </div>
 </div>
 

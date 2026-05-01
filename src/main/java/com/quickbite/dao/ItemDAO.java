@@ -154,14 +154,17 @@ public class ItemDAO {
 	        ps.setString(1, item.getItemName());
 	        ps.setString(2, item.getCategory());
 	        ps.setString(3, item.getItemType());
-	        ps.setString(4, item.getItemDescription());
-	        ps.setString(5, item.getItemStatus());
-	        ps.setString(6, item.getItemIngredient());
-	        ps.setString(7, item.getItemAllergy());
-	        ps.setString(8, item.getItemImage());
+	        ps.setString(4, item.getItemDescription() != null ? item.getItemDescription() : "");
+	        ps.setString(5, item.getItemStatus() != null ? item.getItemStatus() : "Available");
+	        ps.setString(6, item.getItemIngredient() != null ? item.getItemIngredient() : "");
+	        ps.setString(7, item.getItemAllergy() != null ? item.getItemAllergy() : "");
+	        ps.setString(8, item.getItemImage() != null ? item.getItemImage() : "");
 	        ps.setInt(9, item.getItemId());
 
-	        return ps.executeUpdate() > 0;
+	        int rowsAffected = ps.executeUpdate();
+
+	        return rowsAffected > 0;
+
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	        return false;

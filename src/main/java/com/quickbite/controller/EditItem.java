@@ -1,6 +1,7 @@
 package com.quickbite.controller;
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,6 +20,7 @@ import com.quickbite.utils.ImageUtil;
  * Servlet implementation class UpdateItem
  */
 @WebServlet(asyncSupported = true, urlPatterns = { "/EditItem" })
+@MultipartConfig()
 
 public class EditItem extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -34,15 +36,17 @@ public class EditItem extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
 
-        try {
-            String itemIdStr = request.getParameter("itemId");
-            if (itemIdStr == null || itemIdStr.isEmpty()) {
-                request.setAttribute("message", "Item ID is missing!");
-                request.getRequestDispatcher("/WEB-INF/views/admin/admin-update-item.jsp").forward(request, response);
-                return;
-            }
+        String itemIdStr = request.getParameter("itemId");
 
-            int itemId = Integer.parseInt(itemIdStr);
+
+        if (itemIdStr == null || itemIdStr.trim().isEmpty()) {
+            request.setAttribute("message", "Item ID is missing!");
+            request.getRequestDispatcher("/WEB-INF/views/admin/admin-update-item.jsp").forward(request, response);
+            return;
+        }
+
+        try {
+            int itemId = Integer.parseInt(itemIdStr.trim());
 
             ItemDAO itemDAO = new ItemDAO();
             Item item = itemDAO.getItemById(itemId);
@@ -50,7 +54,7 @@ public class EditItem extends HttpServlet {
             if (item != null) {
                 request.setAttribute("item", item);
             } else {
-                request.setAttribute("message", "Item not found!");
+                request.setAttribute("message", "Item not found with ID: " + itemId);
             }
 
             // Load outlets for dropdown
@@ -59,15 +63,15 @@ public class EditItem extends HttpServlet {
 
         } catch (Exception e) {
             e.printStackTrace();
-            request.setAttribute("message", "Error loading item data");
+            request.setAttribute("message", "Error loading item data: " + e.getMessage());
         }
 
         request.getRequestDispatcher("/WEB-INF/views/admin/admin-update-item.jsp").forward(request, response);
     }
 
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
+
 
         try {
             int itemId = Integer.parseInt(request.getParameter("itemId"));
@@ -78,61 +82,50 @@ public class EditItem extends HttpServlet {
             String itemStatus = request.getParameter("itemStatus");
             String itemIngredient = request.getParameter("itemIngredient");
             String itemAllergy = request.getParameter("itemAllergy");
-            String priceStr = request.getParameter("price");
-            String outletIdStr = request.getParameter("outletId");   // if you want to update price too
             String existingImage = request.getParameter("existingImage");
 
-            // Handle image upload
-            Part part = request.getPart("itemImage");
-            ImageUtil imageUtil = new ImageUtil();
-            String imagePath = existingImage; // keep old image by default
+            String imagePath = (existingImage != null && !existingImage.trim().isEmpty()) 
+                                ? existingImage : "";
 
-            if (part != null && part.getSize() > 0) {
-                imagePath = imageUtil.uploadProfileImage(part, "uploads/items", getServletContext());
+            // Handle image upload safely
+            if (request.getContentType() != null && request.getContentType().toLowerCase().contains("multipart")) {
+                try {
+                    Part part = request.getPart("itemImage");
+                    if (part != null && part.getSize() > 0) {
+                        ImageUtil imageUtil = new ImageUtil();
+                        imagePath = imageUtil.uploadProfileImage(part, "uploads/items", getServletContext());
+                        
+                    }
+                } catch (Exception ex) {
+                    System.out.println("DEBUG: No new image or error uploading image");
+                }
             }
 
-            // Create updated Item object
+            // Create Item object
             Item item = new Item(itemId, itemName, category, itemType, 
                                itemDescription, itemStatus, itemIngredient, 
                                itemAllergy, imagePath);
 
+
             ItemDAO itemDAO = new ItemDAO();
-            boolean itemUpdated = itemDAO.updateItem(item);   // We'll improve this method
+            boolean updated = itemDAO.updateItem(item);
 
-            if (itemUpdated) {
-                // Update price in outlet_item if provided
-                if (outletIdStr != null && !outletIdStr.isEmpty() && priceStr != null && !priceStr.isEmpty()) {
-                    try {
-                        int outletId = Integer.parseInt(outletIdStr);
-                        double price = Double.parseDouble(priceStr);
-                        OutletItemDAO outletItemDAO = new OutletItemDAO();
-                        outletItemDAO.addOrUpdateOutletItem(outletId, itemId, price);
-                    } catch (Exception e) {
-                        System.out.println("Price update failed: " + e.getMessage());
-                    }
-                }
-
+            if (updated) {
                 request.setAttribute("message", "Item updated successfully!");
                 request.setAttribute("status", "success");
             } else {
-                request.setAttribute("message", "Failed to update item.");
+                request.setAttribute("message", "Failed to update item in database.");
                 request.setAttribute("status", "error");
             }
 
         } catch (Exception e) {
             e.printStackTrace();
-            request.setAttribute("message", "Error: " + e.getMessage());
+            request.setAttribute("message", "Error updating item: " + e.getMessage());
             request.setAttribute("status", "error");
         }
 
-        // Load outlets again so dropdown doesn't disappear
-        loadOutlets(request);
-        request.getRequestDispatcher("/WEB-INF/views/admin/admin-update-item.jsp").forward(request, response);
+        doGet(request, response);
     }
 
-    private void loadOutlets(HttpServletRequest request) {
-        com.quickbite.dao.OutletDAO outletDAO = new com.quickbite.dao.OutletDAO();
-        request.setAttribute("outlets", outletDAO.getAllOutlets());
-    }
 
 }

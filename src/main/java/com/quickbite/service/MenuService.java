@@ -15,7 +15,6 @@ public class MenuService {
 
     OutletItemDAO outletItemDAO = new OutletItemDAO();
     OutletDAO outletDAO = new OutletDAO();
-    ItemDAO itemDAO = new ItemDAO();
 
     /**
      * Get items based on outlet selection
@@ -24,27 +23,24 @@ public class MenuService {
      */
     public List<OutletItem> getMenuItems(String outletIdStr) {
         if (outletIdStr == null || outletIdStr.trim().isEmpty()) {
-            // Show All Menu → Convert List<Item> to List<OutletItem> with dummy price
-            List<Item> items = itemDAO.getAllItems();
-            List<OutletItem> outletItems = new ArrayList<>();
-            
-            for (Item item : items) {
-                outletItems.add(new OutletItem(item, 0.0));
+            // Default to first outlet if none selected
+            List<Outlet> outlets = outletDAO.getAllOutlets();
+            if (!outlets.isEmpty()) {
+                return outletItemDAO.getItemsByOutlet(outlets.get(0).getOutletId());
             }
-            return outletItems;
-        } else {
-            try {
-                int outletId = Integer.parseInt(outletIdStr.trim());
-                return outletItemDAO.getItemsByOutlet(outletId);
-            } catch (NumberFormatException e) {
-                // fallback
-                List<Item> items = itemDAO.getAllItems();
-                List<OutletItem> outletItems = new ArrayList<>();
-                for (Item item : items) {
-                    outletItems.add(new OutletItem(item, 0.0));
-                }
-                return outletItems;
+            return List.of(); // empty list if no outlets
+        } 
+
+        try {
+            int outletId = Integer.parseInt(outletIdStr.trim());
+            return outletItemDAO.getItemsByOutlet(outletId);
+        } catch (NumberFormatException e) {
+            // fallback to first outlet
+            List<Outlet> outlets = outletDAO.getAllOutlets();
+            if (!outlets.isEmpty()) {
+                return outletItemDAO.getItemsByOutlet(outlets.get(0).getOutletId());
             }
+            return List.of();
         }
     }
 
