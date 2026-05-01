@@ -5,9 +5,26 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Order Management</title>
 </head>
 <body>
-
+<div class="orderStatus">
+	<h2 class="title">Pending Orders</h2>
+	<div class="cards">
+		<div class="orderID">Order</div>
+	</div>
+</div> 
+<div class="orderStatus">
+	<h2 class="title">Ongoing Orders</h2>
+	<div class="cards">
+		<div class="orderID">Order</div>
+	</div>
+</div> 
+<div class="orderStatus">
+	<h2 class="title">Completed Orders</h2>
+	<div class="cards">
+		<div class="orderID">Order</div>
+	</div>
+</div> 
 </body>
 </html>
