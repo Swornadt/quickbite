@@ -47,6 +47,39 @@ public class OutletItemDAO {
 		return outletItems;
 	}
 	
+	public List<OutletItem> getAllOutletItems() {
+        List<OutletItem> outletItems = new ArrayList<>();
+        String sql = "SELECT i.*, oi.outlet_item_price, oi.outlet_id " +
+                     "FROM item i " +
+                     "JOIN outlet_item oi ON i.item_id = oi.item_id " +
+                     "ORDER BY i.item_name";
+        
+        try (Connection conn = DBconfig.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            
+            while (rs.next()) {
+                Item item = new Item(
+                    rs.getInt("item_id"),
+                    rs.getString("item_name"),
+                    rs.getString("category"),
+                    rs.getString("item_type"),
+                    rs.getString("item_description"),
+                    rs.getString("item_status"),
+                    rs.getString("item_ingredient"),
+                    rs.getString("item_allergy"),
+                    rs.getString("item_image")
+                );
+                OutletItem outletItem = new OutletItem(item, rs.getDouble("outlet_item_price"));
+                outletItems.add(outletItem);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error in getAllOutletItems: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return outletItems;
+    }
+	
 	// Add or Update price for an item in a specific outlet
 	public boolean addOrUpdateOutletItem(int outletId, int itemId, double price) {
 

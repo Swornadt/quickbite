@@ -47,12 +47,19 @@
                         <h2>Menu Management</h2>
                         
                         <!-- Outlet Selector -->
-                        <select class="canteen-btn" id="outletSelector" onchange="loadItemsByOutlet()">
-                            <option value="" disabled selected>-- Choose a location --</option>
-                            <c:forEach var="outlet" items="${outlets}">
-                                <option value="${outlet.outletId}">${outlet.outletName}</option>
-                            </c:forEach>
-                        </select>
+                        <form method="GET" action="<%=request.getContextPath()%>/AdminMenuServlet">
+                            <select name="outletId" class="canteen-btn" onchange="this.form.submit()">
+                                <option value="" ${empty selectedOutletId || selectedOutletId == '' ? 'selected' : ''}>
+                                    -- Show All Menu --
+                                </option>
+                                <c:forEach var="outlet" items="${outlets}">
+                                    <option value="${outlet.outletId}" 
+                                            ${outlet.outletId == selectedOutletId ? 'selected' : ''}>
+                                        ${outlet.outletName}
+                                    </option>
+                                </c:forEach>
+                            </select>
+                        </form>
                         
                         <button class="add-item-btn" onclick="openAddModal()">+ Add Item</button>
                     </header>
@@ -130,6 +137,7 @@
 </div>
 
 <script>
+
 function openAddModal() {
   document.getElementById("addItemModal").style.display = "block";
 }

@@ -12,6 +12,7 @@ import com.quickbite.dao.OutletDAO;
 import com.quickbite.dao.OutletItemDAO;
 import com.quickbite.model.Outlet;
 import com.quickbite.model.OutletItem;
+import com.quickbite.service.MenuService;
 
 /**
  * Servlet implementation class AdminMenuServlet
@@ -34,35 +35,18 @@ public class AdminMenuServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
     	
-    	OutletItemDAO outletItemDAO = new OutletItemDAO();
-    	OutletDAO outletDAO = new OutletDAO();
+    	MenuService menuService = new MenuService();
 
-        String outletIdStr = request.getParameter("outletId");
+    	String outletIdStr = request.getParameter("outletId");
 
-        // Load all outlets for dropdown
-        List<Outlet> outlets = outletDAO.getAllOutlets();
+        // Get data through Service
+        List<Outlet> outlets = menuService.getAllOutlets();
+        List<OutletItem> outletItems = menuService.getMenuItems(outletIdStr);
+        
+        // Set attributes
         request.setAttribute("outlets", outlets);
-
-        List<OutletItem> outletItems = null;
-
-        if (outletIdStr != null && !outletIdStr.isEmpty()) {
-            try {
-                int outletId = Integer.parseInt(outletIdStr);
-                outletItems = outletItemDAO.getItemsByOutlet(outletId);
-                request.setAttribute("selectedOutletId", outletId);
-            } catch (NumberFormatException e) {
-                e.printStackTrace();
-            }
-        } else {
-            // If no outlet selected, load from first outlet (optional)
-            if (!outlets.isEmpty()) {
-                int firstOutletId = outlets.get(0).getOutletId();
-                outletItems = outletItemDAO.getItemsByOutlet(firstOutletId);
-                request.setAttribute("selectedOutletId", firstOutletId);
-            }
-        }
-
         request.setAttribute("outletItems", outletItems);
+        request.setAttribute("selectedOutletId", outletIdStr);   // for keeping selection
 
         request.getRequestDispatcher("/WEB-INF/views/admin/admin-menu-view.jsp").forward(request, response);
     }
