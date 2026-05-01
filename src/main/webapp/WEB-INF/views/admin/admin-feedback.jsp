@@ -19,9 +19,6 @@
     <div class="container">
         <h1>Feedbacks</h1>
 
-        <div class="header">
-            <div class="date-range">All Feedbacks</div>
-        </div>
 
         <!-- Stats Section -->
         <div class="stats">
