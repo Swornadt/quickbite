@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
@@ -11,6 +10,9 @@
 </head>
 <body>
 
+<!-- Header -->
+<%@ include file="../common/navbar1.jsp" %>
+	
 <div class="main-container">
         <div class="canteen-name">
             <h1>${outlet.outletName}</h1>
@@ -65,8 +67,9 @@
 	                <input type="hidden" name="itemId" value="${item.item.itemId}">
 		            <input type="hidden" name="itemName" value="${item.item.itemName}">
 		            <input type="hidden" name="unitPrice" value="${item.outletItemPrice}">
-		            <input type="hidden" name="outletId" value="${outlet}"> <input type="hidden" name="quantity" value="1">
+		            <input type="hidden" name="outletId" value="${outlet.outletId}"> <input type="hidden" name="quantity" value="1">
 				    <input type="hidden" name="itemId" value="${item.item.itemId}">
+				    <input type="hidden" name="outletName" value="${outlet.outletName}">
 				    
 				    <button type="submit" class="Add-to-Cart">
 				    <span class="btn-text">Add to Cart</span>
@@ -78,6 +81,8 @@
 	</div>
 </div>
 
+<!-- Footer -->
+<%@ include file="../common/footer.jsp" %>
 </body>
 
 </html>
