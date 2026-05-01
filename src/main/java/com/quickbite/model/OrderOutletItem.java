@@ -6,14 +6,16 @@ public class OrderOutletItem {
 	 private int itemId;
 	 private int itemQty;
 	 private double orderSubtotal;
+	 private int orderStatus;
 
-	 public OrderOutletItem(int orderId, int outletId, int itemId, int itemQty, double orderSubtotal) {
+	 public OrderOutletItem(int orderId, int outletId, int itemId, int itemQty, double orderSubtotal, int orderStatus) {
 		 this.orderId = orderId;
 		 this.outletId = outletId;
 		 this.itemId = itemId;
 		 this.itemQty = itemQty;
 		 this.orderSubtotal = orderSubtotal;
-	   	}
+		 this.orderStatus = orderStatus;
+	 }
 	 
 	 public int getOrderId() {
 		 return orderId; 
@@ -35,20 +37,8 @@ public class OrderOutletItem {
 		 return orderSubtotal; 
 	 }
 
-	 public void setOrderId(int orderId) {
-		 this.orderId = orderId;
-	 }
-	 
-	 public void setOutletId(int outletId) {
-		 this.outletId = outletId; 
-	 }
-	 
-	 public void setItemId(int itemId) {
-		 this.itemId = itemId; 
-	 }
-	 
-	 public void setItemQty(int itemQty) {
-		 this.itemQty = itemQty;
+	 public double getOrderStatus() {
+		 return orderStatus; 
 	 }
 	 
 	 public void setOrderSubtotal(double orderSubtotal) {
