@@ -24,7 +24,7 @@ public class OrderOutletItemDAO {
 
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                	OrderOutletItem item = new OrderOutletItem(
+                	OrderOutletItem order = new OrderOutletItem(
                 			rs.getInt("order_id"),
                 	        rs.getInt("outlet_id"),
                 	        rs.getInt("item_id"),
@@ -32,7 +32,7 @@ public class OrderOutletItemDAO {
                 	        rs.getDouble("order_subtotal"),
                 	        rs.getInt("order_status")
                 	    );
-                	    list.add(item);
+                	    list.add(order);
                 	}
             }
         } catch (SQLException e) {
@@ -40,5 +40,17 @@ public class OrderOutletItemDAO {
         }
         return list;
     }
+	
+	public List<OrderOutletItem> getOrderByStatus(List<OrderOutletItem> orders, int status) {
+	    List<OrderOutletItem> list = new ArrayList<>();
+
+	    for (OrderOutletItem order : orders) {
+	        if (order.getOrderStatus() == status) {
+	            list.add(order);
+	        }
+	    }
+
+	    return list;
+	}
 }
 
