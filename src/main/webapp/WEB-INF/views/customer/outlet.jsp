@@ -32,6 +32,10 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/outlet.css" />
   </head>
   <body>
+  
+  <!-- Header -->
+  <%@ include file="../common/navbar1.jsp" %>
+  
     <main class="app-container">
       <header class="hero">
         <h1>QuickBite Navigator</h1>
@@ -55,13 +59,14 @@
 		                String photoClass = hasPhoto ? "card-with-photo" : "";
 		                String styleAttr = hasPhoto ? "style=\"--bg-image: url('" + photo + "');\"" : "";
 		    %>
-		    <a href="${pageContext.request.contextPath}/location-menu?outletId=<%=id%>" style="text-decoration: none; color: inherit; width: 30%;"></a>
+		    <a href="<%= request.getContextPath() %>/outlet/<%= name %>" style="text-decoration: none; color: inherit; width: 30%;">
 				<div class="location-card <%= photoClass %>" 
 		             onclick="selectLocation(this, '<%= id %>', '<%= name %>')"
 		             <%= styleAttr %>>
 		            
 		            <span class="location-name"><%= name %></span>
 		        </div>
+		    </a>
 			<%
 		            }
 		        }
@@ -69,6 +74,8 @@
 		</div>
       </section>
     </main>
+  <!-- Footer -->
+  <%@ include file="../common/footer.jsp" %>
 
     <script>
     function selectLocation(element, id, name) {

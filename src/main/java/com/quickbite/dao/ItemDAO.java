@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import com.quickbite.model.Item;
 import com.quickbite.utils.DBconfig;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,7 +14,7 @@ public class ItemDAO {
 	
 	public List<Item> getAllItems(){
 		List<Item> itemList= new ArrayList<>();
-		String sql = "SELECT * FROM Item";
+		String sql = "SELECT * FROM item";
 		
 		try (Connection conn = DBconfig.getConnection();
 		      PreparedStatement ps = conn.prepareStatement(sql);
@@ -43,82 +44,24 @@ public class ItemDAO {
 		return itemList;
 	}
 	
-	public boolean addItem(Item item) {
-        String sql = "INSERT INTO Item (item_name, category, item_type, item_description, item_status, item_ingredient, item_allergy, item_image) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        try (Connection conn = DBconfig.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, item.getItemName());
-            ps.setString(2, item.getCategory());
-            ps.setString(3, item.getItemType());
-            ps.setString(4, item.getItemDescription());
-            ps.setString(5, item.getItemStatus());
-            ps.setString(6, item.getItemIngredient());
-            ps.setString(7, item.getItemAllergy());
-            ps.setString(8, item.getItemImage());
-            return ps.executeUpdate() > 0;
-        } catch (SQLException e) { e.printStackTrace(); return false; }
-    }
-    
-    // Get all items filtered by outlet
-    public List<Item> getItemsByOutletId(int outletId) {
-        List<Item> itemList = new ArrayList<>();
-        String sql = "SELECT * FROM Item WHERE outlet_id = ?";
-        try (Connection conn = DBconfig.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, outletId);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                itemList.add(new Item(rs.getInt("item_id"), rs.getString("item_name"), rs.getString("category"),
-                                    rs.getString("item_type"), rs.getString("item_description"), rs.getString("item_status"),
-                                    rs.getString("item_ingredient"), rs.getString("item_allergy"), rs.getString("item_image")
-                                    ));
-            }
-        } catch (SQLException e) { e.printStackTrace(); }
-        return itemList;
-    }
-    
-    // Get single item by ID
-    public Item getItemById(int itemId) {
-        String sql = "SELECT * FROM Item WHERE item_id = ?";
-        try (Connection conn = DBconfig.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, itemId);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                return new Item(rs.getInt("item_id"), rs.getString("item_name"), rs.getString("category"),
-                                    rs.getString("item_type"), rs.getString("item_description"), rs.getString("item_status"),
-                                    rs.getString("item_ingredient"), rs.getString("item_allergy"), rs.getString("item_image")
-                                    );
-            }
-        } catch (SQLException e) { e.printStackTrace(); }
-        return null;
-    }
-    
-    // Update existing item
-    public boolean updateItem(Item item) {
-        String sql = "UPDATE Item SET item_name=?, category=?, item_type=?, item_description=?, item_status=?, item_ingredient=?, item_allergy=?, item_image=?, price=?, outlet_id=? WHERE item_id=?";
-        try (Connection conn = DBconfig.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, item.getItemName());
-            ps.setString(2, item.getCategory());
-            ps.setString(3, item.getItemType());
-            ps.setString(4, item.getItemDescription());
-            ps.setString(5, item.getItemStatus());
-            ps.setString(6, item.getItemIngredient());
-            ps.setString(7, item.getItemAllergy());
-            ps.setString(8, item.getItemImage());
-            ps.setInt(11, item.getItemId());
-            return ps.executeUpdate() > 0;
-        } catch (SQLException e) { e.printStackTrace(); return false; }
-    }
-    
-    // Delete an item
-    public boolean deleteItem(int itemId) {
-        String sql = "DELETE FROM Item WHERE item_id = ?";
-        try (Connection conn = DBconfig.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, itemId);
-            return ps.executeUpdate() > 0;
-        } catch (SQLException e) { e.printStackTrace(); return false; }
-    }
+	public List<String> getCategoriesByOutlet(int outletId){
+		List<String> list = new ArrayList<>();
+		String query = "Select distinct i.category from item i "+"join outlet_item oi on i.item_id=oi.item_id "+"where oi.outlet_id=?";
+		try (Connection conn = DBconfig.getConnection();
+				PreparedStatement ps = conn.prepareStatement(query)){
+						ps.setInt(1, outletId);
+				try(ResultSet rs = ps.executeQuery()){
+					while(rs.next()) {
+						String cat = rs.getString("category");
+						if (cat != null) {
+							list.add(cat);
+						}
+				}
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 }

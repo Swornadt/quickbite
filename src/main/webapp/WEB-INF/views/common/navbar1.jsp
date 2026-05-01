@@ -18,7 +18,7 @@
 	
 	if(currentUser != null) {
 		actionUrl = contextPath + "/logout";
-		formMethod = "post";
+		formMethod = "  post";
 		buttonLabel = "Logout";
 	} else {
 		actionUrl = contextPath + "/login";
@@ -55,52 +55,8 @@
   <body>
     <nav>
     
-    <!--If user isnot  logged in -->
-    <c:if test= "${empty sessionScope.number}">
-      <div class="nav-container">
-        <!-- Navbar left side (logo and hamburger menu)  -->
-        <div class="nav-left">
-          <div class="hamburger-container">
-            <button class="hamburger">
-              <span class="hamburger-line" id="hamburger-first-line"></span>
-              <span class="hamburger-line" id="hamburger-second-line"></span>
-              <span class="hamburger-line" id="hamburger-third-line"></span>
-            </button>
-          </div>
-
-          <a href="#" class="nav-logo-container">
-	            <p class="logo-text">Quick</p>
-	            <p class="logo-text">Bite</p>
-          </a>
-        </div>
-
-        <!-- Center nav links  -->
-        <div class="nav-links">
-          <a href="#" class="nav-link">Home</a>
-          <a href="#" class="nav-link">Location</a>
-          <a href="#" class="nav-link">About Us</a>
-          <a href="${pageContext.request.contextPath}/contact" class="nav-link">Contact</a>
-        </div>
-
-        <!-- Navbar login button  -->
-        <div class="nav-login-btn-container">
-        	<form action="<%= actionUrl %>" method="<%= formMethod %>">
-        		<input class="nav-login-btn" type="submit" value="<%= buttonLabel %>"/>
-        	</form>
-        </div>
-      </div>
-
-      <!-- For Mobile Responsiveness  -->
-      <div class="nav-mobile-menu">
-        <a href="#" class="mobile-nav-link">Home</a>
-        <a href="#" class="mobile-nav-link">Location</a>
-        <a href="#" class="mobile-nav-link">About Us</a>
-        <a href="#" class="mobile-nav-link">Contact</a>
-      </div>
-    </c:if>
-    
     <!-- If user is logged in -->
-    <c:if test="${not empty sessionScope.number }">
+    <c:if test="${not empty sessionScope.user }">
     	<div class="nav-container">
         <!-- Navbar left side (logo and hamburger menu)  -->
         <div class="nav-left">
@@ -112,7 +68,7 @@
             </button>
           </div>
 
-          <a href="#" class="nav-logo-container">
+          <a href="<%=request.getContextPath()%>/home" class="nav-logo-container">
             <span class="logo-text">Quick</span>
             <span class="logo-text">Bite</span>
           </a>
@@ -121,13 +77,13 @@
         <!-- Navbar right side  -->
         <div class="nav-right">
           <div class="loggedin-nav-links">
-            <a href="#" class="nav-link">Menu</a>
-            <a href="#" class="nav-link">Contact Us</a>
+            <a href="<%=request.getContextPath()%>/outlets" class="nav-link">Location</a>
+            <a href="<%=request.getContextPath()%>/ContactServlet" class="nav-link">Contact Us</a>
           </div>
 
           <div class="nav-symbols">
             <i class="fa-solid fa-bell" id="nav-bell"></i>
-            <i class="fa-solid fa-cart-shopping" id="nav-cart"></i>
+            <a href="${pageContext.request.contextPath}/cart" class="fa-solid fa-cart-shopping" id="nav-cart"></a>
           </div>
 
           <div class="nav-image-container">
@@ -142,14 +98,68 @@
 
       <!-- For Mobile Responsiveness  -->
       <div class="nav-mobile-menu">
-        <a href="#" class="mobile-nav-link">Menu</a>
-        <a href="#" class="mobile-nav-link">Contact Us</a>
+        <a href="<%=request.getContextPath()%>/outlet" class="mobile-nav-link">Outlet</a>
+        <a href="<%=request.getContextPath()%>/contact" class="mobile-nav-link">Contact Us</a>
       </div>
     </c:if>
+    
+    <!--If user is not  logged in -->
+    <c:if test= "${empty sessionScope.user}">
+      <div class="nav-container">
+        <!-- Navbar left side (logo and hamburger menu)  -->
+        <div class="nav-left">
+          <div class="hamburger-container">
+            <button class="hamburger">
+              <span class="hamburger-line" id="hamburger-first-line"></span>
+              <span class="hamburger-line" id="hamburger-second-line"></span>
+              <span class="hamburger-line" id="hamburger-third-line"></span>
+            </button>
+          </div>
+
+          <a href="<%=request.getContextPath()%>/home" class="nav-logo-container">
+	            <p class="logo-text">Quick</p>
+	            <p class="logo-text">Bite</p>
+          </a>
+        </div>
+
+        <!-- Center nav links  -->
+        <div class="nav-links">
+          <a href="<%=request.getContextPath()%>/home" class="nav-link">Home</a>
+          <a href="<%=request.getContextPath()%>/outlets" class="nav-link">Location</a>
+          <a href="<%=request.getContextPath()%>/about" class="nav-link">About Us</a>
+          <a href="${pageContext.request.contextPath}/contact" class="nav-link">Contact</a>
+        </div>
+
+        <!-- Navbar login button  -->
+        <div class="nav-login-btn-container">
+        	<form action="<%= actionUrl %>" method="<%= formMethod %>">
+        		<input class="nav-login-btn" type="submit" value="<%= buttonLabel %>"/>
+        	</form>
+        </div>
+      </div>
+
+      <!-- For Mobile Responsiveness  -->
+      <div class="nav-mobile-menu">
+        <a href="<%=request.getContextPath()%>/home" class="mobile-nav-link">Home</a>
+        <a href="<%=request.getContextPath()%>/outlets" class="mobile-nav-link">Location</a>
+        <a href="<%=request.getContextPath()%>/about" class="mobile-nav-link">About Us</a>
+        <a href="<%=request.getContextPath()%>/contact" class="mobile-nav-link">Contact</a>
+      </div>
+    </c:if>
+
     </nav>
     
     <div class="below-nav"></div>
 	
+	<!-- Toast Notification  -->
+	<div id="cart-toast" class="toast">
+	    <div class="toast-content">
+	        <i class="fa-solid fa-circle-check"></i>
+	        <span>Item added to cart!</span>
+	    </div>
+	</div>
+	
     <script src="<%=request.getContextPath() %>/js/navbar.js"></script>
+    <script src="${pageContext.request.contextPath}/js/toast.js"></script>
   </body>
 </html>

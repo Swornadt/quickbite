@@ -38,23 +38,6 @@ public class CheckoutServlet extends HttpServlet {
 		
 		// fetch cart items using service layer
 		List<CartItemModel> cartItems = cartService.getCart(session);
-		
-//		// SIMULATION START: Manually creating a cart
-//		List<CartItemModel> mockCart = new ArrayList<>();
-//		mockCart.add(new CartItemModel(1, 1, "Samosa", 25.00, 2));
-//	    mockCart.add(new CartItemModel(2, 1, "Veg Thukpa", 120.00, 1));
-//	    mockCart.add(new CartItemModel(5, 2, "Iced Americano", 180.00, 1));
-//	    session.setAttribute("cart", mockCart);
-//	    double subtotal = 0;
-//	    for (CartItemModel item : mockCart) {
-//	        subtotal += item.getUnitPrice() * item.getQuantity();
-//	    }
-//	    request.setAttribute("cartItems", mockCart);
-//	    request.setAttribute("subtotal", subtotal);
-//	    request.setAttribute("locationOfFood", "Multiple Outlets");
-//
-//	    request.getRequestDispatcher("/WEB-INF/views/customer/checkout.jsp").forward(request, response);
-//	    // SIMULATION END
 	    
 		// calculations
 		double subtotal = 0;
@@ -76,6 +59,7 @@ public class CheckoutServlet extends HttpServlet {
 		
 		if (session == null || session.getAttribute("user")==null) {
 			response.sendRedirect(request.getContextPath()+"/login");
+			System.out.println("User session null! checkoutservlet");
 			return;
 		}
 		
@@ -84,6 +68,11 @@ public class CheckoutServlet extends HttpServlet {
 		String deliveryDate = request.getParameter("deliveryDate");
 		String timeSlot = request.getParameter("deliveryTimeSlot");
 	    String specialInstructions = request.getParameter("specialInstructions");
+	    
+	    // for asap:
+	    if ("asap".equals(deliveryTimeType)) {
+	    	specialInstructions = "[ASAP] "+(specialInstructions != null ? specialInstructions : "");
+	    }
 	    
 	    // get cart and user
 	    List<CartItemModel> cart = cartService.getCart(session);
@@ -99,7 +88,7 @@ public class CheckoutServlet extends HttpServlet {
 	    	
 	    	if (success) {
 	    		session.removeAttribute("cart");
-	    		response.sendRedirect(request.getContextPath()+"/order-success"); //TODO: put correct path
+	    		response.sendRedirect(request.getContextPath()+"/home?orderStatus=success");
 	    	} else {
 	    		request.setAttribute("error", "Could not proccess order. Please try again.");
 	    		doGet(request, response);
