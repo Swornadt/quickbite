@@ -11,13 +11,13 @@ import java.io.IOException;
  * Servlet implementation class CustomerOrderHistory
  */
 @WebServlet(asyncSupported = true, urlPatterns = { "/CustomerOrderHistory" })
-public class CustomerOrderHistory extends HttpServlet {
+public class CustomerOrderHistoryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CustomerOrderHistory() {
+    public CustomerOrderHistoryServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
