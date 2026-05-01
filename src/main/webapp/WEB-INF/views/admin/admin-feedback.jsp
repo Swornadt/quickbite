@@ -20,7 +20,6 @@
         <h1>Feedbacks</h1>
 
         <div class="header">
-            <button class="filter-btn">Filter</button>
             <div class="date-range">All Feedbacks</div>
         </div>
 
