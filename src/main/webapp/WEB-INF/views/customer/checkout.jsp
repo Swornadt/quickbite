@@ -118,21 +118,25 @@
     <div class="right-container">
         <h3 class="cart-summary-title">MY CART</h3>
 
-        <div class="cart-location-banner">
-            <span>${not empty locationOfFood ? locationOfFood : 'Location of Food'}</span>
-        </div>
-
         <div class="cart-items-list">
             <c:choose>
-            	<c:when test="${not empty cartItems}">
-            		<c:forEach var="item" items="${cartItems}">
-            			<div class="cart-item-row">
-			                <span class="cart-item-qty">${item.quantity}x</span>
-			                <span class="cart-item-name">${item.itemName}</span>
-			                <span class="cart-item-price">
-			                	Rs. <fmt:formatNumber value="${item.totalPrice}" pattern="#,##0.00"/>
-							</span>
-			            </div>
+            	<c:when test="${not empty groupedCart}">
+            		
+            		<c:forEach var="entry" items="${groupedCart}">
+	            		
+	            		<div class="cart-location-banner">
+	                    	<span>${entry.key}</span>
+	                	</div>
+	                	
+	                	<c:forEach var="item" items="${entry.value}">
+	            			<div class="cart-item-row">
+				                <span class="cart-item-qty">${item.quantity}x</span>
+				                <span class="cart-item-name">${item.itemName}</span>
+				                <span class="cart-item-price">
+				                	Rs. <fmt:formatNumber value="${item.totalPrice}" pattern="#,##0.00"/>
+								</span>
+				            </div>
+	                	</c:forEach>
             		</c:forEach>
             	</c:when>
             	<c:otherwise>

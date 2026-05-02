@@ -6,8 +6,12 @@ import com.quickbite.model.UserModel;
 import com.quickbite.utils.DBconfig;
 
 import jakarta.servlet.http.HttpSession;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -72,5 +76,11 @@ public class CartService {
 	    }
 
 	    return orderDAO.createOrder(user.getUserId(), cart, specialInstructions);
+	}
+	
+	public Map<String, List<CartItemModel>> getGroupedCart(HttpSession session) {
+		List<CartItemModel> cart = getCart(session);
+		
+		return cart.stream().collect(Collectors.groupingBy(CartItemModel::getOutletName));
 	}
 }
