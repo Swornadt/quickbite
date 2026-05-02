@@ -1,6 +1,7 @@
 package com.quickbite.controller;
 
 import jakarta.servlet.ServletException;
+
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -72,13 +73,13 @@ public class CartServlet extends HttpServlet {
 			// extract data
 			int itemId = Integer.parseInt(request.getParameter("itemId"));
             int outletId = Integer.parseInt(request.getParameter("outletId"));
+            String outletName = request.getParameter("outletName");
             String itemName = request.getParameter("itemName");
             double unitPrice = Double.parseDouble(request.getParameter("unitPrice"));
             int quantity = Integer.parseInt(request.getParameter("quantity"));
-            String outletName = request.getParameter("outletName");
             
             // create model
-            CartItemModel newItem = new CartItemModel(itemId, outletId, itemName, unitPrice, quantity);
+            CartItemModel newItem = new CartItemModel(itemId, outletId, outletName, itemName, unitPrice, quantity);
             
             // update session via service
             HttpSession session = request.getSession(); 

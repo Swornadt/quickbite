@@ -12,9 +12,9 @@ import com.quickbite.utils.DBconfig;
 
 public class OrderDAO {
 
-	public boolean createOrder(int userId, List<CartItemModel> cart, String instructions) {
-		String orderSql = "INSERT INTO `order` (user_id, order_date, order_status, order_note)"
-				+ "VALUES (?, NOW(), 0, ?)";
+	public boolean createOrder (int userId, List<CartItemModel> cart, String instructions, String preferredDate) {
+		String orderSql = "INSERT INTO `order` (user_id, order_date, order_status, order_note, preferred_date)"
+							+ "VALUES (?, NOW(), 0, ?, ?)";
 		String itemSql = "INSERT INTO order_outlet_item (order_id, outlet_id, item_id, item_qty, order_subtotal)"
 				+ "VALUES (?, ?, ?, ?, ?)";
 
@@ -27,6 +27,7 @@ public class OrderDAO {
 			PreparedStatement ps1 = conn.prepareStatement(orderSql, Statement.RETURN_GENERATED_KEYS);
 			ps1.setInt(1, userId);
 			ps1.setString(2, instructions);
+			ps1.setString(3, preferredDate);
 			ps1.executeUpdate();
 
 			// get generated orderID
