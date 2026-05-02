@@ -26,6 +26,20 @@ public class Item {
     this.itemAllergy = itemAllergy;
     this.itemImage = itemImage;
 }
+    
+    //Without ItemId for adding items
+    public Item(String itemName, String category, String itemType,
+            String itemDescription, String itemStatus, String itemIngredient,
+            String itemAllergy, String itemImage) {
+    this.itemName = itemName;
+    this.category = category;
+    this.itemType = itemType;
+    this.itemDescription = itemDescription;
+    this.itemStatus = itemStatus;
+    this.itemIngredient = itemIngredient;
+    this.itemAllergy = itemAllergy;
+    this.itemImage = itemImage;
+}
 	
 	//Getters - to retrieve data from DB
     public int getItemId() { 

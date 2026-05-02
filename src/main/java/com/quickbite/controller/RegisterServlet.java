@@ -1,22 +1,32 @@
 package com.quickbite.controller;
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
+
 import java.io.IOException;
 
 import java.time.LocalDate;
 
 import com.quickbite.service.RegisterService;
+import com.quickbite.utils.ImageUtil;
 /**
  * Servlet implementation class RegisterServlet
  */
+
+
+
+
+
 @WebServlet(asyncSupported = true, urlPatterns = { "/register" })
+@MultipartConfig
 public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -49,16 +59,20 @@ public class RegisterServlet extends HttpServlet {
         String confirmpass= request.getParameter("confirmpass");
         String terms= request.getParameter("terms");
         
+        //Image Upload
+        ImageUtil imageUtil = new ImageUtil();
+        Part filePart = request.getPart("image");
         
-        //Checking for empty values
-        if (fname == null || fname.trim().isEmpty() ||
+        String imagePath = imageUtil.uploadProfileImage(filePart, "uploads", getServletContext());
+		
+		if (fname == null || fname.trim().isEmpty() ||
                 lname == null || lname.trim().isEmpty() ||
                 number == null || number.trim().isEmpty() ||
                 email == null || email.trim().isEmpty() ||
                 gender == null || gender.trim().isEmpty() ||
                 dob == null || dob.trim().isEmpty() ||
                 newpass == null || newpass.trim().isEmpty() ||
-                confirmpass == null || confirmpass.trim().isEmpty()) {
+                confirmpass == null || confirmpass.trim().isEmpty()){
         	request.setAttribute("error", "All fields are required.");
         	request.getRequestDispatcher("/WEB-INF/views/auth/register.jsp").forward(request,response);
         	return;
@@ -133,7 +147,7 @@ public class RegisterServlet extends HttpServlet {
         
         try {
         	RegisterService service = new RegisterService();
-        	service.registerUser(fname, lname, number, email, gender, dob, newpass);
+        	service.registerUser(fname, lname, number, email, gender, dob, newpass, imagePath);
         	System.out.println("Registartion successful for:" + fname + " " + lname);
         	request.setAttribute("success", "Registration successful!");
         	request.getRequestDispatcher("/WEB-INF/views/auth/login.jsp").forward(request,response);

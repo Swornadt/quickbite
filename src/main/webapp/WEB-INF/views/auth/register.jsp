@@ -43,7 +43,8 @@
           <form
             class="register-section"
             action="<%=request.getContextPath()%>/register"
-            method="post"
+            method="post" 
+            enctype="multipart/form-data"
           >
             <!-- First Name and Last Name -->
             <div class="register-name">
@@ -127,12 +128,13 @@
               />
             </div>
 
+			<!-- Profile Image -->
             <div class="profile-image">
               <label for="profile-img">Profile Image:</label>
               <input
                 id="profile-img"
                 type="file"
-                name="profileImg"
+                name="image"
                 class="register-input"
               />
             </div>
