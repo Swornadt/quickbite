@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.quickbite.model.CartItemModel;
 import com.quickbite.model.UserModel;
@@ -37,18 +38,16 @@ public class CheckoutServlet extends HttpServlet {
 		}
 		
 		// fetch cart items using service layer
-		List<CartItemModel> cartItems = cartService.getCart(session);
+		Map<String, List<CartItemModel>> groupedCart = cartService.getGroupedCart(session);
+		List<CartItemModel> flatCart = cartService.getCart(session);
 	    
 		// calculations
-		double subtotal = 0;
-		if (cartItems != null) {
-			subtotal = cartItems.stream().mapToDouble(CartItemModel::getTotalPrice).sum();
-		}
+		double subtotal = cartService.calculateSubtotal(flatCart);
+
 		
 		// set attributes
-		request.setAttribute("cartItems", cartItems);
+		request.setAttribute("groupedCart", groupedCart);
 		request.setAttribute("subtotal", subtotal);
-		request.setAttribute("locationOfFood", "Kumari Cafe"); //TODO: send cafe location from dao/session
 		
 		request.getRequestDispatcher("/WEB-INF/views/customer/checkout.jsp").forward(request, response);
 	}
@@ -65,26 +64,33 @@ public class CheckoutServlet extends HttpServlet {
 		
 		// capture form data from jsp
 		String deliveryTimeType = request.getParameter("deliveryTime"); // asap or schedule
-		String deliveryDate = request.getParameter("deliveryDate");
-		String timeSlot = request.getParameter("deliveryTimeSlot");
+		String deliveryDate = request.getParameter("deliveryDate"); // YYYY-MM-DD
+		String timeSlot = request.getParameter("deliveryTimeSlot"); // HH:MM
 	    String specialInstructions = request.getParameter("specialInstructions");
 	    
-	    // for asap:
-	    if ("asap".equals(deliveryTimeType)) {
-	    	specialInstructions = "[ASAP] "+(specialInstructions != null ? specialInstructions : "");
+	    // Encapsulating the date and time for Schedule Later
+	    String finalPreferredDate = null;
+	    
+	    if ("later".equals(deliveryTimeType)) {
+	    	if (deliveryDate != null && !deliveryDate.isEmpty() && timeSlot != null && !timeSlot.isEmpty()) {
+	    		finalPreferredDate = deliveryDate + " " + timeSlot + ":00";
+	    	}
+	    } else {
+	    	specialInstructions = "[ASAP] " + (specialInstructions != null ? specialInstructions : "");
 	    }
+
 	    
 	    // get cart and user
 	    List<CartItemModel> cart = cartService.getCart(session);
 	    UserModel user = (UserModel) session.getAttribute("user");
 	    
 	    if (cart == null || cart.isEmpty()) {
-	    	response.sendRedirect(request.getContextPath()+"/outlet");
+	    	response.sendRedirect(request.getContextPath()+"/outlets");
 	    	return;
 	    }
 	    
 	    try {
-	    	boolean success = cartService.placeOrder(user, cart, specialInstructions, deliveryTimeType, deliveryDate, timeSlot); //pass correct params
+	    	boolean success = cartService.placeOrder(user, cart, specialInstructions, finalPreferredDate);
 	    	
 	    	if (success) {
 	    		session.removeAttribute("cart");

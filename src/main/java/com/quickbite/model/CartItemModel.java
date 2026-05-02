@@ -5,15 +5,17 @@ public class CartItemModel implements Serializable {
 
 	private int itemId;
 	private int outletId;
+	private String outletName;
 	private String itemName;
 	private String itemImage;
 	private double unitPrice;
 	private int quantity;
 	
 	//Constructor
-	public CartItemModel(int itemId, int outletId, String itemName, double unitPrice, int quantity) {
+	public CartItemModel(int itemId, int outletId, String outletName, String itemName, double unitPrice, int quantity) {
 		this.itemId = itemId;
         this.outletId = outletId;
+        this.outletName = outletName;
         this.itemName = itemName;
         this.unitPrice = unitPrice;
         this.quantity = quantity;
@@ -44,6 +46,10 @@ public class CartItemModel implements Serializable {
 		return this.quantity;
 	}
 	
+	public String getOutletName() {
+		return this.outletName;
+	}
+	
 	// Setters - to manipulate data of exiting records
 	public void setItemId(int itemId) {
         this.itemId = itemId;
@@ -67,6 +73,10 @@ public class CartItemModel implements Serializable {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+    
+    public void setOutletName(String outletName) {
+        this.outletName = outletName;
     }
     
     // Helper Method

@@ -18,7 +18,7 @@ import com.quickbite.model.OutletItem;
 /**
  * Servlet implementation class ItemController
  */
-@WebServlet("/outlet/*")
+@WebServlet("/outlets/*")
 public class ItemController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
