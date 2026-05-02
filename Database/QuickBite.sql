@@ -95,7 +95,8 @@ CREATE TABLE `order` (
   `user_id` smallint(5) UNSIGNED NOT NULL,
   `order_date` datetime DEFAULT NULL,
   `order_status` tinyint(3) UNSIGNED NOT NULL,
-  `order_note` varchar(1000) DEFAULT NULL
+  `order_note` varchar(1000) DEFAULT NULL,
+  `preferred_date` datetime DEFAULT NULL,
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------

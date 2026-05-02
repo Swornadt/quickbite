@@ -11,21 +11,27 @@ import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
+import com.quickbite.model.UserModel;
 import com.quickbite.utils.SessionUtil;
 
 /**
  * Servlet Filter implementation class AuthFilter
  */
-@WebFilter("/")
+@WebFilter("/*")
 public class AuthFilter extends HttpFilter implements Filter {
        
 	private static final String LOGIN = "/login";
 	private static final String REGISTER = "/register";
 	private static final String HOME = "/home";
 	private static final String ROOT = "/";
+	
+	// For RBAC
+	private static final String ADMIN = "/admin";
+	private static final String[] CUSTOMER = {"/checkout", "profile"};
 
     public AuthFilter() {
         super();
@@ -39,34 +45,38 @@ public class AuthFilter extends HttpFilter implements Filter {
 		// type cast the req res to the required class
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
+		HttpSession session = req.getSession(false);
 		
-		// get the requested URI
-		String uri = req.getRequestURI();
+		String path = req.getServletPath();
+		UserModel user = (session == null) ? null : (UserModel) session.getAttribute("user");
 		
-		if (uri.endsWith(".css") || uri.endsWith(HOME) || uri.endsWith(ROOT)) {
-			chain.doFilter(request, response);
-			return;
-		}
-		
-		boolean isLoggedIn = (boolean) SessionUtil.getAttribute(req, "username");
-		if (!isLoggedIn) {
-			if (uri.endsWith(LOGIN) || uri.endsWith(REGISTER)) {
-				chain.doFilter(request, response);
-			} else {
-				res.sendRedirect(req.getContextPath()+HOME);
-			}
-		} else {
-			if (uri.endsWith(LOGIN) || uri.endsWith(REGISTER)) {
-				res.sendRedirect(req.getContextPath()+HOME);
-			} else {
-				chain.doFilter(request, response);
+		// Admin Access
+		if (path.startsWith("/admin")) {
+			if (user == null || !"admin".equals(user.getRole())) {
+				res.sendRedirect(req.getContextPath()+"/home");
+				return;
 			}
 		}
+		
+		// Customer Access
+		if (path.startsWith("/checkout") || path.startsWith("/profile")) {
+			if (user == null) {
+				res.sendRedirect(req.getContextPath()+"/login");
+				return;
+			}
+		}
+		
+		// User logged in shouldnt go back to auth pages
+		if (path.equals("/login") || path.equals("/register")) {
+			if (user != null) {
+				res.sendRedirect(req.getContextPath()+"/home");
+				return;
+			}
+		}
+		
+		chain.doFilter(request, response);
 	}
-
-	/**
-	 * @see Filter#init(FilterConfig)
-	 */
+		
 	public void init(FilterConfig fConfig) throws ServletException {
 		// Initialization logic if needed
 		
