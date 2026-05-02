@@ -6,7 +6,6 @@
     <title>QuickBite | About Us</title>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/about-page.css">
 </head>
-
 <body>
 
 <!-- HEADER -->
@@ -86,7 +85,6 @@
 <!-- FOOTER -->
 <%@ include file="../common/footer.jsp" %>
 
-<!-- JS FOR SMOOTH LOOP -->
 <script>
 const slider = document.getElementById("slider");
 
