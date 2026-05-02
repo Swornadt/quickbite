@@ -64,26 +64,33 @@ public class CheckoutServlet extends HttpServlet {
 		
 		// capture form data from jsp
 		String deliveryTimeType = request.getParameter("deliveryTime"); // asap or schedule
-		String deliveryDate = request.getParameter("deliveryDate");
-		String timeSlot = request.getParameter("deliveryTimeSlot");
+		String deliveryDate = request.getParameter("deliveryDate"); // YYYY-MM-DD
+		String timeSlot = request.getParameter("deliveryTimeSlot"); // HH:MM
 	    String specialInstructions = request.getParameter("specialInstructions");
 	    
-	    // for asap:
-	    if ("asap".equals(deliveryTimeType)) {
-	    	specialInstructions = "[ASAP] "+(specialInstructions != null ? specialInstructions : "");
+	    // Encapsulating the date and time for Schedule Later
+	    String finalPreferredDate = null;
+	    
+	    if ("later".equals(deliveryTimeType)) {
+	    	if (deliveryDate != null && !deliveryDate.isEmpty() && timeSlot != null && !timeSlot.isEmpty()) {
+	    		finalPreferredDate = deliveryDate + " " + timeSlot + ":00";
+	    	}
+	    } else {
+	    	specialInstructions = "[ASAP] " + (specialInstructions != null ? specialInstructions : "");
 	    }
+
 	    
 	    // get cart and user
 	    List<CartItemModel> cart = cartService.getCart(session);
 	    UserModel user = (UserModel) session.getAttribute("user");
 	    
 	    if (cart == null || cart.isEmpty()) {
-	    	response.sendRedirect(request.getContextPath()+"/outlet");
+	    	response.sendRedirect(request.getContextPath()+"/outlets");
 	    	return;
 	    }
 	    
 	    try {
-	    	boolean success = cartService.placeOrder(user, cart, specialInstructions, deliveryTimeType, deliveryDate, timeSlot); //pass correct params
+	    	boolean success = cartService.placeOrder(user, cart, specialInstructions, finalPreferredDate);
 	    	
 	    	if (success) {
 	    		session.removeAttribute("cart");
