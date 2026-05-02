@@ -11,14 +11,14 @@ import com.quickbite.model.Outlet;
 import com.quickbite.utils.DBconfig;
 
 public class OutletDAO {
-	public List<Outlet> getAllOutlets(){
+	public List<Outlet> getAllOutlets() {
 		List<Outlet> list = new ArrayList<>();
 		String query = "Select outlet_id, outlet_name, outlet_status, outlet_image from outlet";
-		
-		try(Connection conn = DBconfig.getConnection();
+
+		try (Connection conn = DBconfig.getConnection();
 				PreparedStatement ps = conn.prepareStatement(query);
-				ResultSet rs = ps.executeQuery()){
-			
+				ResultSet rs = ps.executeQuery()) {
+
 			while (rs.next()) {
 				list.add(new Outlet(
 						rs.getInt("outlet_id"),
@@ -26,30 +26,28 @@ public class OutletDAO {
 						rs.getString("outlet_status"),
 						rs.getString("outlet_image")));
 			}
-		}
-		catch (SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return list;
 	}
-	
+
 	public Outlet getOutletByName(String outletName) {
-	    String sql = "SELECT * FROM outlet WHERE outlet_name = ?";
-	    try (Connection conn = DBconfig.getConnection();
-	         PreparedStatement ps = conn.prepareStatement(sql)) {
-	        ps.setString(1, outletName);
-	        ResultSet rs = ps.executeQuery();
-	        if (rs.next()) {
-	            return new Outlet(
-	                rs.getInt("outlet_id"),
-	                rs.getString("outlet_name"),
-	                rs.getString("outlet_status"),
-	                rs.getString("outlet_image")
-	            );
-	        }
-	    } catch (SQLException e) {
-	        System.out.println(e.getMessage());
-	    }
-	    return null;
+		String sql = "SELECT * FROM outlet WHERE outlet_name = ?";
+		try (Connection conn = DBconfig.getConnection();
+				PreparedStatement ps = conn.prepareStatement(sql)) {
+			ps.setString(1, outletName);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				return new Outlet(
+						rs.getInt("outlet_id"),
+						rs.getString("outlet_name"),
+						rs.getString("outlet_status"),
+						rs.getString("outlet_image"));
+			}
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return null;
 	}
 }

@@ -22,26 +22,30 @@ import com.quickbite.utils.ImageUtil;
  * Servlet implementation class AddItem
  */
 @WebServlet(asyncSupported = true, urlPatterns = { "/AddItem" })
-@MultipartConfig(fileSizeThreshold = 1024 * 1-24 * 2, maxFileSize = 1024 * 1024 * 10, maxRequestSize = 1024 * 1024 * 50)
+@MultipartConfig(fileSizeThreshold = 1024 * 1 - 24 * 2, maxFileSize = 1024 * 1024 * 10, maxRequestSize = 1024 * 1024
+        * 50)
 
 public class AddItem extends HttpServlet {
-	private static final long serialVersionUID = 1L;	
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+     *      response)
+     */
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-		OutletDAO outletDAO = new OutletDAO();
+        OutletDAO outletDAO = new OutletDAO();
         List<Outlet> outlets = outletDAO.getAllOutlets();
         request.setAttribute("outlets", outlets);
-		request.getRequestDispatcher("/WEB-INF/views/admin/admin-add-item.jsp").forward(request,response);
-	}
+        request.getRequestDispatcher("/WEB-INF/views/admin/admin-add-item.jsp").forward(request, response);
+    }
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+    /**
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+     *      response)
+     */
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         try {
@@ -49,8 +53,8 @@ public class AddItem extends HttpServlet {
             String priceStr = request.getParameter("price");
             String outletIdStr = request.getParameter("outletId");
 
-            if (itemName == null || itemName.trim().isEmpty() || 
-                priceStr == null || outletIdStr == null) {
+            if (itemName == null || itemName.trim().isEmpty() ||
+                    priceStr == null || outletIdStr == null) {
                 request.setAttribute("message", "Item Name, Price and Outlet are required");
                 request.setAttribute("status", "error");
                 forward(request, response);
@@ -75,15 +79,14 @@ public class AddItem extends HttpServlet {
                 request.setAttribute("message", "Item already exists. Linking to new outlet...");
             } else {
                 Item newItem = new Item(
-                    itemName.trim(),
-                    request.getParameter("category"),
-                    request.getParameter("itemType"),
-                    request.getParameter("itemDescription"),
-                    request.getParameter("itemStatus"),
-                    request.getParameter("itemIngredient"),
-                    request.getParameter("itemAllergy"),
-                    imagePath
-                );
+                        itemName.trim(),
+                        request.getParameter("category"),
+                        request.getParameter("itemType"),
+                        request.getParameter("itemDescription"),
+                        request.getParameter("itemStatus"),
+                        request.getParameter("itemIngredient"),
+                        request.getParameter("itemAllergy"),
+                        imagePath);
 
                 itemId = itemDAO.addItemAndReturnId(newItem);
                 request.setAttribute("message", "New item created successfully!");
@@ -96,8 +99,8 @@ public class AddItem extends HttpServlet {
 
                 // Check if item already exists in this outlet
                 if (outletItemDAO.isItemExistsInOutlet(outletId, itemId)) {
-                    request.setAttribute("message", 
-                        "This item already exists in the selected outlet! Please use Edit option to change price.");
+                    request.setAttribute("message",
+                            "This item already exists in the selected outlet! Please use Edit option to change price.");
                     request.setAttribute("status", "error");
                     loadOutlets(request);
                     forward(request, response);
@@ -107,7 +110,8 @@ public class AddItem extends HttpServlet {
                 boolean linked = outletItemDAO.addOrUpdateOutletItem(outletId, itemId, price);
 
                 if (linked) {
-                	request.setAttribute("message", "Item successfully linked to outlet " + outletId + " with price " + price);
+                    request.setAttribute("message",
+                            "Item successfully linked to outlet " + outletId + " with price " + price);
                     request.setAttribute("status", "success");
                 } else {
                     request.setAttribute("message", "Item saved but failed to link to outlet");
@@ -120,19 +124,19 @@ public class AddItem extends HttpServlet {
             request.setAttribute("message", "Error: " + e.getMessage());
             request.setAttribute("status", "error");
         }
-        
+
         loadOutlets(request);
 
         forward(request, response);
     }
-	
-	private void loadOutlets(HttpServletRequest request) {
+
+    private void loadOutlets(HttpServletRequest request) {
         OutletDAO outletDAO = new OutletDAO();
         java.util.List<com.quickbite.model.Outlet> outlets = outletDAO.getAllOutlets();
         request.setAttribute("outlets", outlets);
     }
 
-    private void forward(HttpServletRequest req, HttpServletResponse resp) 
+    private void forward(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         req.getRequestDispatcher("/WEB-INF/views/admin/admin-add-item.jsp").forward(req, resp);
     }

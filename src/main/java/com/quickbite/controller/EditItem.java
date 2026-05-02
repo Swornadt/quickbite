@@ -23,8 +23,8 @@ import com.quickbite.utils.ImageUtil;
 @MultipartConfig()
 
 public class EditItem extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
+    private static final long serialVersionUID = 1L;
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -32,12 +32,10 @@ public class EditItem extends HttpServlet {
         super();
     }
 
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         String itemIdStr = request.getParameter("itemId");
-
 
         if (itemIdStr == null || itemIdStr.trim().isEmpty()) {
             request.setAttribute("message", "Item ID is missing!");
@@ -69,9 +67,8 @@ public class EditItem extends HttpServlet {
         request.getRequestDispatcher("/WEB-INF/views/admin/admin-update-item.jsp").forward(request, response);
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
 
         try {
             int itemId = Integer.parseInt(request.getParameter("itemId"));
@@ -84,17 +81,18 @@ public class EditItem extends HttpServlet {
             String itemAllergy = request.getParameter("itemAllergy");
             String existingImage = request.getParameter("existingImage");
 
-            String imagePath = (existingImage != null && !existingImage.trim().isEmpty()) 
-                                ? existingImage : "";
+            String imagePath = (existingImage != null && !existingImage.trim().isEmpty())
+                    ? existingImage
+                    : "";
 
-            // Handle image upload safely
+            // Handle image upload
             if (request.getContentType() != null && request.getContentType().toLowerCase().contains("multipart")) {
                 try {
                     Part part = request.getPart("itemImage");
                     if (part != null && part.getSize() > 0) {
                         ImageUtil imageUtil = new ImageUtil();
                         imagePath = imageUtil.uploadProfileImage(part, "uploads/items", getServletContext());
-                        
+
                     }
                 } catch (Exception ex) {
                     System.out.println("No new image or error uploading image");
@@ -102,35 +100,35 @@ public class EditItem extends HttpServlet {
             }
 
             // Create Item object
-            Item item = new Item(itemId, itemName, category, itemType, 
-                               itemDescription, itemStatus, itemIngredient, 
-                               itemAllergy, imagePath);
-
+            Item item = new Item(itemId, itemName, category, itemType,
+                    itemDescription, itemStatus, itemIngredient,
+                    itemAllergy, imagePath);
 
             ItemDAO itemDAO = new ItemDAO();
             boolean updated = itemDAO.updateItem(item);
-            
+
             String outletIdStr = request.getParameter("outletId");
             String priceStr = request.getParameter("price");
-            
+
             boolean priceUpdated = false;
-            if (outletIdStr != null && !outletIdStr.trim().isEmpty() 
-                && priceStr != null && !priceStr.trim().isEmpty()) {
-                
+            if (outletIdStr != null && !outletIdStr.trim().isEmpty()
+                    && priceStr != null && !priceStr.trim().isEmpty()) {
+
                 try {
                     int outletId = Integer.parseInt(outletIdStr.trim());
                     double price = Double.parseDouble(priceStr.trim());
 
                     OutletItemDAO outletItemDAO = new OutletItemDAO();
                     priceUpdated = outletItemDAO.addOrUpdateOutletItem(outletId, itemId, price);
-                    
+
                 } catch (NumberFormatException e) {
                     request.setAttribute("message", "Invalid outlet ID or price format.");
                 }
             }
 
             if (updated) {
-                request.setAttribute("message", "Item updated successfully!" + (priceUpdated ? " Price also updated." : ""));
+                request.setAttribute("message",
+                        "Item updated successfully!" + (priceUpdated ? " Price also updated." : ""));
                 request.setAttribute("status", "success");
             } else {
                 request.setAttribute("message", "Failed to update item in database.");
@@ -145,6 +143,5 @@ public class EditItem extends HttpServlet {
 
         doGet(request, response);
     }
-
 
 }

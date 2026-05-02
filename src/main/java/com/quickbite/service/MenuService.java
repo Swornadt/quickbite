@@ -1,13 +1,9 @@
 package com.quickbite.service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import com.quickbite.dao.ItemDAO;
 import com.quickbite.dao.OutletDAO;
 import com.quickbite.dao.OutletItemDAO;
-import com.quickbite.model.Item;
 import com.quickbite.model.Outlet;
 import com.quickbite.model.OutletItem;
 
@@ -29,7 +25,7 @@ public class MenuService {
                 return outletItemDAO.getItemsByOutlet(outlets.get(0).getOutletId());
             }
             return List.of(); // empty list if no outlets
-        } 
+        }
 
         try {
             int outletId = Integer.parseInt(outletIdStr.trim());
