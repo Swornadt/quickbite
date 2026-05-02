@@ -70,12 +70,12 @@ public class CartService {
         return cart.stream().mapToDouble(CartItemModel::getTotalPrice).sum();
     }
 
-	public boolean placeOrder(UserModel user, List<CartItemModel> cart, String specialInstructions, String deliveryTimeType, String deliveryDate, String timeSlot) throws Exception{
+	public boolean placeOrder(UserModel user, List<CartItemModel> cart, String specialInstructions, String preferredDate) throws Exception{
 		if (user == null || cart == null || cart.isEmpty()) {
 	        return false;
 	    }
 
-	    return orderDAO.createOrder(user.getUserId(), cart, specialInstructions);
+	    return orderDAO.createOrder(user.getUserId(), cart, specialInstructions, preferredDate);
 	}
 	
 	public Map<String, List<CartItemModel>> getGroupedCart(HttpSession session) {
