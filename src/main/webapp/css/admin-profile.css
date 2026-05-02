@@ -92,3 +92,12 @@
 .admin-body .admin-sidenav .active i {
     color: #363636 !important; 
 }
+
+.save-btn{
+	background-color: rgb(219, 74, 30);
+	padding: 4px 10px;
+    color: white;
+    border-radius: 6px;
+    border: none;
+    margin-top: 20px;
+}
