@@ -118,4 +118,24 @@ public class OutletItemDAO {
 	        return false;
 	    }
 	}
+	
+	public boolean isItemExistsInOutlet(int outletId, int itemId) {
+        String sql = "SELECT COUNT(*) FROM outlet_item WHERE outlet_id = ? AND item_id = ?";
+        
+        try (Connection conn = DBconfig.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            
+            ps.setInt(1, outletId);
+            ps.setInt(2, itemId);
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

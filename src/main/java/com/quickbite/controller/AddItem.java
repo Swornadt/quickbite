@@ -94,6 +94,16 @@ public class AddItem extends HttpServlet {
                 int outletId = Integer.parseInt(outletIdStr.trim());
                 double price = Double.parseDouble(priceStr.trim());
 
+                // Check if item already exists in this outlet
+                if (outletItemDAO.isItemExistsInOutlet(outletId, itemId)) {
+                    request.setAttribute("message", 
+                        "This item already exists in the selected outlet! Please use Edit option to change price.");
+                    request.setAttribute("status", "error");
+                    loadOutlets(request);
+                    forward(request, response);
+                    return;
+                }
+
                 boolean linked = outletItemDAO.addOrUpdateOutletItem(outletId, itemId, price);
 
                 if (linked) {

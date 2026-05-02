@@ -97,7 +97,7 @@ public class EditItem extends HttpServlet {
                         
                     }
                 } catch (Exception ex) {
-                    System.out.println("DEBUG: No new image or error uploading image");
+                    System.out.println("No new image or error uploading image");
                 }
             }
 
@@ -109,9 +109,28 @@ public class EditItem extends HttpServlet {
 
             ItemDAO itemDAO = new ItemDAO();
             boolean updated = itemDAO.updateItem(item);
+            
+            String outletIdStr = request.getParameter("outletId");
+            String priceStr = request.getParameter("price");
+            
+            boolean priceUpdated = false;
+            if (outletIdStr != null && !outletIdStr.trim().isEmpty() 
+                && priceStr != null && !priceStr.trim().isEmpty()) {
+                
+                try {
+                    int outletId = Integer.parseInt(outletIdStr.trim());
+                    double price = Double.parseDouble(priceStr.trim());
+
+                    OutletItemDAO outletItemDAO = new OutletItemDAO();
+                    priceUpdated = outletItemDAO.addOrUpdateOutletItem(outletId, itemId, price);
+                    
+                } catch (NumberFormatException e) {
+                    request.setAttribute("message", "Invalid outlet ID or price format.");
+                }
+            }
 
             if (updated) {
-                request.setAttribute("message", "Item updated successfully!");
+                request.setAttribute("message", "Item updated successfully!" + (priceUpdated ? " Price also updated." : ""));
                 request.setAttribute("status", "success");
             } else {
                 request.setAttribute("message", "Failed to update item in database.");
