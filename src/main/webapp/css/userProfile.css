@@ -1,0 +1,161 @@
+@charset "UTF-8";
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #f8f8f8;
+  color: #878787;
+}
+
+.user-profile-section-container{
+	padding:3rem 0rem;
+	width:100%;
+	display:flex;
+	justify-content:center;
+}
+
+.user-profile-section {
+  width:70%;
+  display: flex;
+}
+
+.user-profile-container {
+  width: 85%;
+  padding: 2rem 2rem 2rem 2rem;
+  border-left: 1px solid #eadfd9;
+}
+
+/* User Profile heading and image */
+.profile-picture-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 4rem;
+}
+
+.profile-picture-wrapper h2 {
+  font-size: 1.2rem;
+  font-weight: 400;
+  margin-bottom: 1.5rem;
+}
+
+.profile-picture {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.profile-picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1);
+  transition: all 0.3s ease;
+}
+
+.profile-picture img:hover {
+  transform: scale(1.05);
+}
+
+/* user profile form  */
+.user-profile-form {
+  width: 100%;
+}
+
+/* form rows  */
+.form-row {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.input-group {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group label {
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 0.8rem;
+}
+
+.input-group input {
+  width: 100%;
+  height: 52px;
+  border: 1px solid #eadfd9;
+  border-radius: 10px;
+  outline: none;
+  padding: 1rem;
+  font-size: 1rem;
+  font-family: inherit;
+  color: #555;
+  background-color: transparent;
+}
+
+.input-group input::placeholder {
+  color: #9c9c9c;
+}
+
+.input-group input:focus {
+  border-color: #db4a1e;
+}
+
+.profile-btn-container {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.profile-btn-container button {
+  width: 190px;
+  height: 48px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.save-btn {
+  background-color: #db4a1e;
+  color: white;
+}
+
+.save-btn:hover {
+  opacity: 0.9;
+}
+
+.cancel-btn {
+  background-color: #f0e9e6;
+  color: #333;
+}
+
+.cancel-btn:hover {
+  background-color: #e6ddda;
+}
+
+/* Reponsiveness  */
+@media (max-width: 768px) {
+  .user-profile-container {
+    width: 100%;
+  }
+
+  .form-row {
+    flex-direction: column;
+  }
+
+  .profile-btn-container {
+    flex-direction: column;
+  }
+
+  .profile-btn-container button {
+    width: 100%;
+  }
+}

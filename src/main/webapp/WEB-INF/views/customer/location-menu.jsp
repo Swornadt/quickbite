@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
@@ -11,9 +10,12 @@
 </head>
 <body>
 
+<!-- Header -->
+<%@ include file="../common/navbar1.jsp" %>
+	
 <div class="main-container">
         <div class="canteen-name">
-            <h1>Main Canteen</h1>
+            <h1>${outlet.outletName}</h1>
         </div>
 <div class="main-category-container">
             <div class="category-container">
@@ -36,7 +38,7 @@
             </div>
         </div>
 <div class="cards" id="cardsDiv">
-    <c:forEach var="item" items="${outletitems}">
+    <c:forEach var="item" items="${outletItems}">
         <div class="card" data-category="${item.item.category}">
             <div class="card-image">
                 <img src="${item.item.itemImage}" alt="${item.item.itemName}">
@@ -45,6 +47,9 @@
             <div class="card-details">
                 <div class="item-name">
                     <h2>${item.item.itemName}</h2>
+                </div>
+                <div class="item-price">
+                	<h4>Rs. ${item.outletItemPrice}</h4>
                 </div>
 
                 <div class="item-ingredients">
@@ -58,17 +63,26 @@
                     </div>
                 </div>
 
-                <button class="Add-to-Cart">
-                    <span class="circle"></span>
-                    <span class="btn-text">Add to Cart</span>
-                </button>
-            </div>
+                <form action="${pageContext.request.contextPath}/cart/add" method="POST">
+	                <input type="hidden" name="itemId" value="${item.item.itemId}">
+		            <input type="hidden" name="itemName" value="${item.item.itemName}">
+		            <input type="hidden" name="unitPrice" value="${item.outletItemPrice}">
+		            <input type="hidden" name="outletId" value="${outlet.outletId}"> <input type="hidden" name="quantity" value="1">
+				    <input type="hidden" name="itemId" value="${item.item.itemId}">
+				    <input type="hidden" name="outletName" value="${outlet.outletName}">
+				    
+				    <button type="submit" class="Add-to-Cart">
+				    <span class="btn-text">Add to Cart</span>
+				    </button>
+				</form>
+			</div>
         </div>
     </c:forEach>
-</div>
+	</div>
 </div>
 
-
+<!-- Footer -->
+<%@ include file="../common/footer.jsp" %>
 </body>
 
 </html>
