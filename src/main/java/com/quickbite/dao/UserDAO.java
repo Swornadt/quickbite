@@ -140,4 +140,36 @@ public class UserDAO {
 			e.printStackTrace();
 		}
 	}
+	
+	public UserModel getUserById(int userId) {
+		String sql = "SELECT * FROM user WHERE user_id = ?";
+		
+		try (Connection conn = DBconfig.getConnection();
+				PreparedStatement pst = conn.prepareStatement(sql)) {
+			
+			pst.setInt(1, userId);
+			
+			try (ResultSet rs = pst.executeQuery()) {
+                if (rs.next()) {
+                    UserModel user = new UserModel();
+                    
+                    user.setUserId(rs.getInt("user_id"));
+                    user.setFname(rs.getString("fname"));
+                    user.setLname(rs.getString("lname"));
+                    user.setNumber(rs.getString("number"));
+                    user.setEmail(rs.getString("email"));
+                    user.setGender(rs.getString("gender"));
+                    user.setDob(rs.getString("dob"));
+                    user.setPassword(rs.getString("password"));
+                    user.setRole(rs.getString("role"));
+                    user.setStatus(rs.getString("status"));
+                    return user;
+                }
+            }
+		} catch (SQLException e) {
+			System.err.println("Error fetching user: "+e.getMessage());
+			e.printStackTrace();
+		}
+		return null;			
+	}
 }

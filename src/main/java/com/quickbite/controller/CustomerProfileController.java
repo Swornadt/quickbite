@@ -1,0 +1,67 @@
+package com.quickbite.controller;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+import com.quickbite.model.AdminModel;
+import com.quickbite.model.UserModel;
+import com.quickbite.service.AdminCustomerService;
+import com.quickbite.service.AdminService;
+
+/**
+ * Servlet implementation class CustomerProfile
+ */
+@WebServlet(asyncSupported = true, urlPatterns = { "/customer-profile" })
+public class CustomerProfileController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public CustomerProfileController() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		
+		//Gets the id from the URL
+		String userIdParam = request.getParameter("id");
+		if (userIdParam !=null) {
+			try {
+				int userId = Integer.parseInt(userIdParam);		
+				AdminCustomerService customerService = new AdminCustomerService();			
+				
+				UserModel customer = customerService.getCustomerById(userId);			
+			
+				if(customer !=null) {
+					request.setAttribute("customerData",customer);
+				}
+			}
+			catch(NumberFormatException e) {
+				e.printStackTrace();
+			}
+		
+		}
+		
+		
+		request.getRequestDispatcher("/WEB-INF/views/admin/customer-profile.jsp").forward(request,response);	
+}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
+}

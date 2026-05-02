@@ -47,4 +47,9 @@ public class AdminCustomerService {
 		userDAO.updateUserStatus(userId, newStatus);
 		return true;
 	}
+
+	public UserModel getCustomerById(int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

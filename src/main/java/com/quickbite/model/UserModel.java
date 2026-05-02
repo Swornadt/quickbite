@@ -94,4 +94,8 @@ public class UserModel {
     public void setStatus(String status) {
         this.status = status;
     }
+    
+    public String getFullName() {
+    	return fname + " " + lname;
+    }
 }
