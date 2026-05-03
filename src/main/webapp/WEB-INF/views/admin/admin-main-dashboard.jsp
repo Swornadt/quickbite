@@ -44,11 +44,11 @@
 	            </div>
 	            <div class="admin-info-container">
 	              <div class="admin-name-role">
-	                <p class="admin-name">Sanskar Piya</p>
+	                <p class="admin-name">${user.fname} ${user.lname}</p>
 	                <p class="admin-role">Admin</p>
 	              </div>
 	              <div class="admin-image">
-	                <img src="<%=request.getContextPath()%>/assets/user-image.jpg" />
+	                <img src="${pageContext.request.contextPath}/${user.image}" />
 	              </div>
 	            </div>
 	          </div>
