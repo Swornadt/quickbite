@@ -99,8 +99,8 @@ public class UserModel {
     public String getFullName() {
     	return fname + " " + lname;
 	}
-
-	public String getImage() {
+      
+    public String getImage() {
     	return image;
     }
     
