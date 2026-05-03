@@ -34,20 +34,7 @@ public class AdminMenuServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        MenuService menuService = new MenuService();
-
-        String outletIdStr = request.getParameter("outletId");
-
-        // Get data through Service
-        List<Outlet> outlets = menuService.getAllOutlets();
-        List<OutletItem> outletItems = menuService.getMenuItems(outletIdStr);
-
-        // Set attributes
-        request.setAttribute("outletItems", outletItems);
-        request.setAttribute("outlets", outlets);
-        request.setAttribute("selectedOutletId", outletIdStr);
-
-        request.getRequestDispatcher("/WEB-INF/views/admin/admin-menu-view.jsp").forward(request, response);
+        
     }
 
     /**
