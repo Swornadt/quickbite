@@ -43,7 +43,7 @@
 
             <a href="about/resha">
                 <div class="member-card">
-                    <img src="resha.jpg">
+                    <img src="${pageContext.request.contextPath}/assets/about/resha.jpg">
                     <div class="member-name">Resha Koju</div>
                 </div>
             </a>

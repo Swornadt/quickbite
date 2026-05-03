@@ -13,7 +13,7 @@
 <body>
 
 <div class="header">
-    <img src="${pageContext.request.contextPath}/assets/images/resha.jpg">
+    <img src="${pageContext.request.contextPath}/assets/about/resha.jpg">
     <div>
         <h1>Resha Koju</h1>
         <p>Student at Islington College Kathmandu</p>
