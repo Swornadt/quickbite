@@ -48,6 +48,11 @@ public class ItemController extends HttpServlet {
 	    OutletItemDAO outletItemDAO = new OutletItemDAO();
 	    List<OutletItem> outletItems = outletItemDAO.getItemsByOutlet(outlet.getOutletId());
 	    
+	    //Extracting unique categories from the list of items
+	    List<String> categories = outletItems.stream().map(oi -> oi.getItem().getCategory()).distinct().filter(cat -> cat != null && !cat.isEmpty()).toList();
+	    
+	    
+	    request.setAttribute("categories", categories);
 	    request.setAttribute("outletItems", outletItems);
 	    request.setAttribute("outlet", outlet);
 	    
