@@ -44,8 +44,8 @@
                  <div> <img src="${pageContext.request.contextPath}/assets/home/momo3.png" alt="Momo 3"> </div>
                  <div> <img src="${pageContext.request.contextPath}/assets/home/momo4.png" alt="Momo 4"> </div>
 			</div>
-
-			<button class="order-btn">Order Now</button>
+			
+			<a href="${pageContext.request.contextPath}/outlets" class="order-btn" style="text-decoration:none;">Order Now</a>
 		</div>
 		
 		<div class="image-container">

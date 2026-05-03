@@ -56,9 +56,9 @@
 		                    <div class="item-actions">
 		                        <span class="icon-heart">♡</span> <!-- TODO: toggle fav/unfav -->
 		                        <form action="${pageContext.request.contextPath}/cart/remove" method="POST" style="display:inline;">
-				    <input type="hidden" name="itemId" value="${item.itemId}">
-				    <button type="submit" class="icon-trash-btn">🗑️</button>
-				</form>
+								    <input type="hidden" name="itemId" value="${item.itemId}">
+								    <button type="submit" class="icon-trash-btn">🗑️</button>
+								</form>
 		                    </div>
 		                </div>
 		                

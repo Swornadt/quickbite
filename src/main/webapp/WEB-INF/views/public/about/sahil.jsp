@@ -18,7 +18,7 @@ body { font-family: Arial; margin:0; background:#f5f5f5; }
 <body>
 
 <div class="header">
-    <img src="sahil.jpg">
+    <img src="${pageContext.request.contextPath}/assets/about/sahil.jpg">
     <div>
         <h1>Sahil Shrestha</h1>
         <p>Full Stack Developer</p>

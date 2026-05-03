@@ -20,7 +20,7 @@ body { font-family: Arial; margin:0; background:#f5f5f5; }
 <body>
 
 <div class="header">
-    <img src="sabrina.jpg">
+    <img src="${pageContext.request.contextPath}/assets/about/sabrina.jpg">
     <div>
         <h1>Sabrina Pradhan</h1>
         <p>Full Stack Developer | UI/UX Enthusiast</p>

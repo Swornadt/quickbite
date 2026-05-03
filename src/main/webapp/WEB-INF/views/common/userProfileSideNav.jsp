@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,7 +30,7 @@
         <p>Password</p>
       </a>
 
-      <a href="#" class="user-profile-nav-link">
+      <a href="${pageContext.request.contextPath}/order-history" class="user-profile-nav-link">
         <i class="fa-solid fa-bag-shopping"></i>
         <p>Order History</p>
       </a>

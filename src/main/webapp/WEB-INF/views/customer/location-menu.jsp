@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib uri="jakarta.tags.functions" prefix="fn" %>
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,25 +21,19 @@
         </div>
 <div class="main-category-container">
             <div class="category-container">
-                <button class="category-btn active" data-category="all">All</button>
-                <%
-                	List <String> categories = (List<String>) request.getAttribute("categories");
-               
-                if(categories !=null){
-                	for(String cat: categories){
-                		%>
-                		<button class="category-btn" data-category="<%= cat.toLowerCase()%>"> <%= cat %>
-                		</button>
-                <%
-                	}
-                }
-                %>
+                <a href="?category=all" class="category-btn ${empty param.category or param.category == 'all' ? 'active' : ''}">All</a>
+                
+                <c:forEach var="cat" items="${categories }">
+                	<a href="?category=${cat}" class="category-btn ${fn:toLowerCase(cat) == fn:toLowerCase(param.category)? 'active':''}"> ${cat}</a>
+                </c:forEach>
+                                                         
             </div>
             <div class="search-bar">
                 <input type="text" id="searchBar" placeholder="Search your cravings!">
             </div>
         </div>
 <div class="cards" id="cardsDiv">
+
     <c:forEach var="item" items="${outletItems}">
         <div class="card" data-category="${item.item.category}">
             <div class="card-image">
@@ -67,7 +63,9 @@
 	                <input type="hidden" name="itemId" value="${item.item.itemId}">
 		            <input type="hidden" name="itemName" value="${item.item.itemName}">
 		            <input type="hidden" name="unitPrice" value="${item.outletItemPrice}">
-		            <input type="hidden" name="outletId" value="${outlet.outletId}"> <input type="hidden" name="quantity" value="1">
+		            <input type="hidden" name="outletId" value="${outlet.outletId}">
+		            <input type="hidden" name="outletName" value="${outlet.outletName}">
+		            <input type="hidden" name="quantity" value="1">
 				    <input type="hidden" name="itemId" value="${item.item.itemId}">
 				    <input type="hidden" name="outletName" value="${outlet.outletName}">
 				    
