@@ -20,6 +20,10 @@ public class LogoutController extends HttpServlet {
     public LogoutController() {
         super();
     }
+    
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	doPost(request, response);
+	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		SessionUtil.invalidateSession(request);

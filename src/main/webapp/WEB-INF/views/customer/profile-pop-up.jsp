@@ -107,7 +107,7 @@
 
         <hr>
 
-        <button class="logout">Logout</button>
+        <a href="${pageContext.request.contextPath}/logout" class="logout">Logout</a>
     </div>
 
 </body>

@@ -25,7 +25,7 @@
           <h2>PROFILE PICTURE</h2>
 
           <div class="profile-picture">
-            <img src="${pageContext.request.contextPath}/assets/user-image.jpg" alt="Profile Picture" />
+            <img src="${pageContext.request.contextPath}/${user.image}" alt="Profile Picture" />
           </div>
         </div>
 

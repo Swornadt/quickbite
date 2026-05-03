@@ -69,7 +69,7 @@
 		            <input type="hidden" name="unitPrice" value="${item.outletItemPrice}">
 		            <input type="hidden" name="outletId" value="${outlet.outletId}">
 		            <input type="hidden" name="outletName" value="${outlet.outletName}">
-		             <input type="hidden" name="quantity" value="1">
+		            <input type="hidden" name="quantity" value="1">
 				    <input type="hidden" name="itemId" value="${item.item.itemId}">
 				    <input type="hidden" name="outletName" value="${outlet.outletName}">
 				    

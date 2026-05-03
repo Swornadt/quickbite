@@ -8,15 +8,16 @@
 	<meta charset="UTF-8">
 	<title>Order History | QuickBite</title>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/order-history.css">
+	<link rel="stylesheet" href="<%=request.getContextPath() %>/css/userProfile.css" />
 </head>
 
 <body>
-	<%@ include file="/WEB-INF/common/navbar1.jsp" %>
-<%@ include file="../common/utilityBar.jsp" %>
+	<%@ include file="/WEB-INF/views/common/navbar1.jsp" %>
+      <%@ include file="/WEB-INF/views/common/utilityBar.jsp" %>
 <div class="user-profile-section-container">
 <section class="user-profile-section">
-<%@ include file="../common/userProfileSideNav.jsp" %>
-      <div class="user-profile-container">
+<%@ include file="/WEB-INF/views/common/userProfileSideNav.jsp" %>
+<div class="user-profile-container">
 	
 	<div class="history-container">
 		<!-- Filter -->

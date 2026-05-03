@@ -18,7 +18,7 @@
 <!-- Upper Utility Bar -->
     <div class="upper-box">
       <p class="acc-setting">Account Settings</p>
-      <a href="${pageContext.request.contextPath}/login" class="upper-box-logout-btn">LOGOUT</a>
+      <a href="${pageContext.request.contextPath}/logout" class="upper-box-logout-btn">LOGOUT</a>
     </div>
   </body>
 </body>
