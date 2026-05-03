@@ -7,15 +7,22 @@
 </head>
 
 <body>
-
-<div class="header">
-    <img src="${pageContext.request.contextPath}/assets/about/sworna.jpg">
-    <div>
-        <h1>Sworna D Tuladhar</h1>
-        <p>Project Manager</p>
-        <p>Leads and organizes team workflow.</p>
-    </div>
-</div>
+	<div class="header">
+	    <img src="sworna.jpg">
+	    <div>
+	        <h1>Sworna D Tuladhar</h1>
+	        <p>Jr. Software Engineer</p>
+	        <p>Leads and organizes team workflow.</p>
+	    </div>
+	</div>
+	
+	<div class="container">
+		<div class="grid">
+		
+		<div>
+		    <div class="card">
+		        <h2>About Me</h2>
+		        <p> Hello, person from the internet!! I'm a passionate programmer working towards Full-Stack Web Development, specializing in the MERN Stack Currently serving as the founder and Community Lead of Islington WebDev Community.
 
 					I gravitate toward full-stack work because I believe the best technical decisions come from understanding the whole system. Whether it's choosing a database schema, designing an API contract, or structuring a component tree, I aim for decisions that remain sound six months later.
 				</p>
