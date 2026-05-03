@@ -1,0 +1,103 @@
+@charset "UTF-8";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+.admin-body{
+	display: flex;
+	width: 100%;
+}
+
+.admin-sidenav{
+	width: 20%;
+}
+
+.admin-brief{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.admin-image img{
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+}
+
+.admin-brief-detail{
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.admin-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 30px;
+    width: 100%;
+}
+
+.admin-credentials-grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    width: 100%;
+    padding-bottom: 20px;
+}
+
+.admin-credentials-grid::after{
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 1px;
+    background-color: #000000;
+}
+
+.admin-contact-details{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    width: 100%;
+    border-bottom: 1px solid rgb(108, 108, 108);
+    padding-bottom: 20px;
+}
+
+.admin-dates{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    width: 100%;
+}
+
+.admin-profile-side{
+	flex: 1;
+	padding: 20px 30px;
+	width: 80%;
+}
+
+.admin-body .admin-sidenav .active {
+    background-color: transparent !important; /* Removes highlight background */
+    color: inherit !important;              /* Resets text color */
+    border: none !important;                /* Removes any active borders/indicators */
+    font-weight: normal !important;         /* Resets bolding if applied */
+}
+
+.admin-body .admin-sidenav .active i {
+    color: #363636 !important; 
+}
+
+.save-btn{
+	background-color: rgb(219, 74, 30);
+	padding: 4px 10px;
+    color: white;
+    border-radius: 6px;
+    border: none;
+    margin-top: 20px;
+}
