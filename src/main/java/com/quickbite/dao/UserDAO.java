@@ -13,7 +13,8 @@ import com.quickbite.model.UserModel;
 
 public class UserDAO {
 	
-	public void insertUser (String fname, String lname, String number, String email, String gender, String dob, String password, String image) throws Exception{
+	public void insertUser (String fname, String lname, String number, String email, String gender, String
+			dob, String password, String image) throws Exception{
 		Connection con = DBconfig.getConnection();
 		
 		//? marks serves as the placeholders which is later filled using prepared statement below
@@ -142,13 +143,32 @@ public class UserDAO {
 		}
 	}
 	
-	public UserModel getUserById(int userId) {
+	public boolean updateUserDetails(int user_id, String fname, String lname, String email, String number) {
+		String sql = "Update user set fname=?, lname=?, email=?, number=? where user_id=?";
+		
+		try (Connection conn = DBconfig.getConnection();
+				PreparedStatement pst = conn.prepareStatement(sql)){
+			pst.setString(1, fname);
+			pst.setString(2, lname);
+			pst.setString(3, email);
+			pst.setString(4, number);
+			pst.setInt(5, user_id);
+			
+			return pst.executeUpdate()>0;
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public UserModel getUserById(int user_id) {
 		String sql = "SELECT * FROM user WHERE user_id = ?";
 		
 		try (Connection conn = DBconfig.getConnection();
 				PreparedStatement pst = conn.prepareStatement(sql)) {
 			
-			pst.setInt(1, userId);
+			pst.setInt(1, user_id);
 			
 			try (ResultSet rs = pst.executeQuery()) {
                 if (rs.next()) {
@@ -171,6 +191,9 @@ public class UserDAO {
 			System.err.println("Error fetching user: "+e.getMessage());
 			e.printStackTrace();
 		}
-		return null;			
+
+		return null;
+				
+				
 	}
 }

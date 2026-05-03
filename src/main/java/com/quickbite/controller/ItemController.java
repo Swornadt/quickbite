@@ -36,6 +36,7 @@ public class ItemController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String outletName = request.getPathInfo().substring(1);
+		String selectedCategory = request.getParameter("category");
 	    
 	    OutletDAO outletDAO = new OutletDAO();
 	    Outlet outlet = outletDAO.getOutletByName(outletName);
@@ -46,10 +47,21 @@ public class ItemController extends HttpServlet {
 	    }
 	    
 	    OutletItemDAO outletItemDAO = new OutletItemDAO();
-	    List<OutletItem> outletItems = outletItemDAO.getItemsByOutlet(outlet.getOutletId());
 	    
-	    request.setAttribute("outletItems", outletItems);
+	    	    
+	    //Getting all items first to populate category buttons
+	    List<OutletItem> allOutletItems = outletItemDAO.getItemsByOutlet(outlet.getOutletId());
+	    
+	    //Extracting unique categories from the list of items
+	    List<String> categories = allOutletItems.stream().map(oi -> oi.getItem().getCategory()).distinct().filter(cat -> cat != null && !cat.isEmpty()).toList();
+	    
+	    //Get only the items for selected categories
+	    List<OutletItem> displayItems = outletItemDAO.getItemsByOutletAndCategory(outlet.getOutletId(), selectedCategory);
+	    
+	    
+	    request.setAttribute("categories", categories);
 	    request.setAttribute("outlet", outlet);
+	    request.setAttribute("outletItems", displayItems);
 	    
 	    request.getRequestDispatcher("/WEB-INF/views/customer/location-menu.jsp")
 	           .forward(request, response);
