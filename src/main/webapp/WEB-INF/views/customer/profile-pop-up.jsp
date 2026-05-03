@@ -95,13 +95,13 @@
         <div class="profile-header">
             <img src="${pageContext.request.contextPath}/${user.image}" alt="Profile Image" class="avatar" onerror="this.style.display='none'">
             <h3 class="username">${user.fname} ${user.lname}</h3>
-            <a href="#" class="edit-profile">Edit Profile</a>
+            <a href="${pageContext.request.contextPath}/UserProfile" class="edit-profile">Edit Profile</a>
         </div>
 
         <hr>
 
         <div class="menu">
-            <a href="#">Order History</a>
+            <a href="${pageContext.request.contextPath}/order-history">Order History</a>
             <a href="#">Favourites</a>
         </div>
 

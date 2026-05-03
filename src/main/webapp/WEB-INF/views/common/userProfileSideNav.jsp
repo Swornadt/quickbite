@@ -29,7 +29,7 @@
         <p>Password</p>
       </a>
 
-      <a href="#" class="user-profile-nav-link">
+      <a href="${pageContext.request.contextPath}/order-history" class="user-profile-nav-link">
         <i class="fa-solid fa-bag-shopping"></i>
         <p>Order History</p>
       </a>

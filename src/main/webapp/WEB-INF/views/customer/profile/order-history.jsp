@@ -11,7 +11,12 @@
 </head>
 
 <body>
-	<%@ include file="../../common/navbar1.jsp" %>
+	<%@ include file="/WEB-INF/common/navbar1.jsp" %>
+<%@ include file="../common/utilityBar.jsp" %>
+<div class="user-profile-section-container">
+<section class="user-profile-section">
+<%@ include file="../common/userProfileSideNav.jsp" %>
+      <div class="user-profile-container">
 	
 	<div class="history-container">
 		<!-- Filter -->
@@ -89,6 +94,9 @@
             <span class="pager-current">1</span>
             <span class="pager-btn">Next</span>
         </div>
+	</div>
+	</div>
+	</section>
 	</div>
 	
 	<%@ include file="../../common/footer.jsp" %>
