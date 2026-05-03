@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib uri="jakarta.tags.functions" prefix="fn" %>
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,20 +22,11 @@
 <div class="main-category-container">
             <div class="category-container">
                 <a href="?category=all" class="category-btn ${empty param.category or param.category == 'all' ? 'active' : ''}">All</a>
-                <%
-                	List <String> categories = (List<String>) request.getAttribute("categories");
-               		String activeCat = request.getParameter("category");
-                if(categories !=null){
-                	for(String cat: categories){
-                		//Checking if the currently selected category for css active class
-                		String activeClass = (cat.equalsIgnoreCase(activeCat))? "active" : "";
-                		%>
-                		<a href="?category=<%= cat %>" class="category-btn <%= activeClass %>"> <%= cat %>
-                		</a>
-                <%
-                	}
-                }
-                %>
+                
+                <c:forEach var="cat" items="${categories }">
+                	<a href="?category=${cat}" class="category-btn ${fn:toLowerCase(cat) == fn:toLowerCase(param.category)? 'active':''}"> ${cat}</a>
+                </c:forEach>
+                                                         
             </div>
             <div class="search-bar">
                 <input type="text" id="searchBar" placeholder="Search your cravings!">
