@@ -5,9 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.quickbite.model.CartItemModel;
+import com.quickbite.model.OrderModel;
 import com.quickbite.utils.DBconfig;
 
 public class OrderDAO {
@@ -70,5 +72,42 @@ public class OrderDAO {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public List<OrderModel> getOrdersByStatus(int userId, boolean isCurrent) {
+		List<OrderModel> orders = new ArrayList<>();
+		
+		// 0: pending; 1: processing; 2: completed"
+		String statusCondition = isCurrent ? "IN (0, 1)" : "= 2";
+		
+		String query = "SELECT order_id, order_date, order_status, order_note FROM `order` "+
+						" WHERE user_id = ? AND order_status "+ statusCondition +
+						" ORDER BY order_date DESC";
+		
+		try (Connection conn = DBconfig.getConnection();
+			PreparedStatement pre = conn.prepareStatement(query)) {
+			
+			pre.setInt(1, userId);
+			ResultSet rs = pre.executeQuery();
+			
+			while(rs.next()) {
+				OrderModel order = new OrderModel();
+				order.setOrderId(rs.getInt("order_id"));
+                order.setOrderStatus(rs.getInt("order_status"));
+                order.setOrderNote(rs.getString("order_note"));
+                
+                java.sql.Timestamp ts = rs.getTimestamp("order_date");
+			    if (ts != null) {
+			        order.setOrderDate(ts.toLocalDateTime());
+			    }
+			    
+                orders.add(order);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return orders;
 	}
 }
