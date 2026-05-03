@@ -21,17 +21,8 @@ import com.quickbite.utils.SessionUtil;
 /**
  * Servlet Filter implementation class AuthFilter
  */
-@WebFilter("/*")
-public class AuthFilter extends HttpFilter implements Filter {
-       
-	private static final String LOGIN = "/login";
-	private static final String REGISTER = "/register";
-	private static final String HOME = "/home";
-	private static final String ROOT = "/";
-	
-	// For RBAC
-	private static final String ADMIN = "/admin";
-	private static final String[] CUSTOMER = {"/checkout", "profile"};
+@WebFilter(urlPatterns="/*", asyncSupported = true)
+public class AuthFilter extends HttpFilter {
 
     public AuthFilter() {
         super();
@@ -40,42 +31,44 @@ public class AuthFilter extends HttpFilter implements Filter {
 	public void destroy() {
 	}
 
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+	@Override
+    protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) 
+            throws IOException, ServletException {
+		//DEBUG: System.out.println("FILTER hit: servletPath=" + req.getServletPath() + " pathInfo=" + req.getPathInfo());
 		
-		// type cast the req res to the required class
-		HttpServletRequest req = (HttpServletRequest) request;
-		HttpServletResponse res = (HttpServletResponse) response;
-		HttpSession session = req.getSession(false);
-		
-		String path = req.getServletPath();
-		UserModel user = (session == null) ? null : (UserModel) session.getAttribute("user");
-		
-		// Admin Access
-		if (path.startsWith("/admin")) {
-			if (user == null || !"admin".equals(user.getRole())) {
-				res.sendRedirect(req.getContextPath()+"/home");
-				return;
-			}
-		}
-		
-		// Customer Access
-		if (path.startsWith("/checkout") || path.startsWith("/profile")) {
-			if (user == null) {
-				res.sendRedirect(req.getContextPath()+"/login");
-				return;
-			}
-		}
-		
-		// User logged in shouldnt go back to auth pages
-		if (path.equals("/login") || path.equals("/register")) {
-			if (user != null) {
-				res.sendRedirect(req.getContextPath()+"/home");
-				return;
-			}
-		}
-		
-		chain.doFilter(request, response);
-	}
+        HttpSession session = req.getSession(false);
+        String path = req.getServletPath();
+        UserModel user = (session == null) ? null : (UserModel) session.getAttribute("user");
+        
+        //DEBUG: System.out.println("DEBUG role: [" + (user == null ? "NULL USER" : user.getRole()) + "] path=" + path);
+        
+        
+        // Admin Access
+        if (path.startsWith("/admin")) {
+            if (user == null || !"admin".equalsIgnoreCase(user.getRole())) {
+                res.sendRedirect(req.getContextPath() + "/home");
+                return;
+            }
+        }
+        
+        // Customer Access
+        if (path.startsWith("/checkout") || path.startsWith("/profile")) {
+            if (user == null) {
+                res.sendRedirect(req.getContextPath() + "/login");
+                return;
+            }
+        }
+        
+        // Logged-in users shouldn't revisit auth pages
+        if (path.equals("/login") || path.equals("/register")) {
+            if (user != null) {
+                res.sendRedirect(req.getContextPath() + "/home");
+                return;
+            }
+        }
+        
+        chain.doFilter(req, res);
+    }
 		
 	public void init(FilterConfig fConfig) throws ServletException {
 		// Initialization logic if needed

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,13 +51,13 @@
                             </div>
                             <div class="buttons">
                                 <form method="post"
-                                      action="${pageContext.request.contextPath}/admin/customers">
+                                      action="${pageContext.request.contextPath}/admin/customers/update">
                                     <input type="hidden" name="user_id" value="${user.userId}">
                                     <input type="hidden" name="action" value="approve">
                                     <button type="submit" class="btn approve">Approve</button>
                                 </form>
                                 <form method="post"
-                                      action="${pageContext.request.contextPath}/admin/customers">
+                                      action="${pageContext.request.contextPath}/admin/customers/update">
                                     <input type="hidden" name="user_id" value="${user.userId}">
                                     <input type="hidden" name="action" value="reject">
                                     <button type="submit" class="btn reject">Reject</button>

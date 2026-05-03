@@ -46,7 +46,7 @@
                   <h2>Menu Management</h2>
 
                   <!-- Outlet Selector -->
-                  <form method="GET" action="<%=request.getContextPath()%>/AdminMenuServlet">
+                  <form method="GET" action="<%=request.getContextPath()%>/admin/menu">
                     <select name="outletId" class="canteen-btn" onchange="this.form.submit()">
                       <c:forEach var="outlet" items="${outlets}">
                         <option value="${outlet.outletId}" ${outlet.outletId==selectedOutletId ? 'selected' : '' }>
@@ -83,7 +83,7 @@
                         <td>${oi.item.itemDescription}</td>
                         <td>${oi.item.itemStatus}</td>
                         <td>
-                          <form action="<%=request.getContextPath()%>/EditItem" method="post" target="updateIframe"
+                          <form action="<%=request.getContextPath()%>/admin/menu/edit" method="post" target="updateIframe"
                             style="display: inline;">
                             <input type="hidden" name="itemId" value="${oi.item.itemId}" />
                             <button type="button" class="edit-btn"
@@ -91,7 +91,7 @@
                           </form>
                         </td>
                         <td>
-                          <form action="<%=request.getContextPath()%>/DeleteItem" method="post" target="deleteIframe"
+                          <form action="<%=request.getContextPath()%>/admin/menu/delete" method="post" target="deleteIframe"
                             style="display: inline;">
                             <input type="hidden" name="itemId" value="${oi.item.itemId}" />
                             <button type="button" class="delete-btn"
