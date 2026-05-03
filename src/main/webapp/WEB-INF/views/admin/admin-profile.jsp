@@ -1,0 +1,79 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
+    
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Admin Profile</title>
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin-profile.css" />
+</head>
+<body>
+    <div class="admin-body">
+        <div class="admin-sidenav">
+            <%@ include file="../common/side-nav.jsp" %>
+
+        </div>
+
+        <div class="admin-profile-side">
+            <div class="admin-brief">
+                <div class="admin-image">
+                    <img src="<%=request.getContextPath()%>/assets/user-image.jpg" alt="">
+                </div>
+                <div class="admin-brief-detail">
+                    <h4>${userData.fullName }</h4>
+                    <p>${userData.role }</p>
+                </div>
+            </div>
+
+
+            <div class="admin-detail-grid" id="adminDetailGrid">
+                <form action="${pageContext.request.contextPath}/admin-profile" method="post">
+
+                    <div class="admin-credentials-grid" id="adminCredentialsGrid">
+                        <div class="user-id">
+                            <h4>Admin ID</h4>
+                            <p>${userData.userId}</p>
+                            <input type="hidden" name="user_id" value="${userData.userId}">
+                        </div>
+                        <div class="admin-first-name">
+                            <h4>First Name</h4>
+                            <input type="text" name="fname" value="${userData.fname}">
+                        </div>
+                        <div class="admin-last-name">
+                            <h4>Last Name</h4>
+                            <input type="text" name="lname" value="${userData.lname}">
+                        </div>
+
+                        <div class="admin-dob">
+                            <h4>DOB</h4>
+                            <input type="text" name="dob" value="${userData.dob}">
+                        </div>
+                        <div class="admin-gender">
+                            <h4>Gender</h4>
+                            <input type="text" name="gender" value="${userData.gender}">
+                        </div>
+                        <div class="admin-role">
+                            <h4>Role</h4>
+                            <p>${userData.role }</p>
+                        </div>
+                    </div>
+
+                    <div class="admin-contact-details">
+                        <div class="admin-email">
+                            <h4>Email Address</h4>
+                            <input type="text" name="email" value="${userData.email}">
+                        </div>
+                        <div class="admin-contact1">
+                            <h4>Primary Contact</h4>
+                            <input type="text" name="number" value="${userData.number}">
+                        </div>
+                    </div>
+                    <button type="submit" class="save-btn"> Update Details </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
