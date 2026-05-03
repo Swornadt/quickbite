@@ -14,7 +14,7 @@ import com.quickbite.model.FeedbackModel;
 /**
  * Servlet implementation class AdminFeedbackView
  */
-@WebServlet(asyncSupported = true, urlPatterns = { "/AdminFeedbackView" })
+@WebServlet(asyncSupported = true, urlPatterns = { "/admin/feedback" })
 public class AdminFeedbackView extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

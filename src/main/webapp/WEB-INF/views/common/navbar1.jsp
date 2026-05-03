@@ -86,15 +86,28 @@
             <a href="${pageContext.request.contextPath}/cart" class="fa-solid fa-cart-shopping" id="nav-cart"></a>
           </div>
 
-          <div class="nav-image-container">
+          <div class="nav-image-container" id="profileTrigger">
             <img
-              src="<%=request.getContextPath() %>/assets/user-image.jpg"
+              src="${pageContext.request.contextPath}/${user.image}"
               alt="Profile Image"
               class="nav-profile-image"
+              style = "cursor: pointer;"
             />
           </div>
         </div>
       </div>
+      
+      <!-- Profile Popup -->
+<div id="profilePopup" class="profile-popup-overlay" style="display: none;">
+    <div class="profile-popup-content">
+        <div class="popup-header">
+            <button class="close-popup">&times;</button>
+        </div>
+        
+        <!-- Content will be loaded here -->
+        <jsp:include page="/WEB-INF/views/customer/profile-pop-up.jsp" />
+    </div>
+</div>
 
       <!-- For Mobile Responsiveness  -->
       <div class="nav-mobile-menu">
@@ -161,5 +174,38 @@
 	
     <script src="<%=request.getContextPath() %>/js/navbar.js"></script>
     <script src="${pageContext.request.contextPath}/js/toast.js"></script>
+    
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    const trigger = document.getElementById('profileTrigger');
+    const popup = document.getElementById('profilePopup');
+    const closeBtn = document.querySelector('.close-popup');
+
+    if (trigger && popup) {
+        trigger.addEventListener('click', function(e) {
+            e.stopPropagation();
+            popup.style.display = 'flex';
+        });
+
+        closeBtn.addEventListener('click', function() {
+            popup.style.display = 'none';
+        });
+
+        // Close when clicking outside the popup content
+        popup.addEventListener('click', function(e) {
+            if (e.target === popup) {
+                popup.style.display = 'none';
+            }
+        });
+
+        // Close on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && popup.style.display === 'flex') {
+                popup.style.display = 'none';
+            }
+        });
+    }
+});
+</script>
   </body>
 </html>

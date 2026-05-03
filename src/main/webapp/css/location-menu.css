@@ -220,3 +220,8 @@ body {
 .search-bar input::placeholder{
     color: #B8B8B8;
 }
+
+.category-container a{
+	text-decoration: none;
+	color: black;
+}

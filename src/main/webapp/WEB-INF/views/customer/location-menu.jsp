@@ -19,15 +19,17 @@
         </div>
 <div class="main-category-container">
             <div class="category-container">
-                <button class="category-btn active" data-category="all">All</button>
+                <a href="?category=all" class="category-btn ${empty param.category or param.category == 'all' ? 'active' : ''}">All</a>
                 <%
                 	List <String> categories = (List<String>) request.getAttribute("categories");
-               
+               		String activeCat = request.getParameter("category");
                 if(categories !=null){
                 	for(String cat: categories){
+                		//Checking if the currently selected category for css active class
+                		String activeClass = (cat.equalsIgnoreCase(activeCat))? "active" : "";
                 		%>
-                		<button class="category-btn" data-category="<%= cat.toLowerCase()%>"> <%= cat %>
-                		</button>
+                		<a href="?category=<%= cat %>" class="category-btn <%= activeClass %>"> <%= cat %>
+                		</a>
                 <%
                 	}
                 }
@@ -38,6 +40,7 @@
             </div>
         </div>
 <div class="cards" id="cardsDiv">
+
     <c:forEach var="item" items="${outletItems}">
         <div class="card" data-category="${item.item.category}">
             <div class="card-image">
@@ -67,7 +70,9 @@
 	                <input type="hidden" name="itemId" value="${item.item.itemId}">
 		            <input type="hidden" name="itemName" value="${item.item.itemName}">
 		            <input type="hidden" name="unitPrice" value="${item.outletItemPrice}">
-		            <input type="hidden" name="outletId" value="${outlet.outletId}"> <input type="hidden" name="quantity" value="1">
+		            <input type="hidden" name="outletId" value="${outlet.outletId}">
+		            <input type="hidden" name="outletName" value="${outlet.outletName}">
+		             <input type="hidden" name="quantity" value="1">
 				    <input type="hidden" name="itemId" value="${item.item.itemId}">
 				    <input type="hidden" name="outletName" value="${outlet.outletName}">
 				    
