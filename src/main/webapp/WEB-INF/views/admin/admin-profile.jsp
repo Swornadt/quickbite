@@ -17,9 +17,10 @@
         </div>
 
         <div class="admin-profile-side">
-            <div class="admin-brief">
+        <%@ include file='../common/adminNav.jsp' %>
+            <div class="admin-brief" style="margin: 20px 0;">
                 <div class="admin-image">
-                    <img src="<%=request.getContextPath()%>/assets/user-image.jpg" alt="">
+                    <img src="${pageContext.request.contextPath}/${user.image}" alt="">
                 </div>
                 <div class="admin-brief-detail">
                     <h4>${userData.fullName }</h4>
