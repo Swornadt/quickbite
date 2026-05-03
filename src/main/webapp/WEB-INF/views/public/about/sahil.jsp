@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Sworna D Tuladhar | CV</title>
+<title>Sahil Shrestha | CV</title>
 <style>
 body { font-family: Arial; margin:0; background:#f5f5f5; }
 .header { padding:40px; display:flex; gap:40px; align-items:center; background:#eee; }
@@ -18,11 +18,11 @@ body { font-family: Arial; margin:0; background:#f5f5f5; }
 <body>
 
 <div class="header">
-    <img src="sworna.jpg">
+    <img src="${pageContext.request.contextPath}/assets/about/sahil.jpg">
     <div>
-        <h1>Sworna D Tuladhar</h1>
-        <p>Project Manager</p>
-        <p>Leads and organizes team workflow.</p>
+        <h1>Sahil Shrestha</h1>
+        <p>Full Stack Developer</p>
+        <p>Works on both frontend and backend systems.</p>
     </div>
 </div>
 
@@ -32,15 +32,16 @@ body { font-family: Arial; margin:0; background:#f5f5f5; }
 <div>
     <div class="card">
         <h2>About Me</h2>
-        <p>I manage team coordination and ensure project deadlines are met efficiently.</p>
+        <p>I build complete web applications from front to back.</p>
     </div>
 
     <div class="card">
         <h2>Technical Skills</h2>
         <div class="skills">
-            <div class="skill">Leadership</div>
-            <div class="skill">Planning</div>
-            <div class="skill">Communication</div>
+            <div class="skill">HTML</div>
+            <div class="skill">CSS</div>
+            <div class="skill">JavaScript</div>
+            <div class="skill">Node.js</div>
         </div>
     </div>
 </div>
@@ -49,14 +50,14 @@ body { font-family: Arial; margin:0; background:#f5f5f5; }
     <div class="card">
         <h2>Quick Info</h2>
         <p>Kathmandu, Nepal</p>
-        <p>Project Manager</p>
-        <p>15+ Projects</p>
+        <p>Full Stack Developer</p>
+        <p>20+ Projects</p>
     </div>
 
     <div class="card">
         <h2>Achievements</h2>
-        <p>Best Team Leader</p>
-        <p>Project Excellence Award</p>
+        <p>Full Stack Award</p>
+        <p>Hackathon Winner</p>
     </div>
 </div>
 

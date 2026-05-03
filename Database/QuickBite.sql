@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 23, 2026 at 06:18 PM
+-- Generation Time: Apr 25, 2026 at 09:36 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -24,10 +24,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Favorite`
+-- Table structure for table `favorite`
 --
 
-CREATE TABLE `Favorite` (
+CREATE TABLE `favorite` (
   `user_id` smallint(5) UNSIGNED NOT NULL,
   `item_id` smallint(5) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -35,10 +35,10 @@ CREATE TABLE `Favorite` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Feedback`
+-- Table structure for table `feedback`
 --
 
-CREATE TABLE `Feedback` (
+CREATE TABLE `feedback` (
   `feedback_id` smallint(5) UNSIGNED NOT NULL,
   `user_id` smallint(5) UNSIGNED NOT NULL,
   `rating_value` tinyint(3) UNSIGNED NOT NULL,
@@ -49,10 +49,10 @@ CREATE TABLE `Feedback` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Item`
+-- Table structure for table `item`
 --
 
-CREATE TABLE `Item` (
+CREATE TABLE `item` (
   `item_id` smallint(5) UNSIGNED NOT NULL,
   `item_name` varchar(50) NOT NULL,
   `category` varchar(50) NOT NULL,
@@ -65,10 +65,10 @@ CREATE TABLE `Item` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `Item`
+-- Dumping data for table `item`
 --
 
-INSERT INTO `Item` (`item_id`, `item_name`, `category`, `item_type`, `item_description`, `item_status`, `item_ingredient`, `item_allergy`, `item_image`) VALUES
+INSERT INTO `item` (`item_id`, `item_name`, `category`, `item_type`, `item_description`, `item_status`, `item_ingredient`, `item_allergy`, `item_image`) VALUES
 (4, 'Breakfast Set', 'Breakfast', 'Non Veg', 'Complete breakfast set', 'Available', 'Egg, Bread, Sausage', 'Egg', 'BreakfastSet.png'),
 (5, 'Buff Chowmein', 'Lunch', 'Non Veg', 'Buff chowmein noodles', 'Available', 'Noodles, Buff, Vegetables', 'Gluten', 'BuffChowmein.png'),
 (6, 'Chatpate', 'Snack', 'Veg', 'Spicy Nepali street snack', 'Available', 'Puffed rice, spices, onion', NULL, 'Chatpate.png'),
@@ -87,24 +87,25 @@ INSERT INTO `Item` (`item_id`, `item_name`, `category`, `item_type`, `item_descr
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Order`
+-- Table structure for table `order`
 --
 
-CREATE TABLE `Order` (
+CREATE TABLE `order` (
   `order_id` smallint(5) UNSIGNED NOT NULL,
   `user_id` smallint(5) UNSIGNED NOT NULL,
   `order_date` datetime DEFAULT NULL,
   `order_status` tinyint(3) UNSIGNED NOT NULL,
-  `order_note` varchar(1000) DEFAULT NULL
+  `order_note` varchar(1000) DEFAULT NULL,
+  `preferred_date` datetime DEFAULT NULL,
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Order_Outlet_Item`
+-- Table structure for table `order_outlet_item`
 --
 
-CREATE TABLE `Order_Outlet_Item` (
+CREATE TABLE `order_outlet_item` (
   `order_id` smallint(5) UNSIGNED NOT NULL,
   `outlet_id` tinyint(3) UNSIGNED NOT NULL,
   `item_id` smallint(5) UNSIGNED NOT NULL,
@@ -115,10 +116,10 @@ CREATE TABLE `Order_Outlet_Item` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Outlet`
+-- Table structure for table `outlet`
 --
 
-CREATE TABLE `Outlet` (
+CREATE TABLE `outlet` (
   `outlet_id` tinyint(3) UNSIGNED NOT NULL,
   `outlet_name` varchar(100) NOT NULL,
   `outlet_status` varchar(15) NOT NULL,
@@ -126,10 +127,10 @@ CREATE TABLE `Outlet` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `Outlet`
+-- Dumping data for table `outlet`
 --
 
-INSERT INTO `Outlet` (`outlet_id`, `outlet_name`, `outlet_status`, `outlet_image`) VALUES
+INSERT INTO `outlet` (`outlet_id`, `outlet_name`, `outlet_status`, `outlet_image`) VALUES
 (1, 'Canteen', 'Active', NULL),
 (2, 'Coffee Station', 'Active', NULL),
 (3, 'Momo Station', 'Active', NULL),
@@ -140,20 +141,20 @@ INSERT INTO `Outlet` (`outlet_id`, `outlet_name`, `outlet_status`, `outlet_image
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Outlet_Item`
+-- Table structure for table `outlet_item`
 --
 
-CREATE TABLE `Outlet_Item` (
+CREATE TABLE `outlet_item` (
   `outlet_id` tinyint(3) UNSIGNED NOT NULL,
   `item_id` smallint(5) UNSIGNED NOT NULL,
   `outlet_item_price` decimal(8,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `Outlet_Item`
+-- Dumping data for table `outlet_item`
 --
 
-INSERT INTO `Outlet_Item` (`outlet_id`, `item_id`, `outlet_item_price`) VALUES
+INSERT INTO `outlet_item` (`outlet_id`, `item_id`, `outlet_item_price`) VALUES
 (1, 4, 175.00),
 (1, 5, 150.00),
 (1, 6, 85.00),
@@ -195,10 +196,10 @@ INSERT INTO `Outlet_Item` (`outlet_id`, `item_id`, `outlet_item_price`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Payment`
+-- Table structure for table `payment`
 --
 
-CREATE TABLE `Payment` (
+CREATE TABLE `payment` (
   `payment_id` smallint(5) UNSIGNED NOT NULL,
   `order_id` smallint(5) UNSIGNED NOT NULL,
   `amount` decimal(10,2) NOT NULL,
@@ -209,10 +210,10 @@ CREATE TABLE `Payment` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `User`
+-- Table structure for table `user`
 --
 
-CREATE TABLE `User` (
+CREATE TABLE `user` (
   `user_id` smallint(5) UNSIGNED NOT NULL,
   `fname` varchar(50) NOT NULL,
   `lname` varchar(50) NOT NULL,
@@ -229,10 +230,10 @@ CREATE TABLE `User` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `User_Outlet`
+-- Table structure for table `user_outlet`
 --
 
-CREATE TABLE `User_Outlet` (
+CREATE TABLE `user_outlet` (
   `user_id` smallint(5) UNSIGNED NOT NULL,
   `outlet_id` tinyint(3) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -242,70 +243,70 @@ CREATE TABLE `User_Outlet` (
 --
 
 --
--- Indexes for table `Favorite`
+-- Indexes for table `favorite`
 --
-ALTER TABLE `Favorite`
+ALTER TABLE `favorite`
   ADD PRIMARY KEY (`user_id`,`item_id`),
   ADD KEY `Favorite_item` (`item_id`);
 
 --
--- Indexes for table `Feedback`
+-- Indexes for table `feedback`
 --
-ALTER TABLE `Feedback`
+ALTER TABLE `feedback`
   ADD PRIMARY KEY (`feedback_id`),
   ADD KEY `user_id` (`user_id`);
 
 --
--- Indexes for table `Item`
+-- Indexes for table `item`
 --
-ALTER TABLE `Item`
+ALTER TABLE `item`
   ADD PRIMARY KEY (`item_id`);
 
 --
--- Indexes for table `Order`
+-- Indexes for table `order`
 --
-ALTER TABLE `Order`
+ALTER TABLE `order`
   ADD PRIMARY KEY (`order_id`),
   ADD KEY `Order_user` (`user_id`);
 
 --
--- Indexes for table `Order_Outlet_Item`
+-- Indexes for table `order_outlet_item`
 --
-ALTER TABLE `Order_Outlet_Item`
+ALTER TABLE `order_outlet_item`
   ADD PRIMARY KEY (`order_id`,`outlet_id`,`item_id`),
   ADD KEY `Order_Item_2` (`item_id`),
   ADD KEY `fk_orderitem_outletitem` (`outlet_id`,`item_id`);
 
 --
--- Indexes for table `Outlet`
+-- Indexes for table `outlet`
 --
-ALTER TABLE `Outlet`
+ALTER TABLE `outlet`
   ADD PRIMARY KEY (`outlet_id`);
 
 --
--- Indexes for table `Outlet_Item`
+-- Indexes for table `outlet_item`
 --
-ALTER TABLE `Outlet_Item`
+ALTER TABLE `outlet_item`
   ADD PRIMARY KEY (`outlet_id`,`item_id`),
   ADD KEY `Outlet_Item_2` (`item_id`);
 
 --
--- Indexes for table `Payment`
+-- Indexes for table `payment`
 --
-ALTER TABLE `Payment`
+ALTER TABLE `payment`
   ADD PRIMARY KEY (`payment_id`),
   ADD KEY `order_id` (`order_id`);
 
 --
--- Indexes for table `User`
+-- Indexes for table `user`
 --
-ALTER TABLE `User`
+ALTER TABLE `user`
   ADD PRIMARY KEY (`user_id`);
 
 --
--- Indexes for table `User_Outlet`
+-- Indexes for table `user_outlet`
 --
-ALTER TABLE `User_Outlet`
+ALTER TABLE `user_outlet`
   ADD PRIMARY KEY (`user_id`,`outlet_id`),
   ADD KEY `User_Outlet_2` (`outlet_id`);
 
@@ -314,33 +315,33 @@ ALTER TABLE `User_Outlet`
 --
 
 --
--- AUTO_INCREMENT for table `Feedback`
+-- AUTO_INCREMENT for table `feedback`
 --
-ALTER TABLE `Feedback`
+ALTER TABLE `feedback`
   MODIFY `feedback_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `Item`
+-- AUTO_INCREMENT for table `item`
 --
-ALTER TABLE `Item`
+ALTER TABLE `item`
   MODIFY `item_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
--- AUTO_INCREMENT for table `Order`
+-- AUTO_INCREMENT for table `order`
 --
-ALTER TABLE `Order`
+ALTER TABLE `order`
   MODIFY `order_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `Payment`
+-- AUTO_INCREMENT for table `payment`
 --
-ALTER TABLE `Payment`
+ALTER TABLE `payment`
   MODIFY `payment_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `User`
+-- AUTO_INCREMENT for table `user`
 --
-ALTER TABLE `User`
+ALTER TABLE `user`
   MODIFY `user_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
@@ -348,51 +349,51 @@ ALTER TABLE `User`
 --
 
 --
--- Constraints for table `Favorite`
+-- Constraints for table `favorite`
 --
-ALTER TABLE `Favorite`
-  ADD CONSTRAINT `Favorite_item` FOREIGN KEY (`item_id`) REFERENCES `Item` (`item_id`),
-  ADD CONSTRAINT `Favorite_user` FOREIGN KEY (`user_id`) REFERENCES `User` (`user_id`);
+ALTER TABLE `favorite`
+  ADD CONSTRAINT `Favorite_item` FOREIGN KEY (`item_id`) REFERENCES `item` (`item_id`),
+  ADD CONSTRAINT `Favorite_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`);
 
 --
--- Constraints for table `Feedback`
+-- Constraints for table `feedback`
 --
-ALTER TABLE `Feedback`
-  ADD CONSTRAINT `Feedback_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `User` (`user_id`);
+ALTER TABLE `feedback`
+  ADD CONSTRAINT `feedback_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`);
 
 --
--- Constraints for table `Order`
+-- Constraints for table `order`
 --
-ALTER TABLE `Order`
-  ADD CONSTRAINT `Order_user` FOREIGN KEY (`user_id`) REFERENCES `User` (`user_id`);
+ALTER TABLE `order`
+  ADD CONSTRAINT `Order_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`);
 
 --
--- Constraints for table `Order_Outlet_Item`
+-- Constraints for table `order_outlet_item`
 --
-ALTER TABLE `Order_Outlet_Item`
-  ADD CONSTRAINT `Order_Item_1` FOREIGN KEY (`order_id`) REFERENCES `Order` (`order_id`),
-  ADD CONSTRAINT `Order_Item_2` FOREIGN KEY (`item_id`) REFERENCES `Item` (`item_id`),
-  ADD CONSTRAINT `fk_orderitem_outletitem` FOREIGN KEY (`outlet_id`,`item_id`) REFERENCES `Outlet_Item` (`outlet_id`, `item_id`);
+ALTER TABLE `order_outlet_item`
+  ADD CONSTRAINT `Order_Item_1` FOREIGN KEY (`order_id`) REFERENCES `order` (`order_id`),
+  ADD CONSTRAINT `Order_Item_2` FOREIGN KEY (`item_id`) REFERENCES `item` (`item_id`),
+  ADD CONSTRAINT `fk_orderitem_outletitem` FOREIGN KEY (`outlet_id`,`item_id`) REFERENCES `outlet_item` (`outlet_id`, `item_id`);
 
 --
--- Constraints for table `Outlet_Item`
+-- Constraints for table `outlet_item`
 --
-ALTER TABLE `Outlet_Item`
-  ADD CONSTRAINT `Outlet_Item_1` FOREIGN KEY (`outlet_id`) REFERENCES `Outlet` (`outlet_id`),
-  ADD CONSTRAINT `Outlet_Item_2` FOREIGN KEY (`item_id`) REFERENCES `Item` (`item_id`);
+ALTER TABLE `outlet_item`
+  ADD CONSTRAINT `Outlet_Item_1` FOREIGN KEY (`outlet_id`) REFERENCES `outlet` (`outlet_id`),
+  ADD CONSTRAINT `Outlet_Item_2` FOREIGN KEY (`item_id`) REFERENCES `item` (`item_id`);
 
 --
--- Constraints for table `Payment`
+-- Constraints for table `payment`
 --
-ALTER TABLE `Payment`
-  ADD CONSTRAINT `Payment_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `Order` (`order_id`);
+ALTER TABLE `payment`
+  ADD CONSTRAINT `payment_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `order` (`order_id`);
 
 --
--- Constraints for table `User_Outlet`
+-- Constraints for table `user_outlet`
 --
-ALTER TABLE `User_Outlet`
-  ADD CONSTRAINT `User_Outlet_1` FOREIGN KEY (`user_id`) REFERENCES `User` (`user_id`),
-  ADD CONSTRAINT `User_Outlet_2` FOREIGN KEY (`outlet_id`) REFERENCES `Outlet` (`outlet_id`);
+ALTER TABLE `user_outlet`
+  ADD CONSTRAINT `User_Outlet_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`),
+  ADD CONSTRAINT `User_Outlet_2` FOREIGN KEY (`outlet_id`) REFERENCES `outlet` (`outlet_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

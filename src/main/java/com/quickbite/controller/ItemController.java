@@ -5,12 +5,11 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jdk.jfr.Category;
+
 
 import java.io.IOException;
 import java.util.List;
 
-import com.quickbite.dao.ItemDAO;
 import com.quickbite.dao.OutletDAO;
 import com.quickbite.dao.OutletItemDAO;
 import com.quickbite.model.Outlet;
@@ -19,7 +18,7 @@ import com.quickbite.model.OutletItem;
 /**
  * Servlet implementation class ItemController
  */
-@WebServlet(asyncSupported = true, urlPatterns = { "/location-menu" })
+@WebServlet("/outlets/*")
 public class ItemController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -36,26 +35,36 @@ public class ItemController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String outletIdParam=request.getParameter("outletId");
-		
-		if(outletIdParam !=null) {
-			int outletId=Integer.parseInt(outletIdParam);
-			//fetch from DA)
-			OutletItemDAO outletItemDAO = new OutletItemDAO();
-			List<OutletItem> outletItems = outletItemDAO.getItemsByOutlet(outletId);
-		
-				
-			ItemDAO itemDAO= new ItemDAO();
-			List<String> categoryList = itemDAO.getCategoriesByOutlet(outletId);
-			
-			//setting data
-			request.setAttribute("outletitems", outletItems);
-			request.setAttribute("outlet", outletId);
-			request.setAttribute("categories", categoryList);
-			
-		}
-		// forward to JSP2`
-		request.getRequestDispatcher("/WEB-INF/views/customer/location-menu.jsp").forward(request, response);
+		String outletName = request.getPathInfo().substring(1);
+		String selectedCategory = request.getParameter("category");
+	    
+	    OutletDAO outletDAO = new OutletDAO();
+	    Outlet outlet = outletDAO.getOutletByName(outletName);
+	    
+	    if (outlet==null) {
+	    	response.sendRedirect(request.getContextPath() + "/outlets");
+	    	return;
+	    }
+	    
+	    OutletItemDAO outletItemDAO = new OutletItemDAO();
+	    
+	    	    
+	    //Getting all items first to populate category buttons
+	    List<OutletItem> allOutletItems = outletItemDAO.getItemsByOutlet(outlet.getOutletId());
+	    
+	    //Extracting unique categories from the list of items
+	    List<String> categories = allOutletItems.stream().map(oi -> oi.getItem().getCategory()).distinct().filter(cat -> cat != null && !cat.isEmpty()).toList();
+	    
+	    //Get only the items for selected categories
+	    List<OutletItem> displayItems = outletItemDAO.getItemsByOutletAndCategory(outlet.getOutletId(), selectedCategory);
+	    
+	    
+	    request.setAttribute("categories", categories);
+	    request.setAttribute("outlet", outlet);
+	    request.setAttribute("outletItems", displayItems);
+	    
+	    request.getRequestDispatcher("/WEB-INF/views/customer/location-menu.jsp")
+	           .forward(request, response);
 	}
 
 	/**

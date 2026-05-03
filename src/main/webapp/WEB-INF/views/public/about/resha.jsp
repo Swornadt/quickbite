@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Sahil Shrestha | CV</title>
+<title>Resha Koju | CV</title>
 <style>
 body { font-family: Arial; margin:0; background:#f5f5f5; }
 .header { padding:40px; display:flex; gap:40px; align-items:center; background:#eee; }
@@ -18,11 +18,11 @@ body { font-family: Arial; margin:0; background:#f5f5f5; }
 <body>
 
 <div class="header">
-    <img src="sahil.jpg">
+    <img src="${pageContext.request.contextPath}/assets/about/resha.jpg">
     <div>
-        <h1>Sahil Shrestha</h1>
-        <p>Full Stack Developer</p>
-        <p>Works on both frontend and backend systems.</p>
+        <h1>Resha Koju</h1>
+        <p>Frontend Developer</p>
+        <p>Focused on building responsive and clean interfaces.</p>
     </div>
 </div>
 
@@ -32,7 +32,7 @@ body { font-family: Arial; margin:0; background:#f5f5f5; }
 <div>
     <div class="card">
         <h2>About Me</h2>
-        <p>I build complete web applications from front to back.</p>
+        <p>I enjoy creating modern and responsive websites using clean design principles.</p>
     </div>
 
     <div class="card">
@@ -41,7 +41,6 @@ body { font-family: Arial; margin:0; background:#f5f5f5; }
             <div class="skill">HTML</div>
             <div class="skill">CSS</div>
             <div class="skill">JavaScript</div>
-            <div class="skill">Node.js</div>
         </div>
     </div>
 </div>
@@ -50,14 +49,14 @@ body { font-family: Arial; margin:0; background:#f5f5f5; }
     <div class="card">
         <h2>Quick Info</h2>
         <p>Kathmandu, Nepal</p>
-        <p>Full Stack Developer</p>
-        <p>20+ Projects</p>
+        <p>Frontend Developer</p>
+        <p>8+ Projects</p>
     </div>
 
     <div class="card">
         <h2>Achievements</h2>
-        <p>Full Stack Award</p>
-        <p>Hackathon Winner</p>
+        <p>Best UI Project</p>
+        <p>Hackathon Participant</p>
     </div>
 </div>
 

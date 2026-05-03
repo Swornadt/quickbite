@@ -31,109 +31,112 @@
 
     <!-- Left Pane -->
     <div class="left-container">
+    	<form id="checkout-form" action="${pageContext.request.contextPath}/checkout" method="post">
 
-        <!-- DATE AND TIME SECTION -->
-        <div class="checkout-card">
-            <div class="checkout-card-heading">
-                <p>DATE AND TIME</p>
-            </div>
-            <div class="checkout-card-body">
-
-                <!-- Radio Options -->
-                <div class="radio-group">
-                    <label class="radio-label">
-                        <input type="radio" name="deliveryTime" value="asap" id="radioAsap">
-                        <span class="radio-custom"></span>
-                        As Soon As Possible
-                    </label>
-                    <label class="radio-label">
-                        <input type="radio" name="deliveryTime" value="later" id="radioLater" checked>
-                        <span class="radio-custom"></span>
-                        Schedule for Later
-                    </label>
-                </div>
-
-                <!-- Date & Time Pickers (shown only when "Schedule for Later" is selected) -->
-                <div class="datetime-row" id="datetimeRow">
-                    <div class="datetime-field">
-                        <label class="field-label">DATE</label>
-                        <input type="date" class="field-input" id="deliveryDate" name="deliveryDate"/>
-                    </div>
-                    <div class="datetime-field">
-                        <label class="field-label">TIME</label>
-                        <select class="field-input" id="deliveryTime" name="deliveryTimeSlot">
-                            <option value="" selected disabled>--Select--</option>
-                            <option value="07:00">07:00 AM</option>
-                            <option value="07:30">07:30 AM</option>
-                            <option value="08:00">08:00 AM</option>
-                            <option value="08:30">08:30 AM</option>
-                            <option value="09:00">09:00 AM</option>
-                            <option value="09:30">09:30 AM</option>
-                            <option value="10:00">10:00 AM</option>
-                            <option value="10:30">10:30 AM</option>
-                            <option value="11:00">11:00 AM</option>
-                            <option value="11:30">11:30 AM</option>
-                            <option value="12:00">12:00 PM</option>
-                            <option value="12:30">12:30 PM</option>
-                            <option value="13:00">01:00 PM</option>
-                            <option value="13:30">01:30 PM</option>
-                            <option value="14:00">02:00 PM</option>
-                            <option value="14:30">02:30 PM</option>
-                            <option value="15:00">03:00 PM</option>
-                            <option value="15:30">03:30 PM</option>
-                            <option value="16:00">04:00 PM</option>
-                            <option value="16:30">04:30 PM</option>
-                            <option value="17:00">05:00 PM</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Special note Section -->
-        <div class="checkout-card" style="margin-top: 20px;">
-            <div class="checkout-card-heading">
-                <p>SPECIAL INSTRUCTIONS</p>
-            </div>
-            <div class="checkout-card-body">
-                <textarea
-                    class="notes-input"
-                    name="specialInstructions"
-                    placeholder="Add Notes"
-                    rows="4"
-                ></textarea>
-            </div>
-        </div>
-
-        <!-- Action Buttons -->
-        <form id="checkout-form" action="${pageContext.request.contextPath}/checkout" method="post">
-	        <div class="action-buttons">
-	            <a href="${pageContext.request.contextPath}/cart" class="back-button">GO BACK</a>
-	            <button type="submit" class="continue-button">CONTINUE</button>
+	        <!-- DATE AND TIME SECTION -->
+	        <div class="checkout-card">
+	            <div class="checkout-card-heading">
+	                <p>DATE AND TIME</p>
+	            </div>
+	            <div class="checkout-card-body">
+	
+	                <!-- Radio Options -->
+	                <div class="radio-group">
+	                    <label class="radio-label">
+	                        <input type="radio" name="deliveryTime" value="asap" id="radioAsap">
+	                        <span class="radio-custom"></span>
+	                        As Soon As Possible
+	                    </label>
+	                    <label class="radio-label">
+	                        <input type="radio" name="deliveryTime" value="later" id="radioLater" checked>
+	                        <span class="radio-custom"></span>
+	                        Schedule for Later
+	                    </label>
+	                </div>
+	
+	                <!-- Date & Time Pickers (shown only when "Schedule for Later" is selected) -->
+	                <div class="datetime-row" id="datetimeRow">
+	                    <div class="datetime-field">
+	                        <label class="field-label">DATE</label>
+	                        <input type="date" class="field-input" id="deliveryDate" name="deliveryDate"/>
+	                    </div>
+	                    <div class="datetime-field">
+	                        <label class="field-label">TIME</label>
+	                        <select class="field-input" id="deliveryTime" name="deliveryTimeSlot">
+	                            <option value="" selected disabled>--Select--</option>
+	                            <option value="07:00">07:00 AM</option>
+	                            <option value="07:30">07:30 AM</option>
+	                            <option value="08:00">08:00 AM</option>
+	                            <option value="08:30">08:30 AM</option>
+	                            <option value="09:00">09:00 AM</option>
+	                            <option value="09:30">09:30 AM</option>
+	                            <option value="10:00">10:00 AM</option>
+	                            <option value="10:30">10:30 AM</option>
+	                            <option value="11:00">11:00 AM</option>
+	                            <option value="11:30">11:30 AM</option>
+	                            <option value="12:00">12:00 PM</option>
+	                            <option value="12:30">12:30 PM</option>
+	                            <option value="13:00">01:00 PM</option>
+	                            <option value="13:30">01:30 PM</option>
+	                            <option value="14:00">02:00 PM</option>
+	                            <option value="14:30">02:30 PM</option>
+	                            <option value="15:00">03:00 PM</option>
+	                            <option value="15:30">03:30 PM</option>
+	                            <option value="16:00">04:00 PM</option>
+	                            <option value="16:30">04:30 PM</option>
+	                            <option value="17:00">05:00 PM</option>
+	                        </select>
+	                    </div>
+	                </div>
+	            </div>
 	        </div>
-        </form>
 
+	        <!-- Special note Section -->
+	        <div class="checkout-card" style="margin-top: 20px;">
+	            <div class="checkout-card-heading">
+	                <p>SPECIAL INSTRUCTIONS</p>
+	            </div>
+	            <div class="checkout-card-body">
+	                <textarea
+	                    class="notes-input"
+	                    name="specialInstructions"
+	                    placeholder="Add Notes"
+	                    rows="4"
+	                ></textarea>
+	            </div>
+	        </div>
+
+	        <!-- Action Buttons -->
+			<div class="action-buttons">
+				<a href="${pageContext.request.contextPath}/cart" class="back-button">GO BACK</a>
+				<button type="submit" class="continue-button">CONTINUE</button>
+			</div>
+        </form>
     </div>
 
     <!-- Right Sidepane — MY CART SUMMARY ===== -->
     <div class="right-container">
         <h3 class="cart-summary-title">MY CART</h3>
 
-        <div class="cart-location-banner">
-            <span>${not empty locationOfFood ? locationOfFood : 'Location of Food'}</span>
-        </div>
-
         <div class="cart-items-list">
             <c:choose>
-            	<c:when test="${not empty cartItems}">
-            		<c:forEach var="item" items="${cartItems}">
-            			<div class="cart-item-row">
-			                <span class="cart-item-qty">${item.quantity}x</span>
-			                <span class="cart-item-name">${item.itemName}</span>
-			                <span class="cart-item-price">
-			                	Rs. <fmt:formatNumber value="${item.totalPrice}" pattern="#,##0.00"/>
-							</span>
-			            </div>
+            	<c:when test="${not empty groupedCart}">
+            		
+            		<c:forEach var="entry" items="${groupedCart}">
+	            		
+	            		<div class="cart-location-banner">
+	                    	<span>${entry.key}</span>
+	                	</div>
+	                	
+	                	<c:forEach var="item" items="${entry.value}">
+	            			<div class="cart-item-row">
+				                <span class="cart-item-qty">${item.quantity}x</span>
+				                <span class="cart-item-name">${item.itemName}</span>
+				                <span class="cart-item-price">
+				                	Rs. <fmt:formatNumber value="${item.totalPrice}" pattern="#,##0.00"/>
+								</span>
+				            </div>
+	                	</c:forEach>
             		</c:forEach>
             	</c:when>
             	<c:otherwise>

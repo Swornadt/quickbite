@@ -13,6 +13,7 @@ public class UserModel {
 	private String password;
 	private String role = "customer";
     private String status = "pending";
+    private String image;
 	
 	//Getter and Setter 
     public int getUserId() {
@@ -93,5 +94,13 @@ public class UserModel {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+    
+    public String getImage() {
+    	return image;
+    }
+    
+    public void setImage(String image) {
+    	this.image = image;
     }
 }

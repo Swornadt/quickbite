@@ -1,0 +1,117 @@
+
+.container {
+  margin-top: 20px;
+  background: #fff;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.edit-btn {
+	background: #9E9E9E;
+}
+
+.delete-btn, .add-item-btn {
+	background: #DB4A1E;
+}
+
+.add-item-btn {
+	color: #ffffff;
+	display: flex;
+	width: 126px;
+	padding: 8px 15px;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+	border-radius: 20px;
+	border: none;
+}
+
+.delete-btn, .edit-btn {
+	display: flex;
+	width: 65px;
+	height: 25px;
+	padding: 10px;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+	border-radius: 20px;
+	color: #ffffff;
+	border: none;
+}
+
+.delete-btn:hover, .edit-btn:hover, .add-item-btn:hover {
+	background: #000000;
+}
+
+
+.canteen-btn {
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 8px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 200px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+thead {
+  background: #f2f2f2;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+}
+
+tbody tr {
+  border-bottom: 1px solid #eee;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+  width: 700px;
+  height: 500px;
+  margin: 5% auto;
+  background: #fff;
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.modal-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.close-btn {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  font-size: 22px;
+  cursor: pointer;
+  z-index: 1000;
+}
