@@ -191,6 +191,7 @@ public class UserDAO {
 			System.err.println("Error fetching user: "+e.getMessage());
 			e.printStackTrace();
 		}
+
 		return null;
 				
 				

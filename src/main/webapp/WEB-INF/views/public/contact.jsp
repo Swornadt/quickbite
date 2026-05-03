@@ -46,7 +46,7 @@
 
         <% if (isLoggedIn) { %>
             <!-- Logged-in Feedback Form -->
-            <form action="${pageContext.request.contextPath}/ContactServlet" method="post" class="feedback-form">
+            <form action="${pageContext.request.contextPath}/contact" method="post" class="feedback-form">
                 <h2>Send us your feedback</h2>
 
                 <div class="rating-row">

@@ -96,6 +96,10 @@ public class UserModel {
         this.status = status;
     }
     
+    public String getFullName() {
+    	return fname + " " + lname;
+	}
+      
     public String getImage() {
     	return image;
     }
@@ -104,7 +108,4 @@ public class UserModel {
     	this.image = image;
     }
     
-    public String getFullName() {
-    	return fname + " " + lname;
-    }
 }
