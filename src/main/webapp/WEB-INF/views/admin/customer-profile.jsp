@@ -15,7 +15,8 @@
 	</div>
 
 	<div class="customer-profile-side">
-        <div class="customer-brief">
+        <%@ include file='../common/adminNav.jsp' %>
+        <div class="customer-brief" style="margin: 20px 0;">
             <div class="customer-image">
                 <img src="${empty customerData.image ? pageContext.request.contextPath.concat('/assets/user-image.jpg') : customerData.image}" alt="Profile Picture">
             </div>
