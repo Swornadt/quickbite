@@ -51,7 +51,7 @@ body { font-family: Arial; margin:0; background:#f5f5f5; }
 <body>
 
 <div class="header">
-    <img src="hridishna.jpg">
+    <img src="${pageContext.request.contextPath}/assets/about/hridishna.jpg">
     <div>
         <h1>Hridishna Deula</h1>
         <p>Computing Undergraduate</p>

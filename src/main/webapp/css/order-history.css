@@ -1,0 +1,99 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #fcfcfc;
+    color: #444;
+}
+
+.history-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.filter-btn {
+    background: white;
+    border: 1px solid #ddd;
+    padding: 10px 20px;
+    border-radius: 8px;
+    color: #888;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+.filter-icon {
+    color: #f3a661;
+    padding-right: 10px;
+    cursor: pointer;
+    font-size: 1.1rem;
+}
+
+.section-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 30px 0 10px 0;
+    letter-spacing: 0.5px;
+}
+
+.order-label {
+    font-size: 0.9rem;
+    color: #888;
+    font-weight: 400;
+    margin-bottom: 15px;
+}
+
+.divider {
+    height: 1px;
+    background-color: #eee;
+    margin: 15px 0;
+}
+
+.order-card {
+    padding: 10px 0;
+    line-height: 1.8;
+}
+
+.order-card p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #666;
+}
+
+.order-card span {
+    color: #444;
+}
+
+.status-pending {
+    color: #f3a661 !important; 
+    font-weight: 600;
+}
+
+.no-orders{
+    color: #999;
+    font-size: 0.9rem;
+    padding: 20px 0;
+}
+
+.pagination {
+    margin-top: 30px;
+    border-top: 1px solid #f0f0f0;
+    padding-top: 20px;
+    display: flex;
+    gap: 15px;
+    color: #999;
+    font-size: 0.9rem;
+}
+
+.pager-btn {
+    cursor: pointer;
+}
+
+.pager-current {
+    color: #444;
+    font-weight: 600;
+}
+
+.order-list-scroll {
+    max-height: 150px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 15px;
+}

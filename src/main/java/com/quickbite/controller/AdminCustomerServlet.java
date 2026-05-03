@@ -46,7 +46,7 @@ public class AdminCustomerServlet extends HttpServlet {
 		request.setAttribute("activeCustomers",activeCustomers);
 		
 		//Foward to JSP, the JSP wil loop through the list and display each user
-		request.getRequestDispatcher("/WEB-INF/views/admin/tempCustomerApproval.jsp").forward(request,response);
+		request.getRequestDispatcher("/WEB-INF/views/admin/adminCustomerApproval.jsp").forward(request,response);
 		
 	}
 
