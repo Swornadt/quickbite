@@ -29,7 +29,7 @@
                                                          
             </div>
             <div class="search-bar">
-                <input type="text" id="searchBar" placeholder="Search your cravings!">
+                <input type="text" id="searchBar" placeholder="Search your cravings!" value="${param.search}">
             </div>
         </div>
 <div class="cards" id="cardsDiv">
@@ -82,5 +82,14 @@
 <!-- Footer -->
 <%@ include file="../common/footer.jsp" %>
 </body>
-
+<script>
+document.getElementById('searchBar').addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+        const searchValue = this.value;
+        const currentUrl = new URL(window.location.href);
+        currentUrl.searchParams.set('search', searchValue);
+        window.location.href = currentUrl.toString(); // Reloads page with ?search=...[cite: 1, 3]
+    }
+});
+</script>
 </html>
