@@ -1,21 +1,16 @@
 package com.quickbite.service;
 
-import com.quickbite.dao.AdminDAO;
-import com.quickbite.model.AdminModel;
+import com.quickbite.dao.UserDAO;
+import com.quickbite.model.UserModel;
 
 public class AdminService {
-	private AdminDAO adminDAO = new AdminDAO();
+	private UserDAO userDAO = new UserDAO();
 	
-	public AdminModel getAdminById(int user_id) {
-		AdminModel admin = adminDAO.getAdminById(user_id);
-		
-		if (admin !=null) {
-			String fname = admin.getFname();
-			String lname = admin.getLname();
-			
-			String fullName = fname + " " + lname;
-		}
-		
-		return admin;
+	public UserModel getUserById(int user_id) {
+		return userDAO.getUserById(user_id);
+	}
+	
+	public boolean updateAdminProfile(int user_id, String fname, String lname, String email, String number) {
+		return userDAO.updateUserDetails(user_id, fname, lname, email, number);
 	}
 }
