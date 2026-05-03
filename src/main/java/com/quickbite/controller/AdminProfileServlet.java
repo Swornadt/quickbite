@@ -7,9 +7,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import com.quickbite.model.AdminModel;
 import com.quickbite.model.UserModel;
 import com.quickbite.service.AdminService;
+import com.quickbite.utils.SessionUtil;
 
 /**
  * Servlet implementation class AdminProfileServlet
@@ -32,11 +32,20 @@ public class AdminProfileServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		// 1. Initializing the service
-		AdminService adminService = new AdminService();
+		UserModel sessionUser = (UserModel) SessionUtil.getAttribute(request, "user");
+		
+		if (sessionUser == null) {
+			response.sendRedirect(request.getContextPath() + "/login");
+			return;
+		}
 		
 		//Fetching the admin with Id 1 for now, will have to replace with session ID later
-		UserModel admin = adminService.getUserById(3);
+		int currentId = sessionUser.getUserId();
+
+		// 1. Initializing the service
+		AdminService adminService = new AdminService();
+
+		UserModel admin = adminService.getUserById(currentId);
 		
 		request.setAttribute("userData", admin);
 		
