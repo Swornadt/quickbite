@@ -108,7 +108,4 @@ public class UserModel {
     	this.image = image;
     }
     
-    public String getFullName() {
-    	return fname + " " + lname;
-    }
 }

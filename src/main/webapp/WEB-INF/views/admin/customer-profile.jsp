@@ -50,9 +50,9 @@
                     <h4>Gender</h4>
                     <p>${customerData.gender}</p>
                 </div>
-                <div class="customer-username">
-                    <h4>Username</h4>
-                    <p>${customerData.username}</p>
+                <div class="customer-role">
+                    <h4>Role</h4>
+                    <p>${customerData.role}</p>
                 </div>
             </div>
 

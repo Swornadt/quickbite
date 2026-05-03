@@ -7,9 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import com.quickbite.model.AdminModel;
 import com.quickbite.model.UserModel;
-import com.quickbite.service.AdminCustomerService;
 import com.quickbite.service.AdminService;
 
 /**
@@ -38,12 +36,12 @@ public class CustomerProfileController extends HttpServlet {
 		if (userIdParam !=null) {
 			try {
 				int userId = Integer.parseInt(userIdParam);		
-				AdminCustomerService customerService = new AdminCustomerService();			
+				AdminService adminService = new AdminService();			
 				
-				UserModel customer = customerService.getCustomerById(userId);			
+				UserModel user = adminService.getUserById(userId);			
 			
-				if(customer !=null) {
-					request.setAttribute("customerData",customer);
+				if(user !=null) {
+					request.setAttribute("customerData", user);
 				}
 			}
 			catch(NumberFormatException e) {
