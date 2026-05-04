@@ -32,9 +32,6 @@ public class AuthController extends HttpServlet {
 			case "/login":
 				request.getRequestDispatcher("/WEB-INF/views/auth/login.jsp").forward(request,response);
 				break;
-			case "/logout":
-				doPost(request, response);
-				break;
 			case "/register":
 				request.getRequestDispatcher("/WEB-INF/views/auth/register.jsp").forward(request,response);
 				break;
@@ -72,11 +69,6 @@ public class AuthController extends HttpServlet {
 		        String confirmpass= request.getParameter("confirmpass");
 		        String terms= request.getParameter("terms");
 		        
-		        //Image Upload
-		        ImageUtil imageUtil = new ImageUtil();
-		        Part filePart = request.getPart("image");
-		        
-		        String imagePath = imageUtil.uploadProfileImage(filePart, "uploads", getServletContext());
 				
 				if (fname == null || fname.trim().isEmpty() ||
 		                lname == null || lname.trim().isEmpty() ||
@@ -158,10 +150,14 @@ public class AuthController extends HttpServlet {
 		            return;
 		        }
 		        
+		        //Image Upload
+		        ImageUtil imageUtil = new ImageUtil();
+		        Part filePart = request.getPart("image");
+		        String imagePath = imageUtil.uploadProfileImage(filePart, "uploads", getServletContext());
+		        
 		        try {
 		        	RegisterService service = new RegisterService();
 		        	service.registerUser(fname, lname, number, email, gender, dob, newpass, imagePath);
-		        	System.out.println("Registartion successful for:" + fname + " " + lname);
 		        	request.setAttribute("success", "Registration successful!");
 		        	request.getRequestDispatcher("/WEB-INF/views/auth/login.jsp").forward(request,response);
 		        }catch(Exception e) {
@@ -216,14 +212,14 @@ public class AuthController extends HttpServlet {
         if (user != null) {   
         	
         	//When user status is pending
-        	if (user.getStatus().equals("pending")) {
+        	if (user.getStatus().equalsIgnoreCase("pending")) {
         		request.setAttribute("error", "Your account is in pending status and requires admin approval");
         		request.getRequestDispatcher("/WEB-INF/views/auth/login.jsp").forward(request,response);
         		return;
         	}
         	
         	//When user status is rejected
-        	if (user.getStatus().equals("rejected")) {
+        	if (user.getStatus().equalsIgnoreCase("rejected")) {
         		request.setAttribute("error", "Your account has been rejected. Please contact support.");
         		request.getRequestDispatcher("/WEB-INF/views/auth/login.jsp").forward(request,response);
         		return;
@@ -234,16 +230,19 @@ public class AuthController extends HttpServlet {
         	request.setAttribute("success","Login successful!");
         	
         	//Redirection based on role
-        	if (user.getRole().equals("admin")) {
-        		response.sendRedirect(request.getContextPath() + "/admin/customers");
-        	} else if (user.getRole().equals("staff")) {
-        		UserOutletDAO userOutletDAO = new UserOutletDAO();
-        	    int outletId = userOutletDAO.getOutletByUser(user.getUserId());
-        	    request.getSession().setAttribute("outletId", outletId);
-        	    response.sendRedirect(request.getContextPath() + "/kitchen");
-        	}else {
-        		response.sendRedirect(request.getContextPath() + "/home");
+        	String targetPath;
+        	switch (user.getRole().toLowerCase()) {
+        		case "admin":
+        			targetPath = "/admin/customers";
+        			break;
+        		case "staff":
+        			int outletId = new UserOutletDAO().getOutletByUser(user.getUserId());
+        			request.getSession().setAttribute("outletId", outletId);
+        			targetPath = "/kitchen";
+        		default:
+        			targetPath = "/home";
         	}
+        	response.sendRedirect(request.getContextPath() + targetPath);
         } else {
         	request.setAttribute("error", "Invalid phone number or password.");
         	request.getRequestDispatcher("/WEB-INF/views/auth/login.jsp").forward(request, response);
