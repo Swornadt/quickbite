@@ -8,7 +8,12 @@ public class ValidationUtil {
 	        String fname, String lname, String number, String email, 
 	        String dob, String pass, String confirmPass, String terms
 	) {
-		//First Name validation
+		// null validation
+		if (fname == null || lname == null || number == null || email == null || 
+		        dob == null || pass == null || confirmPass == null) {
+		        return "All fields are required.";
+		    }
+		
         if (!fname.matches("[a-zA-Z ]+")) {
             return "First name must contain letters only.";
         }

@@ -1,6 +1,7 @@
 package com.quickbite.controller;
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,7 +19,8 @@ import com.quickbite.utils.ImageUtil;
 import com.quickbite.utils.SessionUtil;
 import com.quickbite.utils.ValidationUtil;
 
-@WebServlet(asyncSupported = true, urlPatterns = { "/login","/logout", "register" })
+@MultipartConfig
+@WebServlet(asyncSupported = true, urlPatterns = { "/login","/logout", "/register" })
 public class AuthController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -27,7 +29,7 @@ public class AuthController extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String endpoint = request.getPathInfo();
+		String endpoint = request.getServletPath();
 		
 		switch(endpoint) {
 			case "/login":
@@ -36,13 +38,18 @@ public class AuthController extends HttpServlet {
 			case "/register":
 				request.getRequestDispatcher("/WEB-INF/views/auth/register.jsp").forward(request,response);
 				break;
+			case "/logout":
+				doPost(request, response);
+				break;
 			default:
+				response.sendError(HttpServletResponse.SC_NOT_FOUND);
+				break;
 		}
 				
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String endpoint = request.getPathInfo();
+		String endpoint = request.getServletPath();
 		
 		switch(endpoint) {
 			case "/login":
