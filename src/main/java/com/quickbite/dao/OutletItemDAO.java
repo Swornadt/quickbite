@@ -190,4 +190,53 @@ public class OutletItemDAO {
 		}
 		return outletItems;
 	}
+	
+	public List<OutletItem> searchItems(int outletId, String category, String searchTerm){
+		List<OutletItem> outletItems = new ArrayList<>();
+		String sql = "select i.*, oi.outlet_item_price from item i " + "join outlet_item oi on i.item_id = oi.item_id " + "where oi.outlet_id=?";
+		
+		if(category != null && !category.equalsIgnoreCase("all")) {
+			sql += " and i.category=?";
+		}
+		
+		if(searchTerm != null && !searchTerm.trim().isEmpty()) {
+			sql += " and i.item_name like ?";
+		}
+		
+		try(Connection conn = DBconfig.getConnection();
+				PreparedStatement ps = conn.prepareStatement(sql.toString())){
+			
+			int paramIndex=1;
+			ps.setInt(paramIndex++, outletId);
+			
+			if(category != null && !category.equalsIgnoreCase("all")) {
+				ps.setString(paramIndex++, category);
+			}
+			
+			if(searchTerm != null && !searchTerm.trim().isEmpty()) {
+				ps.setString(paramIndex++, "%" + searchTerm + "%");
+			}
+			
+			try(ResultSet rs = ps.executeQuery()){
+				while (rs.next()) {
+					Item item = new Item(
+							rs.getInt("item_id"),
+							rs.getString("item_name"),
+							rs.getString("category"),
+							rs.getString("item_type"),
+							rs.getString("item_description"),
+							rs.getString("item_status"),
+							rs.getString("item_ingredient"),
+							rs.getString("item_allergy"),
+							rs.getString("item_image")
+							);
+					outletItems.add(new OutletItem(item, rs.getDouble("outlet_item_price")));
+				}
+			}
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return outletItems;
+	}
 }
