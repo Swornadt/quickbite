@@ -7,6 +7,5 @@ release.properties
 .classpath
 .factorypath
 
-src/main/webapp/assets/**/*.png
 src/main/webapp/assets/**/*.jpg
 /bin/

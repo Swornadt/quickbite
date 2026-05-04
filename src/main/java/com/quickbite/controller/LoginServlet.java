@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
+import com.quickbite.dao.UserOutletDAO;
 import com.quickbite.model.UserModel;
 import com.quickbite.service.LoginService;
 import com.quickbite.utils.CookieUtil;
@@ -96,6 +97,11 @@ public class LoginServlet extends HttpServlet {
         	//Redirection based on role
         	if (user.getRole().equals("admin")) {
         		response.sendRedirect(request.getContextPath() + "/admin/customers");
+        	} else if (user.getRole().equals("staff")) {
+        		UserOutletDAO userOutletDAO = new UserOutletDAO();
+        	    int outletId = userOutletDAO.getOutletByUser(user.getUserId());
+        	    request.getSession().setAttribute("outletId", outletId);
+        	    response.sendRedirect(request.getContextPath() + "/kitchen");
         	}else {
         		response.sendRedirect(request.getContextPath() + "/home");
         	}
