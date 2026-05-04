@@ -25,9 +25,11 @@
       had it's name changed or temporarily unavailable.
     </div>
 
-    <button class="home-btn" onclick="window.location.href='index.jsp'">
+    <a href="<%=request.getContextPath()%>/home">
+    <button class="home-btn">
       GO TO HOMEPAGE
     </button>
+    </a>
   </section>
 
   <!-- FOOTER -->

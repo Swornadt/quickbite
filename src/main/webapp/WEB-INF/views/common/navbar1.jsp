@@ -78,7 +78,7 @@
         <div class="nav-right">
           <div class="loggedin-nav-links">
             <a href="<%=request.getContextPath()%>/outlets" class="nav-link">Location</a>
-            <a href="<%=request.getContextPath()%>/ContactServlet" class="nav-link">Contact Us</a>
+            <a href="<%=request.getContextPath()%>/contact" class="nav-link">Contact Us</a>
           </div>
 
           <div class="nav-symbols">

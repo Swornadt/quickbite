@@ -37,7 +37,9 @@ public class ItemController extends HttpServlet {
 		// TODO Auto-generated method stub
 		String outletName = request.getPathInfo().substring(1);
 		String selectedCategory = request.getParameter("category");
-	    
+	    String searchQuery = request.getParameter("search");
+		
+		
 	    OutletDAO outletDAO = new OutletDAO();
 	    Outlet outlet = outletDAO.getOutletByName(outletName);
 	    
@@ -48,20 +50,17 @@ public class ItemController extends HttpServlet {
 	    
 	    OutletItemDAO outletItemDAO = new OutletItemDAO();
 	    
-	    	    
+	    
 	    //Getting all items first to populate category buttons
-	    List<OutletItem> allOutletItems = outletItemDAO.getItemsByOutlet(outlet.getOutletId());
-	    
-	    //Extracting unique categories from the list of items
-	    List<String> categories = allOutletItems.stream().map(oi -> oi.getItem().getCategory()).distinct().filter(cat -> cat != null && !cat.isEmpty()).toList();
-	    
+	    List<OutletItem> allItems = outletItemDAO.getItemsByOutlet(outlet.getOutletId());
+	    List<String> categories = allItems.stream().map(oi -> oi.getItem().getCategory()).distinct().filter(cat -> cat != null && !cat.isEmpty()).toList();
+ 
 	    //Get only the items for selected categories
-	    List<OutletItem> displayItems = outletItemDAO.getItemsByOutletAndCategory(outlet.getOutletId(), selectedCategory);
-	    
+	    List<OutletItem> results = outletItemDAO.searchItems(outlet.getOutletId(), selectedCategory, searchQuery);  
 	    
 	    request.setAttribute("categories", categories);
 	    request.setAttribute("outlet", outlet);
-	    request.setAttribute("outletItems", displayItems);
+	    request.setAttribute("outletItems", results);
 	    
 	    request.getRequestDispatcher("/WEB-INF/views/customer/location-menu.jsp")
 	           .forward(request, response);
