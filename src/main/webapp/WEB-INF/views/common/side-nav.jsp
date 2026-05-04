@@ -36,7 +36,7 @@
         <div class="side-nav-footer">
 			<a href=""><i class="fa-solid fa-gear"></i> Settings</a>
 			<a href=""><i class="fa-regular fa-circle-question"></i> Support</a>
-			<a href=""><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a>
+			<a href="${pageContext.request.contextPath}/logout"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a>
 		</div>
     </div>
     <div class="under-side-nav">
