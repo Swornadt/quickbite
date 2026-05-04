@@ -20,11 +20,11 @@ import com.quickbite.model.Item;
 import com.quickbite.model.Outlet;
 import com.quickbite.model.OutletItem;
 import com.quickbite.model.UserModel;
+import com.quickbite.service.AdminCustomerService;
+import com.quickbite.service.AdminService;
 import com.quickbite.service.MenuService;
 import com.quickbite.utils.ImageUtil;
 import com.quickbite.utils.SessionUtil;
-import com.quickbite.service.AdminCustomerService;
-import com.quickbite.service.AdminService;
 
 /**
  * Servlet implementation class AdminController
@@ -47,9 +47,8 @@ public class AdminController extends HttpServlet {
 
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("DEBUG doGet hit. ServletPath=" + request.getServletPath() + " PathInfo=" + request.getPathInfo());
+		
 		String path = request.getPathInfo();
-		System.out.println("DEBUG: PathInfo is: " + path);
 		
 		if (path==null || path.equals("/")) {
 			showDashboard(request, response);
