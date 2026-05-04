@@ -121,56 +121,39 @@ public class AuthController extends HttpServlet {
 		String number = request.getParameter("number");
 		String pass = request.getParameter("pass");
 		
-		//Checking for empty value in Number and password input field
-		if (number == null || number.trim().isEmpty() || pass == null|| pass.trim().isEmpty()) {
-		  request.setAttribute("error", "Phone number and password are required");
-		  request.getRequestDispatcher("/WEB-INF/views/auth/login.jsp").forward(request, response);
-		  return;
+		// Validation check
+		String error = ValidationUtil.validateLogin(number, pass);
+		
+		// If error exists
+		if (error != null) {
+			request.setAttribute("error", error);
+			request.setAttribute("number", number);
+			request.getRequestDispatcher("/WEB-INF/views/auth/login.jsp").forward(request, response);
+	        return;
 		}
 		
-		//Phone number length validation
-		if (number.trim().length() != 10) {
-            request.setAttribute("error", "Phone number must be 10 characters (e.g. 9812345678).");
-            request.getRequestDispatcher("/WEB-INF/views/auth/login.jsp").forward(request, response);
-            return;
-        }
-		
-		 //Password Validation
-        if (pass.length() <= 6 ||
-                !pass.matches(".*[A-Z].*") ||
-                !pass.matches(".*[0-9].*") ||
-                !pass.matches(".*[!@#$%^&*].*")) {
-
-                request.setAttribute("error", "Password must be more than 6 characters and include an uppercase letter, a number, and a special character (!@#$%^&*).");
-                request.getRequestDispatcher("/WEB-INF/views/auth/login.jsp").forward(request, response);
-                return;
-            }
-        
-		// Password Verification
+		// Authentication logic
         LoginService loginService = new LoginService();
         UserModel user = loginService.authenticate(number, pass);
         
         if (user != null) {   
         	
-        	//When user status is pending
-        	if (user.getStatus().equalsIgnoreCase("pending")) {
-        		request.setAttribute("error", "Your account is in pending status and requires admin approval");
-        		request.getRequestDispatcher("/WEB-INF/views/auth/login.jsp").forward(request,response);
-        		return;
-        	}
+        	// User's approval status check
+        	if (!user.getStatus().equalsIgnoreCase("active")) {
+                String statusMsg = user.getStatus().equalsIgnoreCase("pending") 
+                    ? "Your account is pending admin approval." 
+                    : "Your account has been rejected. Please contact support.";
+                
+                request.setAttribute("error", statusMsg);
+                request.getRequestDispatcher("/WEB-INF/views/auth/login.jsp").forward(request, response);
+                return;
+            }
         	
-        	//When user status is rejected
-        	if (user.getStatus().equalsIgnoreCase("rejected")) {
-        		request.setAttribute("error", "Your account has been rejected. Please contact support.");
-        		request.getRequestDispatcher("/WEB-INF/views/auth/login.jsp").forward(request,response);
-        		return;
-        	}
-        	
-        	//When user status is active
+        	// When user status is active
         	SessionUtil.setAttribute(request, "user", user);
         	request.setAttribute("success","Login successful!");
         	
-        	//Redirection based on role
+        	// Redirection based on role
         	String targetPath;
         	switch (user.getRole().toLowerCase()) {
         		case "admin":
@@ -180,8 +163,10 @@ public class AuthController extends HttpServlet {
         			int outletId = new UserOutletDAO().getOutletByUser(user.getUserId());
         			request.getSession().setAttribute("outletId", outletId);
         			targetPath = "/kitchen";
+        			break;
         		default:
         			targetPath = "/home";
+        			break;
         	}
         	response.sendRedirect(request.getContextPath() + targetPath);
         } else {

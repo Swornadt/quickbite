@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 public class ValidationUtil {
 
-	public static String validateRegistration(
+	public static String validateRegistration (
 	        String fname, String lname, String number, String email, 
 	        String dob, String pass, String confirmPass, String terms
 	) {
@@ -58,5 +58,29 @@ public class ValidationUtil {
         }
         
         return null; //executes if all checks are passed
+	}
+	
+	public static String validateLogin (String number, String pass) {
+		
+		// Checking for empty value in Number and password input field
+		if (number == null || number.trim().isEmpty() || pass == null|| pass.trim().isEmpty()) {
+			return "Phone number and password are required.";
+		}
+		
+		//Phone number length validation
+		if (number.trim().length() != 10) {
+			return "Phone number must be exactly 10 digits.";
+		}
+		
+		// Password Validation
+		if (pass.length() <= 6 ||
+                !pass.matches(".*[A-Z].*") ||
+                !pass.matches(".*[0-9].*") ||
+                !pass.matches(".*[!@#$%^&*].*")) {
+
+		return "Password must be more than 6 characters and include an uppercase letter, a number, and a special character (!@#$%^&*).";
+		}
+		
+		return null;
 	}
 }
