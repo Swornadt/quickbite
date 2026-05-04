@@ -26,7 +26,7 @@
                         </div>
 
                         <div class="form-container">
-                            <form action="<%=request.getContextPath()%>/AddItem" method="post"
+                            <form action="<%=request.getContextPath()%>/admin/menu/add" method="post"
                                 enctype="multipart/form-data">
                                 <div class="form-grid">
                                     <div class="form-group">

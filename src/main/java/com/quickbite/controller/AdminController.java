@@ -1,7 +1,7 @@
 package com.quickbite.controller;
 
 import jakarta.servlet.ServletException;
-
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -29,6 +29,11 @@ import com.quickbite.utils.SessionUtil;
 /**
  * Servlet implementation class AdminController
  */
+@MultipartConfig(
+	    fileSizeThreshold = 1024 * 1024 * 2, // 2MB
+	    maxFileSize = 1024 * 1024 * 10,      // 10MB
+	    maxRequestSize = 1024 * 1024 * 50   // 50MB
+	)
 @WebServlet(asyncSupported = true, urlPatterns = { "/admin","/admin/*" })
 public class AdminController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -49,6 +54,7 @@ public class AdminController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String path = request.getPathInfo();
+		System.out.println("DEBUG doGet path: [" + path + "]");
 		
 		if (path==null || path.equals("/")) {
 			showDashboard(request, response);
@@ -60,7 +66,6 @@ public class AdminController extends HttpServlet {
 				showMenuManagement(request, response);
 				break;
 			case "/customers":
-				System.out.println("case customer");
 				viewCustomers(request, response);
 				break;
 			case "/feedback":
@@ -68,10 +73,12 @@ public class AdminController extends HttpServlet {
 				break;
 			case "/profile":
 				viewProfile(request, response);
+				break;
 			case "/menu/add":
 				viewMenuAdd(request, response);
 				break;
 			case "/menu/edit":
+				System.out.println("edit");
 				viewMenuEdit(request, response);
 				break;
 			case "/menu/delete":
@@ -112,16 +119,32 @@ public class AdminController extends HttpServlet {
 	private void showMenuManagement(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		MenuService menuService = new MenuService();
 
-        String outletIdStr = request.getParameter("outletId");
+        String outletParam = request.getParameter("outletId");
+        Long selectedOutletId = 0L;
+        
+        if (outletParam != null && !outletParam.isEmpty() && !outletParam.equals("null")) {
+            try {
+                selectedOutletId = Long.parseLong(outletParam.trim());
+            } catch (NumberFormatException e) {
+                // Log the error and fall back to 0 or session
+                selectedOutletId = 0L; 
+            }
+        } else {
+            // Fallback to Session if the parameter is missing
+            Object sessionOutlet = request.getSession().getAttribute("selectedOutletId");
+            if (sessionOutlet instanceof Long) {
+                selectedOutletId = (Long) sessionOutlet;
+            }
+        }
 
         // Get data through Service
         List<Outlet> outlets = menuService.getAllOutlets();
-        List<OutletItem> outletItems = menuService.getMenuItems(outletIdStr);
+        List<OutletItem> outletItems = menuService.getMenuItems(outletParam);
 
         // Set attributes
         request.setAttribute("outletItems", outletItems);
         request.setAttribute("outlets", outlets);
-        request.setAttribute("selectedOutletId", outletIdStr);
+        request.setAttribute("selectedOutletId", selectedOutletId);
 
         request.getRequestDispatcher("/WEB-INF/views/admin/admin-menu-view.jsp").forward(request, response);
 	}
@@ -241,6 +264,7 @@ public class AdminController extends HttpServlet {
 				break;
 			case "/profile":
 				handleAdminProfile(request, response);
+				break;
 			case "/menu/add":
 				handleMenuAdd(request, response);
 				break;
@@ -369,7 +393,9 @@ public class AdminController extends HttpServlet {
                     request.setAttribute("message",
                             "Item successfully linked to outlet " + outletId + " with price " + price);
                     request.setAttribute("status", "success");
-                    response.sendRedirect(request.getContextPath() + "/admin/menu?outletId=" + outletIdStr);
+                    loadOutlets(request);
+                    forward(request, response);
+                    return;
                 } else {
                     request.setAttribute("message", "Item saved but failed to link to outlet");
                     request.setAttribute("status", "warning");
@@ -381,12 +407,6 @@ public class AdminController extends HttpServlet {
             request.setAttribute("message", "Error: " + e.getMessage());
             request.setAttribute("status", "error");
         }
-
-        loadOutlets(request);
-
-        forward(request, response);
-        
-        
 	}
     
 	private void handleMenuDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -466,6 +486,12 @@ public class AdminController extends HttpServlet {
             boolean updated = itemDAO.updateItem(item);
 
             String outletIdStr = request.getParameter("outletId");
+            
+            // Validation: If outletId is missing, redirect to a safe default or 0
+            if (outletIdStr == null || outletIdStr.trim().isEmpty() || outletIdStr.equals("null")) {
+                outletIdStr = "0"; 
+            }
+            
             String priceStr = request.getParameter("price");
 
             boolean priceUpdated = false;
@@ -493,7 +519,9 @@ public class AdminController extends HttpServlet {
                 request.setAttribute("status", "error");
             }
 
-            response.sendRedirect(request.getContextPath() + "/admin/menu?outletId=" + request.getParameter("outletId"));
+            
+            request.getRequestDispatcher("/WEB-INF/views/admin/admin-update-item.jsp").forward(request, response);
+            return;
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -514,6 +542,7 @@ public class AdminController extends HttpServlet {
     private void forward(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         req.getRequestDispatcher("/WEB-INF/views/admin/admin-add-item.jsp").forward(req, resp);
+        return;
     }
 
 

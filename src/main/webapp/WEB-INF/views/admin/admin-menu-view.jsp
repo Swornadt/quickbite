@@ -83,13 +83,13 @@
                         <td>${oi.item.itemDescription}</td>
                         <td>${oi.item.itemStatus}</td>
                         <td>
-                          <form action="<%=request.getContextPath()%>/admin/menu/edit" method="post" target="updateIframe"
-                            style="display: inline;">
-                            <input type="hidden" name="itemId" value="${oi.item.itemId}" />
-                            <button type="button" class="edit-btn"
-                              onclick="this.form.submit(); openUpdateModal()">Edit</button>
-                          </form>
-                        </td>
+						    <form action="<%=request.getContextPath()%>/admin/menu/edit" method="get" target="updateIframe"
+						        style="display: inline;">
+						        <input type="hidden" name="itemId" value="${oi.item.itemId}" />
+						        <button type="button" class="edit-btn"
+						            onclick="this.form.submit(); openUpdateModal()">Edit</button>
+						    </form>
+						</td>
                         <td>
                           <form action="<%=request.getContextPath()%>/admin/menu/delete" method="post" target="deleteIframe"
                             style="display: inline;">
@@ -120,7 +120,7 @@
       <div id="addItemModal" class="modal">
         <div class="modal-content">
           <span class="close-btn" onclick="closeAddModal()">&times;</span>
-          <iframe src="<%=request.getContextPath()%>/AddItem" class="modal-iframe"></iframe>
+          <iframe src="<%=request.getContextPath()%>/admin/menu/add" class="modal-iframe"></iframe>
         </div>
       </div>
 
