@@ -27,9 +27,11 @@
             <a href="${pageContext.request.contextPath}/AdminMenuServlet"><i class="fa-solid fa-utensils"></i> Menu Management</a>
             <a href=""><i class="fa-solid fa-chart-line"></i> Report</a>
             <a href="${pageContext.request.contextPath}/admin/feedback"><i class="fa-regular fa-calendar-check"></i> View Feedbacks</a>
-            <button class="add-new-item">
+            <a href="${pageContext.request.contextPath}/AdminMenuServlet">
+            	<button class="add-new-item">
             	<span class="btn-text"> + Add New Item</span>
             </button>
+            </a>
         </div>
         <div class="side-nav-footer">
 			<a href=""><i class="fa-solid fa-gear"></i> Settings</a>

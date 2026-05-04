@@ -71,6 +71,7 @@
 	background-color: #db4a1e;
 	margin-top: 40px;
 	cursor: pointer;
+	width: 100%;
 }
 
 .add-new-item .btn-text{
