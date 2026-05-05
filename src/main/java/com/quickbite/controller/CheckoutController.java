@@ -18,12 +18,12 @@ import com.quickbite.model.UserModel;
 import com.quickbite.service.CartService;
 
 @WebServlet(asyncSupported = true, urlPatterns = { "/checkout" })
-public class CheckoutServlet extends HttpServlet {
+public class CheckoutController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private final CartService cartService = new CartService();
 	
-    public CheckoutServlet() {
+    public CheckoutController() {
         super();
 
     }
