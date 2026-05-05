@@ -8,7 +8,7 @@
 
 <body>
 	<div class="header">
-	    <img src="sworna.jpg">
+	    <img src="${pageContext.request.contextPath}/assets/about/sworna.jpg">
 	    <div>
 	        <h1>Sworna D Tuladhar</h1>
 	        <p>Jr. Software Engineer</p>
