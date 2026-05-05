@@ -14,7 +14,7 @@ import com.quickbite.dao.OrderDAO;
 import com.quickbite.model.OrderModel;
 import com.quickbite.model.UserModel;
 
-@WebServlet(asyncSupported = true, urlPatterns = { "/customers/profile" })
+@WebServlet(asyncSupported = true, urlPatterns = { "/profile", "/profile/*" })
 public class CustomerController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private OrderDAO orderDAO = new OrderDAO();
@@ -24,20 +24,30 @@ public class CustomerController extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String endpoint = request.getServletPath();
+		String endpoint = request.getPathInfo();
+		
+		if (endpoint == null || endpoint.equals("/")) {
+            request.getRequestDispatcher("/WEB-INF/views/customer/profile/user-profile.jsp").forward(request, response);
+            return;
+        }
 		
 		switch(endpoint) {
-			case "/":
-				request.getRequestDispatcher("/WEB-INF/views/customer/profile/user-profile.jsp").forward(request, response);
-				break;
 			case "/order-history":
 				viewCustomerOrderHistory(request, response);
+				break;
+			case "/change-password":
+				viewChangePassword(request, response);
+				break;
+			case "/favorites":
+				viewFavorites(request, response);
+				break;
 			default:
 				response.sendError(HttpServletResponse.SC_NOT_FOUND);
 				break;
 		}
 	}
 
+	
 	private void viewCustomerOrderHistory(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		HttpSession session = request.getSession();
 		UserModel user = (UserModel) session.getAttribute("user");
@@ -57,11 +67,18 @@ public class CustomerController extends HttpServlet {
 		request.getRequestDispatcher("/WEB-INF/views/customer/profile/order-history.jsp").forward(request, response);		
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void viewChangePassword(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
+		
+	}
+
+	private void viewFavorites(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
 
