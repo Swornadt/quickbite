@@ -16,7 +16,7 @@
 <!-- TEAM -->
 <section class="team-section">
     <div class="team-image-box">
-        <img src="assets/about/team.png">
+        <img src="${pageContext.request.contextPath}/assets/about/team.png">
     </div>
 
     <div class="team-content">
@@ -36,7 +36,7 @@
 
             <a href="about/hridishna">
                 <div class="member-card">
-                    <img src="hridishna.jpg">
+                    <img src="${pageContext.request.contextPath}/assets/about/hridishna.jpg">
                     <div class="member-name">Hridishna Deula</div>
                 </div>
             </a>
@@ -50,28 +50,28 @@
 
             <a href="about/sabrina">
                 <div class="member-card">
-                    <img src="sabrina.jpg">
+                    <img src="${pageContext.request.contextPath}/assets/about/sabrina.jpg">
                     <div class="member-name">Sabrina Pradhan</div>
                 </div>
             </a>
 
             <a href="about/sworna">
                 <div class="member-card">
-                    <img src="sworna.jpg">
+                    <img src="${pageContext.request.contextPath}/assets/about/sworna.jpg">
                     <div class="member-name">Sworna D Tuladhar</div>
                 </div>
             </a>
 
             <a href="about/sahil">
                 <div class="member-card">
-                    <img src="sahil.jpg">
+                    <img src="${pageContext.request.contextPath}/assets/about/sahil.jpg">
                     <div class="member-name">Sahil Shrestha</div>
                 </div>
             </a>
 
             <a href="about/sanskar">
                 <div class="member-card">
-                    <img src="sanskar.jpg">
+                    <img src="${pageContext.request.contextPath}/assets/about/sanskar.jpg">
                     <div class="member-name">Sanskar Piya</div>
                 </div>
             </a>
