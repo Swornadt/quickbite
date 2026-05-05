@@ -72,7 +72,10 @@ public class AdminController extends HttpServlet {
 				viewFeedback(request, response);
 				break;
 			case "/profile":
-				viewProfile(request, response);
+				viewAdminProfile(request, response);
+				break;
+			case "/customers/profile":
+				viewCustomerProfile(request, response);
 				break;
 			case "/menu/add":
 				viewMenuAdd(request, response);
@@ -89,13 +92,13 @@ public class AdminController extends HttpServlet {
 				break;
 		}
 	}
-
+	
 
 	private void showDashboard(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("/WEB-INF/views/admin/admin-main-dashboard.jsp").forward(request,response);
 	}
 	
-	private void viewProfile(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+	private void viewAdminProfile(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		UserModel sessionUser = (UserModel) SessionUtil.getAttribute(request, "user");
 		
 		if (sessionUser == null) {
@@ -116,6 +119,30 @@ public class AdminController extends HttpServlet {
 		request.getRequestDispatcher("/WEB-INF/views/admin/admin-profile.jsp").forward(request,response);
 	}
 
+	private void viewCustomerProfile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//Gets the id from the URL
+				String userIdParam = request.getParameter("userId");
+				if (userIdParam !=null) {
+					try {
+						int userId = Integer.parseInt(userIdParam);		
+						AdminService adminService = new AdminService();			
+						
+						UserModel user = adminService.getUserById(userId);			
+					
+						if(user !=null) {
+							request.setAttribute("customerData", user);
+						}
+					}
+					catch(NumberFormatException e) {
+						e.printStackTrace();
+					}
+				
+				}
+				
+				
+				request.getRequestDispatcher("/WEB-INF/views/admin/customer-profile.jsp").forward(request,response);
+	}
+	
 	private void showMenuManagement(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		MenuService menuService = new MenuService();
 
