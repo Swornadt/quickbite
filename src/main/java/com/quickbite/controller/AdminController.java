@@ -328,10 +328,10 @@ public class AdminController extends HttpServlet {
 					boolean success = adminService.updateAdminProfile(user_id, fname, lname, email, number);
 					
 					if(success) {
-						response.sendRedirect(request.getContextPath() + "/admin-profile?update=success");
+						response.sendRedirect(request.getContextPath() + "/admin/profile?update=success");
 					}
 					else {
-						response.sendRedirect(request.getContextPath() + "/admin-profile?update=fail");
+						response.sendRedirect(request.getContextPath() + "/admin/profile?update=fail");
 					}
 				}
 				catch (NumberFormatException e) {
