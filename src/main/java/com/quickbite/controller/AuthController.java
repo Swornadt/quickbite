@@ -164,7 +164,7 @@ public class AuthController extends HttpServlet {
         	String targetPath;
         	switch (user.getRole().toLowerCase()) {
         		case "admin":
-        			targetPath = "/admin/customers";
+        			targetPath = "/admin";
         			break;
         		case "staff":
         			int outletId = new UserOutletDAO().getOutletByUser(user.getUserId());
