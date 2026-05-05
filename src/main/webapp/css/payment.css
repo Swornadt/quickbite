@@ -1,145 +1,179 @@
 @charset "UTF-8";
 
 .main-container {
-  max-width: 1200px;
-  margin: 40px auto;
-  padding: 0 20px;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
 }
 
 h1 {
-  text-align: center;
-  font-size: 38px;
-  margin-bottom: 40px;
-  color: #222;
+    text-align: center;
+    font-size: 38px;
+    margin-bottom: 40px;
+    color: #222;
 }
 
+/* Main Payment Container */
 .payment-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 50px;
-  justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px;
+    justify-content: center;
 }
 
 /* QR Code Section */
 .qr-section {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.qr-section img {
-	width: 50%;
-	height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .qr-box {
-  background: white;
-  padding: 20px;
-  border: 14px solid #111;
-  border-radius: 20px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    background: white;
+    padding: 20px;
+    border: 14px solid #111;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
 .qr-box img {
-  width: 380px;
-  height: 380px;
-  border-radius: 8px;
+    width: 380px;
+    height: 380px;           
+    object-fit: contain;     /* Prevents distortion */
+    border-radius: 8px;
 }
 
 /* Order Details */
 .order-section {
-  flex: 1;
-  max-width: 460px;
+    flex: 1;
+    max-width: 460px;
+    min-width: 300px;
 }
 
 .order-card {
-  background: white;
-  border-radius: 16px;
-  padding: 35px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    background: white;
+    border-radius: 16px;
+    padding: 35px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
 .section-title {
-  font-size: 22px;
-  font-weight: 600;
-  margin-bottom: 20px;
-  color: #222;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #222;
 }
 
 .detail-row {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 0;
-  border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
 }
 
 .detail-row:last-child {
-  border-bottom: none;
+    border-bottom: none;
 }
 
 .label {
-  color: #555;
+    color: #555;
 }
 
 hr {
-  margin: 30px 0;
-  border: none;
-  border-top: 1px solid #ddd;
+    margin: 30px 0;
+    border: none;
+    border-top: 1px solid #ddd;
 }
 
 .item {
-  background: #fff5eb;
-  padding: 15px;
-  border-radius: 10px;
-  display: flex;
-  justify-content: space-between;
-  font-weight: 500;
+    background: #fff5eb;
+    padding: 15px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    font-weight: 500;
+    margin-bottom: 15px;
 }
 
 .total-row {
-  display: flex;
-  justify-content: space-between;
-  padding: 8px 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
 }
 
 .grand-total {
-  font-size: 20px;
-  font-weight: bold;
-  margin-top: 15px;
-  padding-top: 15px;
-  border-top: 2px solid #ddd;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 2px solid #ddd;
+    display: flex;
+    justify-content: space-between;
 }
 
 /* Buttons */
 .buttons {
-  display: flex;
-  gap: 15px;
-  margin-top: 40px;
+    display: flex;
+    gap: 15px;
+    margin-top: 40px;
 }
 
 .btn {
-  flex: 1;
-  padding: 16px;
-  border-radius: 12px;
-  font-size: 17px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-  border: none;
+    flex: 1;
+    padding: 16px;
+    border-radius: 12px;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
 }
 
 .btn-back {
-  background: white;
-  color: #ff6b00;
-  border: 2px solid #ff6b00;
+    background: white;
+    color: #ff6b00;
+    border: 2px solid #ff6b00;
 }
 
 .btn-complete {
-  background: #ff6b00;
-  color: white;
+    background: #ff6b00;
+    color: white;
 }
 
 .btn:hover {
-  transform: translateY(-2px);
+    transform: translateY(-2px);
+}
+
+/* Responsiveness */
+
+@media (max-width: 768px) {
+    .payment-container {
+        flex-direction: column;
+        gap: 40px;
+        align-items: center;
+    }
+
+    .qr-box img {
+        width: 320px;
+        height: 320px;
+    }
+
+    h1 {
+        font-size: 32px;
+    }
+
+    .order-card {
+        padding: 25px;
+    }
+}
+
+@media (max-width: 480px) {
+    .qr-box img {
+        width: 280px;
+        height: 280px;
+    }
+
+    .main-container {
+        padding: 0 15px;
+    }
 }
