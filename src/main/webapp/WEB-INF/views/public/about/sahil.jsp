@@ -22,7 +22,7 @@ body { font-family: Arial; margin:0; background:#f5f5f5; }
     <div>
         <h1>Sahil Shrestha</h1>
         <p>Full Stack Developer</p>
-        <p>Works on both frontend and backend systems.</p>
+        <p>Full stack developer focused on frontend, backend systems, and databases.</p>
     </div>
 </div>
 
@@ -32,16 +32,23 @@ body { font-family: Arial; margin:0; background:#f5f5f5; }
 <div>
     <div class="card">
         <h2>About Me</h2>
-        <p>I build complete web applications from front to back.</p>
+        <p>I am a full stack developer with a focus on building well-structured applications and working with system logic. I enjoy understanding how different parts of an application connect and function together.</p>
+        <p>I have a strong interest in databases and data handling as part of building applications, focusing on how information is stored, organized, and used efficiently within a system. I also enjoy developing application logic that supports reliable and consistent functionality.</p>
+        <p>My interest lies in designing and improving systems, solving problems through structured thinking, and creating applications that are practical and efficient across both frontend and backend components.</p>
     </div>
 
     <div class="card">
         <h2>Technical Skills</h2>
         <div class="skills">
+        	<div class="skill">Figma</div>
             <div class="skill">HTML</div>
             <div class="skill">CSS</div>
             <div class="skill">JavaScript</div>
-            <div class="skill">Node.js</div>
+            <div class="skill">Java</div>
+            <div class="skill">Python</div>
+            <div class="skill">C</div>
+            <div class="skill">SQL</div>
+            <div class="skill">AWS (Basics)</div>
         </div>
     </div>
 </div>
@@ -49,15 +56,14 @@ body { font-family: Arial; margin:0; background:#f5f5f5; }
 <div>
     <div class="card">
         <h2>Quick Info</h2>
-        <p>Kathmandu, Nepal</p>
+        <p>Chitwan, Nepal</p>
         <p>Full Stack Developer</p>
-        <p>20+ Projects</p>
+        <p>5 Projects</p>
     </div>
 
     <div class="card">
         <h2>Achievements</h2>
-        <p>Full Stack Award</p>
-        <p>Hackathon Winner</p>
+        <p>1st Runner-Up - "Build the Mini Web" Event, WebDev Community</p>
     </div>
 </div>
 
