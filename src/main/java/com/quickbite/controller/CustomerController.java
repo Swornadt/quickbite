@@ -139,7 +139,14 @@ public class CustomerController extends HttpServlet {
 	            favDAO.addFavorite(userId, itemId, outletId);
 	        }
 	        
-	        response.sendRedirect(request.getContextPath() + "/profile/favorites");
+	        // getting the details of the previous page through header
+	        String referer = request.getHeader("Referer");
+	        
+	        if (referer != null && !referer.isEmpty()) {
+	        	response.sendRedirect(referer);
+	        } else {
+	        	response.sendRedirect(request.getContextPath() + "/profile/favorites");
+	        }
 	    } catch (SQLException | NumberFormatException e) {
 	    	e.printStackTrace();
 	        response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
