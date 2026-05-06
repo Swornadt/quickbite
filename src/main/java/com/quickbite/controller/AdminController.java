@@ -320,12 +320,13 @@ public class AdminController extends HttpServlet {
 					int user_id = Integer.parseInt(request.getParameter("user_id"));
 					String fname = request.getParameter("fname");
 					String lname = request.getParameter("lname");
+					String gender = request.getParameter("gender");
 					String email = request.getParameter("email");
 					String number = request.getParameter("number");
 							
 					//Update via service
 					AdminService adminService = new AdminService();
-					boolean success = adminService.updateAdminProfile(user_id, fname, lname, email, number);
+					boolean success = adminService.updateAdminProfile(user_id, fname, lname, gender, email, number);
 					
 					if(success) {
 						response.sendRedirect(request.getContextPath() + "/admin/profile?update=success");
