@@ -53,7 +53,11 @@
                         </div>
                         <div class="admin-gender">
                             <h4>Gender</h4>
-                            <input type="text" name="gender" value="${userData.gender}">
+                            	<select name="gender" id="gender">
+								    <option value="Male" ${userData.gender == 'Male' ? 'selected' : ''}>Male</option>
+								    <option value="Female" ${userData.gender == 'Female' ? 'selected' : ''}>Female</option>
+								    <option value="Others" ${userData.gender == 'Others' ? 'selected' : ''}>Others</option>
+								</select>
                         </div>
                         <div class="admin-role">
                             <h4>Role</h4>
