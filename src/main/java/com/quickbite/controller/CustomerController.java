@@ -72,9 +72,8 @@ public class CustomerController extends HttpServlet {
 		
 	}
 
-	private void viewFavorites(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
-		
+	private void viewFavorites(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("/WEB-INF/views/customer/profile/favorites-page.jsp").forward(request, response);		
 	}
 	
 
