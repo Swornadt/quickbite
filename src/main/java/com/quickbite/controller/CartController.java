@@ -18,14 +18,14 @@ import com.quickbite.service.CartService;
  * Servlet implementation class CartServlet
  */
 @WebServlet(asyncSupported = true, urlPatterns = { "/cart","/cart/*" })
-public class CartServlet extends HttpServlet {
+public class CartController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private CartService cartService = new CartService();
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CartServlet() {
+    public CartController() {
         super();
         // TODO Auto-generated constructor stub
     }

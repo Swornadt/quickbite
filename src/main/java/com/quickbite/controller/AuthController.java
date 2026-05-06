@@ -62,6 +62,8 @@ public class AuthController extends HttpServlet {
 				handleRegister(request, response);
 				break;
 			default:
+				response.sendError(HttpServletResponse.SC_NOT_FOUND);
+				break;
 		}
 	}
 
