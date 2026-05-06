@@ -20,22 +20,22 @@
 </head>
 <body>
 	<div class="user-profile-nav">
-      <a href="${pageContext.request.contextPath}/UserProfile" class="user-profile-nav-link active">
+      <a href="${pageContext.request.contextPath}/profile" class="user-profile-nav-link active">
         <i class="fa-regular fa-circle-user"></i>
         <p>My Profile</p>
       </a>
 
-      <a href="#" class="user-profile-nav-link">
+      <a href="${pageContext.request.contextPath}/profile/change-password" class="user-profile-nav-link">
         <i class="fa-solid fa-lock"></i>
         <p>Password</p>
       </a>
 
-      <a href="${pageContext.request.contextPath}/order-history" class="user-profile-nav-link">
+      <a href="${pageContext.request.contextPath}/profile/order-history" class="user-profile-nav-link">
         <i class="fa-solid fa-bag-shopping"></i>
         <p>Order History</p>
       </a>
 
-      <a href="#" class="user-profile-nav-link">
+      <a href="${pageContext.request.contextPath}/profile/favorites" class="user-profile-nav-link">
         <i class="fa-solid fa-heart"></i>
         <p>Favourites</p>
       </a>

@@ -15,14 +15,14 @@ import com.quickbite.model.OrderOutletItem;
 /**
  * Servlet implementation class OrderManagement
  */
-@WebServlet(asyncSupported = true, urlPatterns = { "/kitchen" })
-public class OrderManagement extends HttpServlet {
+@WebServlet(asyncSupported = true, urlPatterns = { "/kitchen/*" })
+public class KitchenContoller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public OrderManagement() {
+    public KitchenContoller() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,8 +31,24 @@ public class OrderManagement extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String path = request.getPathInfo();
+		
+		if (path == null || path.equals("/")) {
+			handleOrderManagement(request,response);
+		} else {
+			handleOrderDetails(request,response, path.substring(1));
+		}
+	}
+	
+	private void handleOrderManagement(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//session stores attibutes as object
-		int outletId = (int) request.getSession().getAttribute("outletId");
+		Integer outletId = (Integer) request.getSession().getAttribute("outletId");
+		
+		if (outletId==null) {
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
+        }
 		
 		OrderOutletItemDAO dao = new OrderOutletItemDAO();
 		List<OrderOutletItem> orders = dao.getOrdersByOutlet(outletId);
@@ -45,6 +61,10 @@ public class OrderManagement extends HttpServlet {
 		request.setAttribute("ongoing", ongoing);
 		request.setAttribute("complete", complete);
 		request.getRequestDispatcher("/WEB-INF/views/staff/order-management.jsp").forward(request,response);
+	}
+	
+	private void handleOrderDetails(HttpServletRequest request, HttpServletResponse response, String orderId ) throws ServletException, IOException {
+		request.getRequestDispatcher("/WEB-INF/views/staff/order-details.jsp").forward(request,response);
 	}
 
 	/**

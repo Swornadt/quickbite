@@ -60,12 +60,6 @@
 	color: #db4a1e;
 }
 
-.side-nav-content a.active{
-	color: #db4a1e;
-	border-right: 4px solid #db4a1e;
-	font-weight: 500;
-}
-
 .side-nav-footer{
     margin-top: auto;
 }
@@ -77,6 +71,7 @@
 	background-color: #db4a1e;
 	margin-top: 40px;
 	cursor: pointer;
+	width: 100%;
 }
 
 .add-new-item .btn-text{

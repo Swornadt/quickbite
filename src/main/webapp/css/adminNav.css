@@ -104,3 +104,8 @@
 .admin-image img:hover {
   transform: scale(1.07);
 }
+
+.admin-profile-link{
+	text-decoration: none;
+	display: block;
+}
