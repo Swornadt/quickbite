@@ -20,7 +20,7 @@
 
                         <div class="form-container">
 
-                            <form action="<%=request.getContextPath()%>/EditItem" method="post"
+                            <form action="<%=request.getContextPath()%>/admin/menu/edit" method="post"
                                 enctype="multipart/form-data">
                                 <input type="hidden" name="itemId" value="${item.itemId}">
                                 <input type="hidden" name="existingImage" value="${item.itemImage}">

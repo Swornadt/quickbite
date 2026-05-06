@@ -45,33 +45,23 @@
       <section class="selector-section">
         <h2 class="question">Where do you want to eat today?</h2>
 
-        <div class="location-grid" id="locationGrid">
-		    <%
-		        List<Outlet> locList = (List<Outlet>) request.getAttribute("locations");
-		        
-		        if (locList != null) {
-		            for (Outlet loc : locList) {
-		                int id = loc.getOutletId();
-		                String name = loc.getOutletName();
-		                String photo = loc.getOutletImage();
-		                
-		                boolean hasPhoto = (photo != null && !photo.trim().isEmpty());
-		                String photoClass = hasPhoto ? "card-with-photo" : "";
-		                String styleAttr = hasPhoto ? "style=\"--bg-image: url('" + photo + "');\"" : "";
-		    %>
-		    <a href="<%= request.getContextPath() %>/outlets/<%= name %>" style="text-decoration: none; color: inherit; width: 30%;">
-				<div class="location-card <%= photoClass %>" 
-		             onclick="selectLocation(this, '<%= id %>', '<%= name %>')"
-		             <%= styleAttr %>>
-		            
-		            <span class="location-name"><%= name %></span>
-		        </div>
-		    </a>
-			<%
-		            }
-		        }
-			%>
+		<div class="location-grid" id="locationGrid">
+			<c:forEach var="loc" items="${locations}">
+				<c:set var="hasPhoto" value="${not empty loc.outletImage}" />
+				<a href="${pageContext.request.contextPath}/outlets/${loc.outletName}" style="text-decoration: none; color: inherit; width: 30%;">
+					<div class="location-card ${hasPhoto ? 'card-with-photo' : ''}" onclick="selectLocation(this, '${loc.outletId}', '${loc.outletName}')"
+						<c:if test="${hasPhoto}">
+							style= "--bg-image: url('${loc.outletImage}');"
+						</c:if>>
+						
+						<span class="location-name">
+							${loc.outletName}
+						</span>
+					</div>
+				</a>
+			</c:forEach>
 		</div>
+		
       </section>
     </main>
   <!-- Footer -->

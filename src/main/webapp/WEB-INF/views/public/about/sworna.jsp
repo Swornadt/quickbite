@@ -1,67 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Sworna D Tuladhar | CV</title>
-<style>
-body { font-family: Arial; margin:0; background:#f5f5f5; }
-.header { padding:40px; display:flex; gap:40px; align-items:center; background:#eee; }
-.header img { width:220px; border-radius:15px; }
-.container { padding:40px; }
-.grid { display:grid; grid-template-columns:2fr 1fr; gap:40px; }
-.card { background:white; padding:20px; border-radius:10px; }
-.skills { display:flex; gap:10px; flex-wrap:wrap; }
-.skill { background:#eee; padding:8px 12px; border-radius:6px; }
-</style>
+	<meta charset="UTF-8">
+	<title>Sworna Dhan Tuladhar | CV</title>
+	<link rel="stylesheet" href="<%=request.getContextPath() %>/css/about-individual.css" />
 </head>
 
 <body>
+	<div class="header">
+	    <img src="${pageContext.request.contextPath}/assets/about/sworna.jpg">
+	    <div>
+	        <h1>Sworna D Tuladhar</h1>
+	        <p>Jr. Software Engineer</p>
+	        <p>Leads and organizes team workflow.</p>
+	    </div>
+	</div>
+	
+	<div class="container">
+		<div class="grid">
+		
+		<div>
+		    <div class="card">
+		        <h2>About Me</h2>
+		        <p> Hello, person from the internet!! I'm a passionate programmer working towards Full-Stack Web Development, specializing in the MERN Stack Currently serving as the founder and Community Lead of Islington WebDev Community.
 
-<div class="header">
-    <img src="${pageContext.request.contextPath}/assets/about/sworna.jpg">
-    <div>
-        <h1>Sworna D Tuladhar</h1>
-        <p>Project Manager</p>
-        <p>Leads and organizes team workflow.</p>
-    </div>
-</div>
-
-<div class="container">
-<div class="grid">
-
-<div>
-    <div class="card">
-        <h2>About Me</h2>
-        <p>I manage team coordination and ensure project deadlines are met efficiently.</p>
-    </div>
-
-    <div class="card">
-        <h2>Technical Skills</h2>
-        <div class="skills">
-            <div class="skill">Leadership</div>
-            <div class="skill">Planning</div>
-            <div class="skill">Communication</div>
-        </div>
-    </div>
-</div>
-
-<div>
-    <div class="card">
-        <h2>Quick Info</h2>
-        <p>Kathmandu, Nepal</p>
-        <p>Project Manager</p>
-        <p>15+ Projects</p>
-    </div>
-
-    <div class="card">
-        <h2>Achievements</h2>
-        <p>Best Team Leader</p>
-        <p>Project Excellence Award</p>
-    </div>
-</div>
-
-</div>
-</div>
+					I gravitate toward full-stack work because I believe the best technical decisions come from understanding the whole system. Whether it's choosing a database schema, designing an API contract, or structuring a component tree, I aim for decisions that remain sound six months later.
+				</p>
+				<p>
+					// What's my specialty?
+					In my tech journey so far, I've worked mostly with: JavaScript, TypeScript, Express.js, Node.js, React.js, Next.js, Java, Python.
+				</p>
+				<p>
+					// What am I building?
+					I take a research-driven and project-based approach; Currently, I'm exploring AI integration via APIs (REST and GraphQL specifically) to enhance web development for future projects.
+				</p>
+				<p>
+					// Comments beyond the code
+					While I'm not debugging a simple issue that I created myself, you'll find me deep into Model United Nations (MUNs) discussing the latest geopolitics and economics to conflict resolution and problem-solving, or perhaps at the piano - composing and playing Western classical music.
+				</p>
+				<p>
+					Always excited to connect with fellow developers, collaborate on projects or just have a philosophical chat on life over a cup of chai  Let's level up together!
+				</p>
+					Personal Portfolio: <a href="https://sworna-tuladhar.vercel.app/" target="_blank">https://sworna-tuladhar.vercel.app</a>
+		    </div>
+		
+		    <div class="card">
+		        <h2>Technical Skills</h2>
+		        <div class="skills">
+		            <div class="skill">MERN stack</div>
+		            <div class="skill">Project Management</div>
+		            <div class="skill">Python</div>
+		            <div class="skill">System Design</div>
+		            <div class="skill">TypeScript</div>
+		            <div class="skill">PostgreSQL</div>
+		            <div class="skill">API Design</div>
+		            <div class="skill">Docker</div>
+		            <div class="skill">Canva</div>
+		            <div class="skill">Figma</div>
+		        </div>
+		    </div>
+		</div>
+		
+		<div>
+		    <div class="card">
+		        <h2>Quick Info</h2>
+		        <p>Kathmandu, Nepal</p>
+		        <p>BSc. (Hons.) in Computing, Islington College</p>
+		        <p>tuladharsworna@gmail.com</p>
+		    </div>
+		
+		    <div class="card">
+		        <h2>Experience</h2>
+		        <p>Leapfrog Student Partner 2026 Cohort V</p>
+		        <p>Community Lead, Islington WebDev Community</p>
+		        <p>Graphic Design IT Intern, Global Help Foundation</p>
+		    </div>
+		</div>
+		
+		</div>
+	</div>
 
 </body>
 </html>

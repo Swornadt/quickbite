@@ -30,7 +30,7 @@
 
 
             <div class="admin-detail-grid" id="adminDetailGrid">
-                <form action="${pageContext.request.contextPath}/admin-profile" method="post">
+                <form action="${pageContext.request.contextPath}/admin/profile" method="post">
 
                     <div class="admin-credentials-grid" id="adminCredentialsGrid">
                         <div class="user-id">

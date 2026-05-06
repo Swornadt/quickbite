@@ -5,19 +5,24 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
+import java.util.List;
 import java.io.IOException;
 
+import com.quickbite.dao.OrderOutletItemDAO;
+import com.quickbite.model.OrderOutletItem;
+
 /**
- * Servlet implementation class AdminMainServlet
+ * Servlet implementation class OrderManagement
  */
-@WebServlet("/admin/dashboard")
-public class AdminMainServlet extends HttpServlet {
+@WebServlet(asyncSupported = true, urlPatterns = { "/kitchen" })
+public class OrderManagement extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminMainServlet() {
+    public OrderManagement() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,8 +31,20 @@ public class AdminMainServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		request.getRequestDispatcher("/WEB-INF/views/admin/admin-main-dashboard.jsp").forward(request,response);
+		//session stores attibutes as object
+		int outletId = (int) request.getSession().getAttribute("outletId");
+		
+		OrderOutletItemDAO dao = new OrderOutletItemDAO();
+		List<OrderOutletItem> orders = dao.getOrdersByOutlet(outletId);
+		
+		List<OrderOutletItem> pending = dao.getOrderByStatus(orders, 0);
+		List<OrderOutletItem> ongoing = dao.getOrderByStatus(orders, 1);
+		List<OrderOutletItem> complete = dao.getOrderByStatus(orders, 2);
+		
+		request.setAttribute("pending", pending);
+		request.setAttribute("ongoing", ongoing);
+		request.setAttribute("complete", complete);
+		request.getRequestDispatcher("/WEB-INF/views/staff/order-management.jsp").forward(request,response);
 	}
 
 	/**
