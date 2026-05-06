@@ -35,6 +35,17 @@ body {
     gap: 20px;
 }
 
+.cards a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.cards a:hover .card {
+    transform: translateY(-3px);
+    transition: 0.2s ease;
+}
+
 .card {
     border-radius: 15px;
     padding: 40px 30px;
