@@ -36,6 +36,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `favorite` (
   `user_id` smallint(5) UNSIGNED NOT NULL,
   `outlet_id` tinyint(3) UNSIGNED NOT NULL,
+  `outlet_id` tinyint(3) UNSIGNED NOT NULL,
   `item_id` smallint(5) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -91,6 +92,8 @@ INSERT INTO `item` (`item_id`, `item_name`, `category`, `item_type`, `item_descr
 (16, 'Steamed Chicken Momo', 'Snack', 'Non Veg', 'Steamed chicken dumplings', 'Available', 'Chicken, Flour, Spices', NULL, 'SteamedChickenMomo.png'),
 (17, 'Veg Thukpa', 'Lunch', 'Veg', 'Vegetable noodle soup', 'Available', 'Noodles, Vegetables, Broth', NULL, 'VegThukpa.png'),
 (18, 'test', 'food', 'Veg', 'Test Case', 'Not Available', 'test', 'test', 'uploads/items/default.png');
+(17, 'Veg Thukpa', 'Lunch', 'Veg', 'Vegetable noodle soup', 'Available', 'Noodles, Vegetables, Broth', NULL, 'VegThukpa.png'),
+(18, 'test', 'food', 'Veg', 'Test Case', 'Not Available', 'test', 'test', 'uploads/items/default.png');
 
 -- --------------------------------------------------------
 
@@ -141,6 +144,27 @@ CREATE TABLE `order_outlet_item` (
   `item_qty` tinyint(3) UNSIGNED NOT NULL,
   `order_subtotal` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `order_outlet_item`
+--
+
+INSERT INTO `order_outlet_item` (`order_id`, `outlet_id`, `item_id`, `item_qty`, `order_subtotal`) VALUES
+(1, 1, 4, 1, 175.00),
+(2, 1, 17, 2, 200.00),
+(3, 1, 16, 2, 300.00),
+(4, 1, 5, 2, 300.00),
+(5, 1, 5, 1, 150.00),
+(5, 1, 6, 1, 85.00),
+(6, 1, 4, 1, 175.00),
+(6, 1, 7, 1, 120.00),
+(7, 1, 4, 2, 350.00),
+(7, 1, 5, 1, 150.00),
+(8, 1, 4, 1, 175.00),
+(9, 1, 5, 1, 150.00),
+(10, 1, 4, 1, 175.00),
+(11, 1, 4, 1, 175.00),
+(12, 1, 4, 1, 175.00);
 
 --
 -- Dumping data for table `order_outlet_item`
@@ -309,6 +333,14 @@ INSERT INTO `user` (`user_id`, `fname`, `lname`, `number`, `email`, `gender`, `d
 -- Table structure for table `user_outlet`
 --
 
+INSERT INTO `order` (`order_id`, `user_id`, `order_date`, `order_status`, `order_note`, `preferred_date`) VALUES
+(1, 9, '2026-05-01 21:00:29', 0, '[ASAP] ', NULL),
+(2, 9, '2026-05-01 21:01:25', 0, '[ASAP] ', NULL),
+(3, 9, '2026-05-01 21:01:41', 0, '[ASAP] ', NULL),
+(4, 9, '2026-05-01 21:02:03', 0, '[ASAP] chow chow', NULL),
+(5, 9, '2026-05-01 21:02:20', 0, '[ASAP] two item', NULL),
+(6, 9, '2026-05-01 21:02:34', 0, '[ASAP] Three', NULL),
+(7, 9, '2026-05-01 21:03:02', 0, 'Scheduled', NULL);
 CREATE TABLE `user_outlet` (
   `user_id` smallint(5) UNSIGNED NOT NULL,
   `outlet_id` tinyint(3) UNSIGNED NOT NULL
