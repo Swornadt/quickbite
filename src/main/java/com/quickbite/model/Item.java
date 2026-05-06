@@ -85,6 +85,10 @@ public class Item {
 
 	
 	// Setters - to manipulate data of exiting records
+	public void setItemId(int itemId) {
+		this.itemId = itemId;
+	}
+	
 	public void setItemName(String itemName) {
 		this.itemName = itemName;
 	}

@@ -83,6 +83,7 @@ public class FavoriteDAO {
 	                while (rs.next()) {
 	                    // map the general item
 	                	Item item = new Item();
+	                	item.setItemId(rs.getInt("item_id"));
 	                    item.setItemName(rs.getString("item_name"));
 	                    // map the outlet
 	                    Outlet outlet = new Outlet(

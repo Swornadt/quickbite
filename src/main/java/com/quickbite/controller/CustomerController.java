@@ -132,14 +132,16 @@ public class CustomerController extends HttpServlet {
 
 	    FavoriteDAO favDAO = new FavoriteDAO();
 	    try {
+	    	
 	        if (favDAO.isFavorite(userId, itemId, outletId)) {
 	            favDAO.removeFavorite(userId, itemId, outletId);
-	            response.getWriter().write("removed");
 	        } else {
 	            favDAO.addFavorite(userId, itemId, outletId);
-	            response.getWriter().write("added");
 	        }
-	    } catch (SQLException e) {
+	        
+	        response.sendRedirect(request.getContextPath() + "/profile/favorites");
+	    } catch (SQLException | NumberFormatException e) {
+	    	e.printStackTrace();
 	        response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 	    }
 	}

@@ -38,7 +38,7 @@
 										<p> <span> ${fav.item.itemName} </span></p>
 										<p> From: <span>${fav.outlet.outletName}</span></p>
 										
-										<form action="${pageContext.request.contextPath}/profile/favorites/remove" method="POST" style="display:inline;">
+										<form action="${pageContext.request.contextPath}/profile/favorites/toggle" method="POST" style="display:inline;">
 						                    <input type="hidden" name="itemId" value="${fav.item.itemId}">
 						                    <input type="hidden" name="outletId" value="${fav.outlet.outletId}">
 						                    <button type="submit" class="remove-btn">Remove</button>
