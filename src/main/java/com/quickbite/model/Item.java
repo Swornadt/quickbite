@@ -40,6 +40,10 @@ public class Item {
     this.itemAllergy = itemAllergy;
     this.itemImage = itemImage;
 }
+    
+    public Item() {
+    	
+    }
 	
 	//Getters - to retrieve data from DB
     public int getItemId() { 

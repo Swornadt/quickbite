@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.quickbite.model.Item;
+import com.quickbite.model.Outlet;
 import com.quickbite.model.OutletItem;
 import com.quickbite.utils.DBconfig;
 
@@ -18,6 +19,7 @@ public class OutletItemDAO {
 		String sql = "select i.*, oi.outlet_item_price " +
 				"from item i " +
 				"join outlet_item oi ON i.item_id = oi.item_id " +
+				"join outlet o ON oi.outlet_id = o.outlet_id " +
 				"where oi.outlet_id = ?";
 
 		try (Connection conn = DBconfig.getConnection();
@@ -35,8 +37,15 @@ public class OutletItemDAO {
 							rs.getString("item_status"),
 							rs.getString("item_ingredient"),
 							rs.getString("item_allergy"),
-							rs.getString("item_image"));
-					OutletItem outletItem = new OutletItem(item, rs.getDouble("outlet_item_price"));
+							rs.getString("item_image")
+						);
+					Outlet outlet = new Outlet(
+							rs.getInt("outlet_id"), 
+							rs.getString("outlet_name"), 
+							rs.getString("outlet_status"),
+							rs.getString("outlet_image")
+						);
+					OutletItem outletItem = new OutletItem(item, outlet, rs.getDouble("outlet_item_price"));
 					outletItems.add(outletItem);
 				}
 			}
@@ -67,8 +76,15 @@ public class OutletItemDAO {
 						rs.getString("item_status"),
 						rs.getString("item_ingredient"),
 						rs.getString("item_allergy"),
-						rs.getString("item_image"));
-				OutletItem outletItem = new OutletItem(item, rs.getDouble("outlet_item_price"));
+						rs.getString("item_image")
+					);
+				Outlet outlet = new Outlet(
+						rs.getInt("outlet_id"), 
+						rs.getString("outlet_name"), 
+						rs.getString("outlet_status"),
+						rs.getString("outlet_image")
+					);
+				OutletItem outletItem = new OutletItem(item, outlet, rs.getDouble("outlet_item_price"));
 				outletItems.add(outletItem);
 			}
 		} catch (SQLException e) {
@@ -180,7 +196,13 @@ public class OutletItemDAO {
 							rs.getString("item_allergy"),
 							rs.getString("item_image")
 							);
-					outletItems.add(new OutletItem(item, rs.getDouble("outlet_item_price")));
+					Outlet outlet = new Outlet(
+							rs.getInt("outlet_id"), 
+							rs.getString("outlet_name"), 
+							rs.getString("outlet_status"),
+							rs.getString("outlet_image")
+						);
+					outletItems.add(new OutletItem(item, outlet, rs.getDouble("outlet_item_price")));
 							
 				}
 			}
@@ -230,7 +252,13 @@ public class OutletItemDAO {
 							rs.getString("item_allergy"),
 							rs.getString("item_image")
 							);
-					outletItems.add(new OutletItem(item, rs.getDouble("outlet_item_price")));
+					Outlet outlet = new Outlet(
+							rs.getInt("outlet_id"), 
+							rs.getString("outlet_name"), 
+							rs.getString("outlet_status"),
+							rs.getString("outlet_image")
+						);
+					outletItems.add(new OutletItem(item, outlet, rs.getDouble("outlet_item_price")));
 				}
 			}
 		}
