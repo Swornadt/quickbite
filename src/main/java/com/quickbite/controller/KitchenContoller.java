@@ -16,13 +16,13 @@ import com.quickbite.model.OrderOutletItem;
  * Servlet implementation class OrderManagement
  */
 @WebServlet(asyncSupported = true, urlPatterns = { "/kitchen" })
-public class OrderManagement extends HttpServlet {
+public class KitchenContoller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public OrderManagement() {
+    public KitchenContoller() {
         super();
         // TODO Auto-generated constructor stub
     }
