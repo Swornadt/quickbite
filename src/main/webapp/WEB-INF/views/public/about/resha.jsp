@@ -26,6 +26,8 @@
 </style>
 <body>
 
+<div class="cv-card">
+
 <div class="header">
     <img src="${pageContext.request.contextPath}/assets/about/resha.jpg">
     <div>
@@ -93,7 +95,38 @@
 	</div>
 </div>
 
-</div>
+            </div>
+
+            <div class="right-col">
+
+                <div class="info-box">
+                    <h3>Quick Info</h3>
+                    <div class="info-row"><span class="info-label">Location</span><span>Kathmandu</span></div>
+                    <div class="info-row"><span class="info-label">Education</span><span>Computing Student</span></div>
+                    <div class="info-row"><span class="info-label">Projects</span><span>College Assignments</span></div>
+                </div>
+
+                <div class="info-box">
+                    <h3>Achievements</h3>
+                    <div class="achievement-item">
+                        <strong>Created basic websites</strong>
+                        <span>College coursework projects</span>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <h3>Interests</h3>
+                    <div class="interest-item">Web Development</div>
+                    <div class="interest-item">Programming</div>
+                    <div class="interest-item">Technology</div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
 
 </body>
