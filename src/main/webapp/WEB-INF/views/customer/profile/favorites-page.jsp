@@ -32,12 +32,18 @@
 					<!-- Scroll Section -->
 					<div class="order-list-scroll">
 						<c:choose>
-							<c:when test="${not empty currentOrders}">
-								<c:forEach var="order" items="${currentOrders}">
-									<div class="divider"></div>
+							<c:when test="${not empty favoriteList}">
+								<c:forEach var="fav" items="${favoriteList}">
 									<div class="order-card">
-										<p> <span> ${item.name} </span></p>
-										<p> From: <span>{outlet.name}</span></p>
+										<p> <span> ${fav.item.itemName} </span></p>
+										<p> From: <span>${fav.outlet.outletName}</span></p>
+										
+										<form action="${pageContext.request.contextPath}/profile/favorites/remove" method="POST" style="display:inline;">
+						                    <input type="hidden" name="itemId" value="${fav.item.itemId}">
+						                    <input type="hidden" name="outletId" value="${fav.outlet.outletId}">
+						                    <button type="submit" class="remove-btn">Remove</button>
+						                </form>
+						                <div class="divider"></div>
 									</div>
 								</c:forEach>
 							</c:when>

@@ -79,6 +79,10 @@ public class OutletController extends HttpServlet {
 	    request.setAttribute("outlet", outlet);
 	    request.setAttribute("outletItems", results);
 	    
+	    System.out.println("DEBUG outlet: " + (outlet == null ? "NULL" : outlet.getOutletName()));
+	    System.out.println("DEBUG results size: " + results.size());
+	    System.out.println("DEBUG categories size: " + categories.size());
+	    
 	    request.getRequestDispatcher("/WEB-INF/views/customer/location-menu.jsp").forward(request, response);
 } 
 

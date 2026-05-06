@@ -16,11 +16,11 @@ public class OutletItemDAO {
 
 	public List<OutletItem> getItemsByOutlet(int outletId) {
 		List<OutletItem> outletItems = new ArrayList<>();
-		String sql = "select i.*, oi.outlet_item_price " +
-				"from item i " +
-				"join outlet_item oi ON i.item_id = oi.item_id " +
-				"join outlet o ON oi.outlet_id = o.outlet_id " +
-				"where oi.outlet_id = ?";
+		String sql = "SELECT i.*, oi.outlet_item_price, o.outlet_id, o.outlet_name, o.outlet_status, o.outlet_image " +
+	             "FROM item i " +
+	             "JOIN outlet_item oi ON i.item_id = oi.item_id " +
+	             "JOIN outlet o ON oi.outlet_id = o.outlet_id " +
+	             "WHERE oi.outlet_id = ?";
 
 		try (Connection conn = DBconfig.getConnection();
 				PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -51,6 +51,7 @@ public class OutletItemDAO {
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
+			e.printStackTrace();
 		}
 		return outletItems;
 	}
@@ -171,7 +172,11 @@ public class OutletItemDAO {
 	
 	public List<OutletItem> getItemsByOutletAndCategory(int outletId, String category){
 		List <OutletItem> outletItems = new ArrayList<>();
-		String sql = "select i.*, oi.outlet_item_price " + "from item i " + "join outlet_item oi on i.item_id = oi.item_id " + "where oi.outlet_id=?";
+		String sql = "SELECT i.*, oi.outlet_item_price, o.outlet_id, o.outlet_name, o.outlet_status, o.outlet_image " +
+	             "FROM item i " +
+	             "JOIN outlet_item oi ON i.item_id = oi.item_id " +
+	             "JOIN outlet o ON oi.outlet_id = o.outlet_id " +
+	             "WHERE oi.outlet_id = ?";
 		
 		if(category !=null && !category.equalsIgnoreCase("all")) {
 			sql += " and i.category =?";
@@ -215,7 +220,11 @@ public class OutletItemDAO {
 	
 	public List<OutletItem> searchItems(int outletId, String category, String searchTerm){
 		List<OutletItem> outletItems = new ArrayList<>();
-		String sql = "select i.*, oi.outlet_item_price from item i " + "join outlet_item oi on i.item_id = oi.item_id " + "where oi.outlet_id=?";
+		String sql = "SELECT i.*, oi.outlet_item_price, o.outlet_id, o.outlet_name, o.outlet_status, o.outlet_image " +
+	             "FROM item i " +
+	             "JOIN outlet_item oi ON i.item_id = oi.item_id " +
+	             "JOIN outlet o ON oi.outlet_id = o.outlet_id " +
+	             "WHERE oi.outlet_id = ?";
 		
 		if(category != null && !category.equalsIgnoreCase("all")) {
 			sql += " and i.category=?";
