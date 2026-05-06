@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 25, 2026 at 09:36 AM
+-- Generation Time: May 06, 2026 at 07:31 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -29,6 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `favorite` (
   `user_id` smallint(5) UNSIGNED NOT NULL,
+  `outlet_id` tinyint(3) UNSIGNED NOT NULL,
   `item_id` smallint(5) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -82,7 +83,8 @@ INSERT INTO `item` (`item_id`, `item_name`, `category`, `item_type`, `item_descr
 (14, 'Samosa', 'Snack', 'Veg', 'Fried stuffed pastry', 'Available', 'Flour, Potato, Spices', 'Gluten', 'Samosa.png'),
 (15, 'Steamed Buff Momo', 'Snack', 'Non Veg', 'Steamed buffalo dumplings', 'Available', 'Buff, Flour, Spices', NULL, 'SteamedBuffMomo.png'),
 (16, 'Steamed Chicken Momo', 'Snack', 'Non Veg', 'Steamed chicken dumplings', 'Available', 'Chicken, Flour, Spices', NULL, 'SteamedChickenMomo.png'),
-(17, 'Veg Thukpa', 'Lunch', 'Veg', 'Vegetable noodle soup', 'Available', 'Noodles, Vegetables, Broth', NULL, 'VegThukpa.png');
+(17, 'Veg Thukpa', 'Lunch', 'Veg', 'Vegetable noodle soup', 'Available', 'Noodles, Vegetables, Broth', NULL, 'VegThukpa.png'),
+(18, 'test', 'food', 'Veg', 'Test Case', 'Not Available', 'test', 'test', 'uploads/items/default.png');
 
 -- --------------------------------------------------------
 
@@ -96,9 +98,7 @@ CREATE TABLE `order` (
   `order_date` datetime DEFAULT NULL,
   `order_status` tinyint(3) UNSIGNED NOT NULL,
   `order_note` varchar(1000) DEFAULT NULL,
-  `preferred_date` datetime DEFAULT NULL,
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
+  `preferred_date` datetime DEFAULT NULL
 -- --------------------------------------------------------
 
 --
@@ -113,6 +113,27 @@ CREATE TABLE `order_outlet_item` (
   `order_subtotal` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `order_outlet_item`
+--
+
+INSERT INTO `order_outlet_item` (`order_id`, `outlet_id`, `item_id`, `item_qty`, `order_subtotal`) VALUES
+(1, 1, 4, 1, 175.00),
+(2, 1, 17, 2, 200.00),
+(3, 1, 16, 2, 300.00),
+(4, 1, 5, 2, 300.00),
+(5, 1, 5, 1, 150.00),
+(5, 1, 6, 1, 85.00),
+(6, 1, 4, 1, 175.00),
+(6, 1, 7, 1, 120.00),
+(7, 1, 4, 2, 350.00),
+(7, 1, 5, 1, 150.00),
+(8, 1, 4, 1, 175.00),
+(9, 1, 5, 1, 150.00),
+(10, 1, 4, 1, 175.00),
+(11, 1, 4, 1, 175.00),
+(12, 1, 4, 1, 175.00);
+
 -- --------------------------------------------------------
 
 --
@@ -124,6 +145,7 @@ CREATE TABLE `outlet` (
   `outlet_name` varchar(100) NOT NULL,
   `outlet_status` varchar(15) NOT NULL,
   `outlet_image` varchar(255) DEFAULT NULL
+=======
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -233,16 +255,41 @@ CREATE TABLE `user` (
 -- Table structure for table `user_outlet`
 --
 
+INSERT INTO `order` (`order_id`, `user_id`, `order_date`, `order_status`, `order_note`, `preferred_date`) VALUES
+(1, 9, '2026-05-01 21:00:29', 0, '[ASAP] ', NULL),
+(2, 9, '2026-05-01 21:01:25', 0, '[ASAP] ', NULL),
+(3, 9, '2026-05-01 21:01:41', 0, '[ASAP] ', NULL),
+(4, 9, '2026-05-01 21:02:03', 0, '[ASAP] chow chow', NULL),
+(5, 9, '2026-05-01 21:02:20', 0, '[ASAP] two item', NULL),
+(6, 9, '2026-05-01 21:02:34', 0, '[ASAP] Three', NULL),
+(7, 9, '2026-05-01 21:03:02', 0, 'Scheduled', NULL);
 CREATE TABLE `user_outlet` (
   `user_id` smallint(5) UNSIGNED NOT NULL,
   `outlet_id` tinyint(3) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Dumping data for table `user_outlet`
+--
+
+INSERT INTO `user_outlet` (`user_id`, `outlet_id`) VALUES
+(2, 1),
+(3, 2),
+(4, 3),
+(5, 4),
+(6, 5),
+(7, 6);
+
+--
 -- Indexes for dumped tables
 --
 
 --
+-- Indexes for table `favorite`
+--
+ALTER TABLE `favorite`
+  ADD PRIMARY KEY (`user_id`,`outlet_id`,`item_id`),
+  ADD KEY `outlet_id` (`outlet_id`,`item_id`);
 -- Indexes for table `favorite`
 --
 ALTER TABLE `favorite`
@@ -315,22 +362,10 @@ ALTER TABLE `user_outlet`
 --
 
 --
--- AUTO_INCREMENT for table `feedback`
---
-ALTER TABLE `feedback`
-  MODIFY `feedback_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `item`
---
-ALTER TABLE `item`
-  MODIFY `item_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
-
---
 -- AUTO_INCREMENT for table `order`
 --
 ALTER TABLE `order`
-  MODIFY `order_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `order_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `payment`
@@ -342,13 +377,18 @@ ALTER TABLE `payment`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `user_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Constraints for dumped tables
 --
 
 --
+-- Constraints for table `favorite`
+--
+ALTER TABLE `favorite`
+  ADD CONSTRAINT `favorite_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`),
+  ADD CONSTRAINT `favorite_ibfk_2` FOREIGN KEY (`outlet_id`,`item_id`) REFERENCES `outlet_item` (`outlet_id`, `item_id`);
 -- Constraints for table `favorite`
 --
 ALTER TABLE `favorite`
