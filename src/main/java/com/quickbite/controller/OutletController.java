@@ -5,8 +5,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
-
 import java.io.IOException;
 import java.util.List;
 
@@ -15,17 +13,18 @@ import com.quickbite.dao.OutletItemDAO;
 import com.quickbite.model.Outlet;
 import com.quickbite.model.OutletItem;
 
+
 /**
- * Servlet implementation class ItemController
+ * Servlet implementation class OutletServlet
  */
 @WebServlet("/outlets/*")
-public class ItemController extends HttpServlet {
+public class OutletController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ItemController() {
+    public OutletController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,10 +34,29 @@ public class ItemController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String outletName = request.getPathInfo().substring(1);
+		
+		String path = request.getPathInfo();
+		
+		if (path == null || path.equals("/")) {
+			handleOutlet(request,response);
+		} else {
+			handleOutletMenu(request,response, path.substring(1));
+		}
+	}
+		
+	private void handleOutlet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
+		
+		OutletDAO dao = new OutletDAO();
+		List<Outlet> list = dao.getAllOutlets();
+		
+		request.setAttribute("locations", list);
+		request.getRequestDispatcher("/WEB-INF/views/customer/outlet.jsp").forward(request, response);
+	}
+	
+	private void handleOutletMenu(HttpServletRequest request, HttpServletResponse response, String outletName) throws ServletException, IOException {
+
 		String selectedCategory = request.getParameter("category");
 	    String searchQuery = request.getParameter("search");
-		
 		
 	    OutletDAO outletDAO = new OutletDAO();
 	    Outlet outlet = outletDAO.getOutletByName(outletName);
@@ -49,7 +67,6 @@ public class ItemController extends HttpServlet {
 	    }
 	    
 	    OutletItemDAO outletItemDAO = new OutletItemDAO();
-	    
 	    
 	    //Getting all items first to populate category buttons
 	    List<OutletItem> allItems = outletItemDAO.getItemsByOutlet(outlet.getOutletId());
@@ -62,9 +79,9 @@ public class ItemController extends HttpServlet {
 	    request.setAttribute("outlet", outlet);
 	    request.setAttribute("outletItems", results);
 	    
-	    request.getRequestDispatcher("/WEB-INF/views/customer/location-menu.jsp")
-	           .forward(request, response);
-	}
+	    request.getRequestDispatcher("/WEB-INF/views/customer/location-menu.jsp").forward(request, response);
+} 
+
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

@@ -14,23 +14,43 @@ import com.quickbite.dao.OrderDAO;
 import com.quickbite.model.OrderModel;
 import com.quickbite.model.UserModel;
 
-/**
- * Servlet implementation class CustomerOrderHistory
- */
-@WebServlet(asyncSupported = true, urlPatterns = { "/order-history" })
-public class CustomerOrderHistoryServlet extends HttpServlet {
+@WebServlet(asyncSupported = true, urlPatterns = { "/profile", "/profile/*" })
+public class CustomerController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private OrderDAO orderDAO = new OrderDAO();
-
-    public CustomerOrderHistoryServlet() {
+	
+    public CustomerController() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String endpoint = request.getPathInfo();
 		
+		if (endpoint == null || endpoint.equals("/")) {
+            request.getRequestDispatcher("/WEB-INF/views/customer/profile/user-profile.jsp").forward(request, response);
+            return;
+        }
+		
+		switch(endpoint) {
+			case "/order-history":
+				viewCustomerOrderHistory(request, response);
+				break;
+			case "/change-password":
+				viewChangePassword(request, response);
+				break;
+			case "/favorites":
+				viewFavorites(request, response);
+				break;
+			default:
+				response.sendError(HttpServletResponse.SC_NOT_FOUND);
+				break;
+		}
+	}
+
+	
+	private void viewCustomerOrderHistory(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		HttpSession session = request.getSession();
 		UserModel user = (UserModel) session.getAttribute("user");
-		
 		if (user == null) {
 			response.sendRedirect(request.getContextPath() + "/login");
 			return;
@@ -44,11 +64,21 @@ public class CustomerOrderHistoryServlet extends HttpServlet {
         request.setAttribute("currentOrders", currentOrders);
         request.setAttribute("pastOrders", pastOrders);
         
-		request.getRequestDispatcher("/WEB-INF/views/customer/profile/order-history.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/customer/profile/order-history.jsp").forward(request, response);		
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void viewChangePassword(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
+		
+	}
+
+	private void viewFavorites(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
 

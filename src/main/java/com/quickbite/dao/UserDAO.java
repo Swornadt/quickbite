@@ -143,16 +143,17 @@ public class UserDAO {
 		}
 	}
 	
-	public boolean updateUserDetails(int user_id, String fname, String lname, String email, String number) {
-		String sql = "Update user set fname=?, lname=?, email=?, number=? where user_id=?";
+	public boolean updateUserDetails(int user_id, String fname, String lname, String gender, String email, String number) {
+		String sql = "Update user set fname=?, lname=?, gender=?, email=?, number=? where user_id=?";
 		
 		try (Connection conn = DBconfig.getConnection();
 				PreparedStatement pst = conn.prepareStatement(sql)){
 			pst.setString(1, fname);
 			pst.setString(2, lname);
-			pst.setString(3, email);
-			pst.setString(4, number);
-			pst.setInt(5, user_id);
+			pst.setString(3, gender);
+			pst.setString(4, email);
+			pst.setString(5, number);
+			pst.setInt(6, user_id);
 			
 			return pst.executeUpdate()>0;
 		} 

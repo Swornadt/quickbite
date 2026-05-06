@@ -229,7 +229,7 @@ body {
 
         <div class="header-content">
 
-            <img src="${pageContext.request.contextPath}/assets/about/sworna.jpg" class="profile-img">
+            <img src="${pageContext.request.contextPath}/assets/about/${pageContext.request.contextPath}/assets/about/sworna.jpg" class="profile-img">
 
             <div class="header-info">
                 <h1>Sworna D Tuladhar</h1>
@@ -258,18 +258,42 @@ body {
                 <div class="section">
                     <h2>About Me</h2>
                     <div class="about-text">
-                        I am a Computing student currently building my skills in web development and programming. Alongside my studies, I have experience working in sales and quotation development, which has improved my communication, problem-solving, and attention to detail. I am motivated to grow in the IT field and gain practical experience through real-world projects and opportunities.
+                        <p> Hello, person from the internet!! I'm a passionate programmer working towards Full-Stack Web Development, specializing in the MERN Stack Currently serving as the founder and Community Lead of Islington WebDev Community.
+
+                            I gravitate toward full-stack work because I believe the best technical decisions come from understanding the whole system. Whether it's choosing a database schema, designing an API contract, or structuring a component tree, I aim for decisions that remain sound six months later.
+                        </p>
+                        <p>
+                            // What's my specialty?
+                            In my tech journey so far, I've worked mostly with: JavaScript, TypeScript, Express.js, Node.js, React.js, Next.js, Java, Python.
+                        </p>
+                        <p>
+                            // What am I building?
+                            I take a research-driven and project-based approach; Currently, I'm exploring AI integration via APIs (REST and GraphQL specifically) to enhance web development for future projects.
+                        </p>
+                        <p>
+                            // Comments beyond the code
+                            While I'm not debugging a simple issue that I created myself, you'll find me deep into Model United Nations (MUNs) discussing the latest geopolitics and economics to conflict resolution and problem-solving, or perhaps at the piano - composing and playing Western classical music.
+                        </p>
+                        <p>
+                            Always excited to connect with fellow developers, collaborate on projects or just have a philosophical chat on life over a cup of chai  Let's level up together!
+                        </p>
+                            Personal Portfolio: <a href="https://sworna-tuladhar.vercel.app/" target="_blank">https://sworna-tuladhar.vercel.app</a>    
                     </div>
                 </div>
 
                 <div class="section">
                     <h2>Technical Skills</h2>
                     <div class="skill-tags">
-                        <span class="skill-tag">HTML</span>
-                        <span class="skill-tag">CSS</span>
-                        <span class="skill-tag">JavaScript (Basic)</span>
-                        <span class="skill-tag">VS Code</span>
-                        <span class="skill-tag">GitHub</span>
+                        <span class="skill-tag">MERN stack</span>
+                        <span class="skill-tag">Project Management</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">System Design</span>
+                        <span class="skill-tag">TypeScript</span>
+                        <span class="skill-tag">PostgreSQL</span>
+                        <span class="skill-tag">API Design</span>
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">Canva</span>
+                        <span class="skill-tag">Figma</span>
                     </div>
                 </div>
 
@@ -287,8 +311,9 @@ body {
                 <div class="info-box">
                     <h3>Achievements</h3>
                     <div class="achievement-item">
-                        <strong>Created basic websites</strong>
-                        <span>College coursework projects</span>
+                        <strong>Leapfrog Student Partner 2026 Cohort V</strong>
+                        <strong>Community Lead, Islington WebDev Community</strong>
+                        <strong>Graphic Design IT Intern, Global Help Foundation</strong>
                     </div>
                 </div>
 
