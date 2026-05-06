@@ -13,7 +13,8 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
       rel="stylesheet"
     />
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/register.css" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/register.css" />
+
 </head>
 <body>
 <div class="register-page-container">
@@ -35,13 +36,15 @@
         		<%= request.getAttribute("success") %>
     		</p>
 		<% } %>
+
         <div class="register-container">
           <h1 class="register-heading">Register</h1>
           <!-- Actual Form  -->
           <form
             class="register-section"
             action="<%=request.getContextPath()%>/register"
-            method="post"
+            method="post" 
+            enctype="multipart/form-data"
           >
             <!-- First Name and Last Name -->
             <div class="register-name">
@@ -125,6 +128,17 @@
               />
             </div>
 
+			<!-- Profile Image -->
+            <div class="profile-image">
+              <label for="profile-img">Profile Image:</label>
+              <input
+                id="profile-img"
+                type="file"
+                name="image"
+                class="register-input"
+              />
+            </div>
+
             <!-- Terms of Use Checkbox -->
             <div class="register-tou">
               <input type="checkbox" id="terms-of-use" name="terms" />
@@ -138,7 +152,7 @@
             </button>
           </form>
 
-          <a href=" # " class="no-acc-btn"
+          <a href="<%=request.getContextPath() %>/login" class="no-acc-btn"
             >Already have an account? <span>Login</span></a
           >
         </div>

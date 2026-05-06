@@ -16,6 +16,16 @@
     <!-- Header -->
 	<%@ include file="../common/navbar1.jsp" %>
 	
+	<!-- Order Success Modal -->
+	<div id="success" class="order-success">
+	    <div class="modal-content">
+	        <div class="modal-icon">✔</div>
+	        <h2>Order Successful!</h2>
+	        <p>Your meal is being prepared. Check "My Orders" for updates.</p>
+	        <button onclick="closeModal()" class="modal-btn">Awesome</button>
+	    </div>
+	</div>
+	
 	<!-- Hero Section -->
     <div class="banner">
     	<div class="content">
@@ -34,14 +44,20 @@
                  <div> <img src="${pageContext.request.contextPath}/assets/home/momo3.png" alt="Momo 3"> </div>
                  <div> <img src="${pageContext.request.contextPath}/assets/home/momo4.png" alt="Momo 4"> </div>
 			</div>
-
-			<button class="order-btn">Order Now</button>
+			
+			<a href="${pageContext.request.contextPath}/outlets" class="order-btn" style="text-decoration:none;">Order Now</a>
 		</div>
 		
 		<div class="image-container">
 			<img src="${pageContext.request.contextPath}/assets/home/momo1.png" alt="Main Plate" class="main-img">
 		</div>
 	</div>
+	
+	<!-- Popular Items Section -->
+	<%@ include file="./popular-items.jsp" %>
+	
+	<!-- About Us Section -->
+	<%@ include file="./about-section.jsp" %>
 
 	<!-- FAQ Section -->
 	<%@ include file="./faq.jsp" %>
@@ -87,6 +103,11 @@
                     setTimeout(() => {
                         ghostImg.remove();
                     }, 800);
+				});
+            });
+        </script>
+        
+        <script src="${pageContext.request.contextPath}/js/order-success.js">
         </script>
     </body>
 

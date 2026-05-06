@@ -12,14 +12,17 @@ nav {
   top: 0;
   left: 0;
   z-index: 100;
-  
   background-color: #f9f8f7;
-  
   display: flex;
   flex-direction: column;
   height: auto;
   padding: 0.5rem 0rem;
   box-shadow: 0px 0px 5px rgb(220, 220, 220);
+}
+
+.below-nav{
+  height:74px;
+  width:100%;
 }
 
 .nav-container {
@@ -31,11 +34,16 @@ nav {
 
 .nav-logo-container {
   text-decoration: none;
-  font-family: "Pacifico";
   color: #db4a1e;
   line-height: 1.8rem;
-  font-size: 1.65rem;
-  text-align: center;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+.logo-text{
+  font-family:"Pacifico";
+  font-size: 1.75rem;
 }
 
 /* Desktop Links  */
@@ -91,6 +99,57 @@ nav {
 
 .nav-login-btn:hover {
   transform: scale(1.02);
+}
+
+/* For Profile Pop Up */
+
+.profile-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    z-index: 1000;
+    padding: 80px 20px 20px;
+}
+
+.profile-popup-content {
+    background: white;
+    border-radius: 8px;
+    width: 320px;
+    max-height: 85vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.popup-header {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    z-index: 10;
+}
+
+.close-popup {
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: #666;
+}
+
+.close-popup:hover {
+    color: #ff5a5f;
+}
+
+/* Position popup to the right side near profile icon */
+.profile-popup-overlay {
+    justify-content: flex-end;
+    padding-top: 70px;
+    padding-right: 30px;
 }
 
 /* For Mobile Screen*/
@@ -168,6 +227,99 @@ nav {
   transform: rotate(-45deg) translateY(-11px);
 }
 
+
+/* Navbar Right Side  */
+.nav-right {
+  display: flex;
+  gap: 2.75rem;
+  align-items: center;
+}
+
+.loggedin-nav-links {
+  display: flex;
+  gap: 1.75rem;
+  font-family: "DM Sans";
+}
+
+/* Navbar Symbols  */
+.nav-symbols a {
+  color: #363636;
+  font-size: 1.25rem;
+  text-decoration: none;
+  cursor: pointer;
+  transform: scale(1);
+  transition: all 0.3s ease;
+}
+
+.nav-symbols {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.nav-symbols a:hover {
+  color: black;
+}
+#nav-cart:visited {
+  color: #363636;
+}
+
+/* Navbar User Image  */
+.nav-image-container {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.nav-profile-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1);
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.nav-profile-image:hover {
+  transform: scale(1.07);
+}
+
+
+/* Toast Notifications */
+.toast {
+    visibility: hidden;
+    min-width: 250px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 8px;
+    padding: 16px;
+    position: fixed;
+    z-index: 10000;
+    right: 30px;
+    bottom: 30px;
+    font-family: 'Poppins', sans-serif;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    opacity: 0;
+    transition: opacity 0.5s, visibility 0.5s;
+}
+
+.toast.show {
+    visibility: visible;
+    opacity: 1;
+}
+
+.toast-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.toast-content i {
+    color: #4CAF50;
+}
+
 /* Adding Responsiveness through media queries  */
 
 @media (max-width: 800px) {
@@ -181,9 +333,14 @@ nav {
     display: block;
   }
 
+  .loggedin-nav-links{
+  	display:none;
+  }
   .nav-links {
     display: none;
   }
+  
+  
   .nav-container {
     justify-content: space-between;
   }

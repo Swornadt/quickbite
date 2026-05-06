@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.quickbite.model.Outlet" %>
 <%@ page import="java.util.*" %>
 
-<!-- Placeholder data. TODO: connect with DAO -->
-<%
+<%-- <%
     List<Map<String, String>> locations = new ArrayList<>();
     
     locations.add(Map.of("id", "1", "name", "Coffee Station", "photo", "../assets/outlet/coffee-station.png"));
@@ -14,7 +14,9 @@
     locations.add(Map.of("id", "6", "name", "Kumari Cafe", "photo", "../assets/outlet/kumari-cafe.png"));
 
     request.setAttribute("locations", locations);
-%>
+%> 
+
+--%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -27,9 +29,13 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="../css/outlet.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/outlet.css" />
   </head>
   <body>
+  
+  <!-- Header -->
+  <%@ include file="../common/navbar1.jsp" %>
+  
     <main class="app-container">
       <header class="hero">
         <h1>QuickBite Navigator</h1>
@@ -39,33 +45,27 @@
       <section class="selector-section">
         <h2 class="question">Where do you want to eat today?</h2>
 
-        <div class="location-grid" id="locationGrid">
-		    <%
-		        List<Map<String, String>> locList = (List<Map<String, String>>) request.getAttribute("locations");
-		        
-		        if (locList != null) {
-		            for (Map<String, String> loc : locList) {
-		                String id = loc.get("id");
-		                String name = loc.get("name");
-		                String photo = loc.get("photo");
-		                
-		                boolean hasPhoto = (photo != null && !photo.trim().isEmpty());
-		                String photoClass = hasPhoto ? "card-with-photo" : "";
-		                String styleAttr = hasPhoto ? "style=\"--bg-image: url('" + photo + "');\"" : "";
-		    %>
-				<div class="location-card <%= photoClass %>" 
-		             onclick="selectLocation(this, '<%= id %>', '<%= name %>')"
-		             <%= styleAttr %>>
-		            
-		            <span class="location-name"><%= name %></span>
-		        </div>
-			<%
-		            }
-		        }
-			%>
+		<div class="location-grid" id="locationGrid">
+			<c:forEach var="loc" items="${locations}">
+				<c:set var="hasPhoto" value="${not empty loc.outletImage}" />
+				<a href="${pageContext.request.contextPath}/outlets/${loc.outletName}" style="text-decoration: none; color: inherit; width: 30%;">
+					<div class="location-card ${hasPhoto ? 'card-with-photo' : ''}" onclick="selectLocation(this, '${loc.outletId}', '${loc.outletName}')"
+						<c:if test="${hasPhoto}">
+							style= "--bg-image: url('${loc.outletImage}');"
+						</c:if>>
+						
+						<span class="location-name">
+							${loc.outletName}
+						</span>
+					</div>
+				</a>
+			</c:forEach>
 		</div>
+		
       </section>
     </main>
+  <!-- Footer -->
+  <%@ include file="../common/footer.jsp" %>
 
     <script>
     function selectLocation(element, id, name) {

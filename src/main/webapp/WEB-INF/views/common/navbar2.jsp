@@ -39,8 +39,8 @@
           </div>
 
           <a href="#" class="nav-logo-container">
-            <p class="logo-text">Quick</p>
-            <p class="logo-text">Bite</p>
+            <span class="logo-text">Quick</span>
+            <span class="logo-text">Bite</span>
           </a>
         </div>
 
@@ -72,7 +72,9 @@
         <a href="#" class="mobile-nav-link">Contact Us</a>
       </div>
     </nav>
+    <div class="below-nav"></div>
+    <script src="<%=request.getContextPath() %>/js/navbar.js"></script>
 
-    <script src="../js/navbar.js"></script>
+   
   </body>
 </html>

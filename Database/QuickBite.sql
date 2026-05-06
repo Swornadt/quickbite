@@ -3,11 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
-<<<<<<< Updated upstream
--- Generation Time: May 02, 2026 at 10:49 AM
-=======
 -- Generation Time: May 06, 2026 at 07:31 AM
->>>>>>> Stashed changes
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -28,8 +24,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
-<<<<<<< Updated upstream
-=======
 -- Table structure for table `favorite`
 --
 
@@ -78,7 +72,7 @@ CREATE TABLE `item` (
 INSERT INTO `item` (`item_id`, `item_name`, `category`, `item_type`, `item_description`, `item_status`, `item_ingredient`, `item_allergy`, `item_image`) VALUES
 (4, 'Breakfast Set', 'Breakfast', 'Non Veg', 'Complete breakfast set', 'Available', 'Egg, Bread, Sausage', 'Egg', 'BreakfastSet.png'),
 (5, 'Buff Chowmein', 'Lunch', 'Non Veg', 'Buff chowmein noodles', 'Available', 'Noodles, Buff, Vegetables', 'Gluten', 'BuffChowmein.png'),
-(6, 'Chatpate', 'Snack', 'Veg', 'Spicy Nepali street snack', 'Available', 'Puffed rice, spices, onion', '', 'Chatpate.png'),
+(6, 'Chatpate', 'Snack', 'Veg', 'Spicy Nepali street snack', 'Available', 'Puffed rice, spices, onion', NULL, 'Chatpate.png'),
 (7, 'Chicken Fried Momo', 'Snack', 'Non Veg', 'Fried chicken dumplings', 'Available', 'Chicken, Flour, Oil', 'Gluten', 'ChickenFriedMomo.png'),
 (8, 'Chicken Jhol Momo', 'Lunch', 'Non Veg', 'Chicken momo in soup', 'Available', 'Chicken, Flour, Soup broth', NULL, 'ChickenJholMomo.png'),
 (9, 'Chicken Tandoori With Naan', 'Lunch', 'Non Veg', 'Tandoori chicken with naan bread', 'Available', 'Chicken, Spices, Wheat', NULL, 'ChickenTandooriWithNaan.png'),
@@ -95,7 +89,6 @@ INSERT INTO `item` (`item_id`, `item_name`, `category`, `item_type`, `item_descr
 -- --------------------------------------------------------
 
 --
->>>>>>> Stashed changes
 -- Table structure for table `order`
 --
 
@@ -106,28 +99,6 @@ CREATE TABLE `order` (
   `order_status` tinyint(3) UNSIGNED NOT NULL,
   `order_note` varchar(1000) DEFAULT NULL,
   `preferred_date` datetime DEFAULT NULL
-<<<<<<< Updated upstream
-=======
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `order`
---
-
-INSERT INTO `order` (`order_id`, `user_id`, `order_date`, `order_status`, `order_note`, `preferred_date`) VALUES
-(1, 9, '2026-05-01 21:00:29', 0, '[ASAP] ', NULL),
-(2, 9, '2026-05-01 21:01:25', 0, '[ASAP] ', NULL),
-(3, 9, '2026-05-01 21:01:41', 0, '[ASAP] ', NULL),
-(4, 9, '2026-05-01 21:02:03', 0, '[ASAP] chow chow', NULL),
-(5, 9, '2026-05-01 21:02:20', 0, '[ASAP] two item', NULL),
-(6, 9, '2026-05-01 21:02:34', 0, '[ASAP] Three', NULL),
-(7, 9, '2026-05-01 21:03:02', 0, 'Scheduled', NULL),
-(8, 9, '2026-05-02 21:01:53', 0, '[ASAP] ', NULL),
-(9, 10, '2026-05-03 00:10:38', 0, '[ASAP] test case', NULL),
-(10, 10, '2026-05-03 00:15:28', 0, 'test case', '2026-05-01 13:00:00'),
-(11, 10, '2026-05-03 00:15:55', 0, 'teset', '2026-04-03 15:30:00'),
-(12, 10, '2026-05-03 09:25:27', 0, 'test case', '2026-05-01 15:30:00');
-
 -- --------------------------------------------------------
 
 --
@@ -174,23 +145,13 @@ CREATE TABLE `outlet` (
   `outlet_name` varchar(100) NOT NULL,
   `outlet_status` varchar(15) NOT NULL,
   `outlet_image` varchar(255) DEFAULT NULL
->>>>>>> Stashed changes
+=======
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `order`
+-- Dumping data for table `outlet`
 --
 
-<<<<<<< Updated upstream
-INSERT INTO `order` (`order_id`, `user_id`, `order_date`, `order_status`, `order_note`, `preferred_date`) VALUES
-(1, 9, '2026-05-01 21:00:29', 0, '[ASAP] ', NULL),
-(2, 9, '2026-05-01 21:01:25', 0, '[ASAP] ', NULL),
-(3, 9, '2026-05-01 21:01:41', 0, '[ASAP] ', NULL),
-(4, 9, '2026-05-01 21:02:03', 0, '[ASAP] chow chow', NULL),
-(5, 9, '2026-05-01 21:02:20', 0, '[ASAP] two item', NULL),
-(6, 9, '2026-05-01 21:02:34', 0, '[ASAP] Three', NULL),
-(7, 9, '2026-05-01 21:03:02', 0, 'Scheduled', NULL);
-=======
 INSERT INTO `outlet` (`outlet_id`, `outlet_name`, `outlet_status`, `outlet_image`) VALUES
 (1, 'Canteen', 'Active', NULL),
 (2, 'Coffee Station', 'Active', NULL),
@@ -288,32 +249,24 @@ CREATE TABLE `user` (
   `image` longtext DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `user`
---
-
-INSERT INTO `user` (`user_id`, `fname`, `lname`, `number`, `email`, `gender`, `dob`, `password`, `role`, `status`, `image`) VALUES
-(1, 'i', 'try', '9846714966', 'email@gmail.com', 'Male', '1937-01-01', '$2a$10$f/TtbEYE2mZdabIG/kzR7.UQaZom/VyVmMPw72dJlYr.G9chOF..O', 'admin', 'active', 'uploads/default.png'),
-(2, 'Canteen', 'Staff', '9846714911', 'canteen@gmail.com', 'Male', '2010-01-01', '$2a$10$UKVer9zKrOrM/pplEPah3OwR.g3oO2xNmPfyjRX2n8e94orT.cTje', 'staff', 'active', 'uploads/default.png'),
-(3, 'Coffee Station', 'Staff', '9846714922', 'coffee@gmail.com', 'Male', '2009-12-27', '$2a$10$/Jb7QVxjJ/YFSGddo5JDH.ARTRTzbL.JIJAyRG8DBpzv8BkNQH/HC', 'staff', 'active', 'uploads/default.png'),
-(4, 'Momo Station', 'Staff', '9846714933', 'momo@gmail.com', 'Male', '2010-01-01', '$2a$10$6GR9aIN8ma7.OfhlmTR2YuB9ILpSG3bvz80PQS09Ek13.h7EvHn3S', 'staff', 'active', 'uploads/default.png'),
-(5, 'Chautari', 'Staff', '9846714944', 'chautari@gmail.com', 'Male', '2010-01-01', '$2a$10$YMkpgiDG.mSt9HQOb0W5C.jbzZfSH0zH.YFDzG2hNhHSiVg7sumfC', 'staff', 'active', 'uploads/default.png'),
-(6, 'Brit Cafe', 'Staff', '9846714955', 'brit@gmail.com', 'Male', '2010-01-01', '$2a$10$R5bcnYajdxj6qsvz7iHUKeXtxGG6eEVV9gCVtx4ERsRKLDc8.knti', 'staff', 'active', 'uploads/default.png'),
-(7, 'Kumari', 'Staff', '9846714866', 'kumari@gmail.com', 'Male', '2010-01-01', '$2a$10$wwdNoNqwyiX0nTCIokx0se9BDCGKBWbZo6D2DGYfq3ZAMspQmPXZm', 'staff', 'active', 'uploads/default.png'),
-(9, 'Sai', 'Stha', '9846714900', 'email@gmail.com', 'Male', '1899-12-31', '$2a$10$9V96dqG3PIwQazhN.fqITe5qqJgQ4MEKfXQuJFqZo4Jp9V.ltDG1i', 'user', 'active', 'uploads/default.png'),
-(10, 'Test', 'Case', '9988776655', 'email123@gmail.com', 'Male', '2006-12-31', '$2a$10$de3Vz2GsNdPSTC6rvYJhRuTniO9mdxrgPXFWdqqeEqXhto3ddEX8G', 'customer', 'active', 'uploads/default.png');
-
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `user_outlet`
 --
 
+INSERT INTO `order` (`order_id`, `user_id`, `order_date`, `order_status`, `order_note`, `preferred_date`) VALUES
+(1, 9, '2026-05-01 21:00:29', 0, '[ASAP] ', NULL),
+(2, 9, '2026-05-01 21:01:25', 0, '[ASAP] ', NULL),
+(3, 9, '2026-05-01 21:01:41', 0, '[ASAP] ', NULL),
+(4, 9, '2026-05-01 21:02:03', 0, '[ASAP] chow chow', NULL),
+(5, 9, '2026-05-01 21:02:20', 0, '[ASAP] two item', NULL),
+(6, 9, '2026-05-01 21:02:34', 0, '[ASAP] Three', NULL),
+(7, 9, '2026-05-01 21:03:02', 0, 'Scheduled', NULL);
 CREATE TABLE `user_outlet` (
   `user_id` smallint(5) UNSIGNED NOT NULL,
   `outlet_id` tinyint(3) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
->>>>>>> Stashed changes
 
 --
 -- Dumping data for table `user_outlet`
@@ -332,13 +285,16 @@ INSERT INTO `user_outlet` (`user_id`, `outlet_id`) VALUES
 --
 
 --
-<<<<<<< Updated upstream
-=======
 -- Indexes for table `favorite`
 --
 ALTER TABLE `favorite`
   ADD PRIMARY KEY (`user_id`,`outlet_id`,`item_id`),
   ADD KEY `outlet_id` (`outlet_id`,`item_id`);
+-- Indexes for table `favorite`
+--
+ALTER TABLE `favorite`
+  ADD PRIMARY KEY (`user_id`,`item_id`),
+  ADD KEY `Favorite_item` (`item_id`);
 
 --
 -- Indexes for table `feedback`
@@ -354,7 +310,6 @@ ALTER TABLE `item`
   ADD PRIMARY KEY (`item_id`);
 
 --
->>>>>>> Stashed changes
 -- Indexes for table `order`
 --
 ALTER TABLE `order`
@@ -362,32 +317,55 @@ ALTER TABLE `order`
   ADD KEY `Order_user` (`user_id`);
 
 --
+-- Indexes for table `order_outlet_item`
+--
+ALTER TABLE `order_outlet_item`
+  ADD PRIMARY KEY (`order_id`,`outlet_id`,`item_id`),
+  ADD KEY `Order_Item_2` (`item_id`),
+  ADD KEY `fk_orderitem_outletitem` (`outlet_id`,`item_id`);
+
+--
+-- Indexes for table `outlet`
+--
+ALTER TABLE `outlet`
+  ADD PRIMARY KEY (`outlet_id`);
+
+--
+-- Indexes for table `outlet_item`
+--
+ALTER TABLE `outlet_item`
+  ADD PRIMARY KEY (`outlet_id`,`item_id`),
+  ADD KEY `Outlet_Item_2` (`item_id`);
+
+--
+-- Indexes for table `payment`
+--
+ALTER TABLE `payment`
+  ADD PRIMARY KEY (`payment_id`),
+  ADD KEY `order_id` (`order_id`);
+
+--
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`user_id`);
+
+--
+-- Indexes for table `user_outlet`
+--
+ALTER TABLE `user_outlet`
+  ADD PRIMARY KEY (`user_id`,`outlet_id`),
+  ADD KEY `User_Outlet_2` (`outlet_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
-<<<<<<< Updated upstream
 -- AUTO_INCREMENT for table `order`
 --
 ALTER TABLE `order`
   MODIFY `order_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-=======
--- AUTO_INCREMENT for table `feedback`
---
-ALTER TABLE `feedback`
-  MODIFY `feedback_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `item`
---
-ALTER TABLE `item`
-  MODIFY `item_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
-
---
--- AUTO_INCREMENT for table `order`
---
-ALTER TABLE `order`
-  MODIFY `order_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `payment`
@@ -400,20 +378,22 @@ ALTER TABLE `payment`
 --
 ALTER TABLE `user`
   MODIFY `user_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
->>>>>>> Stashed changes
 
 --
 -- Constraints for dumped tables
 --
 
 --
-<<<<<<< Updated upstream
-=======
 -- Constraints for table `favorite`
 --
 ALTER TABLE `favorite`
   ADD CONSTRAINT `favorite_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`),
   ADD CONSTRAINT `favorite_ibfk_2` FOREIGN KEY (`outlet_id`,`item_id`) REFERENCES `outlet_item` (`outlet_id`, `item_id`);
+-- Constraints for table `favorite`
+--
+ALTER TABLE `favorite`
+  ADD CONSTRAINT `Favorite_item` FOREIGN KEY (`item_id`) REFERENCES `item` (`item_id`),
+  ADD CONSTRAINT `Favorite_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`);
 
 --
 -- Constraints for table `feedback`
@@ -422,11 +402,38 @@ ALTER TABLE `feedback`
   ADD CONSTRAINT `feedback_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`);
 
 --
->>>>>>> Stashed changes
 -- Constraints for table `order`
 --
 ALTER TABLE `order`
   ADD CONSTRAINT `Order_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`);
+
+--
+-- Constraints for table `order_outlet_item`
+--
+ALTER TABLE `order_outlet_item`
+  ADD CONSTRAINT `Order_Item_1` FOREIGN KEY (`order_id`) REFERENCES `order` (`order_id`),
+  ADD CONSTRAINT `Order_Item_2` FOREIGN KEY (`item_id`) REFERENCES `item` (`item_id`),
+  ADD CONSTRAINT `fk_orderitem_outletitem` FOREIGN KEY (`outlet_id`,`item_id`) REFERENCES `outlet_item` (`outlet_id`, `item_id`);
+
+--
+-- Constraints for table `outlet_item`
+--
+ALTER TABLE `outlet_item`
+  ADD CONSTRAINT `Outlet_Item_1` FOREIGN KEY (`outlet_id`) REFERENCES `outlet` (`outlet_id`),
+  ADD CONSTRAINT `Outlet_Item_2` FOREIGN KEY (`item_id`) REFERENCES `item` (`item_id`);
+
+--
+-- Constraints for table `payment`
+--
+ALTER TABLE `payment`
+  ADD CONSTRAINT `payment_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `order` (`order_id`);
+
+--
+-- Constraints for table `user_outlet`
+--
+ALTER TABLE `user_outlet`
+  ADD CONSTRAINT `User_Outlet_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`),
+  ADD CONSTRAINT `User_Outlet_2` FOREIGN KEY (`outlet_id`) REFERENCES `outlet` (`outlet_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
