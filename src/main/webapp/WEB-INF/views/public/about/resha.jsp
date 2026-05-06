@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <title>Resha Koju | CV</title>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/about-individual.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/about-individual.css">
 </head>
 <style>
 	.card{
