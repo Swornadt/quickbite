@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Order Details</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/order-details.css" />
 </head>
 <body>
   <div class="order">
@@ -34,6 +35,51 @@
           <div>Main Canteen</div>
         </div>
       </div>
+    </div>
+      
+       <!-- Right section order item + additional note + buttons -->
+    <div class="order-right">
+
+      <div class="order-items">
+        <div class="order-items-title">Order Items</div>
+        <table class="items-table">
+          <thead>
+            <tr>
+              <th>S.N.</th>
+              <th>Order Item</th>
+              <th>Quantity</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Potato Wedges</td>
+              <td>2</td>
+              <td><div class="checkbox"></div></td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Veg Thukpa</td>
+              <td>1</td>
+              <td><div class="checkbox"></div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+ 
+      <div class="additional-note">
+        <div class="note-title">Additional Note</div>
+        <div class="note-box">
+          Can you please make the potato wedges less spicy for both quantities? And do add an extra sashe of ketchup?
+        </div>
+      </div>
+      
+     <div class="order-actions">
+        <button class="btn-initiate">Initiate Order</button>
+        <button class="btn-ready">Mark as Ready</button>
+      </div> 
+      
     </div>
 </body>
 </html>

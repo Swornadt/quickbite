@@ -1,1 +1,164 @@
 @charset "UTF-8";
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+ 
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #ffffff;
+  color: #111;
+  min-width: 900px;
+}
+ 
+.order {
+  display: flex;
+  flex-direction: row;
+  padding: 30px 4vw 30px 13vw;
+}
+ 
+/* Lefty */
+.order-details {
+  flex: 0 0 15%;
+  border-right: 1.5px solid #ccc;
+  padding-right: 8vw;
+  align-self: flex-start;
+  padding-bottom: 8vw;
+}
+ 
+.order-details-title {
+  font-size: 39px;
+  margin-bottom: 15px;
+  white-space: nowrap;
+}
+ 
+.details {
+  display: flex;
+  flex-direction: row;
+  gap: 100px;
+  width: fit-content;
+}
+ 
+.details-label {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+ 
+.details-value {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+ 
+.details-label div {
+  font-size: 19px;
+  font-weight: 500;
+  color: #111;
+  white-space: nowrap;
+}
+ 
+.details-value div {
+  font-size: 19px;
+  font-weight: 500;
+  color: #222;
+  white-space: nowrap;
+}
+ 
+/* Righty (item + note + button)*/
+.order-right {
+  flex: 1;
+  padding-left: 8vw;
+  padding-right: 13vw;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+ 
+/* Order item */
+.order-items {
+  width: 100%;
+}
+ 
+.order-items-title {
+  font-size: 39px;
+  margin-bottom: 18px;
+}
+ 
+.items-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+ 
+.items-table th {
+  font-size: 19px;
+  font-weight: 500;
+  color: #111;
+  text-align: left;
+  padding-bottom: 10px;
+  border-bottom: 1.5px solid #ccc;
+}
+ 
+.items-table td {
+  font-size: 19px;
+  font-weight: 500;
+  color: #222;
+  padding: 10px 0;
+}
+ 
+.items-table th:last-child,
+.items-table td:last-child {
+  width: 1%;
+  white-space: nowrap;
+}
+ 
+.checkbox {
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid #111;
+  border-radius: 3px;
+}
+ 
+/* Addinational note */
+.note-title {
+  font-size: 39px;
+  margin-bottom: 18px;
+}
+ 
+.note-box {
+  background: #EFE9E1;
+  border-radius: 10px;
+  padding: 25px 30px;
+  font-size: 19px;
+  font-weight: 500;
+  color: #222;
+  line-height: 1.6;
+}
+ 
+.order-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 50px;
+}
+ 
+.btn-initiate,
+.btn-ready {
+  width: 180px;
+  height: 50px;
+  background: #DB4A1E;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 19px;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  transition: 0.3s;
+}
+ 
+.btn-initiate:hover,
+.btn-ready:hover {
+  background: #c43f17;
+}
