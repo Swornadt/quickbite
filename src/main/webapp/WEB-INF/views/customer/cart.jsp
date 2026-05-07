@@ -55,7 +55,7 @@
 		                    </span>
 		                    <div class="item-actions">
 		                    
-		                    	<!-- 1. ADD THIS LOGIC BLOCK HERE -->
+		                    	<!-- logic for finding favorited items -->
 						        <c:set var="isFavorite" value="false" />
 						        <c:forEach var="fav" items="${favoriteList}">
 						            <c:if test="${fav.item.itemId == item.itemId && fav.outlet.outletId == item.outletId}">
