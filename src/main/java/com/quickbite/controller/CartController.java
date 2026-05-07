@@ -14,25 +14,27 @@ import java.util.List;
 import com.quickbite.model.CartItemModel;
 import com.quickbite.service.CartService;
 
-/**
- * Servlet implementation class CartServlet
- */
 @WebServlet(asyncSupported = true, urlPatterns = { "/cart","/cart/*" })
 public class CartController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private CartService cartService = new CartService();
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public CartController() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+    /**
+     * Handles GET request to display customer's cart.
+     * This method instantiates cartService which fetches the cart stored in the 
+     * user's session and stores it as a List.
+     * Additionally, the subtotal is calculated and both are forwarded
+     * as attributes.
+     * 
+     * @param request
+     * @param response
+     * @return void
+     * @throws ServletException, IOException
+     */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		CartService cartService = new CartService();
 		HttpSession session = request.getSession();
@@ -51,7 +53,17 @@ public class CartController extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * Handles POST requests by routing them to corresponding cart management methods.
+	 * 
+	 * Based on the URL path, the method dispatches the request
+	 * to specialized handlers for CRUD operations of items within the cart.
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws ServletException, IOException
+	 * @see #handleAddToCart(HttpServletRequest, HttpServletResponse)
+	 * @see #handleRemoveFromCart(HttpServletRequest, HttpServletResponse)
+	 * @see #handleUpdateQuantity(HttpServletRequest, HttpServletResponse)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String endpoint = request.getPathInfo();
@@ -67,6 +79,20 @@ public class CartController extends HttpServlet {
 		}
 	}
 	
+	/**
+	 * Handles addition of a specific menu item to the user's in-session cart.
+	 * 
+	 * It extracts the item details and price from the request parameters,
+	 * encapsulates them into CartItemModel, and utilizes CartService to
+	 * persist the item in the current session.
+	 * Upon success, it redirects the user back to the originating page
+	 * using Referer with a success flag appended to the URL to trigger
+	 * UI feedback.
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 */
 	private void handleAddToCart(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
 		try {
@@ -105,6 +131,16 @@ public class CartController extends HttpServlet {
 		}
 	}
 	
+	/**
+	 * Proceses removal of a specific menu item from the user's in-session cart.
+	 * 
+	 * It gets the ID of the item that is to be removed, and utilizes the
+	 * cartService to remove the item completely, regardless of the quantity.
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 */
 	private void handleRemoveFromCart (HttpServletRequest request, HttpServletResponse response) throws IOException {
 		try {
 			int itemId = Integer.parseInt(request.getParameter("itemId"));
@@ -115,6 +151,18 @@ public class CartController extends HttpServlet {
 		}
 	}
 	
+	/**
+	 * Handles the update request from the user to update the quantity
+	 * of item in the in-session cart.
+	 * 
+	 * It extracts the id of the menu item and the amount by which to update.
+	 * The amount can be negative or positive based on which button was clicked
+	 * on the UI. The update is done via cartService and redirected to cart page.
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 */
 	private void handleUpdateQuantity(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		try {
 			int itemId = Integer.parseInt(request.getParameter("itemId"));
