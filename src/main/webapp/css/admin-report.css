@@ -1,0 +1,426 @@
+@charset "UTF-8";
+
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+.admin-body{
+	display:flex;
+}
+
+.admin-right-body {
+  width: 80%;
+  padding: 0rem 5rem;
+}
+
+.top-container {
+	display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  margin-top: 30px
+}
+
+.canteen-btn {
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 8px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 200px;
+}
+
+.admin-top-info-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.admin-top-info {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding: 1rem;
+  align-items: center;
+  position: relative;
+}
+
+.admin-top-info::after {
+  content: "";
+  position: absolute;
+  height: 2px;
+  width: 100%;
+  bottom: -5px;
+  left: 1px;
+  border-radius: 1rem;
+  background-color: #faf3f1;
+}
+
+.admin-input-section {
+  width: 50%;
+  position: relative;
+}
+
+.admin-input {
+  background-color: #faf3f1;
+  width: 100%;
+  border-radius: 2rem;
+  outline: none;
+  border: none;
+  padding: 0.65rem 0rem 0.65rem 2rem;
+  font-family: "poppins";
+  font-weight: 400;
+  font-size: 0.9rem;
+}
+
+#input-magnifying-glass {
+  position: absolute;
+  top: 15px;
+  left: 8px;
+  color: #363636;
+  font-size: 14px;
+}
+
+.admin-right-tools {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.notification-section {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.notification-section i {
+  font-size: 20px;
+  cursor: pointer;
+  transform: scale(1);
+  transition: all 0.2s ease;
+  color: #363636;
+}
+
+.notification-section i:hover {
+  transform: scale(1.01);
+  color: black;
+}
+
+#message-icon {
+  font-size: 18.5px;
+  margin-bottom: 2px;
+}
+
+.admin-info-container {
+  display: flex;
+  gap: 0.85rem;
+}
+
+.admin-name-role {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.admin-name {
+  font-family: "Poppins";
+  font-weight: 700;
+  color: #7d7c7a;
+  font-size: 0.88rem;
+}
+
+.admin-role {
+  font-family: "Poppins";
+  font-weight: 400;
+  font-size: 0.88rem;
+}
+
+.admin-image {
+  height: 2.75rem;
+  width: 2.75rem;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.admin-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1);
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.admin-image img:hover {
+  transform: scale(1.07);
+}
+
+.admin-card-infos {
+  width: 100%;
+  margin-top: 2rem;
+  font-family: "poppins";
+  display: grid;
+  grid-auto-flow: column;
+}
+
+.admin-card-info {
+  width: 90%;
+  padding: 0.75rem;
+  border: 1px solid #d9d9d9;
+  border-radius: 1rem;
+}
+
+.admin-card-img {
+  height: 40px;
+  width: 40px;
+}
+
+.gained-number {
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.card-info-numbers {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.card-info-number-title {
+  color: #646464;
+  font-weight: 400;
+  font-size: 12px;
+}
+
+.card-info-number-percent {
+  color: #0ace0e;
+  font-weight: 400;
+  font-size: 0.7rem;
+}
+
+.linechart-piechart {
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.line-chart-container {
+  width: 70%;
+  padding: 1rem 0.5rem;
+  border: 1px solid #d9d9d9;
+  border-radius: 1rem;
+}
+
+.line-chart-details {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.line-chart-legends {
+  display: flex;
+  gap: 2rem;
+  margin-left: 2rem;
+}
+
+.total-revenue,
+.total-sales {
+  position: relative;
+}
+
+.total-revenue::after {
+  position: absolute;
+  content: "";
+  height: 10px;
+  width: 10px;
+  background-color: #7fbdff;
+  border-radius: 50%;
+  left: -15px;
+  top: 5px;
+}
+
+.total-sales::after {
+  position: absolute;
+  content: "";
+  height: 10px;
+  width: 10px;
+  background-color: #adffcb;
+  border-radius: 50%;
+  left: -15px;
+  top: 5px;
+}
+
+.line-chart-dates {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+#start {
+  background-color: #faf3f1;
+  border: 1px solid #eee4e2;
+  outline: none;
+  border-radius: 0.85rem;
+  padding: 0.5rem;
+}
+
+.line-chart-image-container {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  overflow: hidden;
+}
+
+.line-chart {
+  width: 90%;
+  height: 90%;
+}
+
+.pie-chart-container {
+  text-align: center;
+  width: 30%;
+  padding: 1rem 0.5rem;
+  border: 1px solid #d9d9d9;
+  border-radius: 1rem;
+}
+
+.pie-chart-title {
+  font-family: "poppins";
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
+.pie-chart-image-container {
+  width: 100%;
+  overflow: hidden;
+}
+
+.pie-chart-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  margin-top: 3rem;
+}
+
+/* Bar charts  */
+.barcharts-container {
+  display: flex;
+  gap: 1rem;
+  margin: 1rem 0rem;
+}
+
+.barchart-highrate {
+  width: 30%;
+  border: 1px solid #d9d9d9;
+  border-radius: 10px;
+  padding: 1rem 0.5rem 0.5rem 0.5rem;
+}
+
+.barchart-title {
+  font-family: "poppins";
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.barchart-image-container {
+  width: 100%;
+  margin-top: 1.25rem;
+}
+
+#barchart-profit-image-container {
+  margin-top: 3rem;
+}
+
+.barchart {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.barchart-profit {
+  border: 1px solid #d9d9d9;
+  border-radius: 10px;
+  padding: 1rem;
+  width: 70%;
+}
+
+.week-dropdown select {
+  border: none;
+  outline: none;
+  font-size: 0.75rem;
+  font-family: "poppins";
+  color: #a5a5a5;
+  margin-top: 1rem;
+}
+
+@media (max-width: 1150px) {
+  .line-chart-details {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media (max-width: 1000px) {
+  .linechart-piechart {
+    flex-direction: column;
+  }
+
+  .line-chart-container {
+    width: 100%;
+  }
+
+  .pie-chart-image-container {
+    max-width: 200px;
+    margin: 0 auto;
+  }
+
+  .pie-chart-container {
+    width: 100%;
+    height: 285px;
+  }
+
+  .barcharts-container {
+    flex-direction: column;
+  }
+
+  .barchart-highrate {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .barchart-profit {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #barchart-highrate-image-container {
+    height: 130px;
+    max-width: 165px;
+  }
+
+  #barchart-profit-image-container {
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 800px) {
+  .admin-right-body {
+    padding: 0rem 3rem;
+  }
+}
+
+@media (max-width: 690px) {
+  .admin-right-body {
+    padding: 0rem 2.25rem;
+  }
+}

@@ -87,6 +87,9 @@ public class AdminController extends HttpServlet {
 			case "/menu/delete":
 				deleteMenuDelete(request, response);
 				break;
+			case "/report":
+				viewReport(request, response);
+				break;
 			default:
 				response.sendError(HttpServletResponse.SC_NOT_FOUND);
 				break;
@@ -276,6 +279,10 @@ public class AdminController extends HttpServlet {
         request.getRequestDispatcher("/WEB-INF/views/admin/admin-update-item.jsp").forward(request, response);
 	}
 	
+	private void viewReport(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("/WEB-INF/views/admin/admin-report.jsp").forward(request, response);
+	}
+	
 	
 	/**
 	 * doPost() runs when the Approve or Reject button is clicked
@@ -300,7 +307,7 @@ public class AdminController extends HttpServlet {
 				break;
 			case "/menu/delete":
 				handleMenuDelete(request, response);
-				break;
+				break;				
 			default:
 				response.sendError(HttpServletResponse.SC_NOT_FOUND);
 		}
