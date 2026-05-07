@@ -66,6 +66,14 @@ public class AuthFilter extends HttpFilter implements Filter {
 			}
 		}
 		
+		// Staff Access
+        if (path.startsWith("/kitchen")) {
+            if (user == null || !"staff".equalsIgnoreCase(user.getRole())) {
+                res.sendRedirect(req.getContextPath() + "/home");
+                return;
+            }
+        }
+        
 		// User logged in shouldnt go back to auth pages
 		if (path.equals("/login") || path.equals("/register")) {
 			if (user != null) {
