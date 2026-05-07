@@ -29,6 +29,13 @@ public class CheckoutController extends HttpServlet {
     }
 
     @Override
+    /**
+     * Handles GET requests for populating the cart data and its subtotal
+     * 
+     * @param request
+     * @param response
+     * @throws ServletException, IOException
+     */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
     	String endpoint = request.getServletPath();
@@ -77,41 +84,15 @@ public class CheckoutController extends HttpServlet {
 		
 		if (session == null || session.getAttribute("user")==null) {
 			response.sendRedirect(request.getContextPath()+"/login");
-			System.out.println("User session null! checkoutservlet");
 			return;
 		}
-		
+
 		if ("/checkout".equals(endpoint)) {
 			handleCheckoutSubmission(request, response, session);
 		} else if ("/payment".equals(endpoint)) {
 			handleFinalPlacement(request, response, session);
 		}
-	    
-	    
-
-	    
-	    // get cart and user
-	    List<CartItemModel> cart = cartService.getCart(session);
-	    UserModel user = (UserModel) session.getAttribute("user");
-	    
-	    if (cart == null || cart.isEmpty()) {
-	    	response.sendRedirect(request.getContextPath()+"/outlets");
-	    	return;
-	    }
-	    
-	    try {
-	    	boolean success = cartService.placeOrder(user, cart, specialInstructions, finalPreferredDate);
-	    	
-	    	if (success) {
-	    		session.removeAttribute("cart");
-	    		response.sendRedirect(request.getContextPath()+"/home?orderStatus=success");
-	    	} else {
-	    		request.setAttribute("error", "Could not proccess order. Please try again.");
-	    		doGet(request, response);
-	    	}
-	    }catch (Exception e) {
-	    	e.printStackTrace();
-	    }
+		
     }
 
 	private void handleCheckoutSubmission(HttpServletRequest request, HttpServletResponse response,
@@ -124,12 +105,12 @@ public class CheckoutController extends HttpServlet {
 		
 		// validate scheduled orders
 		if ("later".equals(deliveryTimeType)) {
-	    	if (deliveryDate != null && !deliveryDate.isEmpty() && timeSlot != null && !timeSlot.isEmpty()) {
-	    		request.setAttribute("error", "Please select both a date and time slot for scheduled orders.");
-	    		viewCheckout(request, response);
-	    		return;
-	    	}
-	    } 
+	        if (deliveryDate == null || deliveryDate.isEmpty() || timeSlot == null || timeSlot.isEmpty()) {
+	            request.setAttribute("error", "Please select both a date and time slot for scheduled orders.");
+	            viewCheckout(request, response);
+	            return;
+	        }
+	    }
 		
 		// validate empty carts
 		List<CartItemModel> cart = cartService.getCart(session);
@@ -138,19 +119,17 @@ public class CheckoutController extends HttpServlet {
 	        return;
 	    }
 	    
-	    
-		
 		// store it in session
-		session.setAttribute("tempDeliveryType", deliveryTimeType);
-		session.setAttribute("tempDate", deliveryDate);
-		session.setAttribute("tempTime", timeSlot);
-		session.setAttribute("tempInstructions", specialInstructions);
+	    session.setAttribute("pending_type", deliveryTimeType);
+	    session.setAttribute("pending_date", deliveryDate);
+	    session.setAttribute("pending_slot", timeSlot);
+	    session.setAttribute("pending_notes", specialInstructions);
 			        
 		// redirect to payment
 		response.sendRedirect(request.getContextPath() + "/payment");
 	}
 	
-	private void handleFinalPlacement(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+	private void handleFinalPlacement(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException {
 		UserModel user = (UserModel) session.getAttribute("user");
 		List<CartItemModel> cart = cartService.getCart(session);
 		
@@ -161,7 +140,19 @@ public class CheckoutController extends HttpServlet {
 	    String notes = (String) session.getAttribute("pendingNotes");
 	    
 	    try {
-	    	boolean success = cartService.placeOrder(user, cart, type, date, slot, notes);
+	    	boolean success = cartService.processOrder(user, cart, type, date, slot, notes);
+	    	if (success) {
+	    		// cleanup the session
+	    		session.removeAttribute("cart");
+	            session.removeAttribute("pending_type");
+	            session.removeAttribute("pending_date");
+	            session.removeAttribute("pending_slot");
+	            session.removeAttribute("pending_notes");
+	            response.sendRedirect(request.getContextPath() + "/home?orderStatus=success");
+	    	}
+	    } catch (Exception e) {
+	    	e.printStackTrace();
+	    	response.sendError(500, "Internal error during order placement.");
 	    }
 	}
 		

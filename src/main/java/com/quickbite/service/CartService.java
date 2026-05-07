@@ -3,7 +3,6 @@ package com.quickbite.service;
 import com.quickbite.dao.OrderDAO;
 import com.quickbite.model.CartItemModel;
 import com.quickbite.model.UserModel;
-import com.quickbite.utils.DBconfig;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -11,12 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 public class CartService {
 
@@ -70,6 +63,53 @@ public class CartService {
         return cart.stream().mapToDouble(CartItemModel::getTotalPrice).sum();
     }
 
+    /**
+     * Orchestration method to handle checkout process by preparing delivery data 
+     * and placing the order.
+     * 
+     * @param user
+     * @param cart
+     * @param deliveryTimeType - {"asap", "later"}
+     * @param deliveryDate - The raw date string from UI
+     * @param timeSlot - The raw time string from UI
+     * @param notes - the user's custom notes/special instructions
+     * @return true if the order is successful
+     * @throws Exception
+     */
+    public boolean processOrder(UserModel user, List<CartItemModel> cart, String deliveryTimeType, 
+			String deliveryDate, String timeSlot, String notes) throws Exception {
+		if (cart == null || cart.isEmpty()) {
+			return false;
+		}
+		// Encapsulating the date and time for Schedule Later
+		String finalPreferredDate = null;
+		String finalInstructions = (notes != null) ? notes : "";
+			
+		if ("later".equals(deliveryTimeType)) {
+			if (deliveryDate != null && !deliveryDate.isEmpty() && timeSlot != null && !timeSlot.isEmpty()) {
+				finalPreferredDate = deliveryDate + " " + timeSlot + ":00";
+			}
+		} else {
+			finalInstructions = "[ASAP] " + finalInstructions;
+		}
+		
+		// calling method for final validation and placing order
+		return placeOrder(user, cart, finalInstructions.trim(), finalPreferredDate);
+	}
+    
+    /**
+     * Finalizes the checkout process by inserting the cart data into the database.
+     * 
+     * Validates the state of the user and cart before calling the DAO to create
+     * the order in the database.
+     * 
+     * @param user - The UserModel of the customer placing the order.
+     * @param cart - The list of items to be purchased.
+     * @param specialInstructions - Notes or requests for the kitchen.
+     * @param preferredDate - The requested date/time of completion.
+     * @return true if the order was successfully created in the database; false otherwise.
+     * @throws Exception - If a database connection error or integrity violation occurs.
+     */
 	public boolean placeOrder(UserModel user, List<CartItemModel> cart, String specialInstructions, String preferredDate) throws Exception{
 		if (user == null || cart == null || cart.isEmpty()) {
 	        return false;
