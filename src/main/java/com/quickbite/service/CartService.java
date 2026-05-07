@@ -109,6 +109,40 @@ public class CartService {
     }
 
     /**
+     * Orchestration method to handle checkout process by preparing delivery data 
+     * and placing the order.
+     * 
+     * @param user
+     * @param cart
+     * @param deliveryTimeType - {"asap", "later"}
+     * @param deliveryDate - The raw date string from UI
+     * @param timeSlot - The raw time string from UI
+     * @param notes - the user's custom notes/special instructions
+     * @return true if the order is successful
+     * @throws Exception
+     */
+    public boolean processOrder(UserModel user, List<CartItemModel> cart, String deliveryTimeType, 
+			String deliveryDate, String timeSlot, String notes) throws Exception {
+		if (cart == null || cart.isEmpty()) {
+			return false;
+		}
+		// Encapsulating the date and time for Schedule Later
+		String finalPreferredDate = null;
+		String finalInstructions = (notes != null) ? notes : "";
+			
+		if ("later".equals(deliveryTimeType)) {
+			if (deliveryDate != null && !deliveryDate.isEmpty() && timeSlot != null && !timeSlot.isEmpty()) {
+				finalPreferredDate = deliveryDate + " " + timeSlot + ":00";
+			}
+		} else {
+			finalInstructions = "[ASAP] " + (finalInstructions != null ? finalInstructions : "");
+		}
+		
+		// calling method for final validation and placing order
+		return placeOrder(user, cart, finalInstructions.trim(), finalPreferredDate);
+	}
+    
+    /**
      * Finalizes the checkout process by inserting the cart data into the database.
      * 
      * Validates the state of the user and cart before calling the DAO to create

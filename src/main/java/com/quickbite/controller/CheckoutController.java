@@ -29,6 +29,13 @@ public class CheckoutController extends HttpServlet {
     }
 
     @Override
+    /**
+     * Handles GET requests for populating the cart data and its subtotal
+     * 
+     * @param request
+     * @param response
+     * @throws ServletException, IOException
+     */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 		
@@ -58,7 +65,6 @@ public class CheckoutController extends HttpServlet {
 		
 		if (session == null || session.getAttribute("user")==null) {
 			response.sendRedirect(request.getContextPath()+"/login");
-			System.out.println("User session null! checkoutservlet");
 			return;
 		}
 		
@@ -67,30 +73,13 @@ public class CheckoutController extends HttpServlet {
 		String deliveryDate = request.getParameter("deliveryDate"); // YYYY-MM-DD
 		String timeSlot = request.getParameter("deliveryTimeSlot"); // HH:MM
 	    String specialInstructions = request.getParameter("specialInstructions");
-	    
-	    // Encapsulating the date and time for Schedule Later
-	    String finalPreferredDate = null;
-	    
-	    if ("later".equals(deliveryTimeType)) {
-	    	if (deliveryDate != null && !deliveryDate.isEmpty() && timeSlot != null && !timeSlot.isEmpty()) {
-	    		finalPreferredDate = deliveryDate + " " + timeSlot + ":00";
-	    	}
-	    } else {
-	    	specialInstructions = "[ASAP] " + (specialInstructions != null ? specialInstructions : "");
-	    }
-
-	    
+	   
 	    // get cart and user
 	    List<CartItemModel> cart = cartService.getCart(session);
 	    UserModel user = (UserModel) session.getAttribute("user");
 	    
-	    if (cart == null || cart.isEmpty()) {
-	    	response.sendRedirect(request.getContextPath()+"/outlets");
-	    	return;
-	    }
-	    
 	    try {
-	    	boolean success = cartService.placeOrder(user, cart, specialInstructions, finalPreferredDate);
+	    	boolean success = cartService.processOrder(user, cart, deliveryTimeType, deliveryDate, timeSlot, specialInstructions);
 	    	
 	    	if (success) {
 	    		session.removeAttribute("cart");
@@ -101,6 +90,7 @@ public class CheckoutController extends HttpServlet {
 	    	}
 	    }catch (Exception e) {
 	    	e.printStackTrace();
+	    	response.sendError(500, "Internal error during checkout.");
 	    }
     }
 		
