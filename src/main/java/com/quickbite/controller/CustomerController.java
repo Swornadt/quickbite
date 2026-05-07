@@ -23,6 +23,22 @@ public class CustomerController extends HttpServlet {
         super();
     }
 
+    /**
+     * Handles GET requests for User Profile's actions
+     * 
+     * Based on the endpoint of the current URL, the corresponding method is called.
+     * 1. Profile
+     * 2. Order History
+     * 3. Change Password
+     * 4. View Favorites
+     * 
+     * @param request
+     * @param response
+     * @throws ServletException, IOException
+     * @see #viewChangePassword(HttpServletRequest, HttpServletResponse)
+     * @see #viewCustomerOrderHistory(HttpServletRequest, HttpServletResponse)
+     * @see #viewFavorites(HttpServletRequest, HttpServletResponse)
+     */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String endpoint = request.getPathInfo();
 		
@@ -47,7 +63,19 @@ public class CustomerController extends HttpServlet {
 		}
 	}
 
-	
+	/**
+	 * Displays the past and ongoing orders of the current user.
+	 * 
+	 * Gets the user's details from the logged in session, and fetches
+	 * the past and current orders through the DAO, passing true and false
+	 * for current and past respectively.
+	 * The data is then passed to jsp through attributes.
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 * @throws ServletException
+	 */
 	private void viewCustomerOrderHistory(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		HttpSession session = request.getSession();
 		UserModel user = (UserModel) session.getAttribute("user");
