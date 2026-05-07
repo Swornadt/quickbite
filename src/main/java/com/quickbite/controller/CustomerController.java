@@ -67,9 +67,8 @@ public class CustomerController extends HttpServlet {
 		request.getRequestDispatcher("/WEB-INF/views/customer/profile/order-history.jsp").forward(request, response);		
 	}
 
-	private void viewChangePassword(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
-		
+	private void viewChangePassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("/WEB-INF/views/customer/profile/change-password.jsp").forward(request, response);
 	}
 
 	private void viewFavorites(HttpServletRequest request, HttpServletResponse response) {
