@@ -170,4 +170,23 @@ body {
 
 .checkout-btn:hover { background-color: #d35400; }
 
+.icon-heart {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: #666;
+}
+
+.icon-heart.active {
+    color: #e74c3c;
+}
+
+.icon-heart:hover {
+    transform: scale(1.1);
+}
+
+.icon-heart:active {
+    transform: scale(0.9);
+}
 

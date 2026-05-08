@@ -49,7 +49,7 @@
 
                         <div class="admin-dob">
                             <h4>DOB</h4>
-                            <input type="text" name="dob" value="${userData.dob}">
+                            <input id="dob" type="date" name="dob" class="register-input" value="${userData.dob}">
                         </div>
                         <div class="admin-gender">
                             <h4>Gender</h4>

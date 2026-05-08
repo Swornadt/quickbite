@@ -6,8 +6,8 @@ body {
 
 .history-container {
     max-width: 900px;
-    margin: 40px auto;
-    padding: 20px;
+    margin: 10px auto;
+    padding: 0px 20px 20px 0px;
 }
 
 .filter-btn {
