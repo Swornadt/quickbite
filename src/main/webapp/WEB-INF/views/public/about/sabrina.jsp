@@ -50,13 +50,13 @@
                 <div class="section">
                     <h2>About Me</h2>
                     <div class="about-text">
-                        <p>I am a passionate and versatile full stack developer with a strong foundation in UI/UX design, frontend development, and backend systems. I enjoy building complete digital experiences - from designing intuitive and visually engaging interfaces to developing efficient, scalable, and secure backend solutions.<br></p>
+                        <p>I am a passionate and versatile full stack developer with a strong foundation in UI/UX design, frontend development, and backend systems. I enjoy building complete digital experiences - from designing intuitive and visually engaging interfaces to developing efficient, scalable, and secure backend solutions.</p>
         
-                        <p>My approach focuses on understanding user needs and translating them into functional, user-friendly applications. I believe that great software is not just about clean code, but also about delivering seamless experiences that are both practical and visually appealing.<br></p>
+                        <p>My approach focuses on understanding user needs and translating them into functional, user-friendly applications. I believe that great software is not just about clean code, but also about delivering seamless experiences that are both practical and visually appealing.</p>
                         
-                        <p>I have experience working with modern design tools and web technologies, allowing me to bridge the gap between design and development. I am comfortable creating wireframes and prototypes, developing responsive interfaces, and building robust APIs and database systems that support real-world applications.<br></p>
+                        <p>I have experience working with modern design tools and web technologies, allowing me to bridge the gap between design and development. I am comfortable creating wireframes and prototypes, developing responsive interfaces, and building robust APIs and database systems that support real-world applications.</p>
                         
-                        <p>I am continuously learning and exploring new technologies to improve my skills and stay updated with industry trends. I enjoy problem-solving, collaborating with teams, and taking on challenges that help me grow both technically and creatively.<br></p>
+                        <p>I am continuously learning and exploring new technologies to improve my skills and stay updated with industry trends. I enjoy problem-solving, collaborating with teams, and taking on challenges that help me grow both technically and creatively.</p>
                         
                         <p>My goal is to contribute to impactful projects where I can combine creativity with technical expertise to build meaningful and efficient digital solutions.</p>
                     </div>
@@ -65,15 +65,15 @@
                 <div class="section">
                     <h2>Technical Skills</h2>
                     <div class="skill-tags">
-                        <div class="skill">Figma</div>
-                            <div class="skill">UI/UX Design</div>
-                            <div class="skill">Java</div>
-                            <div class="skill">HTML</div>
-                            <div class="skill">CSS</div>
-                            <div class="skill">JavaScript</div>
-                            <div class="skill">Python</div>
-                            <div class="skill">SQL</div>
-                            <div class="skill">C++</div>
+                        <div class="skill-tag">Figma</div>
+                        <div class="skill-tag">UI/UX Design</div>
+                        <div class="skill-tag">Java</div>
+                        <div class="skill-tag">HTML</div>
+                        <div class="skill-tag">CSS</div>
+                        <div class="skill-tag">JavaScript</div>
+                        <div class="skill-tag">Python</div>
+                        <div class="skill-tag">SQL</div>
+                        <div class="skill-tag">C++</div>
                     </div>
                 </div>
 
@@ -91,22 +91,24 @@
                 <div class="info-box">
                     <h3>Achievements</h3>
                     <div class="achievement-item">
-                        <strong>1st Place</strong>
-                        <p>Anugami Event, Airo Community</p>
-                        <strong>Best Mascot Design Award</strong>
-                        <p>Animanga Community</p>
-                        <strong>1st Runner-Up</strong>
-                        <p>“Build the Mini Web” Event, WebDev Community</p>
-                        <strong>Web Developer</strong>
-                        <p>Xiangtan Xuge Commerce</p>
+                        <div class="interest-item"><strong>1st Place</strong>
+                        <p>Anugami Event, Airo Community</p></div>
+                        <div class="interest-item"><strong>Best Mascot Design Award</strong>
+                        <p>Animanga Community</p></div>
+                        <div class="interest-item"><strong>1st Runner-Up</strong>
+                        <p>“Build the Mini Web” Event, WebDev Community</p></div>
+                        <div class="interest-item"><strong>Web Developer</strong>
+                        <p>Xiangtan Xuge Commerce</p></div>
+                        <div class="interest-item"><strong>Experience Ambassador</strong>
+                        <p>ING Skill Academy</p></div>
                     </div>
                 </div>
 
                 <div class="info-box">
                     <h3>Interests</h3>
-                    <div class="interest-item">Web Development</div>
+                    <div class="interest-item">Application Development</div>
                     <div class="interest-item">Programming</div>
-                    <div class="interest-item">Technology</div>
+                    <div class="interest-item">Software Engineering</div>
                 </div>
 
             </div>
