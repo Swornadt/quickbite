@@ -28,6 +28,7 @@
         <div class="tabs">
             <button class="tab onactive">Pending Customers</button>
             <button class="tab">Active Customers</button>
+            <button class="tab">Password Reset Requests</button>
         </div>
 
         <!-- PENDING CUSTOMERS -->
@@ -95,6 +96,46 @@
                             <a href="${pageContext.request.contextPath}/admin/customers/profile?userId=${user.userId}">
 								<button type="button" class="btn approve">View Profile</button>
 							</a>
+                        </div>
+                    </c:forEach>
+                </c:otherwise>
+            </c:choose>
+        </div>
+        
+        <!-- PASSWORD RESET REQUESTS -->
+        <div class="grid" id="password-reset-requests">
+        <c:choose>
+                <c:when test="${empty passwordResetRequests}">
+                    <div class="empty-state">No password reset requests at the moment.</div>
+                </c:when>
+                <c:otherwise>
+                    <c:forEach var="user" items="${passwordResetRequests}">
+                        <div class="card">
+                            <div class="card-top">
+                                <img class="photo"
+                                     src="${pageContext.request.contextPath}/assets/user-image.jpg"
+                                     alt="Customer Photo">
+                                <div class="card-info">
+                                    <div class="name">${user.fname} ${user.lname}</div>
+                                    <div class="email">${user.email}</div>
+                                </div>
+                                
+                                <div class="date">${user.requestDate}</div>
+                            </div>
+                            <div class="buttons">
+                                <form method="post"
+                                      action="${pageContext.request.contextPath}/admin/customers/reset">
+                                    <input type="hidden" name="user_id" value="${user.userId}">
+                                    <input type="hidden" name="action" value="approve">
+                                    <button type="submit" class="btn approve">Approve</button>
+                                </form>
+                                <form method="post"
+                                      action="${pageContext.request.contextPath}/admin/customers/reset">
+                                    <input type="hidden" name="user_id" value="${user.userId}">
+                                    <input type="hidden" name="action" value="reject">
+                                    <button type="submit" class="btn reject">Reject</button>
+                                </form>
+                            </div>
                         </div>
                     </c:forEach>
                 </c:otherwise>
