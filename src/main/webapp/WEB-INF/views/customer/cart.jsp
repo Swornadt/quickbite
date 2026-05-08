@@ -54,7 +54,23 @@
 		                    	Rs. <fmt:formatNumber value="${item.unitPrice}" type="number" minFractionDigits="2"/>
 		                    </span>
 		                    <div class="item-actions">
-		                        <span class="icon-heart">♡</span> <!-- TODO: toggle fav/unfav -->
+		                    
+		                    	<!-- logic for finding favorited items -->
+						        <c:set var="isFavorite" value="false" />
+						        <c:forEach var="fav" items="${favoriteList}">
+						            <c:if test="${fav.item.itemId == item.itemId && fav.outlet.outletId == item.outletId}">
+						                <c:set var="isFavorite" value="true" />
+						            </c:if>
+						        </c:forEach>
+						        
+		                    	<form action="${pageContext.request.contextPath}/profile/favorites/toggle" method="POST" style="display:inline;">
+								    <input type="hidden" name="itemId" value="${item.itemId}">
+								    <input type="hidden" name="outletId" value="${item.outletId}">
+		                        	<button type="submit" class="icon-heart ${isFavorite ? 'active' : ''}">
+		                        		♥
+		                        	</button>
+		                        </form>
+		                        
 		                        <form action="${pageContext.request.contextPath}/cart/remove" method="POST" style="display:inline;">
 								    <input type="hidden" name="itemId" value="${item.itemId}">
 								    <button type="submit" class="icon-trash-btn">🗑️</button>
