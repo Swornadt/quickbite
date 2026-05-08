@@ -1,7 +1,8 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
 <title>Sabrina Pradhan | CV</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -49,13 +50,13 @@
                 <div class="section">
                     <h2>About Me</h2>
                     <div class="about-text">
-                        <p>I am a passionate and versatile full stack developer with a strong foundation in UI/UX design, frontend development, and backend systems. I enjoy building complete digital experiences - from designing intuitive and visually engaging interfaces to developing efficient, scalable, and secure backend solutions.</p>
+                        <p>I am a passionate and versatile full stack developer with a strong foundation in UI/UX design, frontend development, and backend systems. I enjoy building complete digital experiences - from designing intuitive and visually engaging interfaces to developing efficient, scalable, and secure backend solutions.<br></p>
         
-                        <p>My approach focuses on understanding user needs and translating them into functional, user-friendly applications. I believe that great software is not just about clean code, but also about delivering seamless experiences that are both practical and visually appealing.</p>
+                        <p>My approach focuses on understanding user needs and translating them into functional, user-friendly applications. I believe that great software is not just about clean code, but also about delivering seamless experiences that are both practical and visually appealing.<br></p>
                         
-                        <p>I have experience working with modern design tools and web technologies, allowing me to bridge the gap between design and development. I am comfortable creating wireframes and prototypes, developing responsive interfaces, and building robust APIs and database systems that support real-world applications.</p>
+                        <p>I have experience working with modern design tools and web technologies, allowing me to bridge the gap between design and development. I am comfortable creating wireframes and prototypes, developing responsive interfaces, and building robust APIs and database systems that support real-world applications.<br></p>
                         
-                        <p>I am continuously learning and exploring new technologies to improve my skills and stay updated with industry trends. I enjoy problem-solving, collaborating with teams, and taking on challenges that help me grow both technically and creatively.</p>
+                        <p>I am continuously learning and exploring new technologies to improve my skills and stay updated with industry trends. I enjoy problem-solving, collaborating with teams, and taking on challenges that help me grow both technically and creatively.<br></p>
                         
                         <p>My goal is to contribute to impactful projects where I can combine creativity with technical expertise to build meaningful and efficient digital solutions.</p>
                     </div>
@@ -90,9 +91,14 @@
                 <div class="info-box">
                     <h3>Achievements</h3>
                     <div class="achievement-item">
-                        <strong></strong>
-                        <strong></strong>
-                        <strong></strong>
+                        <strong>1st Place</strong>
+                        <p>Anugami Event, Airo Community</p>
+                        <strong>Best Mascot Design Award</strong>
+                        <p>Animanga Community</p>
+                        <strong>1st Runner-Up</strong>
+                        <p>“Build the Mini Web” Event, WebDev Community</p>
+                        <strong>Web Developer</strong>
+                        <p>Xiangtan Xuge Commerce</p>
                     </div>
                 </div>
 
