@@ -13,22 +13,14 @@
 
 <div class="cv-card">
 
-<div class="header">
-    <img src="${pageContext.request.contextPath}/assets/about/sabrina.jpg">
-    <div>
-        <h1>Sabrina Pradhan</h1>
-        <p>Full Stack Developer | UI/UX Enthusiast</p>
-        <p>Building user-friendly interfaces backed by scalable and efficient systems.</p>
-    </div>
-</div>
     <div class="header">
         <div class="back-btn">
-            <a href="${pageContext.request.contextPath}/about">← Back to About Us</a>
+            <a href="${pageContext.request.contextPath}/about">Back to About Us</a>
         </div>
 
         <div class="header-content">
 
-            <img src="sabrina.jpg" class="profile-img">
+            <img src="${pageContext.request.contextPath}/assets/about/sabrina.jpg" class="profile-img">
 
             <div class="header-info">
                 <h1>Sabrina Pradhan</h1>
@@ -72,8 +64,7 @@
                 <div class="section">
                     <h2>Technical Skills</h2>
                     <div class="skill-tags">
-                        <div class="skills">
-                            <div class="skill">Figma</div>
+                        <div class="skill">Figma</div>
                             <div class="skill">UI/UX Design</div>
                             <div class="skill">Java</div>
                             <div class="skill">HTML</div>
@@ -99,8 +90,9 @@
                 <div class="info-box">
                     <h3>Achievements</h3>
                     <div class="achievement-item">
-                        <strong>Created basic websites</strong>
-                        <span>College coursework projects</span>
+                        <strong></strong>
+                        <strong></strong>
+                        <strong></strong>
                     </div>
                 </div>
 
