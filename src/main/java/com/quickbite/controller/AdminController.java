@@ -15,10 +15,12 @@ import com.quickbite.dao.FeedbackDAO;
 import com.quickbite.dao.ItemDAO;
 import com.quickbite.dao.OutletDAO;
 import com.quickbite.dao.OutletItemDAO;
+import com.quickbite.dao.ReportDAO;
 import com.quickbite.model.FeedbackModel;
 import com.quickbite.model.Item;
 import com.quickbite.model.Outlet;
 import com.quickbite.model.OutletItem;
+import com.quickbite.model.Report;
 import com.quickbite.model.UserModel;
 import com.quickbite.service.AdminCustomerService;
 import com.quickbite.service.AdminService;
@@ -280,6 +282,26 @@ public class AdminController extends HttpServlet {
 	}
 	
 	private void viewReport(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String outletParam = request.getParameter("outletId");
+		int outletId = 0;
+		
+		if (outletParam != null && !outletParam.trim().isEmpty()) {
+			try {
+				outletId = Integer.parseInt(outletParam);
+			} catch (NumberFormatException e) {
+				outletId = 0;
+			}
+		}
+		
+		ReportDAO reportDAO = new ReportDAO();
+		Report report = reportDAO.getReport(outletId);
+		
+		request.setAttribute("report",  report);
+		request.setAttribute("selectedOutletId", outletId);
+		
+		OutletDAO outletDAO = new OutletDAO();
+		request.setAttribute("outlets", outletDAO.getAllOutlets());
+		
 		request.getRequestDispatcher("/WEB-INF/views/admin/admin-report.jsp").forward(request, response);
 	}
 	

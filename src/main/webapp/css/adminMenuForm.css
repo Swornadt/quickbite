@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+.content {
+  font-family: "Poppins", sans-serif;
+}
+
 .back-btn {
     text-decoration: none;
     color: #666;

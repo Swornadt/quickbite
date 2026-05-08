@@ -34,7 +34,7 @@
             <!-- Cards -->
             <div class="admin-card-infos">
                 <div class="admin-card-info">
-                    <img src="<%=request.getContextPath()%>/assets/info-img-1.jpeg" class="admn-card-img" />
+                    <img src="<%=request.getContextPath()%>/assets/info-img-1.jpeg" class="admin-card-img" />
                     <p class="gained-number">${report.totalUsers}</p>
                     <div class="card-info-numbers">
                         <p class="card-info-number-title">Total Users</p>
@@ -42,7 +42,7 @@
                 </div>
 
                 <div class="admin-card-info">
-                    <img src="<%=request.getContextPath()%>/assets/info-img-2.jpeg" class="admn-card-img" />
+                    <img src="<%=request.getContextPath()%>/assets/info-img-2.jpeg" class="admin-card-img" />
                     <p class="gained-number">Rs. ${report.totalSales}</p>
                     <div class="card-info-numbers">
                         <p class="card-info-number-title">Total Sales</p>
@@ -50,7 +50,7 @@
                 </div>
 
                 <div class="admin-card-info">
-                    <img src="<%=request.getContextPath()%>/assets/info-img-3.jpeg" class="admn-card-img" />
+                    <img src="<%=request.getContextPath()%>/assets/info-img-3.jpeg" class="admin-card-img" />
                     <p class="gained-number">${report.totalOrders}</p>
                     <div class="card-info-numbers">
                         <p class="card-info-number-title">Total Orders</p>
