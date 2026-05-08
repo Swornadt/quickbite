@@ -23,7 +23,7 @@
   <body>
     <div class="header">
       <div class="image-container">
-        <img src="../assets/sanskar.jpeg" class="user-image" />
+        <img src="${pageContext.request.contextPath}/assets/about/sanskar.jpg" class="user-image" />
       </div>
 
       <div class="user-bio">
