@@ -13,11 +13,14 @@ import java.util.List;
 import com.quickbite.dao.OrderDAO;
 import com.quickbite.model.OrderModel;
 import com.quickbite.model.UserModel;
+import com.quickbite.service.UserService;
 
 @WebServlet(asyncSupported = true, urlPatterns = { "/profile", "/profile/*" })
 public class CustomerController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private OrderDAO orderDAO = new OrderDAO();
+	
+	private UserService userService = new UserService();
 	
     public CustomerController() {
         super();
@@ -79,7 +82,39 @@ public class CustomerController extends HttpServlet {
 	
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		String endpoint = request.getPathInfo();
+		
+		if("/update".equals(endpoint)) {
+			updateUserProfile(request, response);
+		}else {
+			doGet(request,response);
+		}
+	}
+	
+	private void updateUserProfile(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+		HttpSession session = request.getSession();
+		UserModel currentUser = (UserModel) session.getAttribute("user");
+		
+		if (currentUser == null) {
+			response.sendRedirect(request.getContextPath()+"/login");
+			return;
+		}
+		
+		 String fname  = request.getParameter("fname");
+	     String lname  = request.getParameter("lname");
+	     String email  = request.getParameter("email");
+	     String number = request.getParameter("number");
+	     
+	     try {
+	    	 boolean success = userService.updateUserDetails(currentUser.getUserId(), fname, lname, currentUser.getGender(), email, number);
+	    	 
+	    	 if (success) {
+	    		 
+	    	 }
+	     }catch(Exception e) {
+	    	 
+	     }
 	}
 
 }
