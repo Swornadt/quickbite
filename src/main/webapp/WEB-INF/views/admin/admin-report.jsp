@@ -10,56 +10,53 @@
 </head>
 <body>
 <div class="admin-body">
-  		<%@ include file="../common/side-nav.jsp" %>
-	    <div class="admin-right-body">
-	      <%@ include file='../common/adminNav.jsp' %>
-	      
-	
-	      <!-- Bottom Body -->
-	      <div class="admin-bottom-info">
-	      <div class="top-container">
-	      <h1>Report</h1>
-	      
-	      <form method="GET" action="<%=request.getContextPath()%>/admin/report">
+    <%@ include file="../common/side-nav.jsp" %>
+    <div class="admin-right-body">
+        <%@ include file='../common/adminNav.jsp' %>
+
+        <div class="admin-bottom-info">
+            <div class="top-container">
+                <h1>Report</h1>
+                
+                <form method="GET" action="<%=request.getContextPath()%>/admin/report">
                     <select name="outletId" class="canteen-btn" onchange="this.form.submit()">
-                      <c:forEach var="outlet" items="${outlets}">
-                        <option value="${outlet.outletId}" ${outlet.outletId==selectedOutletId ? 'selected' : '' }>
-                          ${outlet.outletName}
-                        </option>
-                      </c:forEach>
+                        <option value="0" ${selectedOutletId == 0 ? 'selected' : ''}>All Outlets</option>
+                        <c:forEach var="outlet" items="${outlets}">
+                            <option value="${outlet.outletId}" 
+                                ${selectedOutletId == outlet.outletId ? 'selected' : ''}>
+                                ${outlet.outletName}
+                            </option>
+                        </c:forEach>
                     </select>
-                  </form>
-                  </div>
-                  
-	        <!-- Card Info -->
-	        <div class="admin-card-infos">
-	          <!-- Card Info -->
-	          <div class="admin-card-info">
-	            <img src="<%=request.getContextPath()%>/assets/info-img-1.jpeg" class="admn-card-img" />
-	            <p class="gained-number">2.3K</p>
-	            <div class="card-info-numbers">
-	              <p class="card-info-number-title">Total Users</p>
-	              <p class="card-info-number-percent">1.1% &uarr;</p>
-	            </div>
-	          </div>
-	          <!-- Card Info -->
-	          <div class="admin-card-info">
-	            <img src="<%=request.getContextPath()%>/assets/info-img-2.jpeg" class="admn-card-img" />
-	            <p class="gained-number">Rs. 150.8K</p>
-	            <div class="card-info-numbers">
-	              <p class="card-info-number-title">Total Sales</p>
-	              <p class="card-info-number-percent">4.40% &uarr;</p>
-	            </div>
-	          </div>
-	          <!-- Card Info -->
-	          <div class="admin-card-info">
-	            <img src="<%=request.getContextPath()%>/assets/info-img-3.jpeg" class="admn-card-img" />
-	            <p class="gained-number">100K</p>
-	            <div class="card-info-numbers">
-	              <p class="card-info-number-title">Total Orders</p>
-	              <p class="card-info-number-percent">3.6% &uarr;</p>
-	            </div>
-	          </div>
+                </form>
+            </div>
+
+            <!-- Cards -->
+            <div class="admin-card-infos">
+                <div class="admin-card-info">
+                    <img src="<%=request.getContextPath()%>/assets/info-img-1.jpeg" class="admn-card-img" />
+                    <p class="gained-number">${report.totalUsers}</p>
+                    <div class="card-info-numbers">
+                        <p class="card-info-number-title">Total Users</p>
+                    </div>
+                </div>
+
+                <div class="admin-card-info">
+                    <img src="<%=request.getContextPath()%>/assets/info-img-2.jpeg" class="admn-card-img" />
+                    <p class="gained-number">Rs. ${report.totalSales}</p>
+                    <div class="card-info-numbers">
+                        <p class="card-info-number-title">Total Sales</p>
+                    </div>
+                </div>
+
+                <div class="admin-card-info">
+                    <img src="<%=request.getContextPath()%>/assets/info-img-3.jpeg" class="admn-card-img" />
+                    <p class="gained-number">${report.totalOrders}</p>
+                    <div class="card-info-numbers">
+                        <p class="card-info-number-title">Total Orders</p>
+                    </div>
+                </div>
+            </div>
 	          
 	        </div>
 	
@@ -127,6 +124,6 @@
 	        </div>
 	      </div>
 	    </div>
-  	</div>
+  
 </body>
 </html>
