@@ -99,7 +99,6 @@ CREATE TABLE `order` (
   `order_status` tinyint(3) UNSIGNED NOT NULL,
   `order_note` varchar(1000) DEFAULT NULL,
   `preferred_date` datetime DEFAULT NULL
- )
 -- --------------------------------------------------------
 
 --
