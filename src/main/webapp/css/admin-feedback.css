@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+.admin-bottom-info {
+  font-family: "Poppins", sans-serif;
+}
+
 .container {
   max-width: 1200px;
   margin: 0 auto;

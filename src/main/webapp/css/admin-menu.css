@@ -1,3 +1,8 @@
+@charset "UTF-8";
+
+.admin-bottom-info {
+  font-family: "Poppins", sans-serif;
+}
 
 .container {
   margin-top: 20px;
