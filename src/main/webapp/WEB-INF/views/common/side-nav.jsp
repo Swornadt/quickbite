@@ -25,7 +25,7 @@
             <a href="${pageContext.request.contextPath}/admin/"><i class="fa-regular fa-chart-bar"></i> Dashboard</a>
             <a href="${pageContext.request.contextPath}/admin/customers"><i class="fa-solid fa-user-group"></i> Customer Management</a>
             <a href="${pageContext.request.contextPath}/admin/menu"><i class="fa-solid fa-utensils"></i> Menu Management</a>
-            <a href=""><i class="fa-solid fa-chart-line"></i> Report</a>
+            <a href="${pageContext.request.contextPath}/admin/report"><i class="fa-solid fa-chart-line"></i> Report</a>
             <a href="${pageContext.request.contextPath}/admin/feedback"><i class="fa-regular fa-calendar-check"></i> View Feedbacks</a>
             <a href="${pageContext.request.contextPath}/admin/menu">
             	<button class="add-new-item">
