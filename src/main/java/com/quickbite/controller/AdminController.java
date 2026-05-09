@@ -95,6 +95,9 @@ public class AdminController extends HttpServlet {
 			case "/report":
 				viewReport(request, response);
 				break;
+			case "/resetPassword":
+				resetPassword(request, response);
+				break;
 			default:
 				response.sendError(HttpServletResponse.SC_NOT_FOUND);
 				break;
@@ -312,6 +315,10 @@ public class AdminController extends HttpServlet {
 		request.setAttribute("outlets", outletDAO.getAllOutlets());
 		
 		request.getRequestDispatcher("/WEB-INF/views/admin/admin-report.jsp").forward(request, response);
+	}
+	
+	private void resetPassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("/WEB-INF/views/admin/admin-change-password.jsp").forward(request, response);
 	}
 	
 	

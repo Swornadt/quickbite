@@ -47,7 +47,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Location</label>
-                                        <select name="outletId" required>
+                                        <select name="outletId">
                                             <option value="" disabled selected>-- Choose a location --</option>
                                             <c:forEach var="outlet" items="${outlets}">
                                                 <option value="${outlet.outletId}">
