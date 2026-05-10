@@ -19,6 +19,17 @@ public class AboutController extends HttpServlet {
         super();
     }
 
+    /**
+     * Handles the GET request by routing to display each member about page
+     * 
+     * Based on the URL path, the method dispatches the request
+     * to each individual's about pages.
+     * 
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String endpoint = request.getPathInfo();
