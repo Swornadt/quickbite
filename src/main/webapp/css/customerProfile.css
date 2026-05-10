@@ -85,3 +85,42 @@
     gap: 30px;
     width: 100%;
 }
+
+.divider {
+    height: 1px;
+    background-color: #eee;
+    margin: 15px 0;
+}
+
+.order-card {
+    padding: 10px 0;
+    line-height: 1.8;
+}
+
+.order-card p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #666;
+}
+
+.order-card span {
+    color: #444;
+}
+
+.status-pending {
+    color: #f3a661 !important; 
+    font-weight: 600;
+}
+
+.no-orders{
+    color: #999;
+    font-size: 0.9rem;
+    padding: 20px 0;
+}
+
+.order-list-scroll {
+    max-height: 150px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 15px;
+}

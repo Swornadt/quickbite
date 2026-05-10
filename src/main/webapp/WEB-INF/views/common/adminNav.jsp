@@ -37,9 +37,11 @@
               <p class="admin-name">${user.fname} ${user.lname}</p>
               <p class="admin-role">Admin</p>
             </div>
-            <div class="admin-image">
-              <img src="${pageContext.request.contextPath}/${user.image}" />
-            </div>
+            <a href="${pageContext.request.contextPath}/admin/profile" class="admin-profile-link">
+            	<div class="admin-image">
+              		<img src="${pageContext.request.contextPath}/${user.image}" />
+            	</div>
+            </a>
           </div>
         </div>
       </div>

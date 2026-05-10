@@ -18,13 +18,13 @@ import com.quickbite.model.OutletItem;
  * Servlet implementation class OutletServlet
  */
 @WebServlet("/outlets/*")
-public class OutletServlet extends HttpServlet {
+public class OutletController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public OutletServlet() {
+    public OutletController() {
         super();
         // TODO Auto-generated constructor stub
     }

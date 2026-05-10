@@ -9,23 +9,27 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
+import com.quickbite.dao.FavoriteDAO;
 import com.quickbite.model.CartItemModel;
+import com.quickbite.model.OutletItem;
+import com.quickbite.model.UserModel;
 import com.quickbite.service.CartService;
 
 /**
  * Servlet implementation class CartServlet
  */
 @WebServlet(asyncSupported = true, urlPatterns = { "/cart","/cart/*" })
-public class CartServlet extends HttpServlet {
+public class CartController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private CartService cartService = new CartService();
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CartServlet() {
+    public CartController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,7 +40,19 @@ public class CartServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		CartService cartService = new CartService();
 		HttpSession session = request.getSession();
-		
+		UserModel user = (session != null) ? (UserModel) session.getAttribute("user") : null;
+
+	    if (user != null) {
+	        FavoriteDAO favDAO = new FavoriteDAO();
+	        try {
+	            // Fetch the user's favorites to compare against items on the page
+	            List<OutletItem> favoriteList = favDAO.getFavoritesByUser(user.getUserId());
+	            request.setAttribute("favoriteList", favoriteList); 
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	    
 		// get current cart from the session
 		List<CartItemModel> cart = cartService.getCart(session);
 		

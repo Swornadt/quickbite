@@ -10,7 +10,7 @@ public class AdminService {
 		return userDAO.getUserById(user_id);
 	}
 	
-	public boolean updateAdminProfile(int user_id, String fname, String lname, String email, String number) {
-		return userDAO.updateUserDetails(user_id, fname, lname, email, number);
+	public boolean updateAdminProfile(int user_id, String fname, String lname, String dob, String gender, String email, String number) {
+		return userDAO.updateUserDetails(user_id, fname, lname, dob, gender, email, number);
 	}
 }

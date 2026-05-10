@@ -6,18 +6,22 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
+
+import com.quickbite.dao.ItemDAO;
+import com.quickbite.model.Item;
 
 /**
- * Servlet implementation class MenuServlet
+ * Servlet implementation class HomeServlet
  */
-@WebServlet(asyncSupported = true, urlPatterns = { "/MenuServlet" })
-public class MenuServlet extends HttpServlet {
+@WebServlet(asyncSupported = true, urlPatterns = { "/home" })
+public class HomeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MenuServlet() {
+    public HomeController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,8 +30,10 @@ public class MenuServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		request.getRequestDispatcher("/WEB-INF/views/customer/location-menu.jsp").forward(request,response);
+		ItemDAO itemDAO = new ItemDAO();
+		List<Item> popularItems = itemDAO.getAllItems();
+		request.setAttribute("itemList", popularItems);
+		request.getRequestDispatcher("/WEB-INF/views/public/home.jsp").forward(request, response);
 	}
 
 	/**

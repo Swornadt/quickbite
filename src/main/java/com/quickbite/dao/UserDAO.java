@@ -143,16 +143,18 @@ public class UserDAO {
 		}
 	}
 	
-	public boolean updateUserDetails(int user_id, String fname, String lname, String email, String number) {
-		String sql = "Update user set fname=?, lname=?, email=?, number=? where user_id=?";
+	public boolean updateUserDetails(int user_id, String fname, String lname, String dob, String gender, String email, String number) {
+		String sql = "Update user set fname=?, lname=?, dob=?, gender=?, email=?, number=? where user_id=?";
 		
 		try (Connection conn = DBconfig.getConnection();
 				PreparedStatement pst = conn.prepareStatement(sql)){
 			pst.setString(1, fname);
 			pst.setString(2, lname);
-			pst.setString(3, email);
-			pst.setString(4, number);
-			pst.setInt(5, user_id);
+			pst.setString(3, dob);
+			pst.setString(4, gender);
+			pst.setString(5, email);
+			pst.setString(6, number);
+			pst.setInt(7, user_id);
 			
 			return pst.executeUpdate()>0;
 		} 
@@ -180,7 +182,12 @@ public class UserDAO {
                     user.setNumber(rs.getString("number"));
                     user.setEmail(rs.getString("email"));
                     user.setGender(rs.getString("gender"));
-                    user.setDob(rs.getString("dob"));
+
+                    java.sql.Date dbDate = rs.getDate("dob");
+                    if (dbDate !=null) {
+                        user.setDob(dbDate.toString());
+                    }
+                    
                     user.setPassword(rs.getString("password"));
                     user.setRole(rs.getString("role"));
                     user.setStatus(rs.getString("status"));

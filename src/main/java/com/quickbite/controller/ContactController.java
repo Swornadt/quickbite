@@ -12,7 +12,7 @@ import com.quickbite.model.UserModel;
 import com.quickbite.service.FeedbackService;
 
 @WebServlet(asyncSupported = true, urlPatterns = { "/contact" })
-public class ContactServlet extends HttpServlet {
+public class ContactController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 

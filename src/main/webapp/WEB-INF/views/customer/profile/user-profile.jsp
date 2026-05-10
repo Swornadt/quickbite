@@ -14,11 +14,11 @@
     />
 </head>
 <body>
-<%@ include file="../common/navbar1.jsp" %>
-<%@ include file="../common/utilityBar.jsp" %>
+<%@ include file="../../common/navbar1.jsp" %>
+<%@ include file="../../common/utilityBar.jsp" %>
 <div class="user-profile-section-container">
 <section class="user-profile-section">
-<%@ include file="../common/userProfileSideNav.jsp" %>
+<%@ include file="../../common/userProfileSideNav.jsp" %>
       <div class="user-profile-container">
         <!-- Profile image container -->
         <div class="profile-picture-wrapper">
@@ -66,6 +66,6 @@
       </div>
     </section>
    </div>
-<%@ include file="../common/footer.jsp" %>
+<%@ include file="../../common/footer.jsp" %>
 </body>
 </html>
