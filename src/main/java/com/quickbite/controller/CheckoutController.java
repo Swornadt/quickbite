@@ -17,7 +17,7 @@ import com.quickbite.model.CartItemModel;
 import com.quickbite.model.UserModel;
 import com.quickbite.service.CartService;
 
-@WebServlet(asyncSupported = true, urlPatterns = { "/checkout" })
+@WebServlet(asyncSupported = true, urlPatterns = { "/checkout", "/payment" })
 public class CheckoutController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -30,7 +30,19 @@ public class CheckoutController extends HttpServlet {
 
     @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(false);
+		
+    	String endpoint = request.getServletPath();
+    	if ("/checkout".equals(endpoint)) {
+            viewCheckout(request, response);
+        } else if ("/payment".equals(endpoint)) {
+            viewPayment(request, response);
+        } else {
+    		response.sendError(HttpServletResponse.SC_NOT_FOUND);
+    	}
+	}
+
+	private void viewCheckout(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    	HttpSession session = request.getSession(false);
 		
 		if (session == null || session.getAttribute("user") == null) {
 			response.sendRedirect(request.getContextPath() + "/login");
@@ -50,9 +62,15 @@ public class CheckoutController extends HttpServlet {
 		request.setAttribute("subtotal", subtotal);
 		
 		request.getRequestDispatcher("/WEB-INF/views/customer/checkout.jsp").forward(request, response);
+		
 	}
-    
-    @Override
+	
+	private void viewPayment(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("/WEB-INF/views/customer/payment.jsp").forward(request, response);
+	}
+
+	
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 		
