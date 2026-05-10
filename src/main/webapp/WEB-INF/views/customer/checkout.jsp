@@ -31,7 +31,7 @@
 
     <!-- Left Pane -->
     <div class="left-container">
-    	<form id="checkout-form" action="${pageContext.request.contextPath}/checkout" method="post">
+    	<form id="checkout-form" action="${pageContext.request.contextPath}/payment" method="get">
 
 	        <!-- DATE AND TIME SECTION -->
 	        <div class="checkout-card">

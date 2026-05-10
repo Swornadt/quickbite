@@ -73,6 +73,7 @@ public class CheckoutController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
+		String endpoint = request.getServletPath();
 		
 		if (session == null || session.getAttribute("user")==null) {
 			response.sendRedirect(request.getContextPath()+"/login");
@@ -80,22 +81,13 @@ public class CheckoutController extends HttpServlet {
 			return;
 		}
 		
-		// capture form data from jsp
-		String deliveryTimeType = request.getParameter("deliveryTime"); // asap or schedule
-		String deliveryDate = request.getParameter("deliveryDate"); // YYYY-MM-DD
-		String timeSlot = request.getParameter("deliveryTimeSlot"); // HH:MM
-	    String specialInstructions = request.getParameter("specialInstructions");
+		if ("/checkout".equals(endpoint)) {
+			handleCheckoutSubmission(request, response, session);
+		} else if ("/payment".equals(endpoint)) {
+			handleFinalPlacement(request, response, session);
+		}
 	    
-	    // Encapsulating the date and time for Schedule Later
-	    String finalPreferredDate = null;
 	    
-	    if ("later".equals(deliveryTimeType)) {
-	    	if (deliveryDate != null && !deliveryDate.isEmpty() && timeSlot != null && !timeSlot.isEmpty()) {
-	    		finalPreferredDate = deliveryDate + " " + timeSlot + ":00";
-	    	}
-	    } else {
-	    	specialInstructions = "[ASAP] " + (specialInstructions != null ? specialInstructions : "");
-	    }
 
 	    
 	    // get cart and user
@@ -121,5 +113,56 @@ public class CheckoutController extends HttpServlet {
 	    	e.printStackTrace();
 	    }
     }
+
+	private void handleCheckoutSubmission(HttpServletRequest request, HttpServletResponse response,
+			HttpSession session) throws IOException, ServletException {
+		// get data from the frontend
+		String deliveryTimeType = request.getParameter("deliveryTime"); // asap or schedule
+		String deliveryDate = request.getParameter("deliveryDate"); // YYYY-MM-DD
+		String timeSlot = request.getParameter("deliveryTimeSlot"); // HH:MM
+		String specialInstructions = request.getParameter("specialInstructions");
+		
+		// validate scheduled orders
+		if ("later".equals(deliveryTimeType)) {
+	    	if (deliveryDate != null && !deliveryDate.isEmpty() && timeSlot != null && !timeSlot.isEmpty()) {
+	    		request.setAttribute("error", "Please select both a date and time slot for scheduled orders.");
+	    		viewCheckout(request, response);
+	    		return;
+	    	}
+	    } 
+		
+		// validate empty carts
+		List<CartItemModel> cart = cartService.getCart(session);
+	    if (cart == null || cart.isEmpty()) {
+	        response.sendRedirect(request.getContextPath() + "/outlets");
+	        return;
+	    }
+	    
+	    
+		
+		// store it in session
+		session.setAttribute("tempDeliveryType", deliveryTimeType);
+		session.setAttribute("tempDate", deliveryDate);
+		session.setAttribute("tempTime", timeSlot);
+		session.setAttribute("tempInstructions", specialInstructions);
+			        
+		// redirect to payment
+		response.sendRedirect(request.getContextPath() + "/payment");
+	}
+	
+	private void handleFinalPlacement(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		UserModel user = (UserModel) session.getAttribute("user");
+		List<CartItemModel> cart = cartService.getCart(session);
+		
+		// receive the data in session
+		String type = (String) session.getAttribute("pendingTimeType");
+	    String date = (String) session.getAttribute("pendingDate");
+	    String slot = (String) session.getAttribute("pendingSlot");
+	    String notes = (String) session.getAttribute("pendingNotes");
+	    
+	    try {
+	    	boolean success = cartService.placeOrder(user, cart, type, date, slot, notes);
+	    }
+	}
 		
 }
