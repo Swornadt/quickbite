@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
+
 <html>
 <head>
     <meta charset="UTF-8">
@@ -33,60 +35,51 @@
                     </div>
                     <div class="detail-row">
                         <span class="label">Order Type:</span>
-                        <strong>Takeout</strong>
-                    </div>
-                    <div class="detail-row">
-                        <span class="label">Total Quantity:</span>
-                        <strong>3</strong>
-                    </div>
-                    <div class="detail-row">
-                        <span class="label">Estimated Time:</span>
-                        <strong>20 minutes</strong>
-                    </div>
-                    <div class="detail-row">
-                        <span class="label">Date:</span>
-                        <strong>05/05/2026</strong>
-                    </div>
-                    <div class="detail-row">
-                        <span class="label">Time:</span>
-                        <strong>13:40 NPT</strong>
-                    </div>
-                    <div class="detail-row">
-                        <span class="label">Location:</span>
-                        <strong>Main Canteen</strong>
-                    </div>
-
-                    <hr>
-
-                    <h3 class="section-title">Ordered Items</h3>
-                    <div class="item">
-                        <span>1x Chicken Burger</span>
-                        <strong>Rs. 280.00</strong>
-                    </div>
-
-                    <div class="total-row">
-                        <span>SUB TOTAL</span>
-                        <strong>Rs. 280.00</strong>
-                    </div>
-                    <div class="total-row">
-                        <span>VAT</span>
-                        <strong>included in price</strong>
-                    </div>
-                    
-                    <div class="grand-total">
-                        <span>GRAND TOTAL</span>
-                        <strong>Rs. 280.00</strong>
-                    </div>
-
-                    <div class="buttons">
-                        <button class="btn btn-back">← Go Back</button>
-                        <button class="btn btn-complete">Complete! </button>
+                        <strong>${pending_type == 'later' ? 'Scheduled' : 'As Soon As Possible'}</strong> 
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
+                    
+				<c:if test="${pending_type == 'later'}">
+					<div class="detail-row">
+						<span class="label">Scheduled Date:</span>
+						<strong>${pending_date}</strong>
+					</div>
+			        <div class="detail-row">
+			            <span class="label">Scheduled Time:</span>
+			            <strong>${pending_slot}</strong>
+			        </div>
+			    </c:if>
+			        
+			    <hr>
+			        
+			    <h3 class="section-title">Ordered Items</h3>
+			    <c:forEach var="item" items="${flatCart}">
+			        <div class="item">
+			            <span>${item.quantity}x ${item.itemName}</span>
+						<strong>Rs. <fmt:formatNumber value="${item.totalPrice}" pattern="#,##0.00"/></strong>
+			        </div>
+			    </c:forEach>
+			        
+			    <div class="total-row">
+					<span>SUB TOTAL</span>
+					<strong>Rs. <fmt:formatNumber value="${subtotal}" pattern="#,##0.00"/></strong>
+				</div>
+			        
+				<div class="grand-total">
+					<span>GRAND TOTAL</span>
+					<strong>Rs. <fmt:formatNumber value="${subtotal}" pattern="#,##0.00"/></strong>
+				</div>
 
+				<div class="buttons">
+					<a href="${pageContext.request.contextPath}/checkout" class="btn btn-back">← Go Back</a>
+			            
+					<form action="${pageContext.request.contextPath}/payment" method="POST" style="display:inline;">
+						<button type="submit" class="btn btn-complete">Complete!</button>
+			        </form>
+			    </div>
+			</div>
+		</div>
+	</div>
     <%@ include file="../common/footer.jsp" %>
 </body>
 </html>
