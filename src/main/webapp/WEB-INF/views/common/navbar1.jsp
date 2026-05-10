@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="jakarta.servlet.http.HttpSession" %>
 <%@ page import="jakarta.servlet.http.HttpServletRequest" %>
-<%@ taglib uri="jakarta.tags.core" prefix="c" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ page import="com.quickbite.model.UserModel" %>
 
 <%
