@@ -87,5 +87,18 @@ public class OrderOutletItem {
 		 this.orderStatus = orderStatus; 
 	 }
 	 
+	 public String getOrderStatusLabel() {
+		 switch (orderStatus) {
+		   	case 0: return "Pending";
+		    case 1: return "Ongoing";
+		    case 2: return "Complete";
+		    default: return "Unknown";
+		   }
+	}
+
+	public String getOrderTypeLabel() {    
+		return preferredDate == null ? "Instant Delivery" : "Scheduled";	
+	}
+	 
 }
 	 

@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.util.List;
 import java.io.IOException;
+import java.sql.Timestamp;
 
 import com.quickbite.dao.OrderOutletItemDAO;
 import com.quickbite.model.OrderOutletItem;
@@ -65,6 +66,43 @@ public class KitchenContoller extends HttpServlet {
 	
 	private void handleOrderDetails(HttpServletRequest request, HttpServletResponse response, String orderId ) throws ServletException, IOException {
 		
+		Integer outletId = (Integer) request.getSession().getAttribute("outletId");
+	    
+		if (outletId == null) {
+	        response.sendRedirect(request.getContextPath() + "/login");
+	        return;
+	    }
+
+	    int order = Integer.parseInt(orderId);
+	    OrderOutletItemDAO dao = new OrderOutletItemDAO();
+	    List<OrderOutletItem> orderdetails = dao.getOrderDetail(order, outletId);
+
+	    int totalQty = 0;
+	    String orderStatus = "";
+	    String orderType = "";
+	    String outletName = "";
+	    String orderNote = "";
+	    Timestamp orderDate = null;
+
+	    for (OrderOutletItem item : orderdetails) {
+	        totalQty += item.getItemQty();
+	        orderStatus = item.getOrderStatusLabel();
+	        orderType = item.getOrderTypeLabel();
+	        outletName = item.getOutletName();
+	        orderNote = item.getOrderNote();
+	        orderDate = item.getOrderDate();
+	    }
+
+	    request.setAttribute("orderId", order);
+	    request.setAttribute("orderStatus", orderStatus);
+	    request.setAttribute("orderType", orderType);
+	    request.setAttribute("outletName", outletName);
+	    request.setAttribute("orderNote", orderNote);
+	    request.setAttribute("orderDate", orderDate);
+	    request.setAttribute("totalQty", totalQty);
+	    request.setAttribute("order", orderdetails);
+	    request.getRequestDispatcher("/WEB-INF/views/staff/order-details.jsp")
+	           .forward(request, response);
 	}
 
 	/**
