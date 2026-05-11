@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,20 +17,27 @@
 </head>
 <body>
 
+<c:set var="uri" value="${pageContext.request.requestURI}">
+</c:set>
+<c:set var="pathInfo" value="${pageContext.request.pathInfo}">
+</c:set>
+
     <div class="side-nav">
         <div class="side-nav-logo">
 			<a href="#" class="nav-logo-container">
-		    	<p class="logo-text">Quick Bite</p>
+		    	<p class="logo-text"> Quick Bite</p>
 		    </a>
         </div>
+        
         <div class="side-nav-content poppins-light">
-            <a href="${pageContext.request.contextPath}/admin/"><i class="fa-regular fa-chart-bar"></i> Dashboard</a>
-            <a href="${pageContext.request.contextPath}/admin/customers"><i class="fa-solid fa-user-group"></i> Customer Management</a>
-            <a href="${pageContext.request.contextPath}/admin/menu"><i class="fa-solid fa-utensils"></i> Menu Management</a>
-            <a href="${pageContext.request.contextPath}/admin/report"><i class="fa-solid fa-chart-line"></i> Report</a>
-            <a href="${pageContext.request.contextPath}/admin/feedback"><i class="fa-regular fa-calendar-check"></i> View Feedbacks</a>
+            <a href="${pageContext.request.contextPath}/admin/" class="${uri == ('/QuickBite/WEB-INF/views/admin/admin-main-dashboard.jsp') ? 'active' : '' }"><i class="fa-regular fa-chart-bar"></i> Dashboard</a>
+            <a href="${pageContext.request.contextPath}/admin/customers" class="${uri == ('/QuickBite/WEB-INF/views/admin/adminCustomerApproval.jsp') ? 'active' : '' }"><i class="fa-solid fa-user-group"></i> Customer Management</a>
+            <a href="${pageContext.request.contextPath}/admin/menu" class="${uri == ('/QuickBite/WEB-INF/views/admin/admin-menu-view.jsp') ? 'active' : '' }"><i class="fa-solid fa-utensils"></i> Menu Management</a>
+            <a href=""><i class="fa-solid fa-chart-line"></i> Report</a>
+            <a href="${pageContext.request.contextPath}/admin/feedback" class="${uri == ('/QuickBite/WEB-INF/views/admin/admin-feedback.jsp') ? 'active' : '' }"><i class="fa-regular fa-calendar-check"></i> View Feedbacks</a>
             <a href="${pageContext.request.contextPath}/admin/menu">
-            	<button class="add-new-item">
+
+            <button class="add-new-item">
             	<span class="btn-text"> + Add New Item</span>
             </button>
             </a>
