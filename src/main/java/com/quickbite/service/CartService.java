@@ -1,7 +1,9 @@
 package com.quickbite.service;
 
 import com.quickbite.dao.OrderDAO;
+import com.quickbite.dao.PaymentDAO;
 import com.quickbite.model.CartItemModel;
+import com.quickbite.model.PaymentModel;
 import com.quickbite.model.UserModel;
 
 import jakarta.servlet.http.HttpSession;
@@ -15,6 +17,7 @@ public class CartService {
 
     private static final String CART_SESSION_KEY = "cart";
     private OrderDAO orderDAO = new OrderDAO();
+    private PaymentDAO paymentDAO = new PaymentDAO();
 
     // Retrieve the cart from session, or create a new one if it doesn't exist
     @SuppressWarnings("unchecked")
@@ -114,8 +117,21 @@ public class CartService {
 		if (user == null || cart == null || cart.isEmpty()) {
 	        return false;
 	    }
-
-	    return orderDAO.createOrder(user.getUserId(), cart, specialInstructions, preferredDate);
+		
+		// create order and get back generated orderID
+		int orderId = orderDAO.createOrderAndGetId(user.getUserId(), cart, specialInstructions, preferredDate);
+		if (orderId > 0) {
+			double totalAmount = calculateSubtotal(cart);
+			PaymentModel payment = new PaymentModel();
+			payment.setOrderId(orderId);
+			payment.setAmount(totalAmount);
+			payment.setPaymentStatus("Completed");
+			payment.setPaymentDate(new java.sql.Timestamp(System.currentTimeMillis()));
+			
+			return paymentDAO.createPayment(payment);
+		}
+		
+		return false;
 	}
 	
 	public Map<String, List<CartItemModel>> getGroupedCart(HttpSession session) {

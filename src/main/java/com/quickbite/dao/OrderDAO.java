@@ -110,4 +110,10 @@ public class OrderDAO {
 		
 		return orders;
 	}
+
+	public int createOrderAndGetId(int userId, List<CartItemModel> cart, String specialInstructions,
+			String preferredDate) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }
