@@ -6,6 +6,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 
 import java.io.IOException;
@@ -13,11 +14,13 @@ import java.util.List;
 
 import com.quickbite.dao.FeedbackDAO;
 import com.quickbite.dao.ItemDAO;
+import com.quickbite.dao.OrderDAO;
 import com.quickbite.dao.OutletDAO;
 import com.quickbite.dao.OutletItemDAO;
 import com.quickbite.dao.ReportDAO;
 import com.quickbite.model.FeedbackModel;
 import com.quickbite.model.Item;
+import com.quickbite.model.OrderModel;
 import com.quickbite.model.Outlet;
 import com.quickbite.model.OutletItem;
 import com.quickbite.model.Report;
@@ -130,13 +133,19 @@ public class AdminController extends HttpServlet {
 				if (userIdParam !=null) {
 					try {
 						int userId = Integer.parseInt(userIdParam);		
-						AdminService adminService = new AdminService();			
+						AdminService adminService = new AdminService();
+						OrderDAO orderDAO = new OrderDAO();
 						
 						UserModel user = adminService.getUserById(userId);			
-					
 						if(user !=null) {
 							request.setAttribute("customerData", user);
 						}
+						
+						List<OrderModel> currentOrders = orderDAO.getOrdersByStatus(userId, true);
+						List<OrderModel> pastOrders = orderDAO.getOrdersByStatus(userId, false);
+						
+						request.setAttribute("currentOrders", currentOrders);
+						request.setAttribute("pastOrders", pastOrders);
 					}
 					catch(NumberFormatException e) {
 						e.printStackTrace();
@@ -596,7 +605,7 @@ public class AdminController extends HttpServlet {
         java.util.List<com.quickbite.model.Outlet> outlets = outletDAO.getAllOutlets();
         request.setAttribute("outlets", outlets);
     }
-
+	
     private void forward(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         req.getRequestDispatcher("/WEB-INF/views/admin/admin-add-item.jsp").forward(req, resp);
