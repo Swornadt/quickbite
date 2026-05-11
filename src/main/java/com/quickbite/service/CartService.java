@@ -119,8 +119,10 @@ public class CartService {
 	    }
 		
 		// create order and get back generated orderID
-		int orderId = orderDAO.createOrderAndGetId(user.getUserId(), cart, specialInstructions, preferredDate);
+		int orderId = orderDAO.createOrder(user.getUserId(), cart, specialInstructions, preferredDate);
+		// -1 is failure
 		if (orderId > 0) {
+			// preparing the payment model
 			double totalAmount = calculateSubtotal(cart);
 			PaymentModel payment = new PaymentModel();
 			payment.setOrderId(orderId);

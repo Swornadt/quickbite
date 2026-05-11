@@ -12,16 +12,18 @@ public class PaymentDAO {
 	
 	public boolean createPayment(PaymentModel payment) throws SQLException {
 		String query = "INSERT INTO payment (order_id, amount, payment_status, payment_date) "+
-						"VALUES (?, ?, ?, ?)";
+						"VALUES (?, ?, ?, NOW())";
 		
 		try (Connection conn = DBconfig.getConnection();
 				PreparedStatement ps = conn.prepareStatement(query)) {
 			
 			ps.setInt(1, payment.getOrderId());
 			ps.setDouble(2, payment.getAmount());
-			ps.setString(3,  payment.getPaymentStatus());
-			ps.setTimestamp(4, payment.getPaymentDate());
+			ps.setString(3, payment.getPaymentStatus());
 			return ps.executeUpdate() > 0;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
 		}
 	}
 	

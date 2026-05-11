@@ -14,7 +14,7 @@ import com.quickbite.utils.DBconfig;
 
 public class OrderDAO {
 
-	public boolean createOrder (int userId, List<CartItemModel> cart, String instructions, String preferredDate) {
+	public int createOrder (int userId, List<CartItemModel> cart, String instructions, String preferredDate) {
 		String orderSql = "INSERT INTO `order` (user_id, order_date, order_status, order_note, preferred_date)"
 							+ "VALUES (?, NOW(), 0, ?, ?)";
 		String itemSql = "INSERT INTO order_outlet_item (order_id, outlet_id, item_id, item_qty, order_subtotal)"
@@ -52,7 +52,7 @@ public class OrderDAO {
 			ps2.executeBatch();
 
 			conn.commit();
-			return true;
+			return orderId;
 
 		} catch (SQLException e) {
 			if (conn != null) {
@@ -63,7 +63,7 @@ public class OrderDAO {
 				}
 			}
 			e.printStackTrace();
-			return false;
+			return -1;
 		} finally {
 			try {
 				if (conn != null)

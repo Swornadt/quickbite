@@ -159,6 +159,8 @@ public class CheckoutController extends HttpServlet {
 	            session.removeAttribute("pending_slot");
 	            session.removeAttribute("pending_notes");
 	            response.sendRedirect(request.getContextPath() + "/home?orderStatus=success");
+	    	} else {
+	    		response.sendRedirect(request.getContextPath()+"/payment?error=fail_to_place");
 	    	}
 	    } catch (Exception e) {
 	    	e.printStackTrace();
