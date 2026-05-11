@@ -82,7 +82,9 @@ public class KitchenContoller extends HttpServlet {
 	    String orderType = "";
 	    String outletName = "";
 	    String orderNote = "";
-	    Timestamp orderDate = null;
+	    String orderDateString = "";
+	    String orderTime = "";
+
 
 	    for (OrderOutletItem item : orderdetails) {
 	        totalQty += item.getItemQty();
@@ -90,7 +92,9 @@ public class KitchenContoller extends HttpServlet {
 	        orderType = item.getOrderTypeLabel();
 	        outletName = item.getOutletName();
 	        orderNote = item.getOrderNote();
-	        orderDate = item.getOrderDate();
+	        Timestamp orderDate = item.getOrderDate();
+	        orderDateString = new java.text.SimpleDateFormat("MM/dd/yyyy").format(orderDate);
+	        orderTime = new java.text.SimpleDateFormat("HH:mm").format(orderDate);
 	    }
 
 	    request.setAttribute("orderId", order);
@@ -98,12 +102,14 @@ public class KitchenContoller extends HttpServlet {
 	    request.setAttribute("orderType", orderType);
 	    request.setAttribute("outletName", outletName);
 	    request.setAttribute("orderNote", orderNote);
-	    request.setAttribute("orderDate", orderDate);
+	    request.setAttribute("orderDate", orderDateString);
+	    request.setAttribute("orderTime", orderTime);
 	    request.setAttribute("totalQty", totalQty);
 	    request.setAttribute("order", orderdetails);
 	    request.getRequestDispatcher("/WEB-INF/views/staff/order-details.jsp")
 	           .forward(request, response);
 	}
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
