@@ -14,15 +14,15 @@ public class OrderOutletItemDAO {
 
 	public List<OrderOutletItem> getOrderDetail(int orderId, int outletId) {
         List<OrderOutletItem> list = new ArrayList<>();
-        String sql =
-            "SELECT ooi.order_id, ooi.outlet_id, ooi.item_id, ooi.item_qty, ooi.item_status, " +
-            "       o.order_status, o.order_date, o.order_note, o.preferred_date, " +
-            "       mi.item_name, out.outlet_name " +
-            "FROM order_outlet_item ooi " +
-            "JOIN `order` o ON ooi.order_id = o.order_id " +
-            "JOIN menu_item mi ON ooi.item_id = mi.item_id " +
-            "JOIN outlet out ON ooi.outlet_id = out.outlet_id " +
-            "WHERE ooi.order_id = ? AND ooi.outlet_id = ?";
+        String sql ="SELECT ooi.order_id, ooi.outlet_id, ooi.item_id, ooi.item_qty, ooi.item_status, " +
+        	    	"o.order_status, o.order_date, o.order_note, o.preferred_date, " +
+        	    	"i.item_name, ol.outlet_name " +
+        	    	"FROM order_outlet_item ooi " +
+        	    	"JOIN `order` o ON ooi.order_id = o.order_id " +
+        	    	"JOIN item i ON ooi.item_id = i.item_id " +
+        	    	"JOIN outlet ol ON ooi.outlet_id = ol.outlet_id " +
+        	    	"WHERE ooi.order_id = ? AND ooi.outlet_id = ?";
+        
         try (Connection conn = DBconfig.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, orderId);
