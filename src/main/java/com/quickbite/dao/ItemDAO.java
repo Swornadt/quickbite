@@ -69,6 +69,47 @@ public class ItemDAO {
 		}
 		return null;
 	}
+	
+	/**
+	 * Returns only six items 
+	 * @return
+	 */
+	public List<Item> getPopularItems() {
+		List<Item> itemList = new ArrayList<>();
+		String sql = "SELECT i.* FROM item i " +
+		                "JOIN outlet_item oi ON i.item_id = oi.item_id " +
+		                "WHERE oi.item_id IN (" +
+		                "    SELECT MIN(item_id) " +
+		                "    FROM outlet_item " +
+		                "    GROUP BY outlet_id" +
+		                ") LIMIT 6";
+
+		try (Connection conn = DBconfig.getConnection();
+				PreparedStatement ps = conn.prepareStatement(sql);
+				ResultSet rs = ps.executeQuery()) {
+
+			while (rs.next()) {
+				Item item = new Item(
+						rs.getInt("item_id"),
+						rs.getString("item_name"),
+						rs.getString("category"),
+						rs.getString("item_type"),
+						rs.getString("item_description"),
+						rs.getString("item_status"),
+						rs.getString("item_ingredient"),
+						rs.getString("item_allergy"),
+						rs.getString("item_image"));
+				itemList.add(item);
+			}
+
+		}
+
+		catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+
+		return itemList;
+	}
 
 	// Add new item and return generated ID
 	public int addItemAndReturnId(Item item) {

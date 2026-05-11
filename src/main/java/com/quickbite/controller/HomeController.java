@@ -31,7 +31,7 @@ public class HomeController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ItemDAO itemDAO = new ItemDAO();
-		List<Item> popularItems = itemDAO.getAllItems();
+		List<Item> popularItems = itemDAO.getPopularItems();
 		request.setAttribute("itemList", popularItems);
 		request.getRequestDispatcher("/WEB-INF/views/public/home.jsp").forward(request, response);
 	}

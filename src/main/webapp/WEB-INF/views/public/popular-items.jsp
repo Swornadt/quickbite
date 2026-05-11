@@ -34,10 +34,12 @@
                                 </div>
                             </div>
                 
-                            <button class="Add-to-Cart">
-                                <span class="circle"></span>
-                                <span class="btn-text">Add to Cart</span>
-                            </button>
+                            <a href="${pageContext.request.contextPath}/outlets" style="text-decoration: none;">
+	                            <button class="Add-to-Cart">
+	                                <span class="circle"></span>
+	                                <span class="btn-text">Check it Out!</span>
+	                            </button>
+                            </a>
                         </div>
                 
                     </div>
