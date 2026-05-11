@@ -23,6 +23,22 @@
   font-size: 40px;
 }
 
+.side-nav-content a.active{
+	background-color: #db4a1e;
+	border-right: 4px solid #db4a1e;
+	font-weight: 500;
+	color: #ffffff;
+	border-radius: 10px;
+}
+
+.side-nav-content a.active i{
+	color: #ffffff;
+}
+
+.side-nav-content a.active:hover{
+	color: #ffffff;
+}
+
 .side-nav{
 	position: fixed;
     width: 20%;
@@ -50,6 +66,7 @@
     font-family: 'Poppins', sans-serif;
     font-size: 16px;
     gap: 8px;
+    padding: 6px;
 }
 
 .side-nav-content a i{
