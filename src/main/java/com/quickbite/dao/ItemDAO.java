@@ -79,14 +79,14 @@ public class ItemDAO {
 	 */
 	public List<Map<String, Object>> getPopularItemsWithOutlets() {
 		List<Map<String, Object>> popularList = new ArrayList<>();
-		String sql = "SELECT i.*, o.outlet_name FROM item i " +
-	                "JOIN outlet_item oi ON i.item_id = oi.item_id " +
-	                "JOIN outlet o ON oi.outlet_id = o.outlet_id " +
-	                "WHERE oi.item_id IN (" +
-	                "    SELECT MIN(item_id) " +
-	                "    FROM outlet_item " +
-	                "    GROUP BY outlet_id" +
-	                ") LIMIT 6";
+		String sql = "SELECT i.*, o.outlet_name FROM outlet_item oi " +
+	             "JOIN item i ON oi.item_id = i.item_id " +
+	             "JOIN outlet o ON oi.outlet_id = o.outlet_id " +
+	             "WHERE (oi.outlet_id, oi.item_id) IN (" +
+	             "    SELECT outlet_id, MIN(item_id) " +
+	             "    FROM outlet_item " +
+	             "    GROUP BY outlet_id" +
+	             ") LIMIT 6";
 
 		try (Connection conn = DBconfig.getConnection();
 				PreparedStatement ps = conn.prepareStatement(sql);
