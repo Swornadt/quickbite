@@ -64,7 +64,7 @@ public class KitchenContoller extends HttpServlet {
 	}
 	
 	private void handleOrderDetails(HttpServletRequest request, HttpServletResponse response, String orderId ) throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/views/staff/order-details.jsp").forward(request,response);
+		
 	}
 
 	/**
