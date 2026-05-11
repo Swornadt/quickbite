@@ -1,7 +1,10 @@
 package com.quickbite.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import com.quickbite.model.Item;
 import com.quickbite.utils.DBconfig;
 
@@ -74,15 +77,16 @@ public class ItemDAO {
 	 * Returns only six items 
 	 * @return
 	 */
-	public List<Item> getPopularItems() {
-		List<Item> itemList = new ArrayList<>();
-		String sql = "SELECT i.* FROM item i " +
-		                "JOIN outlet_item oi ON i.item_id = oi.item_id " +
-		                "WHERE oi.item_id IN (" +
-		                "    SELECT MIN(item_id) " +
-		                "    FROM outlet_item " +
-		                "    GROUP BY outlet_id" +
-		                ") LIMIT 6";
+	public List<Map<String, Object>> getPopularItemsWithOutlets() {
+		List<Map<String, Object>> popularList = new ArrayList<>();
+		String sql = "SELECT i.*, o.outlet_name FROM item i " +
+	                "JOIN outlet_item oi ON i.item_id = oi.item_id " +
+	                "JOIN outlet o ON oi.outlet_id = o.outlet_id " +
+	                "WHERE oi.item_id IN (" +
+	                "    SELECT MIN(item_id) " +
+	                "    FROM outlet_item " +
+	                "    GROUP BY outlet_id" +
+	                ") LIMIT 6";
 
 		try (Connection conn = DBconfig.getConnection();
 				PreparedStatement ps = conn.prepareStatement(sql);
@@ -98,8 +102,14 @@ public class ItemDAO {
 						rs.getString("item_status"),
 						rs.getString("item_ingredient"),
 						rs.getString("item_allergy"),
-						rs.getString("item_image"));
-				itemList.add(item);
+						rs.getString("item_image")
+				);
+				
+				Map<String, Object> dataMap = new HashMap<>();
+	            dataMap.put("itemDetails", item);
+	            dataMap.put("outletName", rs.getString("outlet_name"));
+
+				popularList.add(dataMap);
 			}
 
 		}
@@ -108,7 +118,7 @@ public class ItemDAO {
 			System.out.println(e.getMessage());
 		}
 
-		return itemList;
+		return popularList;
 	}
 
 	// Add new item and return generated ID
