@@ -73,6 +73,16 @@ public class CheckoutController extends HttpServlet {
 	}
 	
 	private void viewPayment(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession(false);
+	    
+	    // fetching the data using service
+	    List<CartItemModel> flatCart = cartService.getCart(session);
+	    double subtotal = cartService.calculateSubtotal(flatCart);
+
+	    // mapping the data to the attributes the JSP expects
+	    request.setAttribute("flatCart", flatCart);
+	    request.setAttribute("subtotal", subtotal);
+	    
 		request.getRequestDispatcher("/WEB-INF/views/customer/payment.jsp").forward(request, response);
 	}
 
@@ -134,10 +144,10 @@ public class CheckoutController extends HttpServlet {
 		List<CartItemModel> cart = cartService.getCart(session);
 		
 		// receive the data in session
-		String type = (String) session.getAttribute("pendingTimeType");
-	    String date = (String) session.getAttribute("pendingDate");
-	    String slot = (String) session.getAttribute("pendingSlot");
-	    String notes = (String) session.getAttribute("pendingNotes");
+		String type = (String) session.getAttribute("pending_type");
+		String date = (String) session.getAttribute("pending_date");
+		String slot = (String) session.getAttribute("pending_slot");
+		String notes = (String) session.getAttribute("pending_notes");
 	    
 	    try {
 	    	boolean success = cartService.processOrder(user, cart, type, date, slot, notes);
