@@ -19,8 +19,6 @@
 
 <c:set var="uri" value="${pageContext.request.requestURI}">
 </c:set>
-<c:set var="pathInfo" value="${pageContext.request.pathInfo}">
-</c:set>
 
     <div class="side-nav">
         <div class="side-nav-logo">
@@ -33,7 +31,7 @@
             <a href="${pageContext.request.contextPath}/admin/" class="${uri == ('/QuickBite/WEB-INF/views/admin/admin-main-dashboard.jsp') ? 'active' : '' }"><i class="fa-regular fa-chart-bar"></i> Dashboard</a>
             <a href="${pageContext.request.contextPath}/admin/customers" class="${uri == ('/QuickBite/WEB-INF/views/admin/adminCustomerApproval.jsp') ? 'active' : '' }"><i class="fa-solid fa-user-group"></i> Customer Management</a>
             <a href="${pageContext.request.contextPath}/admin/menu" class="${uri == ('/QuickBite/WEB-INF/views/admin/admin-menu-view.jsp') ? 'active' : '' }"><i class="fa-solid fa-utensils"></i> Menu Management</a>
-            <a href=""><i class="fa-solid fa-chart-line"></i> Report</a>
+            <a href="${pageContext.request.contextPath}/admin/report" class="${uri == ('/QuickBite/WEB-INF/views/admin/admin-report.jsp') ? 'active' : '' }"><i class="fa-solid fa-chart-line"></i> Report</a>
             <a href="${pageContext.request.contextPath}/admin/feedback" class="${uri == ('/QuickBite/WEB-INF/views/admin/admin-feedback.jsp') ? 'active' : '' }"><i class="fa-regular fa-calendar-check"></i> View Feedbacks</a>
             <a href="${pageContext.request.contextPath}/admin/menu">
 

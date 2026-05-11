@@ -35,6 +35,10 @@
 	color: #ffffff;
 }
 
+.side-nav-content a.active:hover{
+	color: #ffffff;
+}
+
 .side-nav{
 	position: fixed;
     width: 20%;
