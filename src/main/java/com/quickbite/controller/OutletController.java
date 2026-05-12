@@ -13,27 +13,16 @@ import com.quickbite.dao.OutletItemDAO;
 import com.quickbite.model.Outlet;
 import com.quickbite.model.OutletItem;
 
-
-/**
- * Servlet implementation class OutletServlet
- */
 @WebServlet("/outlets/*")
 public class OutletController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public OutletController() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		
 		String path = request.getPathInfo();
 		
@@ -82,12 +71,8 @@ public class OutletController extends HttpServlet {
 	    request.getRequestDispatcher("/WEB-INF/views/customer/location-menu.jsp").forward(request, response);
 } 
 
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

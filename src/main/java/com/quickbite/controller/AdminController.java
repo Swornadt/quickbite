@@ -31,9 +31,6 @@ import com.quickbite.service.MenuService;
 import com.quickbite.utils.ImageUtil;
 import com.quickbite.utils.SessionUtil;
 
-/**
- * Servlet implementation class AdminController
- */
 @MultipartConfig(
 	    fileSizeThreshold = 1024 * 1024 * 2, // 2MB
 	    maxFileSize = 1024 * 1024 * 10,      // 10MB
@@ -56,10 +53,32 @@ public class AdminController extends HttpServlet {
     }
 
     
+    /**
+     * Handles GET requests by routing them to corresponding admin features.
+	 * 
+	 * Based on the URL path, the method dispatches the request
+	 * to specialized handlers for:
+	 * - Admin Dashboard
+	 * - Menu Management (CRUD)
+	 * - Customer Management (view, approvals, requests)
+	 * - Feedback & Analytics
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws ServletException, IOException
+	 * @see #showDashboard(HttpServletRequest, HttpServletResponse)
+	 * @see #showMenuManagement(HttpServletRequest, HttpServletResponse)
+	 * @see #viewCustomers(HttpServletRequest, HttpServletResponse)
+	 * @see #viewFeedback(HttpServletRequest, HttpServletResponse)
+	 * @see #viewAdminProfile(HttpServletRequest, HttpServletResponse)
+	 * @see #viewCustomerProfile(HttpServletRequest, HttpServletResponse)
+	 * @see #viewMenuAdd(HttpServletRequest, HttpServletResponse)
+	 * @see #viewMenuEdit(HttpServletRequest, HttpServletResponse)
+	 * @see #viewMenuDelete(HttpServletRequest, HttpServletResponse)
+     */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String path = request.getPathInfo();
-		System.out.println("DEBUG doGet path: [" + path + "]");
 		
 		if (path==null || path.equals("/")) {
 			showDashboard(request, response);
@@ -90,7 +109,7 @@ public class AdminController extends HttpServlet {
 				viewMenuEdit(request, response);
 				break;
 			case "/menu/delete":
-				deleteMenuDelete(request, response);
+				viewMenuDelete(request, response);
 				break;
 			case "/report":
 				viewReport(request, response);
@@ -102,10 +121,28 @@ public class AdminController extends HttpServlet {
 	}
 	
 
+	/**
+	 * Dispatches to Admin Dashboard page
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	private void showDashboard(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("/WEB-INF/views/admin/admin-main-dashboard.jsp").forward(request,response);
 	}
 	
+	/**
+	 * Displays Admin's profile.
+	 * 
+	 * Gets the session of the user currently in session and redirects to login if not available.
+	 * Calls adminService to get user by Id and sets attribute 'userData' accordingly.
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 * @throws ServletException
+	 */
 	private void viewAdminProfile(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		UserModel sessionUser = (UserModel) SessionUtil.getAttribute(request, "user");
 		
@@ -114,7 +151,6 @@ public class AdminController extends HttpServlet {
 			return;
 		}
 		
-		//Fetching the admin with Id 1 for now, will have to replace with session ID later
 		int currentId = sessionUser.getUserId();
 
 		// 1. Initializing the service
@@ -127,6 +163,17 @@ public class AdminController extends HttpServlet {
 		request.getRequestDispatcher("/WEB-INF/views/admin/admin-profile.jsp").forward(request,response);
 	}
 
+	/**
+	 * Displays Customer's profile
+	 * 
+	 * Gets the user's Id from request and then instantiates a user model 
+	 * using that Id. The attribute of that customers's data is forwarded to the view.
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	private void viewCustomerProfile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//Gets the id from the URL
 				String userIdParam = request.getParameter("userId");
@@ -253,7 +300,7 @@ public class AdminController extends HttpServlet {
         request.getRequestDispatcher("/WEB-INF/views/admin/admin-add-item.jsp").forward(request, response);
 	}
 	
-	private void deleteMenuDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void viewMenuDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("/WEB-INF/views/admin/admin-delete-item.jsp").forward(request, response);
 	}
 
@@ -316,9 +363,23 @@ public class AdminController extends HttpServlet {
 	
 	
 	/**
-	 * doPost() runs when the Approve or Reject button is clicked
-	 * It reads user_id and action from the form, updates the DB, then redirect back
-	 */
+     * Handles POST requests by routing them to corresponding admin features.
+	 * 
+	 * Based on the URL path, the method dispatches the request
+	 * to specialized handlers for:
+	 * - Customer Management (Approval)
+	 * - Update Admin Profile
+	 * - Menu Management (CRUD)
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws ServletException, IOException
+	 * @see #handleMenuDelete(HttpServletRequest, HttpServletResponse)
+	 * @see #handleMenuEdit(HttpServletRequest, HttpServletResponse)
+	 * @see #handleCustomerStatus(HttpServletRequest, HttpServletResponse)
+	 * @see #handleAdminProfile(HttpServletRequest, HttpServletResponse)
+	 * @see #handleMenuAdd(HttpServletRequest, HttpServletResponse)
+     */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String path = request.getPathInfo();
@@ -379,7 +440,11 @@ public class AdminController extends HttpServlet {
 					response.sendRedirect(request.getContextPath() + "/admin-profile?update=error2");
 				}
 	}
-
+	
+	/**
+	 * doPost() runs when the Approve or Reject button is clicked
+	 * It reads user_id and action from the form, updates the DB, then redirect back
+	 */
 	private void handleCustomerStatus(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		//Reads the two values the form send
 		//user_id - which user to update
