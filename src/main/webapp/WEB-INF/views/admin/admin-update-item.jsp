@@ -14,6 +14,13 @@
             <div class="admin-body">
                 <div class="admin-right-body">
                     <main class="content">
+                    	<!-- Success / Error Message -->
+                        <c:if test="${not empty message}">
+                            <div class="alert ${status == 'success' ? 'alert-success' : 'alert-error'}">
+                                ${message}
+                            </div>
+                        </c:if>
+                    
                         <div class="page-header">
                             <h2>Edit Item</h2>
                         </div>
