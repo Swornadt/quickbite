@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>User Profile</title>
-<link rel="stylesheet" href="<%=request.getContextPath() %>/css/userProfile.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/userProfile.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -19,6 +19,9 @@
 <div class="user-profile-section-container">
 <section class="user-profile-section">
 <%@ include file="../../common/userProfileSideNav.jsp" %>
+<% 
+    com.quickbite.model.UserModel user = (com.quickbite.model.UserModel) session.getAttribute("user"); 
+%>
       <div class="user-profile-container">
         <!-- Profile image container -->
         <div class="profile-picture-wrapper">
@@ -30,17 +33,17 @@
         </div>
 
         <!-- user details form  -->
-        <form class="user-profile-form">
+        <form class="user-profile-form" action="/profile/update" method="post">
           <!-- first name and last name row -->
           <div class="form-row">
             <div class="input-group">
               <label>FIRST NAME</label>
-              <input type="text" placeholder="First Name" />
+              <input type="text" placeholder="First Name" name="fname"/>
             </div>
 
             <div class="input-group">
               <label>LAST NAME</label>
-              <input type="text" placeholder="Last Name" />
+              <input type="text" placeholder="Last Name" name="lname"/>
             </div>
           </div>
 
@@ -48,12 +51,12 @@
           <div class="form-row">
             <div class="input-group">
               <label>PHONE NUMBER</label>
-              <input type="text" placeholder="9712345678" />
+              <input type="text" placeholder="9712345678" name="number"/>
             </div>
 
             <div class="input-group">
               <label>EMAIL</label>
-              <input type="email" placeholder="example@gmail.com" />
+              <input type="email" placeholder="example@gmail.com" name="email"/>
             </div>
           </div>
 

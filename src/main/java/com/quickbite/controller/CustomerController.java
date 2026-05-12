@@ -16,12 +16,18 @@ import com.quickbite.dao.OrderDAO;
 import com.quickbite.model.Item;
 import com.quickbite.model.OrderModel;
 import com.quickbite.model.UserModel;
+
+import com.quickbite.service.UserService;
+
 import com.quickbite.model.OutletItem;
+
 
 @WebServlet(asyncSupported = true, urlPatterns = { "/profile", "/profile/*" })
 public class CustomerController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private OrderDAO orderDAO = new OrderDAO();
+	
+	private UserService userService = new UserService();
 	
     public CustomerController() {
         super();
@@ -71,9 +77,8 @@ public class CustomerController extends HttpServlet {
 		request.getRequestDispatcher("/WEB-INF/views/customer/profile/order-history.jsp").forward(request, response);		
 	}
 
-	private void viewChangePassword(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
-		
+	private void viewChangePassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("/WEB-INF/views/customer/profile/change-password.jsp").forward(request, response);
 	}
 
 	private void viewFavorites(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -102,6 +107,7 @@ public class CustomerController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String endpoint = request.getPathInfo();
 		
+
 		if (endpoint == null || endpoint.equals("/")) {
             request.getRequestDispatcher("/WEB-INF/views/customer/profile/user-profile.jsp").forward(request, response);
             return;
@@ -151,6 +157,7 @@ public class CustomerController extends HttpServlet {
 	    	e.printStackTrace();
 	        response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 	    }
+
 	}
 
 }
