@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 09, 2026 at 09:49 AM
+-- Generation Time: May 12, 2026 at 02:42 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -106,10 +106,10 @@ CREATE TABLE `order` (
 --
 
 INSERT INTO `order` (`order_id`, `user_id`, `order_date`, `order_status`, `order_note`, `preferred_date`) VALUES
-(1, 9, '2026-05-01 21:00:29', 0, '[ASAP] ', NULL),
-(2, 9, '2026-05-01 21:01:25', 0, '[ASAP] ', NULL),
-(3, 9, '2026-05-01 21:01:41', 0, '[ASAP] ', NULL),
-(4, 9, '2026-05-01 21:02:03', 0, '[ASAP] chow chow', NULL),
+(1, 9, '2026-05-01 21:00:29', 2, '[ASAP] ', NULL),
+(2, 9, '2026-05-01 21:01:25', 2, '[ASAP] ', NULL),
+(3, 9, '2026-05-01 21:01:41', 2, '[ASAP] ', NULL),
+(4, 9, '2026-05-01 21:02:03', 2, '[ASAP] chow chow', NULL),
 (5, 9, '2026-05-01 21:02:20', 0, '[ASAP] two item', NULL),
 (6, 9, '2026-05-01 21:02:34', 0, '[ASAP] Three', NULL),
 (7, 9, '2026-05-01 21:03:02', 0, 'Scheduled', NULL),
@@ -130,29 +130,30 @@ CREATE TABLE `order_outlet_item` (
   `outlet_id` tinyint(3) UNSIGNED NOT NULL,
   `item_id` smallint(5) UNSIGNED NOT NULL,
   `item_qty` tinyint(3) UNSIGNED NOT NULL,
-  `order_subtotal` decimal(10,2) NOT NULL
+  `order_subtotal` decimal(10,2) NOT NULL,
+  `item_status` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `order_outlet_item`
 --
 
-INSERT INTO `order_outlet_item` (`order_id`, `outlet_id`, `item_id`, `item_qty`, `order_subtotal`) VALUES
-(1, 1, 4, 1, 175.00),
-(2, 1, 17, 2, 200.00),
-(3, 1, 16, 2, 300.00),
-(4, 1, 5, 2, 300.00),
-(5, 1, 5, 1, 150.00),
-(5, 1, 6, 1, 85.00),
-(6, 1, 4, 1, 175.00),
-(6, 1, 7, 1, 120.00),
-(7, 1, 4, 2, 350.00),
-(7, 1, 5, 1, 150.00),
-(8, 1, 4, 1, 175.00),
-(9, 1, 5, 1, 150.00),
-(10, 1, 4, 1, 175.00),
-(11, 1, 4, 1, 175.00),
-(12, 1, 4, 1, 175.00);
+INSERT INTO `order_outlet_item` (`order_id`, `outlet_id`, `item_id`, `item_qty`, `order_subtotal`, `item_status`) VALUES
+(1, 1, 4, 1, 175.00, 1),
+(2, 1, 17, 2, 200.00, 1),
+(3, 1, 16, 2, 300.00, 1),
+(4, 1, 5, 2, 300.00, 1),
+(5, 1, 5, 1, 150.00, 0),
+(5, 1, 6, 1, 85.00, 0),
+(6, 1, 4, 1, 175.00, 0),
+(6, 1, 7, 1, 120.00, 0),
+(7, 1, 4, 2, 350.00, 0),
+(7, 1, 5, 1, 150.00, 0),
+(8, 1, 4, 1, 175.00, 0),
+(9, 1, 5, 1, 150.00, 0),
+(10, 1, 4, 1, 175.00, 0),
+(11, 1, 4, 1, 175.00, 0),
+(12, 1, 4, 1, 175.00, 0);
 
 -- --------------------------------------------------------
 
@@ -265,23 +266,24 @@ CREATE TABLE `user` (
   `password` varchar(255) NOT NULL,
   `role` varchar(20) NOT NULL,
   `status` varchar(20) NOT NULL,
-  `image` longtext DEFAULT NULL
+  `image` longtext DEFAULT NULL,
+  `reset_pwd` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`user_id`, `fname`, `lname`, `number`, `email`, `gender`, `dob`, `password`, `role`, `status`, `image`) VALUES
-(1, 'i', 'try', '9846714966', 'email@gmail.com', 'Male', '1937-01-01', '$2a$10$f/TtbEYE2mZdabIG/kzR7.UQaZom/VyVmMPw72dJlYr.G9chOF..O', 'admin', 'active', 'uploads/default.png'),
-(2, 'Canteen', 'Staff', '9846714911', 'canteen@gmail.com', 'Male', '2010-01-01', '$2a$10$UKVer9zKrOrM/pplEPah3OwR.g3oO2xNmPfyjRX2n8e94orT.cTje', 'staff', 'active', 'uploads/default.png'),
-(3, 'Coffee Station', 'Staff', '9846714922', 'coffee@gmail.com', 'Male', '2009-12-27', '$2a$10$/Jb7QVxjJ/YFSGddo5JDH.ARTRTzbL.JIJAyRG8DBpzv8BkNQH/HC', 'staff', 'active', 'uploads/default.png'),
-(4, 'Momo Station', 'Staff', '9846714933', 'momo@gmail.com', 'Male', '2010-01-01', '$2a$10$6GR9aIN8ma7.OfhlmTR2YuB9ILpSG3bvz80PQS09Ek13.h7EvHn3S', 'staff', 'active', 'uploads/default.png'),
-(5, 'Chautari', 'Staff', '9846714944', 'chautari@gmail.com', 'Male', '2010-01-01', '$2a$10$YMkpgiDG.mSt9HQOb0W5C.jbzZfSH0zH.YFDzG2hNhHSiVg7sumfC', 'staff', 'active', 'uploads/default.png'),
-(6, 'Brit Cafe', 'Staff', '9846714955', 'brit@gmail.com', 'Male', '2010-01-01', '$2a$10$R5bcnYajdxj6qsvz7iHUKeXtxGG6eEVV9gCVtx4ERsRKLDc8.knti', 'staff', 'active', 'uploads/default.png'),
-(7, 'Kumari', 'Staff', '9846714866', 'kumari@gmail.com', 'Male', '2010-01-01', '$2a$10$wwdNoNqwyiX0nTCIokx0se9BDCGKBWbZo6D2DGYfq3ZAMspQmPXZm', 'staff', 'active', 'uploads/default.png'),
-(9, 'Sai', 'Stha', '9846714900', 'email@gmail.com', 'Male', '1899-12-31', '$2a$10$9V96dqG3PIwQazhN.fqITe5qqJgQ4MEKfXQuJFqZo4Jp9V.ltDG1i', 'user', 'active', 'uploads/default.png'),
-(10, 'Test', 'Case', '9988776655', 'email123@gmail.com', 'Male', '2006-12-31', '$2a$10$de3Vz2GsNdPSTC6rvYJhRuTniO9mdxrgPXFWdqqeEqXhto3ddEX8G', 'customer', 'active', 'uploads/default.png');
+INSERT INTO `user` (`user_id`, `fname`, `lname`, `number`, `email`, `gender`, `dob`, `password`, `role`, `status`, `image`, `reset_pwd`) VALUES
+(1, 'i', 'try', '9846714966', 'email@gmail.com', 'Male', '1937-01-01', '$2a$10$f/TtbEYE2mZdabIG/kzR7.UQaZom/VyVmMPw72dJlYr.G9chOF..O', 'admin', 'active', 'uploads/default.png', NULL),
+(2, 'Canteen', 'Staff', '9846714911', 'canteen@gmail.com', 'Male', '2010-01-01', '$2a$10$UKVer9zKrOrM/pplEPah3OwR.g3oO2xNmPfyjRX2n8e94orT.cTje', 'staff', 'active', 'uploads/default.png', NULL),
+(3, 'Coffee Station', 'Staff', '9846714922', 'coffee@gmail.com', 'Male', '2009-12-27', '$2a$10$/Jb7QVxjJ/YFSGddo5JDH.ARTRTzbL.JIJAyRG8DBpzv8BkNQH/HC', 'staff', 'active', 'uploads/default.png', NULL),
+(4, 'Momo Station', 'Staff', '9846714933', 'momo@gmail.com', 'Male', '2010-01-01', '$2a$10$6GR9aIN8ma7.OfhlmTR2YuB9ILpSG3bvz80PQS09Ek13.h7EvHn3S', 'staff', 'active', 'uploads/default.png', NULL),
+(5, 'Chautari', 'Staff', '9846714944', 'chautari@gmail.com', 'Male', '2010-01-01', '$2a$10$YMkpgiDG.mSt9HQOb0W5C.jbzZfSH0zH.YFDzG2hNhHSiVg7sumfC', 'staff', 'active', 'uploads/default.png', NULL),
+(6, 'Brit Cafe', 'Staff', '9846714955', 'brit@gmail.com', 'Male', '2010-01-01', '$2a$10$R5bcnYajdxj6qsvz7iHUKeXtxGG6eEVV9gCVtx4ERsRKLDc8.knti', 'staff', 'active', 'uploads/default.png', NULL),
+(7, 'Kumari', 'Staff', '9846714866', 'kumari@gmail.com', 'Male', '2010-01-01', '$2a$10$wwdNoNqwyiX0nTCIokx0se9BDCGKBWbZo6D2DGYfq3ZAMspQmPXZm', 'staff', 'active', 'uploads/default.png', NULL),
+(9, 'Sai', 'Stha', '9846714900', 'email@gmail.com', 'Male', '1899-12-31', '$2a$10$9V96dqG3PIwQazhN.fqITe5qqJgQ4MEKfXQuJFqZo4Jp9V.ltDG1i', 'user', 'active', 'uploads/default.png', NULL),
+(10, 'Test', 'Case', '9988776655', 'email123@gmail.com', 'Male', '2006-12-31', '$2a$10$de3Vz2GsNdPSTC6rvYJhRuTniO9mdxrgPXFWdqqeEqXhto3ddEX8G', 'customer', 'active', 'uploads/default.png', NULL);
 
 -- --------------------------------------------------------
 
