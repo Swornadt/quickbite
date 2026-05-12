@@ -4,97 +4,98 @@
 <meta charset="UTF-8">
 <title>Hridishna Deula | CV</title>
 
-<style>
-body { font-family: Arial; margin:0; background:#f5f5f5; }
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
 
-.header {
-    padding: 40px;
-    display: flex;
-    gap: 40px;
-    align-items: center;
-    background: #eee;
-}
-
-.header img {
-    width: 220px;
-    border-radius: 15px;
-}
-
-.container { padding: 40px; }
-
-.grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 40px;
-}
-
-.card {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-}
-
-.skills {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.skill {
-    background: #eee;
-    padding: 8px 12px;
-    border-radius: 6px;
-}
-</style>
 </head>
 
 <body>
 
-<div class="header">
-    <img src="${pageContext.request.contextPath}/assets/about/hridishna.jpg">
-    <div>
-        <h1>Hridishna Deula</h1>
-        <p>Computing Undergraduate</p>
-        <p>Passionate about UI/UX and creative design.</p>
-    </div>
-</div>
+<div class="cv-card">
 
-<div class="container">
-<div class="grid">
+    <div class="header">
+        <div class="back-btn">
+            <a href="${pageContext.request.contextPath}/about">Back to About Us</a>
+        </div>
 
-<div>
-    <div class="card">
-        <h2>About Me</h2>
-        <p>I am a creative student who enjoys designing user-friendly interfaces and solving real problems.</p>
-    </div>
+        <div class="header-content">
 
-    <div class="card">
-        <h2>Technical Skills</h2>
-        <div class="skills">
-            <div class="skill">HTML</div>
-            <div class="skill">CSS</div>
-            <div class="skill">Figma</div>
-            <div class="skill">Design</div>
+            <img src="${pageContext.request.contextPath}/assets/about/hridishna.jpg" class="profile-img">
+
+            <div class="header-info">
+                <h1>Hridishna Deula</h1>
+                <div class="title">Computing Undergraduate</div>
+
+                <div class="desc">Motivated computing student learning IT fundamentals and web development.</div>
+                <div class="desc">Looking for opportunities to grow and gain experience.</div>
+
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+
         </div>
     </div>
-</div>
 
-<div>
-    <div class="card">
-        <h2>Quick Info</h2>
-        <p>Kathmandu, Nepal</p>
-        <p>Computing Undergraduate</p>
-        <p>10+ Projects</p>
+    <div class="content">
+
+        <div class="two-columns">
+
+            <div class="left-col">
+
+                <div class="section">
+                    <h2>About Me</h2>
+                    <div class="about-text">
+                        I am a Computing student currently building my skills in web development and programming. Alongside my studies, I have experience working in sales and quotation development, which has improved my communication, problem-solving, and attention to detail. I am motivated to grow in the IT field and gain practical experience through real-world projects and opportunities.
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>Technical Skills</h2>
+                    <div class="skill-tags">
+                        <span class="skill-tag">HTML</span>
+                        <span class="skill-tag">CSS</span>
+                        <span class="skill-tag">JavaScript (Basic)</span>
+                        <span class="skill-tag">VS Code</span>
+                        <span class="skill-tag">GitHub</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="right-col">
+
+                <div class="info-box">
+                    <h3>Quick Info</h3>
+                    <div class="info-row"><span class="info-label">Location</span><span>Kathmandu</span></div>
+                    <div class="info-row"><span class="info-label">Education</span><span>Computing Student</span></div>
+                    <div class="info-row"><span class="info-label">Projects</span><span>College Assignments</span></div>
+                </div>
+
+                <div class="info-box">
+                    <h3>Achievements</h3>
+                    <div class="achievement-item">
+                        <strong>Created basic websites</strong>
+                        <span>College coursework projects</span>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <h3>Interests</h3>
+                    <div class="interest-item">Web Development</div>
+                    <div class="interest-item">Programming</div>
+                    <div class="interest-item">Technology</div>
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
 
-    <div class="card">
-        <h2>Achievements</h2>
-        <p>UI Design Competition Winner</p>
-        <p>Best Presentation Award</p>
-    </div>
-</div>
-
-</div>
 </div>
 
 </body>
