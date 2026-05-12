@@ -90,5 +90,30 @@ public class OrderOutletItemDAO {
 
 	    return list;
 	}
+	
+	public void updateOrderStatus(int orderId, int status) {
+	    String sql = "UPDATE `order` SET order_status = ? WHERE order_id = ?";
+	    try (Connection conn = DBconfig.getConnection();
+	         PreparedStatement ps = conn.prepareStatement(sql)) {
+	        ps.setInt(1, status);
+	        ps.setInt(2, orderId);
+	        ps.executeUpdate();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	}
+
+	public void updateItemStatus(int orderId, int itemId) {
+	    String sql = "UPDATE order_outlet_item SET item_status = 1 WHERE order_id = ? AND item_id = ?";
+	    try (Connection conn = DBconfig.getConnection();
+	         PreparedStatement ps = conn.prepareStatement(sql)) {
+	        ps.setInt(1, orderId);
+	        ps.setInt(2, itemId);
+	        ps.executeUpdate();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	}
+	
 }
 
