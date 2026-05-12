@@ -60,9 +60,9 @@
 	                <form method="post" action="${pageContext.request.contextPath}/kitchen/${orderId}">
 		                <input type="hidden" name="action" value="itemDone" />
 		                <input type="hidden" name="itemId" value="${item.itemId}" />
-		                <button type="submit" class="checkbox ${item.itemStatus eq 1 ? 'checked' : ''}">
-		                	${item.itemStatus eq 1 ? '✓' : ''}
-		                </button>
+		                <button type="submit" class="checkbox ${item.itemStatus eq 1 ? 'checked' : ''} "${orderStatus eq 'Ongoing' ? '' : 'disabled'}>
+    						${item.itemStatus eq 1 ? '✓' : ''}
+						</button>
            	 		</form>
 	              </td>
 	            </tr>
@@ -80,12 +80,16 @@
       <div class="order-actions">
       	<form method="post" action="${pageContext.request.contextPath}/kitchen/${orderId}">
          	<input type="hidden" name="action" value="initiate" />
-        	<button type="submit" class="btn-initiate">Initiate Order</button>
+        	<button type="submit" class="btn-initiate" ${orderStatus eq 'Pending' ? '' : 'disabled'}>
+    			Initiate Order
+			</button>
     	</form>
     	
     	<form method="post" action="${pageContext.request.contextPath}/kitchen/${orderId}">
         	<input type="hidden" name="action" value="ready" />
-        	<button type="submit" class="btn-ready">Mark as Ready</button>
+        	<button type="submit" class="btn-ready" ${orderStatus eq 'Ongoing' ? '' : 'disabled'}>
+    			Mark as Ready
+			</button>
     	</form>
 	  </div>
       

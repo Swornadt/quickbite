@@ -127,6 +127,12 @@ body {
   background: #DB4A1E;
   color: white;
 }
+
+.checkbox:disabled {
+  background: #ccc;
+  border-color: #ccc;
+  cursor: not-allowed;
+}
  
 /* Addinational note */
 .note-title {
@@ -169,4 +175,10 @@ body {
 .btn-initiate:hover,
 .btn-ready:hover {
   background: #c43f17;
+}
+
+.btn-initiate:disabled,
+.btn-ready:disabled {
+  background: #ccc;
+  cursor: not-allowed;
 }
