@@ -57,7 +57,13 @@
 	              <td>${item.itemName}</td>
 	              <td>${item.itemQty}</td>
 	              <td>
-	                <div class="checkbox ${item.itemStatus == 1 ? 'checked' : ''}"></div>
+	                <form method="post" action="${pageContext.request.contextPath}/kitchen/${orderId}">
+		                <input type="hidden" name="action" value="itemDone" />
+		                <input type="hidden" name="itemId" value="${item.itemId}" />
+		                <button type="submit" class="checkbox ${item.itemStatus eq 1 ? 'checked' : ''}">
+		                	${item.itemStatus eq 1 ? '✓' : ''}
+		                </button>
+           	 		</form>
 	              </td>
 	            </tr>
 	          </c:forEach>
@@ -70,10 +76,18 @@
         <div class="note-box">${orderNote}</div>
       </div>
       
-     <div class="order-actions">
-        <button class="btn-initiate">Initiate Order</button>
-        <button class="btn-ready">Mark as Ready</button>
-      </div> 
+      
+      <div class="order-actions">
+      	<form method="post" action="${pageContext.request.contextPath}/kitchen/${orderId}">
+         	<input type="hidden" name="action" value="initiate" />
+        	<button type="submit" class="btn-initiate">Initiate Order</button>
+    	</form>
+    	
+    	<form method="post" action="${pageContext.request.contextPath}/kitchen/${orderId}">
+        	<input type="hidden" name="action" value="ready" />
+        	<button type="submit" class="btn-ready">Mark as Ready</button>
+    	</form>
+	  </div>
       
     </div>
 </body>
