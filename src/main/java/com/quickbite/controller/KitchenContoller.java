@@ -12,6 +12,7 @@ import java.sql.Timestamp;
 
 import com.quickbite.dao.OrderOutletItemDAO;
 import com.quickbite.model.OrderOutletItem;
+import com.quickbite.service.KitchenService;
 
 /**
  * Servlet implementation class OrderManagement
@@ -19,7 +20,8 @@ import com.quickbite.model.OrderOutletItem;
 @WebServlet(asyncSupported = true, urlPatterns = { "/kitchen/*" })
 public class KitchenContoller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	private KitchenService kitchenService = new KitchenService();
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -116,7 +118,20 @@ public class KitchenContoller extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+		String path = request.getPathInfo();
+        int orderId = Integer.parseInt(path.substring(1));
+        String action = request.getParameter("action");
 
+        if (action.equals("initiate")) {
+            kitchenService.initiateOrder(orderId);
+        } else if (action.equals("ready")) {
+            kitchenService.markReady(orderId);
+        } else if (action.equals("itemDone")) {
+            int itemId = Integer.parseInt(request.getParameter("itemId"));
+            kitchenService.markItemDone(orderId, itemId);
+        }
+
+        response.sendRedirect(request.getContextPath() + "/kitchen/" + orderId);
+    }
+	
 }
