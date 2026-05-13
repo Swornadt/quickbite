@@ -32,12 +32,29 @@ public class CustomerController extends HttpServlet {
     public CustomerController() {
         super();
     }
+    
 
+    /**
+     * Handles GET requests for User Profile's actions
+     * 
+     * Based on the endpoint of the current URL, the corresponding method is called.
+     * 1. Profile
+     * 2. Order History
+     * 3. Change Password
+     * 4. View Favorites
+     * 
+     * @param request
+     * @param response
+     * @throws ServletException, IOException
+     * @see #viewChangePassword(HttpServletRequest, HttpServletResponse)
+     * @see #viewCustomerOrderHistory(HttpServletRequest, HttpServletResponse)
+     * @see #viewFavorites(HttpServletRequest, HttpServletResponse)
+     */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String endpoint = request.getPathInfo();
 		
 		if (endpoint == null || endpoint.equals("/")) {
-            request.getRequestDispatcher("/WEB-INF/views/customer/profile/user-profile.jsp").forward(request, response);
+			viewUserProfile(request,response);
             return;
         }
 		
@@ -56,8 +73,109 @@ public class CustomerController extends HttpServlet {
 				break;
 		}
 	}
-
 	
+	/**
+     * doPost handles all POST requests
+     * We check the path to know which form was submitted.
+     */
+    @Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String endpoint = request.getPathInfo();
+		
+
+		if (endpoint == null || endpoint.equals("/")) {
+			viewUserProfile(request, response);
+            return;
+        }
+		
+		switch(endpoint) {
+			case "/favorites/toggle":
+				toggleFavorites(request, response);
+				break;
+			case "/update":
+				updateUserProfile(request,response);
+        break;
+			default:
+				response.sendError(HttpServletResponse.SC_NOT_FOUND);
+				break;
+		}
+	}
+
+    /**
+     * Loads the Profile Page. 
+     * Gets the Logged in user from the session and puts them into the request
+     * so the jsp can access them with <=%user.getFname()>
+     */
+    private void viewUserProfile(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
+    	HttpSession session = request.getSession();
+    	UserModel user = (UserModel) session.getAttribute("user");
+    	
+    	//If no user is in session, they're not logged in
+    	if (user == null) {
+    		response.sendRedirect(request.getContextPath() + "/login");
+    		return;
+    	}
+    	
+    	session.setAttribute("user", user);
+    	
+    	request.getRequestDispatcher("/WEB-INF/views/customer/profile/user-profile.jsp").forward(request,response);
+    }
+	
+    /**
+     * Handles the profile update form submission (POST /profile/update).
+     */
+    private void updateUserProfile(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
+    	 HttpSession session = request.getSession();
+         UserModel currentUser = (UserModel) session.getAttribute("user");
+
+         ///If no user is in session, they're not logged in
+         if (currentUser == null) {
+             response.sendRedirect(request.getContextPath() + "/login");
+             return;
+         }
+      
+         // reading form values
+         String fname = request.getParameter("fname");
+         String lname = request.getParameter("lname");
+         String email = request.getParameter("email");
+         String number = request.getParameter("number");
+         
+         try {
+        	 //Calling the service layer
+        	 boolean success = userService.updateUserProfile(currentUser.getUserId(), fname, lname,currentUser.getDob(), currentUser.getGender(), email,number);
+        	 
+        	 //After the new data is updated in DB, we fetch the latest record and put it back in session
+        	 //This ensures that other components such as navbar, profile page etc. shows new user data 
+        	 if (success) {
+        		 UserModel updatedUser = userService.getUserbyId(currentUser.getUserId());
+        		 session.setAttribute("user",updatedUser);
+        		 
+        		 request.setAttribute("success", "Profile updated Sucessfully!");
+        	 }else {
+        		 request.setAttribute("error", "Update failed. Please try again.");
+        	 }
+         }catch(Exception e) {
+        	 request.setAttribute("error", e.getMessage()); 
+         }
+         
+         request.getRequestDispatcher("/WEB-INF/views/customer/profile/user-profile.jsp").forward(request, response);
+         
+         
+    }
+    
+	/**
+	 * Displays the past and ongoing orders of the current user.
+	 * 
+	 * Gets the user's details from the logged in session, and fetches
+	 * the past and current orders through the DAO, passing true and false
+	 * for current and past respectively.
+	 * The data is then passed to jsp through attributes.
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 * @throws ServletException
+	 */
 	private void viewCustomerOrderHistory(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		HttpSession session = request.getSession();
 		UserModel user = (UserModel) session.getAttribute("user");
@@ -104,24 +222,7 @@ public class CustomerController extends HttpServlet {
 	}
 	
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String endpoint = request.getPathInfo();
-		
-
-		if (endpoint == null || endpoint.equals("/")) {
-            request.getRequestDispatcher("/WEB-INF/views/customer/profile/user-profile.jsp").forward(request, response);
-            return;
-        }
-		
-		switch(endpoint) {
-			case "/favorites/toggle":
-				toggleFavorites(request, response);
-				break;
-			default:
-				response.sendError(HttpServletResponse.SC_NOT_FOUND);
-				break;
-		}
-	}
+	
 
 	private void toggleFavorites(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		HttpSession session = request.getSession();

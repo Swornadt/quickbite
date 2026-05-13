@@ -19,9 +19,7 @@
 <div class="user-profile-section-container">
 <section class="user-profile-section">
 <%@ include file="../../common/userProfileSideNav.jsp" %>
-<% 
-    com.quickbite.model.UserModel user = (com.quickbite.model.UserModel) session.getAttribute("user"); 
-%>
+
       <div class="user-profile-container">
         <!-- Profile image container -->
         <div class="profile-picture-wrapper">
@@ -32,18 +30,30 @@
           </div>
         </div>
 
+		
+		<% if (request.getAttribute("error") != null) { %>
+	    	<p style="color: red;" class="profile-message">
+	        	<%= request.getAttribute("error") %>
+	    	</p>
+		<% } %>
+		<% if (request.getAttribute("success") != null) { %>
+	    	<p style="color: green;" class="profile-message">
+	        	<%= request.getAttribute("success") %>
+	    	</p>
+		<% } %>
+				
         <!-- user details form  -->
-        <form class="user-profile-form" action="/profile/update" method="post">
+        <form class="user-profile-form" action="${pageContext.request.contextPath}/profile/update" method="post">
           <!-- first name and last name row -->
           <div class="form-row">
             <div class="input-group">
               <label>FIRST NAME</label>
-              <input type="text" placeholder="First Name" name="fname"/>
+              <input type="text" placeholder="First Name" name="fname" value="${user.fname}"/>
             </div>
 
             <div class="input-group">
               <label>LAST NAME</label>
-              <input type="text" placeholder="Last Name" name="lname"/>
+              <input type="text" placeholder="Last Name" name="lname" value="${user.lname}"/>
             </div>
           </div>
 
@@ -51,19 +61,18 @@
           <div class="form-row">
             <div class="input-group">
               <label>PHONE NUMBER</label>
-              <input type="text" placeholder="9712345678" name="number"/>
+              <input type="text" placeholder="9712345678" name="number" value="${user.number}"/>
             </div>
 
             <div class="input-group">
               <label>EMAIL</label>
-              <input type="email" placeholder="example@gmail.com" name="email"/>
+              <input type="text" placeholder="example@gmail.com" name="email" value="${user.email}"/>
             </div>
           </div>
 
           <!-- BUTTONS -->
           <div class="profile-btn-container">
             <button type="submit" class="save-btn">SAVE</button>
-            <button type="button" class="cancel-btn">CANCEL</button>
           </div>
         </form>
       </div>
