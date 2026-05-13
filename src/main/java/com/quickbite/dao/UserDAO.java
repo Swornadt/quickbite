@@ -191,6 +191,7 @@ public class UserDAO {
                     user.setPassword(rs.getString("password"));
                     user.setRole(rs.getString("role"));
                     user.setStatus(rs.getString("status"));
+                    user.setImage(rs.getString("image"));
                     return user;
                 }
             }
