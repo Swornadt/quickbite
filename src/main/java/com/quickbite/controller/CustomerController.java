@@ -21,6 +21,7 @@ import com.quickbite.model.UserModel;
 import com.quickbite.service.UserService;
 import com.quickbite.utils.PasswordUtil;
 import com.quickbite.utils.SessionUtil;
+import com.quickbite.utils.ValidationUtil;
 import com.quickbite.model.OutletItem;
 
 
@@ -116,6 +117,14 @@ public class CustomerController extends HttpServlet {
 			request.setAttribute("error", "New passwords must match");
 			request.getRequestDispatcher("/WEB-INF/views/customer/profile/change-password.jsp").forward(request, response);
 			return;
+		}
+		
+		// validate new password format and confirmation match
+		String validationError = ValidationUtil.validatePassword(newPassword, confirmPassword);
+		if (validationError != null) {
+		    request.setAttribute("error", validationError);
+		    request.getRequestDispatcher("/WEB-INF/views/customer/profile/change-password.jsp").forward(request, response);
+		    return;
 		}
 		
 		// get current user from session for password validation
