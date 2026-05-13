@@ -64,6 +64,7 @@ public class UserDAO {
                     user.setRole(rs.getString("role"));
                     user.setStatus(rs.getString("status"));
                     user.setImage(rs.getString("image"));
+                    user.setOutletId(rs.getInt("outlet_id"));
                     return user;
                 }
             }
