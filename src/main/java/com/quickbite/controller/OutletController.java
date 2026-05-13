@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.quickbite.dao.OutletDAO;
@@ -52,7 +53,8 @@ public class OutletController extends HttpServlet {
 		request.setAttribute("locations", list);
 		request.getRequestDispatcher("/WEB-INF/views/customer/outlet.jsp").forward(request, response);
 	}
-	
+
+	//Method to show the Outlet Items/Menu
 	private void handleOutletMenu(HttpServletRequest request, HttpServletResponse response, String outletName) throws ServletException, IOException {
 
 		String selectedCategory = request.getParameter("category");
@@ -70,8 +72,21 @@ public class OutletController extends HttpServlet {
 	    
 	    //Getting all items first to populate category buttons
 	    List<OutletItem> allItems = outletItemDAO.getItemsByOutlet(outlet.getOutletId());
-	    List<String> categories = allItems.stream().map(oi -> oi.getItem().getCategory()).distinct().filter(cat -> cat != null && !cat.isEmpty()).toList();
- 
+	    
+	    List<String> categories = new ArrayList<>();
+	    
+	    //To get categories from each Item
+	    for (OutletItem oi : allItems) {
+	    	String cat = oi.getItem().getCategory();
+	    	
+	    	//Filters out null categories and stores unique categories
+	    	if (cat !=null && !cat.isEmpty()) {
+	    		if(!categories.contains(cat)) {
+	    			categories.add(cat);
+	    		}
+	    	}
+	    }
+	    
 	    //Get only the items for selected categories
 	    List<OutletItem> results = outletItemDAO.searchItems(outlet.getOutletId(), selectedCategory, searchQuery);  
 	    
