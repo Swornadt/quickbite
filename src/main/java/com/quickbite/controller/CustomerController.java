@@ -13,12 +13,14 @@ import java.util.List;
 
 import com.quickbite.dao.FavoriteDAO;
 import com.quickbite.dao.OrderDAO;
+import com.quickbite.dao.UserDAO;
 import com.quickbite.model.Item;
 import com.quickbite.model.OrderModel;
 import com.quickbite.model.UserModel;
 
 import com.quickbite.service.UserService;
-
+import com.quickbite.utils.PasswordUtil;
+import com.quickbite.utils.SessionUtil;
 import com.quickbite.model.OutletItem;
 
 
@@ -94,14 +96,60 @@ public class CustomerController extends HttpServlet {
 				break;
 			case "/update":
 				updateUserProfile(request,response);
-        break;
+				break;
+			case "/change-password":
+				handleChangePassword(request, response);
+				break;
 			default:
 				response.sendError(HttpServletResponse.SC_NOT_FOUND);
 				break;
 		}
 	}
 
-    /**
+    private void handleChangePassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String oldPassword = request.getParameter("oldPassword");
+		String newPassword = request.getParameter("newPassword");
+		String confirmPassword = request.getParameter("confirmPassword");
+	
+		// check if new passwords match
+		if (!newPassword.equals(confirmPassword)) {
+			request.setAttribute("error", "New passwords must match");
+			request.getRequestDispatcher("/WEB-INF/views/customer/profile/change-password.jsp").forward(request, response);
+			return;
+		}
+		
+		// get current user from session for password validation
+		UserModel currentUser = (UserModel) SessionUtil.getAttribute(request, "user");
+		if (currentUser == null) {
+			response.sendRedirect(request.getContextPath()+"/login");
+			return;
+		}
+		
+		// fetching user from DB to get hash
+		UserDAO userDAO = new UserDAO();
+		UserModel dbUser = userDAO.getUserById(currentUser.getUserId());
+		// verify old password
+		if (!PasswordUtil.checkPassword(oldPassword, dbUser.getPassword())) {
+			request.setAttribute("error", "Old password is incorrect.");
+			request.getRequestDispatcher("/WEB-INF/views/customer/profile/change-password.jsp").forward(request, response);
+			return;
+		}
+		
+		// hash new pass and update
+		String hashNewPassword = PasswordUtil.hashPassword(newPassword);
+		boolean success = userDAO.updatePassword(currentUser.getUserId(), hashNewPassword);
+		
+		if (success) {
+			request.setAttribute("success", "Password changed successfully.");
+		} else {
+			request.setAttribute("error", "Failed to update password. Please try again.");
+		}
+		
+		request.getRequestDispatcher("/WEB-INF/views/customer/profile/change-password.jsp").forward(request, response);
+	}
+
+
+	/**
      * Loads the Profile Page. 
      * Gets the Logged in user from the session and puts them into the request
      * so the jsp can access them with <=%user.getFname()>
@@ -221,9 +269,6 @@ public class CustomerController extends HttpServlet {
 	    }
 	}
 	
-
-	
-
 	private void toggleFavorites(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		HttpSession session = request.getSession();
 	    UserModel user = (UserModel) session.getAttribute("user");
