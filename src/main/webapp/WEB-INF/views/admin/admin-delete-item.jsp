@@ -44,7 +44,7 @@
                         <c:if test="${empty message}">
                             <form action="<%=request.getContextPath()%>/admin/menu/delete" method="post">
                                 <input type="hidden" name="itemId" value="${param.itemId}">
-                                <input type="hidden" name="action" value="delete"> <!-- Important -->
+                                <input type="hidden" name="action" value="delete"> 
 
                                 <div class="form-group">
                                     <label>Are you sure?</label>
