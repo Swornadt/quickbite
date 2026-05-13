@@ -69,15 +69,6 @@ public class ValidationUtil {
 			return "Phone number must be exactly 10 digits.";
 		}
 		
-		// Password Validation
-		if (pass.length() <= 6 ||
-                !pass.matches(".*[A-Z].*") ||
-                !pass.matches(".*[0-9].*") ||
-                !pass.matches(".*[!@#$%^&*].*")) {
-
-		return "Password must be more than 6 characters and include an uppercase letter, a number, and a special character (!@#$%^&*).";
-		}
-		
 		return null;
 	}
 	

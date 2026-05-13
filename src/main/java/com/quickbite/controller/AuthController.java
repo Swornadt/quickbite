@@ -171,6 +171,7 @@ public class AuthController extends HttpServlet {
         LoginService loginService = new LoginService();
         UserModel user = loginService.authenticate(number, pass);
         
+        System.out.println(user);
         if (user != null) {   
         	
         	// User's approval status check
