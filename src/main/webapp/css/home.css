@@ -286,7 +286,7 @@ about-container {
     justify-content: center;
 }
 
-#cardsDiv .card:nth-child(n+5) {
+#cardsDiv .card:nth-child(n+7) {
     display: none;
 }
 

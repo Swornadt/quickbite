@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    <%@ taglib prefix="c" uri="jakarta.tags.core" %>
         <!DOCTYPE html>
         <html>
 
@@ -44,7 +44,7 @@
                         <c:if test="${empty message}">
                             <form action="<%=request.getContextPath()%>/admin/menu/delete" method="post">
                                 <input type="hidden" name="itemId" value="${param.itemId}">
-                                <input type="hidden" name="action" value="delete"> <!-- Important -->
+                                <input type="hidden" name="action" value="delete"> 
 
                                 <div class="form-group">
                                     <label>Are you sure?</label>

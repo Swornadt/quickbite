@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,21 +13,31 @@
 	<h2 class="title">Pending Orders</h2>
 	<div class="cards">
 		<c:forEach var="order" items="${pending}">
-			<div class="card">Order ID: ${order.orderId}</div>
+			<a href="${pageContext.request.contextPath}/kitchen/${order.orderId}">
+				<div class="card">Order ID: ${order.orderId}</div>
+			</a>
 		</c:forEach>
 	</div>
 </div> 
 <div class="orderStatus">
 	<h2 class="title">Ongoing Orders</h2>
-	<c:forEach var="order" items="${ongoing}">
-			<div class="card">Order ID: ${order.orderId}}</div>
-	</c:forEach>
+	<div class="cards">
+		<c:forEach var="order" items="${ongoing}">
+			<a href="${pageContext.request.contextPath}/kitchen/${order.orderId}">
+				<div class="card">Order ID: ${order.orderId}</div>
+			</a>
+		</c:forEach>
+	</div>
 </div> 
 <div class="orderStatus">
 	<h2 class="title">Completed Orders</h2>
-	<c:forEach var="order" items="${complete}">
-			<div class="card">Order ID: ${order.orderId}}</div>
-	</c:forEach>
+	<div class="cards">
+		<c:forEach var="order" items="${complete}">
+			<a href="${pageContext.request.contextPath}/kitchen/${order.orderId}">
+				<div class="card">Order ID: ${order.orderId}</div>
+			</a>
+		</c:forEach>
+	</div>
 </div> 
 </body>
 </html>
