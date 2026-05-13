@@ -156,22 +156,19 @@ public class CartService {
 	        return false;
 	    }
 		
-		// create order and get back generated orderID
-		int orderId = orderDAO.createOrder(user.getUserId(), cart, specialInstructions, preferredDate);
-		// -1 is failure
-		if (orderId > 0) {
-			// preparing the payment model
-			double totalAmount = calculateSubtotal(cart);
-			PaymentModel payment = new PaymentModel();
-			payment.setOrderId(orderId);
-			payment.setAmount(totalAmount);
-			payment.setPaymentStatus("Completed");
-			payment.setPaymentDate(new java.sql.Timestamp(System.currentTimeMillis()));
-			
-			return paymentDAO.createPayment(payment);
+		double totalAmount = calculateSubtotal(cart);
+	    PaymentModel payment = new PaymentModel();
+	    payment.setAmount(totalAmount);
+	    payment.setPaymentStatus("Completed");
+	    payment.setPaymentDate(new java.sql.Timestamp(System.currentTimeMillis()));
+	   
+	    int paymentId = paymentDAO.createPayment(payment);
+	    if (paymentId <= 0) {
+	        return false;
 		}
-		
-		return false;
+	    int orderId = orderDAO.createOrder(user.getUserId(), cart, specialInstructions, preferredDate, paymentId);
+
+	    return orderId > 0;
 	}
 	
 	/**

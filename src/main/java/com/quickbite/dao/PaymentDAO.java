@@ -4,28 +4,57 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import com.quickbite.model.PaymentModel;
 import com.quickbite.utils.DBconfig;
 
 public class PaymentDAO {
 	
-	public boolean createPayment(PaymentModel payment) throws SQLException {
-		String query = "INSERT INTO payment (order_id, amount, payment_status, payment_date) "+
-						"VALUES (?, ?, ?, NOW())";
+	public int createPayment(PaymentModel payment) throws SQLException {
+		String query = "INSERT INTO payment (amount, payment_status, payment_date) "+
+						"VALUES (?, ?, NOW())";
 		
-		try (Connection conn = DBconfig.getConnection();
-				PreparedStatement ps = conn.prepareStatement(query)) {
-			
-			ps.setInt(1, payment.getOrderId());
-			ps.setDouble(2, payment.getAmount());
-			ps.setString(3, payment.getPaymentStatus());
-			return ps.executeUpdate() > 0;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw e;
-		}
-	}
+	    Connection conn = null;
+	    try {
+	        conn = DBconfig.getConnection();
+	        conn.setAutoCommit(false);
+
+	        PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+	        ps.setDouble(1, payment.getAmount());
+	        ps.setString(2, payment.getPaymentStatus());
+	        ps.executeUpdate();
+
+	        // get generated paymentId
+	        ResultSet rs = ps.getGeneratedKeys();
+	        int paymentId = 0;
+	        if (rs.next()) {
+	            paymentId = rs.getInt(1);
+	        }
+
+	        conn.commit();
+	        return paymentId;
+
+	    } catch (SQLException e) {
+	        if (conn != null) {
+	            try { 
+	            	conn.rollback(); 
+	            } catch (SQLException ex) { 
+	            	ex.printStackTrace(); 
+	            }
+	        }
+	        e.printStackTrace();
+	        return -1;
+	    } finally {
+	        try { 
+	        	if (conn != null) 
+	        		conn.close(); 
+	        } catch (SQLException e) {
+	        	e.printStackTrace(); 
+	        }
+	    }
+
+    }
 	
 	/**
 	 * Lookup method to check the payment details of a specific order.
@@ -34,18 +63,17 @@ public class PaymentDAO {
 	 * @return PaymentModel object or null if not found
 	 * @throws SQLException
 	 */
-	public PaymentModel getPaymentByOrderId (int orderId) throws SQLException {
+	public PaymentModel getPaymentId (int paymentId) throws SQLException {
 		String query = "SELECT * FROM payment WHERE order_id = ?";
 		
 		try (Connection conn = DBconfig.getConnection();
 				PreparedStatement ps = conn.prepareStatement(query)) {
-			ps.setInt(1, orderId);
+			ps.setInt(1, paymentId);
 			ResultSet rs = ps.executeQuery();
 			
 			if (rs.next()) {
 				return new PaymentModel(
 						rs.getInt("payment_id"),
-						rs.getInt("order_id"),
 						rs.getDouble("amount"),
 						rs.getString("payment_status"),
 						rs.getTimestamp("payment_date")
