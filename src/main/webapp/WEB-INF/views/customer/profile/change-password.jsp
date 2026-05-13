@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,6 +22,12 @@
 
             <div class="user-profile-container">
 
+				<c:if test="${not empty error}">
+				    <div class="error-message">${error}</div>
+				</c:if>
+				<c:if test="${not empty success}">
+				    <div class="success-message">${success}</div>
+				</c:if>
                 <form class="user-profile-form" id="passwordForm" action="${pageContext.request.contextPath}/profile/change-password" method="POST">
                     
                     <div class="input-group full-width">
