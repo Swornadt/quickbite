@@ -25,7 +25,6 @@ import com.quickbite.model.Outlet;
 import com.quickbite.model.OutletItem;
 import com.quickbite.model.Report;
 import com.quickbite.model.UserModel;
-import com.quickbite.service.AdminCustomerService;
 import com.quickbite.service.AdminService;
 import com.quickbite.service.MenuService;
 import com.quickbite.utils.ImageUtil;
@@ -40,7 +39,9 @@ import com.quickbite.utils.SessionUtil;
 public class AdminController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private AdminCustomerService adminCustomerService;
+
+	private AdminService adminService;
+
 	
     public AdminController() {
         super();
@@ -49,7 +50,9 @@ public class AdminController extends HttpServlet {
     @Override
     public void init() throws ServletException {
         // Initialize the service once when the servlet starts
-        this.adminCustomerService = new AdminCustomerService();
+
+    	this.adminService = new AdminService();
+
     }
 
     
@@ -244,8 +247,10 @@ public class AdminController extends HttpServlet {
 	private void viewCustomers(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		System.out.print("Hit viewCustomers");
-		List<UserModel> pendingUsers = adminCustomerService.getPendingUsers();
-		List<UserModel> activeCustomers = adminCustomerService.getActiveCustomers();
+
+		List<UserModel> pendingUsers = adminService.getPendingUsers();
+		List<UserModel> activeCustomers = adminService.getActiveCustomers();
+
 		
 		
 		//Attaching the list to the request so the jsp can access it
@@ -453,7 +458,8 @@ public class AdminController extends HttpServlet {
 		String userIdParam = request.getParameter("user_id");
 		String action = request.getParameter("action");
 						
-		adminCustomerService.updateUserStatus(userIdParam,action);
+
+		adminService.updateUserStatus(userIdParam, action);
 						
 		//Always redirect back after a POST - prevent resubmission on refresh
 		response.sendRedirect(request.getContextPath() + "/admin/customers");
