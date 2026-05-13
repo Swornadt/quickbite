@@ -206,7 +206,7 @@ public class UserDAO {
 	}
 
 	public boolean updatePassword(int userId, String hashNewPassword) {
-		String sql = "UPDATE users SET password = ? WHERE user_id = ?";
+		String sql = "UPDATE user SET password = ? WHERE user_id = ?";
 		try (Connection conn = DBconfig.getConnection();
 				PreparedStatement pst = conn.prepareStatement(sql)) {
 			
