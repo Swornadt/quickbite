@@ -44,17 +44,9 @@ public class ValidationUtil {
         }
         
         //Password Validation
-        if (pass == null || pass.length() <= 6 ||
-                !pass.matches(".*[A-Z].*") ||
-                !pass.matches(".*[0-9].*") ||
-                !pass.matches(".*[!@#$%^&*].*")) {
-
-                return "Password must be more than 6 characters and include an uppercase letter, a number, and a special character (!@#$%^&*).";
-            }
-        
-        //Confirm password matching new password validation
-        if (!pass.equals(confirmPass)) {
-            return "Passwords do not match.";
+        String passwordError = validatePassword(pass, confirmPass);
+        if (passwordError != null) {
+        	return passwordError;
         }
         
         //Terms must be checked
