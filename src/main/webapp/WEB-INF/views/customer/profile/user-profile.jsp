@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>User Profile</title>
-<link rel="stylesheet" href="<%=request.getContextPath() %>/css/userProfile.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/userProfile.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -19,6 +19,7 @@
 <div class="user-profile-section-container">
 <section class="user-profile-section">
 <%@ include file="../../common/userProfileSideNav.jsp" %>
+
       <div class="user-profile-container">
         <!-- Profile image container -->
         <div class="profile-picture-wrapper">
@@ -29,18 +30,30 @@
           </div>
         </div>
 
+		
+		<% if (request.getAttribute("error") != null) { %>
+	    	<p style="color: red;" class="profile-message">
+	        	<%= request.getAttribute("error") %>
+	    	</p>
+		<% } %>
+		<% if (request.getAttribute("success") != null) { %>
+	    	<p style="color: green;" class="profile-message">
+	        	<%= request.getAttribute("success") %>
+	    	</p>
+		<% } %>
+				
         <!-- user details form  -->
-        <form class="user-profile-form">
+        <form class="user-profile-form" action="${pageContext.request.contextPath}/profile/update" method="post">
           <!-- first name and last name row -->
           <div class="form-row">
             <div class="input-group">
               <label>FIRST NAME</label>
-              <input type="text" placeholder="First Name" />
+              <input type="text" placeholder="First Name" name="fname" value="${user.fname}"/>
             </div>
 
             <div class="input-group">
               <label>LAST NAME</label>
-              <input type="text" placeholder="Last Name" />
+              <input type="text" placeholder="Last Name" name="lname" value="${user.lname}"/>
             </div>
           </div>
 
@@ -48,19 +61,18 @@
           <div class="form-row">
             <div class="input-group">
               <label>PHONE NUMBER</label>
-              <input type="text" placeholder="9712345678" />
+              <input type="text" placeholder="9712345678" name="number" value="${user.number}"/>
             </div>
 
             <div class="input-group">
               <label>EMAIL</label>
-              <input type="email" placeholder="example@gmail.com" />
+              <input type="text" placeholder="example@gmail.com" name="email" value="${user.email}"/>
             </div>
           </div>
 
           <!-- BUTTONS -->
           <div class="profile-btn-container">
             <button type="submit" class="save-btn">SAVE</button>
-            <button type="button" class="cancel-btn">CANCEL</button>
           </div>
         </form>
       </div>

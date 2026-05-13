@@ -28,6 +28,17 @@ public class CheckoutController extends HttpServlet {
 
     }
 
+    /**
+     * Handles GET requests for populating the cart data and its subtotal
+     * 
+     * It verifies the user session, retrieves current shopping cart grouped by outlet,
+     * and calculates the total order cost. This is then forwarded to the checkout jsp 
+     * for rendering.
+     * 
+     * @param request
+     * @param response
+     * @throws ServletException, IOException
+     */
     @Override
     /**
      * Handles GET requests for populating the cart data and its subtotal
@@ -85,9 +96,18 @@ public class CheckoutController extends HttpServlet {
 	    
 		request.getRequestDispatcher("/WEB-INF/views/customer/payment.jsp").forward(request, response);
 	}
-
-	
-	@Override
+  
+    /**
+     * Handles the POST request for submitting the checkout form and initiates order placement
+     * 
+     * It extracts the preferences for order placememnt (asap or scheduled) from the request.
+     * The business logic of order processing is delegated to CartService.
+     * Upon success, the cart is cleared from session and user is redirected to confirmation view.
+     * 
+     * @param request
+     * @param response
+     * @throws ServletException, IOException
+     */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 		String endpoint = request.getServletPath();
@@ -151,6 +171,7 @@ public class CheckoutController extends HttpServlet {
 	    
 	    try {
 	    	boolean success = cartService.processOrder(user, cart, type, date, slot, notes);
+	    	
 	    	if (success) {
 	    		// cleanup the session
 	    		session.removeAttribute("cart");
