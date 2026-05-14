@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,6 +23,15 @@
       <div class="reset-page-section">
         <div class="reset-container">
           <h1>Request Password Reset</h1>
+          <!-- Error Message -->
+			<c:if test="${not empty error}">
+    			<p style="color: red; text-align:center; margin:10px 0;">${error}</p>
+			</c:if>
+
+			<!-- Success Message -->
+			<c:if test="${not empty success}">
+    			<p style="color: green; text-align:center; margin:10px 0;">${success}</p>
+			</c:if>
 			
           <!-- Actual Form  -->
           <form class="reset-section" action="" method="post">
