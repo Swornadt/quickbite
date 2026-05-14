@@ -20,7 +20,7 @@
 <div class="register-page-container">
       <!-- Left Side (Image Container) -->
       <div class="register-page-image-container">
-        <img src="<%=request.getContextPath() %>/assets/Register.jpeg" class="register-page-image" />
+        <img src="<%=request.getContextPath() %>/assets/register.png" class="register-page-image" />
       </div>
 
       <!-- Right Side (Form Container) -->

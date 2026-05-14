@@ -18,7 +18,7 @@
 	 <div class="login-page-container">
       <!-- Left Side (Image Container) -->
       <div class="login-page-image-container">
-        <img src="<%=request.getContextPath() %>/assets/Login.jpeg" class="login-page-image" />
+        <img src="<%=request.getContextPath() %>/assets/login.png" class="login-page-image" />
       </div>
 
       <!-- Right Side (Form Container) -->
