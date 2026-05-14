@@ -41,7 +41,7 @@
               <label for="email">Email:</label>
               <input
                 id="email"
-                type="email"
+                type="text"
                 name="email"
                 class="reset-input"
               />
