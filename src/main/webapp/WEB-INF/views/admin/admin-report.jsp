@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Admin Report | QuickBite</title>
-<link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin-report.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin-report.css" />
 </head>
 <body>
 <div class="admin-body">

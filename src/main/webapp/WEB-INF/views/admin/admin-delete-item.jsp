@@ -6,7 +6,7 @@
         <head>
             <meta charset="UTF-8">
             <title>Delete Item</title>
-            <link rel="stylesheet" href="<%=request.getContextPath() %>/css/adminMenuForm.css" />
+            <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminMenuForm.css" />
             <style>
                 .alert {
                     padding: 15px;

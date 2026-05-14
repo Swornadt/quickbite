@@ -6,7 +6,7 @@
         <head>
             <meta charset="UTF-8">
             <title>Update Item | Quickbite</title>
-            <link rel="stylesheet" href="<%=request.getContextPath() %>/css/adminMenuForm.css" />
+            <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminMenuForm.css" />
         </head>
 
         <body>
