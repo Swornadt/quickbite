@@ -11,15 +11,18 @@
 </head>
 <body>
     <div class="admin-body">
+    	<!-- Side Navigation Bar -->
         <div class="admin-sidenav">
             <%@ include file="../common/side-nav.jsp" %>
 
         </div>
 
+		<!-- Top Navigation Bar -->
         <div class="admin-profile-side">
         <%@ include file='../common/adminNav.jsp' %>
             <div class="admin-brief" style="margin: 20px 0;">
                 <div class="admin-image">
+                	<!-- Retrieves admin's profile image -->
                     <img src="${pageContext.request.contextPath}/${user.image}" alt="">
                 </div>
                 <div class="admin-brief-detail">
@@ -30,6 +33,7 @@
 
 
             <div class="admin-detail-grid" id="adminDetailGrid">
+            	<!-- Form submits the data to the same servlet path but as a POST request-->
                 <form action="${pageContext.request.contextPath}/admin/profile" method="post">
 
                     <div class="admin-credentials-grid" id="adminCredentialsGrid">

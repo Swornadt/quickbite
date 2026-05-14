@@ -175,7 +175,7 @@ public class AdminController extends HttpServlet {
 	 * @throws IOException
 	 */
 	private void viewCustomerProfile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//Gets the id from the URL
+				//Gets the id from the URL
 				String userIdParam = request.getParameter("userId");
 				if (userIdParam !=null) {
 					try {
@@ -183,11 +183,13 @@ public class AdminController extends HttpServlet {
 						AdminService adminService = new AdminService();
 						OrderDAO orderDAO = new OrderDAO();
 						
+						//Retrieve User Data
 						UserModel user = adminService.getUserById(userId);			
 						if(user !=null) {
 							request.setAttribute("customerData", user);
 						}
 						
+						//Retrieve split order history (Current and Past Orders)
 						List<OrderModel> currentOrders = orderDAO.getOrdersByStatus(userId, true);
 						List<OrderModel> pastOrders = orderDAO.getOrdersByStatus(userId, false);
 						
@@ -407,7 +409,7 @@ public class AdminController extends HttpServlet {
 
 
 	private void handleAdminProfile(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		//Getting the Parameter as a String first
+				//Getting the Parameter as a String first
 				String userIdStr = request.getParameter("user_id");
 				
 				if(userIdStr == null || userIdStr.isEmpty()) {
@@ -428,6 +430,7 @@ public class AdminController extends HttpServlet {
 					AdminService adminService = new AdminService();
 					boolean success = adminService.updateAdminProfile(user_id, fname, lname, dob, gender, email, number);
 					
+					//Shows if the update was successful or not
 					if(success) {
 						response.sendRedirect(request.getContextPath() + "/admin/profile?update=success");
 					}
