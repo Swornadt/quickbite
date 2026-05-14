@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Admin Report | QuickBite</title>
-<link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin-report.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin-report.css" />
 </head>
 <body>
 <div class="admin-body">
@@ -18,7 +18,7 @@
             <div class="top-container">
                 <h1>Report</h1>
                 
-                <form method="GET" action="<%=request.getContextPath()%>/admin/report">
+                <form method="GET" action="${pageContext.request.contextPath}/admin/report">
                     <select name="outletId" class="canteen-btn" onchange="this.form.submit()">
                         <option value="0" ${selectedOutletId == 0 ? 'selected' : ''}>All Outlets</option>
                         <c:forEach var="outlet" items="${outlets}">
@@ -34,7 +34,7 @@
             <!-- Cards -->
             <div class="admin-card-infos">
                 <div class="admin-card-info">
-                    <img src="<%=request.getContextPath()%>/assets/info-img-1.jpeg" class="admin-card-img" />
+                    <img src="${pageContext.request.contextPath}/assets/info-img-1.jpeg" class="admin-card-img" />
                     <p class="gained-number">${report.totalUsers}</p>
                     <div class="card-info-numbers">
                         <p class="card-info-number-title">Total Users</p>
@@ -42,7 +42,7 @@
                 </div>
 
                 <div class="admin-card-info">
-                    <img src="<%=request.getContextPath()%>/assets/info-img-2.jpeg" class="admin-card-img" />
+                    <img src="${pageContext.request.contextPath}/assets/info-img-2.jpeg" class="admin-card-img" />
                     <p class="gained-number">Rs. ${report.totalSales}</p>
                     <div class="card-info-numbers">
                         <p class="card-info-number-title">Total Sales</p>
@@ -50,7 +50,7 @@
                 </div>
 
                 <div class="admin-card-info">
-                    <img src="<%=request.getContextPath()%>/assets/info-img-3.jpeg" class="admin-card-img" />
+                    <img src="${pageContext.request.contextPath}/assets/info-img-3.jpeg" class="admin-card-img" />
                     <p class="gained-number">${report.totalOrders}</p>
                     <div class="card-info-numbers">
                         <p class="card-info-number-title">Total Orders</p>
@@ -87,7 +87,7 @@
 	            </div>
 	            <div class="line-chart-image-container">
 	              <img
-	                src="<%=request.getContextPath()%>/assets/Line Graph.png"
+	                src="${pageContext.request.contextPath}/assets/Line Graph.png"
 	                class="line-chart"
 	                alt="line-graph-image"
 	              />
@@ -104,7 +104,7 @@
 	              class="barchart-image-container"
 	              id="barchart-highrate-image-container"
 	            >
-	              <img src="<%=request.getContextPath()%>/assets/barchart1.png" class="barchart" />
+	              <img src="${pageContext.request.contextPath}/assets/barchart1.png" class="barchart" />
 	            </div>
 	          </div>
 	          <div class="barchart-profit">
@@ -118,7 +118,7 @@
 	              class="barchart-image-container"
 	              id="barchart-profit-image-container"
 	            >
-	              <img src="<%=request.getContextPath()%>/assets/barchart2.png" class="barchart" />
+	              <img src="${pageContext.request.contextPath}/assets/barchart2.png" class="barchart" />
 	            </div>
 	          </div>
 	        </div>

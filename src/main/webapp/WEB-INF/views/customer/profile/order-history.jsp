@@ -8,7 +8,7 @@
 	<meta charset="UTF-8">
 	<title>Order History | QuickBite</title>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/order-history.css">
-	<link rel="stylesheet" href="<%=request.getContextPath() %>/css/userProfile.css" />
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/userProfile.css" />
 </head>
 
 <body>

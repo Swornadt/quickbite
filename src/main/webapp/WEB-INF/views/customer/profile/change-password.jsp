@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>Change Password | QuickBite</title>
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/userProfile.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/userProfile.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -21,6 +22,12 @@
 
             <div class="user-profile-container">
 
+				<c:if test="${not empty error}">
+				    <div class="error-message">${error}</div>
+				</c:if>
+				<c:if test="${not empty success}">
+				    <div class="success-message">${success}</div>
+				</c:if>
                 <form class="user-profile-form" id="passwordForm" action="${pageContext.request.contextPath}/profile/change-password" method="POST">
                     
                     <div class="input-group full-width">
