@@ -19,19 +19,12 @@
 
   <!-- MAIN -->
   <section class="main">
-    <c:choose>
-		<c:when test="${pageContext.errorData.statusCode != 0}">
-        	${pageContext.errorData.statusCode}
-		</c:when>
-		<c:otherwise>
-			OOPS!
-		</c:otherwise>
-    </c:choose>
+  <div class="oops">OOPS!</div>
 
     <div class="error-title">
         <c:choose>
-            <c:when test="${pageContext.errorData.statusCode == 404}">PAGE NOT FOUND</c:when>
-            <c:when test="${pageContext.errorData.statusCode == 500}">INTERNAL SERVER ERROR</c:when>
+            <c:when test="${pageContext.errorData.statusCode == 404}">404 - PAGE NOT FOUND</c:when>
+            <c:when test="${pageContext.errorData.statusCode == 500}">500 - INTERNAL SERVER ERROR</c:when>
             <c:otherwise>SOMETHING WENT WRONG</c:otherwise>
         </c:choose>
     </div>
