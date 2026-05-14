@@ -9,6 +9,7 @@ public class FeedbackModel {
     private String feedbackDescription;
     private Timestamp ratingDate;
     private String userFullName;
+    private String userImage;
 
     // Constructor, getters and setters...
     public FeedbackModel(int userId, int ratingValue, String feedbackDescription) {
@@ -47,6 +48,10 @@ public class FeedbackModel {
 		return userFullName != null ? userFullName : "Unknown User";
 	}
 	
+	public String getUserImage() {
+		return userImage != null ? userImage : "uploads/default.png";
+	}
+	
 	// Setters
 	public void setFeedbackId(int feedbackId) {
 		this.feedbackId = feedbackId;
@@ -70,5 +75,9 @@ public class FeedbackModel {
 	
 	public void setUserFullName(String userFullName) {
 		this.userFullName = userFullName;
+	}
+	
+	public void setUserImage(String userImage) {
+		this.userImage = userImage;
 	}
 }

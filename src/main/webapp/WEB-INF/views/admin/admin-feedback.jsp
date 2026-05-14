@@ -75,8 +75,8 @@
         <!-- Dynamic Feedback Cards -->
         <c:forEach var="fb" items="${feedbackList}">
             <div class="feedback-card">
-                <img src="https://via.placeholder.com/85" 
-                     alt="User" class="food-image"/>
+                <img src="${pageContext.request.contextPath}/${fb.userImage}" 
+                     alt="User" class="user-image"/>
                 
                 <div class="feedback-content">
                     <div class="feedback-header">
