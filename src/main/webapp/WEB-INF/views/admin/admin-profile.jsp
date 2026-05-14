@@ -23,8 +23,8 @@
                     <img src="${pageContext.request.contextPath}/${user.image}" alt="">
                 </div>
                 <div class="admin-brief-detail">
-                    <h4>${userData.fullName }</h4>
-                    <p>${userData.role }</p>
+                    <h4>${user.fullName }</h4>
+                    <p>${user.role }</p>
                 </div>
             </div>
 
@@ -35,44 +35,44 @@
                     <div class="admin-credentials-grid" id="adminCredentialsGrid">
                         <div class="user-id">
                             <h4>Admin ID</h4>
-                            <p>${userData.userId}</p>
-                            <input type="hidden" name="user_id" value="${userData.userId}">
+                            <p>${user.userId}</p>
+                            <input type="hidden" name="user_id" value="${user.userId}">
                         </div>
                         <div class="admin-first-name">
                             <h4>First Name</h4>
-                            <input type="text" name="fname" value="${userData.fname}">
+                            <input type="text" name="fname" value="${user.fname}">
                         </div>
                         <div class="admin-last-name">
                             <h4>Last Name</h4>
-                            <input type="text" name="lname" value="${userData.lname}">
+                            <input type="text" name="lname" value="${user.lname}">
                         </div>
 
                         <div class="admin-dob">
                             <h4>DOB</h4>
-                            <input id="dob" type="date" name="dob" class="register-input" value="${userData.dob}">
+                            <input id="dob" type="date" name="dob" class="register-input" value="${user.dob}">
                         </div>
                         <div class="admin-gender">
                             <h4>Gender</h4>
                             	<select name="gender" id="gender">
-								    <option value="Male" ${userData.gender == 'Male' ? 'selected' : ''}>Male</option>
-								    <option value="Female" ${userData.gender == 'Female' ? 'selected' : ''}>Female</option>
-								    <option value="Others" ${userData.gender == 'Others' ? 'selected' : ''}>Others</option>
+								    <option value="Male" ${user.gender == 'Male' ? 'selected' : ''}>Male</option>
+								    <option value="Female" ${user.gender == 'Female' ? 'selected' : ''}>Female</option>
+								    <option value="Others" ${user.gender == 'Others' ? 'selected' : ''}>Others</option>
 								</select>
                         </div>
                         <div class="admin-role">
                             <h4>Role</h4>
-                            <p>${userData.role }</p>
+                            <p>${user.role }</p>
                         </div>
                     </div>
 
                     <div class="admin-contact-details">
                         <div class="admin-email">
                             <h4>Email Address</h4>
-                            <input type="text" name="email" value="${userData.email}">
+                            <input type="text" name="email" value="${user.email}">
                         </div>
                         <div class="admin-contact1">
                             <h4>Primary Contact</h4>
-                            <input type="text" name="number" value="${userData.number}">
+                            <input type="text" name="number" value="${user.number}">
                         </div>
                     </div>
                     <button type="submit" class="save-btn"> Update Details </button>

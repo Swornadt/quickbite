@@ -158,7 +158,7 @@ public class AdminController extends HttpServlet {
 
 		UserModel admin = adminService.getUserById(currentId);
 		
-		request.setAttribute("userData", admin);
+		request.setAttribute("user", admin);
 		
 		request.getRequestDispatcher("/WEB-INF/views/admin/admin-profile.jsp").forward(request,response);
 	}
@@ -407,7 +407,10 @@ public class AdminController extends HttpServlet {
 
 
 	private void handleAdminProfile(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		//Getting the Parameter as a String first
+				
+				//Gets the session to access the current user
+				HttpSession session = request.getSession();
+
 				String userIdStr = request.getParameter("user_id");
 				
 				if(userIdStr == null || userIdStr.isEmpty()) {
@@ -415,8 +418,7 @@ public class AdminController extends HttpServlet {
 					return;
 				}
 				try {
-					//Extracting from data
-					int user_id = Integer.parseInt(request.getParameter("user_id"));
+					int user_id = Integer.parseInt(userIdStr);
 					String fname = request.getParameter("fname");
 					String lname = request.getParameter("lname");
 					String dob = request.getParameter("dob");
@@ -429,6 +431,8 @@ public class AdminController extends HttpServlet {
 					boolean success = adminService.updateAdminProfile(user_id, fname, lname, dob, gender, email, number);
 					
 					if(success) {
+						UserModel updatedAdmin = adminService.getUserById(user_id);
+						session.setAttribute("user", updatedAdmin);
 						response.sendRedirect(request.getContextPath() + "/admin/profile?update=success");
 					}
 					else {
