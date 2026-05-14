@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Customer Profile</title>
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/customerProfile.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/customerProfile.css" />
 </head>
 <body>
 
