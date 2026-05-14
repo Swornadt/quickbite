@@ -8,8 +8,8 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Admin Feedback | Quickbite</title>
-	<link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin-feedback.css" />
-	<link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin-main-dashboard.css" />
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin-feedback.css" />
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin-main-dashboard.css" />
 </head>
 <body>
 <div class="admin-body">

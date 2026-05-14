@@ -8,8 +8,8 @@
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Admin Update Menu | Quickbite</title>
-      <link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin-menu.css">
-      <link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin-main-dashboard.css" />
+      <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin-menu.css">
+      <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin-main-dashboard.css" />
     </head>
 
     <body>
@@ -26,7 +26,7 @@
                   <h2>Menu Management</h2>
 
                   <!-- Outlet Selector -->
-                  <form method="GET" action="<%=request.getContextPath()%>/admin/menu">
+                  <form method="GET" action="${pageContext.request.contextPath}/admin/menu">
                     <select name="outletId" class="canteen-btn" onchange="this.form.submit()">
                       <c:forEach var="outlet" items="${outlets}">
                         <option value="${outlet.outletId}" ${outlet.outletId==selectedOutletId ? 'selected' : '' }>
@@ -63,7 +63,7 @@
                         <td>${oi.item.itemDescription}</td>
                         <td>${oi.item.itemStatus}</td>
                         <td>
-						    <form action="<%=request.getContextPath()%>/admin/menu/edit" method="get" target="updateIframe"
+						    <form action="${pageContext.request.contextPath}/admin/menu/edit" method="get" target="updateIframe"
 						        style="display: inline;">
 						        <input type="hidden" name="itemId" value="${oi.item.itemId}" />
 						        <button type="button" class="edit-btn"
@@ -71,7 +71,7 @@
 						    </form>
 						</td>
                         <td>
-                          <form action="<%=request.getContextPath()%>/admin/menu/delete" method="post" target="deleteIframe"
+                          <form action="${pageContext.request.contextPath}/admin/menu/delete" method="post" target="deleteIframe"
                             style="display: inline;">
                             <input type="hidden" name="itemId" value="${oi.item.itemId}" />
                             <button type="button" class="delete-btn"
@@ -100,7 +100,7 @@
       <div id="addItemModal" class="modal">
         <div class="modal-content">
           <span class="close-btn" onclick="closeAddModal()">&times;</span>
-          <iframe src="<%=request.getContextPath()%>/admin/menu/add" class="modal-iframe"></iframe>
+          <iframe src="${pageContext.request.contextPath}/admin/menu/add" class="modal-iframe"></iframe>
         </div>
       </div>
 

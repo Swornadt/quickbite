@@ -73,7 +73,7 @@
       </div>
     </nav>
     <div class="below-nav"></div>
-    <script src="<%=request.getContextPath() %>/js/navbar.js"></script>
+    <script src="${pageContext.request.contextPath}/js/navbar.js"></script>
 
    
   </body>
