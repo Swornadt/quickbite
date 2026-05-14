@@ -83,7 +83,8 @@ body {
 .input-group label {
   font-size: 1rem;
   font-weight: 400;
-  margin-bottom: 0.8rem;
+  margin-top: 0.8rem;
+  margin-bottom: 0.2rem;
 }
 
 .input-group input {
@@ -158,4 +159,24 @@ body {
   .profile-btn-container button {
     width: 100%;
   }
+}
+
+.error-message {
+    background-color: #fde8e8 !important;
+    color: #c0392b;
+    border: 1px solid #e74c3c;
+    padding: 10px 16px;
+    border-radius: 6px;
+    margin-bottom: 16px;
+    font-size: 14px;
+}
+
+.success-message {
+    background-color: #e8f8e8 !important;
+    color: #1e8449;
+    border: 1px solid #2ecc71;
+    padding: 10px 16px;
+    border-radius: 6px;
+    margin-bottom: 0.4px;
+    font-size: 14px;
 }
