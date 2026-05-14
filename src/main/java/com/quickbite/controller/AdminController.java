@@ -145,7 +145,7 @@ public class AdminController extends HttpServlet {
 	 * @throws ServletException
 	 */
 	private void viewAdminProfile(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		//Gets yesterday's date
+		//Gets today's date
 		LocalDate today = LocalDate.now();
 		request.setAttribute("maxDate", today.toString());
 		
