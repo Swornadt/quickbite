@@ -103,7 +103,7 @@
         </div>
         
         <!-- PASSWORD RESET REQUESTS -->
-        <div class="grid" id="password-reset-requests">
+        <div class="grid" id="password-reset-requests" style="display: none;">
         <c:choose>
                 <c:when test="${empty passwordResetRequests}">
                     <div class="empty-state">No password reset requests at the moment.</div>
