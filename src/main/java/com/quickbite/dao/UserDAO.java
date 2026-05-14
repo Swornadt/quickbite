@@ -199,8 +199,71 @@ public class UserDAO {
 			e.printStackTrace();
 		}
 
-		return null;
-				
-				
+		return null;		
 	}
+	
+	/**
+	 * Retrieves a user record matching both the provided email and phone number
+	 * 
+	 * Performs a verification for the given credentials - Checking if the email and number exist in the db 
+	 * 
+	 * @param email The email address provided by the user
+	 * @param number The phone number provided by the user
+	 * @return user object if a matching user is found  or null otherwise
+	 * @see UserModel
+	 * @since 2026-05-14
+	 */
+	public UserModel getUserByEmailAndNumber(String email, String number) {
+		String sql = "SELECT * FROM user WHERE email = ? AND number = ?";
+		
+		try(Connection conn = DBconfig.getConnection();
+			PreparedStatement pst = conn.prepareStatement(sql)){
+			
+			pst.setString(1,email);
+			pst.setString(2,number);
+			
+			try(ResultSet rs = pst.executeQuery()){
+				if (rs.next()) {
+					UserModel user = new UserModel();
+	                user.setUserId(rs.getInt("user_id"));
+	                user.setFname(rs.getString("fname"));
+	                user.setLname(rs.getString("lname"));
+	                user.setNumber(rs.getString("number"));
+	                user.setEmail(rs.getString("email"));
+	                user.setRole(rs.getString("role"));
+	                user.setStatus(rs.getString("status"));
+	                return user;
+				}
+			}
+		}catch(SQLException e) {
+			System.err.println("Error fetching user by email and number: " + e.getMessage());
+	        e.printStackTrace();
+		}
+		return null;
+	}
+	
+	/**
+	 * Sets the password reset flag for a specified user to True
+	 * 
+	 * 
+	 * @param userId The unique ID of the user requesting a password reset
+	 * @return true if the update was successful, false otherwise
+	 * @see ResetPasswordService
+	 * @since 2026-05-14
+	 */
+	public boolean setResetPasswordFlag(int userId) {
+		String sql = "UPDATE user SET reset_pw = TRUE WHERE user_id = ?";
+
+		try (Connection conn = DBconfig.getConnection();
+	        PreparedStatement pst = conn.prepareStatement(sql)) {
+				pst.setInt(1, userId);
+				return pst.executeUpdate() > 0;
+
+		    } catch (SQLException e) {
+		        System.err.println("Error setting reset_pw flag: " + e.getMessage());
+		        e.printStackTrace();
+		        return false;
+		    }	
+	}
+	
 }
