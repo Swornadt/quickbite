@@ -28,6 +28,16 @@ public class AuthController extends HttpServlet {
         super();
     }
 
+    /**
+     * Handles GET request for routing for appropriate view
+     * 
+     * Gets the endpoint of the current URL.
+     * User can: 1. Login, 2. Register, 3. Logout
+     * 
+     * @param request
+     * @param response
+     * @throws ServletException, IOException
+     */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String endpoint = request.getServletPath();
 		
@@ -48,6 +58,22 @@ public class AuthController extends HttpServlet {
 				
 	}
 
+	/** 
+	 * Handles POST request for routing to appropriate handler
+	 * 
+	 * Gets the endpoint of the current URL.
+	 * It calls the corresponding method to execute the action.
+	 * 1. Login
+	 * 2. Logout
+	 * 3. Register
+	 * 
+	 * @param request
+     * @param response
+     * @throws ServletException, IOException
+     * @see #handleLogin(HttpServletRequest, HttpServletResponse)
+     * @see #handleLogout(HttpServletRequest, HttpServletResponse)
+     * @see #handleRegister(HttpServletRequest, HttpServletResponse)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String endpoint = request.getServletPath();
 		
@@ -144,7 +170,7 @@ public class AuthController extends HttpServlet {
 		// Authentication logic
         LoginService loginService = new LoginService();
         UserModel user = loginService.authenticate(number, pass);
-        
+
         if (user != null) {   
         	
         	// User's approval status check

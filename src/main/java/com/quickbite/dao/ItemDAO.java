@@ -1,7 +1,10 @@
 package com.quickbite.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import com.quickbite.model.Item;
 import com.quickbite.utils.DBconfig;
 
@@ -68,6 +71,54 @@ public class ItemDAO {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	/**
+	 * Returns only six items 
+	 * @return
+	 */
+	public List<Map<String, Object>> getPopularItemsWithOutlets() {
+		List<Map<String, Object>> popularList = new ArrayList<>();
+		String sql = "SELECT i.*, o.outlet_name FROM outlet_item oi " +
+	             "JOIN item i ON oi.item_id = i.item_id " +
+	             "JOIN outlet o ON oi.outlet_id = o.outlet_id " +
+	             "WHERE (oi.outlet_id, oi.item_id) IN (" +
+	             "    SELECT outlet_id, MIN(item_id) " +
+	             "    FROM outlet_item " +
+	             "    GROUP BY outlet_id" +
+	             ") LIMIT 6";
+
+		try (Connection conn = DBconfig.getConnection();
+				PreparedStatement ps = conn.prepareStatement(sql);
+				ResultSet rs = ps.executeQuery()) {
+
+			while (rs.next()) {
+				Item item = new Item(
+						rs.getInt("item_id"),
+						rs.getString("item_name"),
+						rs.getString("category"),
+						rs.getString("item_type"),
+						rs.getString("item_description"),
+						rs.getString("item_status"),
+						rs.getString("item_ingredient"),
+						rs.getString("item_allergy"),
+						rs.getString("item_image")
+				);
+				
+				Map<String, Object> dataMap = new HashMap<>();
+	            dataMap.put("itemDetails", item);
+	            dataMap.put("outletName", rs.getString("outlet_name"));
+
+				popularList.add(dataMap);
+			}
+
+		}
+
+		catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+
+		return popularList;
 	}
 
 	// Add new item and return generated ID

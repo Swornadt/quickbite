@@ -1,15 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
 	<title>Admin Feedback | Quickbite</title>
-	<link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin-feedback.css" />
-	<link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin-main-dashboard.css" />
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin-feedback.css" />
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin-main-dashboard.css" />
 </head>
 <body>
 <div class="admin-body">
@@ -75,8 +75,8 @@
         <!-- Dynamic Feedback Cards -->
         <c:forEach var="fb" items="${feedbackList}">
             <div class="feedback-card">
-                <img src="https://via.placeholder.com/85" 
-                     alt="User" class="food-image"/>
+                <img src="${pageContext.request.contextPath}/${fb.userImage}" 
+                     alt="User" class="user-image"/>
                 
                 <div class="feedback-content">
                     <div class="feedback-header">
