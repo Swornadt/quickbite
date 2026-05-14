@@ -42,7 +42,7 @@
                         </c:if>
 
                         <c:if test="${empty message}">
-                            <form action="<%=request.getContextPath()%>/admin/menu/delete" method="post">
+                            <form action="${pageContext.request.contextPath}/admin/menu/delete" method="post">
                                 <input type="hidden" name="itemId" value="${param.itemId}">
                                 <input type="hidden" name="action" value="delete"> 
 

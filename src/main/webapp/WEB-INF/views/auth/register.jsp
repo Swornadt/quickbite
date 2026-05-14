@@ -42,7 +42,7 @@
           <!-- Actual Form  -->
           <form
             class="register-section"
-            action="<%=request.getContextPath()%>/register"
+            action="${pageContext.request.contextPath}/register"
             method="post" 
             enctype="multipart/form-data"
           >

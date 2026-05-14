@@ -34,7 +34,7 @@
                <p style="color: green; text-align:center; margin:10px 0;"> <%= request.getAttribute("success") %> </p>
           <% } %>
           <!-- Actual Form  -->
-          <form class="signin-section" action="<%=request.getContextPath()%>/login" method="post">
+          <form class="signin-section" action="${pageContext.request.contextPath}/login" method="post">
             <!-- Section 1 -->
             <div class="signin-label">
               <label for="number">Phone Number:</label>
@@ -67,7 +67,7 @@
             This site is protected by reCAPTCHA and the Google
             <span>Privacy Policy</span> and <span>Terms of Service</span> apply
           </p>
-          <a href="<%=request.getContextPath()%>/register" class="no-acc-btn"
+          <a href="${pageContext.request.contextPath}/register" class="no-acc-btn"
             >Don't have an account? <span>Sign up</span></a
           >
         </div>

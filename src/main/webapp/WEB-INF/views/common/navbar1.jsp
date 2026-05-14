@@ -68,7 +68,7 @@
             </button>
           </div>
 
-          <a href="<%=request.getContextPath()%>/home" class="nav-logo-container">
+          <a href="${pageContext.request.contextPath}/home" class="nav-logo-container">
             <span class="logo-text">Quick</span>
             <span class="logo-text">Bite</span>
           </a>
@@ -77,8 +77,8 @@
         <!-- Navbar right side  -->
         <div class="nav-right">
           <div class="loggedin-nav-links">
-            <a href="<%=request.getContextPath()%>/outlets" class="nav-link">Location</a>
-            <a href="<%=request.getContextPath()%>/contact" class="nav-link">Contact Us</a>
+            <a href="${pageContext.request.contextPath}/outlets" class="nav-link">Location</a>
+            <a href="${pageContext.request.contextPath}/contact" class="nav-link">Contact Us</a>
           </div>
 
           <div class="nav-symbols">
@@ -111,8 +111,8 @@
 
       <!-- For Mobile Responsiveness  -->
       <div class="nav-mobile-menu">
-        <a href="<%=request.getContextPath()%>/outlet" class="mobile-nav-link">Outlet</a>
-        <a href="<%=request.getContextPath()%>/contact" class="mobile-nav-link">Contact Us</a>
+        <a href="${pageContext.request.contextPath}/outlet" class="mobile-nav-link">Outlet</a>
+        <a href="${pageContext.request.contextPath}/contact" class="mobile-nav-link">Contact Us</a>
       </div>
     </c:if>
     
@@ -129,7 +129,7 @@
             </button>
           </div>
 
-          <a href="<%=request.getContextPath()%>/home" class="nav-logo-container">
+          <a href="${pageContext.request.contextPath}/home" class="nav-logo-container">
 	            <p class="logo-text">Quick</p>
 	            <p class="logo-text">Bite</p>
           </a>
@@ -137,9 +137,9 @@
 
         <!-- Center nav links  -->
         <div class="nav-links">
-          <a href="<%=request.getContextPath()%>/home" class="nav-link">Home</a>
-          <a href="<%=request.getContextPath()%>/outlets" class="nav-link">Location</a>
-          <a href="<%=request.getContextPath()%>/about" class="nav-link">About Us</a>
+          <a href="${pageContext.request.contextPath}/home" class="nav-link">Home</a>
+          <a href="${pageContext.request.contextPath}/outlets" class="nav-link">Location</a>
+          <a href="${pageContext.request.contextPath}/about" class="nav-link">About Us</a>
           <a href="${pageContext.request.contextPath}/contact" class="nav-link">Contact</a>
         </div>
 
@@ -153,10 +153,10 @@
 
       <!-- For Mobile Responsiveness  -->
       <div class="nav-mobile-menu">
-        <a href="<%=request.getContextPath()%>/home" class="mobile-nav-link">Home</a>
-        <a href="<%=request.getContextPath()%>/outlets" class="mobile-nav-link">Location</a>
-        <a href="<%=request.getContextPath()%>/about" class="mobile-nav-link">About Us</a>
-        <a href="<%=request.getContextPath()%>/contact" class="mobile-nav-link">Contact</a>
+        <a href="${pageContext.request.contextPath}/home" class="mobile-nav-link">Home</a>
+        <a href="${pageContext.request.contextPath}/outlets" class="mobile-nav-link">Location</a>
+        <a href="${pageContext.request.contextPath}/about" class="mobile-nav-link">About Us</a>
+        <a href="${pageContext.request.contextPath}/contact" class="mobile-nav-link">Contact</a>
       </div>
     </c:if>
 
