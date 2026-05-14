@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 import com.quickbite.dao.FeedbackDAO;
@@ -144,6 +145,10 @@ public class AdminController extends HttpServlet {
 	 * @throws ServletException
 	 */
 	private void viewAdminProfile(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		//Gets yesterday's date
+		LocalDate today = LocalDate.now();
+		request.setAttribute("maxDate", today.toString());
+		
 		UserModel sessionUser = (UserModel) SessionUtil.getAttribute(request, "user");
 		
 		if (sessionUser == null) {
@@ -407,7 +412,6 @@ public class AdminController extends HttpServlet {
 
 
 	private void handleAdminProfile(HttpServletRequest request, HttpServletResponse response) throws IOException {
-				
 				//Gets the session to access the current user
 				HttpSession session = request.getSession();
 
