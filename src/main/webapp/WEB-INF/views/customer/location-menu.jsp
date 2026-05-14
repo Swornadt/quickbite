@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Location Menu</title>
-<link rel="stylesheet" href="<%=request.getContextPath() %>/css/location-menu.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/location-menu.css">
 </head>
 <body>
 
