@@ -16,7 +16,7 @@ import com.quickbite.dao.OrderDAO;
 import com.quickbite.model.Item;
 import com.quickbite.model.OrderModel;
 import com.quickbite.model.UserModel;
-
+import com.quickbite.service.FeedbackService;
 import com.quickbite.service.UserService;
 
 import com.quickbite.model.OutletItem;
@@ -65,6 +65,9 @@ public class CustomerController extends HttpServlet {
 			case "/change-password":
 				viewChangePassword(request, response);
 				break;
+			case "/contact":
+				submitOrderFeedback(request, response);
+				break;	
 			case "/favorites":
 				viewFavorites(request, response);
 				break;
@@ -195,6 +198,52 @@ public class CustomerController extends HttpServlet {
 		request.getRequestDispatcher("/WEB-INF/views/customer/profile/order-history.jsp").forward(request, response);		
 	}
 
+	private void submitOrderFeedback(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	    HttpSession session = request.getSession(false);
+	    
+	    if (session == null || session.getAttribute("user") == null) {
+            request.setAttribute("error", "You must be logged in to submit feedback.");
+            request.getRequestDispatcher("/WEB-INF/views/public/contact.jsp").forward(request, response);
+            return;
+        }
+	    
+	    UserModel user = (UserModel) session.getAttribute("user");
+        String ratingStr = request.getParameter("rating");
+        String message = request.getParameter("message");
+        String orderIdStr = request.getParameter("orderId");
+        
+        if (ratingStr == null || ratingStr.trim().isEmpty() ||
+            message == null || message.trim().isEmpty()) {
+            request.setAttribute("error", "Rating and message are required.");
+            request.getRequestDispatcher("/WEB-INF/views/public/contact.jsp").forward(request, response);
+            return;
+        }
+
+        try {
+            int rating = Integer.parseInt(ratingStr);
+            int orderId = Integer.parseInt(orderIdStr);
+            
+            if (rating < 1 || rating > 5) {
+                request.setAttribute("error", "Rating must be between 1 and 5.");
+                request.getRequestDispatcher("/WEB-INF/views/public/contact.jsp").forward(request, response);
+                return;
+            }
+            
+            FeedbackService service = new FeedbackService();
+            service.submitFeedback(user.getUserId(), orderId, rating, message.trim());
+
+            request.setAttribute("success", "Thank you! Your feedback has been submitted successfully.");
+
+        } catch (NumberFormatException e) {
+            request.setAttribute("error", "Invalid rating value.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("error", "Something went wrong. Please try again later.");
+        }
+
+        request.getRequestDispatcher("/WEB-INF/views/public/contact.jsp").forward(request, response);
+    }
+	
 	private void viewChangePassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("/WEB-INF/views/customer/profile/change-password.jsp").forward(request, response);
 	}
@@ -220,8 +269,6 @@ public class CustomerController extends HttpServlet {
 	        response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 	    }
 	}
-	
-
 	
 
 	private void toggleFavorites(HttpServletRequest request, HttpServletResponse response) throws IOException {
