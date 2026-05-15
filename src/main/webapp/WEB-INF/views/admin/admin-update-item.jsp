@@ -6,7 +6,7 @@
         <head>
             <meta charset="UTF-8">
             <title>Update Item | Quickbite</title>
-            <link rel="stylesheet" href="<%=request.getContextPath() %>/css/adminMenuForm.css" />
+            <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminMenuForm.css" />
         </head>
 
         <body>
@@ -27,7 +27,7 @@
 
                         <div class="form-container">
 
-                            <form action="<%=request.getContextPath()%>/admin/menu/edit" method="post"
+                            <form action="${pageContext.request.contextPath}/admin/menu/edit" method="post"
                                 enctype="multipart/form-data">
                                 <input type="hidden" name="itemId" value="${item.itemId}">
                                 <input type="hidden" name="existingImage" value="${item.itemImage}">

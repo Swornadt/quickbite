@@ -28,6 +28,17 @@ public class CheckoutController extends HttpServlet {
 
     }
 
+    /**
+     * Handles GET requests for populating the cart data and its subtotal
+     * 
+     * It verifies the user session, retrieves current shopping cart grouped by outlet,
+     * and calculates the total order cost. This is then forwarded to the checkout jsp 
+     * for rendering.
+     * 
+     * @param request
+     * @param response
+     * @throws ServletException, IOException
+     */
     @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
@@ -52,13 +63,23 @@ public class CheckoutController extends HttpServlet {
 		request.getRequestDispatcher("/WEB-INF/views/customer/checkout.jsp").forward(request, response);
 	}
     
+    /**
+     * Handles the POST request for submitting the checkout form and initiates order placement
+     * 
+     * It extracts the preferences for order placememnt (asap or scheduled) from the request.
+     * The business logic of order processing is delegated to CartService.
+     * Upon success, the cart is cleared from session and user is redirected to confirmation view.
+     * 
+     * @param request
+     * @param response
+     * @throws ServletException, IOException
+     */
     @Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 		
 		if (session == null || session.getAttribute("user")==null) {
 			response.sendRedirect(request.getContextPath()+"/login");
-			System.out.println("User session null! checkoutservlet");
 			return;
 		}
 		
@@ -67,30 +88,13 @@ public class CheckoutController extends HttpServlet {
 		String deliveryDate = request.getParameter("deliveryDate"); // YYYY-MM-DD
 		String timeSlot = request.getParameter("deliveryTimeSlot"); // HH:MM
 	    String specialInstructions = request.getParameter("specialInstructions");
-	    
-	    // Encapsulating the date and time for Schedule Later
-	    String finalPreferredDate = null;
-	    
-	    if ("later".equals(deliveryTimeType)) {
-	    	if (deliveryDate != null && !deliveryDate.isEmpty() && timeSlot != null && !timeSlot.isEmpty()) {
-	    		finalPreferredDate = deliveryDate + " " + timeSlot + ":00";
-	    	}
-	    } else {
-	    	specialInstructions = "[ASAP] " + (specialInstructions != null ? specialInstructions : "");
-	    }
-
-	    
+	   
 	    // get cart and user
 	    List<CartItemModel> cart = cartService.getCart(session);
 	    UserModel user = (UserModel) session.getAttribute("user");
 	    
-	    if (cart == null || cart.isEmpty()) {
-	    	response.sendRedirect(request.getContextPath()+"/outlets");
-	    	return;
-	    }
-	    
 	    try {
-	    	boolean success = cartService.placeOrder(user, cart, specialInstructions, finalPreferredDate);
+	    	boolean success = cartService.processOrder(user, cart, deliveryTimeType, deliveryDate, timeSlot, specialInstructions);
 	    	
 	    	if (success) {
 	    		session.removeAttribute("cart");
@@ -101,6 +105,7 @@ public class CheckoutController extends HttpServlet {
 	    	}
 	    }catch (Exception e) {
 	    	e.printStackTrace();
+	    	response.sendError(500, "Internal error during checkout.");
 	    }
     }
 		

@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Admin Profile</title>
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin-profile.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin-profile.css" />
 </head>
 <body>
     <div class="admin-body">
