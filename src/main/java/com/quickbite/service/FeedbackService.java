@@ -5,9 +5,9 @@ import com.quickbite.dao.OrderDAO;
 
 public class FeedbackService {
 
-    public void submitFeedback(int userId, int orderID, int rating, String message) throws Exception {
+    public void submitFeedback(int orderID, int rating, String message) throws Exception {
         FeedbackDAO feedbackDAO = new FeedbackDAO();
-        int feedbackId = feedbackDAO.insertFeedback(userId, rating, message);
+        int feedbackId = feedbackDAO.insertFeedback(rating, message);
         
         OrderDAO orderDAO = new OrderDAO();
         orderDAO.updateFeedbackId(orderID, feedbackId);

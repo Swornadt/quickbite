@@ -13,17 +13,16 @@ import com.quickbite.utils.DBconfig;
 
 public class FeedbackDAO {
 
-    public int insertFeedback(int userId, int rating, String message) throws Exception {
-        String sql = "INSERT INTO feedback (user_id, rating_value, feedback_description, rating_date) "
-                   + "VALUES (?, ?, ?, ?)";
+    public int insertFeedback(int rating, String message) throws Exception {
+        String sql = "INSERT INTO feedback (rating_value, feedback_description, rating_date) "
+                   + "VALUES (?, ?, ?)";
 
         try (Connection con = DBconfig.getConnection();
              PreparedStatement pst = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
-            pst.setInt(1, userId);
-            pst.setInt(2, rating);
-            pst.setString(3, message);
-            pst.setTimestamp(4, Timestamp.valueOf(java.time.LocalDateTime.now()));
+            pst.setInt(1, rating);
+            pst.setString(2, message);
+            pst.setTimestamp(3, Timestamp.valueOf(java.time.LocalDateTime.now()));
 
             pst.executeUpdate();
             

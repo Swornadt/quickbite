@@ -66,7 +66,7 @@ public class CustomerController extends HttpServlet {
 				viewChangePassword(request, response);
 				break;
 			case "/contact":
-				submitOrderFeedback(request, response);
+				request.getRequestDispatcher("/WEB-INF/views/public/contact.jsp").forward(request, response);;
 				break;	
 			case "/favorites":
 				viewFavorites(request, response);
@@ -95,6 +95,9 @@ public class CustomerController extends HttpServlet {
 			case "/favorites/toggle":
 				toggleFavorites(request, response);
 				break;
+			case "/contact":
+			    submitOrderFeedback(request, response);
+			    break;	
 			case "/update":
 				updateUserProfile(request,response);
         break;
@@ -199,7 +202,7 @@ public class CustomerController extends HttpServlet {
 	}
 
 	private void submitOrderFeedback(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    HttpSession session = request.getSession(false);
+	    HttpSession session = request.getSession();
 	    
 	    if (session == null || session.getAttribute("user") == null) {
             request.setAttribute("error", "You must be logged in to submit feedback.");
@@ -230,7 +233,7 @@ public class CustomerController extends HttpServlet {
             }
             
             FeedbackService service = new FeedbackService();
-            service.submitFeedback(user.getUserId(), orderId, rating, message.trim());
+            service.submitFeedback(orderId, rating, message.trim());
 
             request.setAttribute("success", "Thank you! Your feedback has been submitted successfully.");
 
