@@ -160,8 +160,6 @@ public class AdminController extends HttpServlet {
 			return;
 		}
 
-		
-		//Extracts user id for current session
 		int currentId = sessionUser.getUserId();
 
 		//Initializing the service
