@@ -110,6 +110,18 @@ public class OrderDAO {
 		
 		return orders;
 	}
+	
+	public void updateFeedbackId(int orderId, int feedbackId) {
+	    String sql = "UPDATE `order` SET feedback_id = ? WHERE order_id = ?";
+	    try (Connection conn = DBconfig.getConnection();
+	         PreparedStatement pst = conn.prepareStatement(sql)) {
+	        pst.setInt(1, feedbackId);
+	        pst.setInt(2, orderId);
+	        pst.executeUpdate();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	}
 
 	public int createOrderAndGetId(int userId, List<CartItemModel> cart, String specialInstructions,
 			String preferredDate) {
