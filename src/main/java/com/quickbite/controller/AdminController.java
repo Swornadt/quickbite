@@ -681,7 +681,8 @@ public class AdminController extends HttpServlet {
 
 		// Always reload data
 		loadOutlets(request);
-		loadItemForEdit(request); // Important for pre-filling form
+		// For pre-filling form
+		loadItemForEdit(request); 
 
 		request.getRequestDispatcher("/WEB-INF/views/admin/admin-update-item.jsp")
 				.forward(request, response);
