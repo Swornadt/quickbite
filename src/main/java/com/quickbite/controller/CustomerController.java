@@ -14,7 +14,7 @@ import java.util.List;
 import com.quickbite.dao.FavoriteDAO;
 import com.quickbite.dao.OrderDAO;
 import com.quickbite.dao.UserDAO;
-import com.quickbite.model.Item;
+import com.quickbite.model.ItemModel;
 import com.quickbite.model.OrderModel;
 import com.quickbite.model.UserModel;
 
@@ -22,7 +22,7 @@ import com.quickbite.service.UserService;
 import com.quickbite.utils.PasswordUtil;
 import com.quickbite.utils.SessionUtil;
 import com.quickbite.utils.ValidationUtil;
-import com.quickbite.model.OutletItem;
+import com.quickbite.model.OutletItemModel;
 
 
 @WebServlet(asyncSupported = true, urlPatterns = { "/profile", "/profile/*" })
@@ -268,7 +268,7 @@ public class CustomerController extends HttpServlet {
 
 	    FavoriteDAO favDAO = new FavoriteDAO();
 	    try {
-	        List<OutletItem> favoriteList = favDAO.getFavoritesByUser(user.getUserId());
+	        List<OutletItemModel> favoriteList = favDAO.getFavoritesByUser(user.getUserId());
 	        request.setAttribute("favoriteList", favoriteList);
 	        System.out.println(favoriteList);
 	        request.getRequestDispatcher("/WEB-INF/views/customer/profile/favorites-page.jsp").forward(request, response);

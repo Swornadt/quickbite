@@ -3,7 +3,7 @@ package com.quickbite.dao;
 import java.util.ArrayList;
 import java.util.List;
 import com.quickbite.utils.DBconfig;
-import com.quickbite.model.OrderOutletItem;
+import com.quickbite.model.OrderOutletItemModel;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,8 +12,8 @@ import java.sql.SQLException;
 
 public class OrderOutletItemDAO {
 
-	public List<OrderOutletItem> getOrderDetail(int orderId, int outletId) {
-        List<OrderOutletItem> list = new ArrayList<>();
+	public List<OrderOutletItemModel> getOrderDetail(int orderId, int outletId) {
+        List<OrderOutletItemModel> list = new ArrayList<>();
         String sql ="SELECT ooi.order_id, ooi.outlet_id, ooi.item_id, ooi.item_qty, ooi.item_status, " +
         	    	"o.order_status, o.order_date, o.order_note, o.preferred_date, " +
         	    	"i.item_name, ol.outlet_name " +
@@ -29,7 +29,7 @@ public class OrderOutletItemDAO {
             ps.setInt(2, outletId);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    list.add(new OrderOutletItem(
+                    list.add(new OrderOutletItemModel(
                     	rs.getInt("order_id"),           
                    	    rs.getInt("outlet_id"),           
                 		rs.getInt("item_id"),             
@@ -50,8 +50,8 @@ public class OrderOutletItemDAO {
         return list;
     }
 	
-	public List<OrderOutletItem> getOrdersByOutlet(int outletId) {
-	    List<OrderOutletItem> list = new ArrayList<>();
+	public List<OrderOutletItemModel> getOrdersByOutlet(int outletId) {
+	    List<OrderOutletItemModel> list = new ArrayList<>();
 	    String sql =
 	        "SELECT DISTINCT ooi.order_id, ooi.outlet_id, o.order_status "
 	        + "FROM order_outlet_item ooi JOIN `order` o ON ooi.order_id = o.order_id "
@@ -63,7 +63,7 @@ public class OrderOutletItemDAO {
 
 	        try (ResultSet rs = ps.executeQuery()) {
 	            while (rs.next()) {
-	                OrderOutletItem order = new OrderOutletItem(
+	                OrderOutletItemModel order = new OrderOutletItemModel(
 	                    rs.getInt("order_id"),
 	                    rs.getInt("outlet_id"),
 	                    rs.getInt("order_status")
@@ -79,10 +79,10 @@ public class OrderOutletItemDAO {
 	    return list;
 	}
 	
-	public List<OrderOutletItem> getOrderByStatus(List<OrderOutletItem> orders, int status) {
-	    List<OrderOutletItem> list = new ArrayList<>();
+	public List<OrderOutletItemModel> getOrderByStatus(List<OrderOutletItemModel> orders, int status) {
+	    List<OrderOutletItemModel> list = new ArrayList<>();
 
-	    for (OrderOutletItem order : orders) {
+	    for (OrderOutletItemModel order : orders) {
 	        if (order.getOrderStatus() == status) {
 	            list.add(order);
 	        }

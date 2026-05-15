@@ -2,7 +2,7 @@ package com.quickbite.model;
 
 import java.sql.Timestamp;
 
-public class OrderOutletItem {
+public class OrderOutletItemModel {
 	 private int orderId;
 	 private int outletId;
 	 private int itemId;
@@ -16,7 +16,7 @@ public class OrderOutletItem {
 	 private String outletName;
 
 	 
-	 public OrderOutletItem(int orderId, int outletId, int itemId, int itemStatus, String itemName, int itemQty, int orderStatus, 
+	 public OrderOutletItemModel(int orderId, int outletId, int itemId, int itemStatus, String itemName, int itemQty, int orderStatus, 
 			 Timestamp orderDate, Timestamp preferredDate, String orderNote, String outletName) {
 		 	this.orderId = orderId;
 		    this.outletId = outletId;
@@ -33,7 +33,7 @@ public class OrderOutletItem {
 	}
 	 
 	 //Overloading for distinct
-	 public OrderOutletItem(int orderId, int outletId, int orderStatus) {
+	 public OrderOutletItemModel(int orderId, int outletId, int orderStatus) {
 		    this.orderId = orderId;
 		    this.outletId = outletId;
 		    this.orderStatus = orderStatus;

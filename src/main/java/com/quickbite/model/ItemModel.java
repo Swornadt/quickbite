@@ -1,6 +1,6 @@
 package com.quickbite.model;
 
-public class Item {
+public class ItemModel {
 	
 	private int itemId;           
     private String itemName;
@@ -13,7 +13,7 @@ public class Item {
     private String itemImage;
 	
 	//Constructor
-    public Item(int itemId, String itemName, String category, String itemType,
+    public ItemModel(int itemId, String itemName, String category, String itemType,
             String itemDescription, String itemStatus, String itemIngredient,
             String itemAllergy, String itemImage) {
     this.itemId = itemId;
@@ -28,7 +28,7 @@ public class Item {
 }
     
     //Without ItemId for adding items
-    public Item(String itemName, String category, String itemType,
+    public ItemModel(String itemName, String category, String itemType,
             String itemDescription, String itemStatus, String itemIngredient,
             String itemAllergy, String itemImage) {
     this.itemName = itemName;
@@ -41,7 +41,7 @@ public class Item {
     this.itemImage = itemImage;
 }
     
-    public Item() {
+    public ItemModel() {
     	
     }
 	

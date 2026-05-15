@@ -14,12 +14,12 @@
 <body>
 	<%@ include file="/WEB-INF/views/common/navbar1.jsp" %>
 	
-    <%@ include file="/WEB-INF/views/common/utilityBar.jsp" %>
+    <%@ include file="/WEB-INF/views/common/utility-bar.jsp" %>
     
 	<div class="user-profile-section-container">
 		<section class="user-profile-section">
 		
-		<%@ include file="/WEB-INF/views/common/userProfileSideNav.jsp" %>
+		<%@ include file="/WEB-INF/views/common/user-profile-sidenav.jsp" %>
 		
 			<div class="user-profile-container">
 		

@@ -13,7 +13,7 @@
 			<div class="admin-body">
 				<%@ include file="../common/side-nav.jsp" %>
 					<div class="admin-right-body">
-						<%@ include file='../common/adminNav.jsp' %>
+						<%@ include file='../common/admin-nav.jsp' %>
 
 							<div class="admin-bottom-info">
 								<div class="top-container">

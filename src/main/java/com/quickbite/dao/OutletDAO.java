@@ -7,12 +7,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.quickbite.model.Outlet;
+import com.quickbite.model.OutletModel;
 import com.quickbite.utils.DBconfig;
 
 public class OutletDAO {
-	public List<Outlet> getAllOutlets() {
-		List<Outlet> list = new ArrayList<>();
+	public List<OutletModel> getAllOutlets() {
+		List<OutletModel> list = new ArrayList<>();
 		String query = "Select outlet_id, outlet_name, outlet_status, outlet_image from outlet";
 
 		try (Connection conn = DBconfig.getConnection();
@@ -20,7 +20,7 @@ public class OutletDAO {
 				ResultSet rs = ps.executeQuery()) {
 
 			while (rs.next()) {
-				list.add(new Outlet(
+				list.add(new OutletModel(
 						rs.getInt("outlet_id"),
 						rs.getString("outlet_name"),
 						rs.getString("outlet_status"),
@@ -32,14 +32,14 @@ public class OutletDAO {
 		return list;
 	}
 
-	public Outlet getOutletByName(String outletName) {
+	public OutletModel getOutletByName(String outletName) {
 		String sql = "SELECT * FROM outlet WHERE outlet_name = ?";
 		try (Connection conn = DBconfig.getConnection();
 				PreparedStatement ps = conn.prepareStatement(sql)) {
 			ps.setString(1, outletName);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
-				return new Outlet(
+				return new OutletModel(
 						rs.getInt("outlet_id"),
 						rs.getString("outlet_name"),
 						rs.getString("outlet_status"),
@@ -51,14 +51,14 @@ public class OutletDAO {
 		return null;
 	}
 
-	public Outlet getOutletById(int outletId) {
+	public OutletModel getOutletById(int outletId) {
 		String sql = "SELECT * FROM outlet WHERE outlet_id = ?";
 		try (Connection conn = DBconfig.getConnection();
 				PreparedStatement ps = conn.prepareStatement(sql)) {
 			ps.setInt(1, outletId);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
-				return new Outlet(
+				return new OutletModel(
 						rs.getInt("outlet_id"),
 						rs.getString("outlet_name"),
 						rs.getString("outlet_status"),

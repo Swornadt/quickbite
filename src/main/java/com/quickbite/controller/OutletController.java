@@ -11,8 +11,8 @@ import java.util.List;
 
 import com.quickbite.dao.OutletDAO;
 import com.quickbite.dao.OutletItemDAO;
-import com.quickbite.model.Outlet;
-import com.quickbite.model.OutletItem;
+import com.quickbite.model.OutletModel;
+import com.quickbite.model.OutletItemModel;
 
 @WebServlet("/outlets/*")
 public class OutletController extends HttpServlet {
@@ -48,7 +48,7 @@ public class OutletController extends HttpServlet {
 		
 		//Instantiating DAO
 		OutletDAO dao = new OutletDAO();
-		List<Outlet> list = dao.getAllOutlets();
+		List<OutletModel> list = dao.getAllOutlets();
 		
 		request.setAttribute("locations", list);
 		request.getRequestDispatcher("/WEB-INF/views/customer/outlet.jsp").forward(request, response);
@@ -77,7 +77,7 @@ public class OutletController extends HttpServlet {
 		
 	    //Fetching the corresponding Outlet Object from the database using the outlet name
 	    OutletDAO outletDAO = new OutletDAO();
-	    Outlet outlet = outletDAO.getOutletByName(outletName);
+	    OutletModel outlet = outletDAO.getOutletByName(outletName);
 	    
 	    //Redirecting to the outlets page in case of missing outlet
 	    if (outlet==null) {
@@ -88,12 +88,12 @@ public class OutletController extends HttpServlet {
 	    OutletItemDAO outletItemDAO = new OutletItemDAO();
 	    
 	    //Getting all items first to populate category buttons
-	    List<OutletItem> allItems = outletItemDAO.getItemsByOutlet(outlet.getOutletId());
+	    List<OutletItemModel> allItems = outletItemDAO.getItemsByOutlet(outlet.getOutletId());
 	    
 	    List<String> categories = new ArrayList<>();
 	    
 	    //To get categories from each Item
-	    for (OutletItem oi : allItems) {
+	    for (OutletItemModel oi : allItems) {
 	    	String cat = oi.getItem().getCategory();
 	    	
 	    	//Filters out null categories and stores unique categories
@@ -105,7 +105,7 @@ public class OutletController extends HttpServlet {
 	    }
 	    
 	    //Get only the items for selected categories
-	    List<OutletItem> results = outletItemDAO.searchItems(outlet.getOutletId(), selectedCategory, searchQuery);  
+	    List<OutletItemModel> results = outletItemDAO.searchItems(outlet.getOutletId(), selectedCategory, searchQuery);  
 	    
 	    //Attaching all compiled data objects as attributes to the requests
 	    request.setAttribute("categories", categories);

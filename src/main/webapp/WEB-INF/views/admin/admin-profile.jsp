@@ -19,7 +19,7 @@
 
 		<!-- Top Navigation Bar -->
         <div class="admin-profile-side">
-        <%@ include file='../common/adminNav.jsp' %>
+        <%@ include file='../common/admin-nav.jsp' %>
             <div class="admin-brief" style="margin: 20px 0;">
                 <div class="admin-image">
                 	<!-- Retrieves admin's profile image -->

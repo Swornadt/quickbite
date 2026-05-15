@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.sql.Timestamp;
 
 import com.quickbite.dao.OrderOutletItemDAO;
-import com.quickbite.model.OrderOutletItem;
+import com.quickbite.model.OrderOutletItemModel;
 import com.quickbite.service.KitchenService;
 
 /**
@@ -54,11 +54,11 @@ public class KitchenContoller extends HttpServlet {
         }
 		
 		OrderOutletItemDAO dao = new OrderOutletItemDAO();
-		List<OrderOutletItem> orders = dao.getOrdersByOutlet(outletId);
+		List<OrderOutletItemModel> orders = dao.getOrdersByOutlet(outletId);
 		
-		List<OrderOutletItem> pending = dao.getOrderByStatus(orders, 0);
-		List<OrderOutletItem> ongoing = dao.getOrderByStatus(orders, 1);
-		List<OrderOutletItem> complete = dao.getOrderByStatus(orders, 2);
+		List<OrderOutletItemModel> pending = dao.getOrderByStatus(orders, 0);
+		List<OrderOutletItemModel> ongoing = dao.getOrderByStatus(orders, 1);
+		List<OrderOutletItemModel> complete = dao.getOrderByStatus(orders, 2);
 		
 		request.setAttribute("pending", pending);
 		request.setAttribute("ongoing", ongoing);
@@ -77,7 +77,7 @@ public class KitchenContoller extends HttpServlet {
 
 	    int order = Integer.parseInt(orderId);
 	    OrderOutletItemDAO dao = new OrderOutletItemDAO();
-	    List<OrderOutletItem> orderdetails = dao.getOrderDetail(order, outletId);
+	    List<OrderOutletItemModel> orderdetails = dao.getOrderDetail(order, outletId);
 
 	    int totalQty = 0;
 	    String orderStatus = "";
@@ -88,7 +88,7 @@ public class KitchenContoller extends HttpServlet {
 	    String orderTime = "";
 
 
-	    for (OrderOutletItem item : orderdetails) {
+	    for (OrderOutletItemModel item : orderdetails) {
 	        totalQty += item.getItemQty();
 	        orderStatus = item.getOrderStatusLabel();
 	        orderType = item.getOrderTypeLabel();

@@ -15,10 +15,10 @@
 </head>
 <body>
 <%@ include file="../../common/navbar1.jsp" %>
-<%@ include file="../../common/utilityBar.jsp" %>
+<%@ include file="../../common/utility-bar.jsp" %>
 <div class="user-profile-section-container">
 <section class="user-profile-section">
-<%@ include file="../../common/userProfileSideNav.jsp" %>
+<%@ include file="../../common/user-profile-sidenav.jsp" %>
 
       <div class="user-profile-container">
         <!-- Profile image container -->

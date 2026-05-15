@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.quickbite.model.UserModel;
-import com.quickbite.model.Outlet;
+import com.quickbite.model.OutletModel;
 import com.quickbite.utils.DBconfig;
 
 public class UserOutletDAO {
