@@ -14,7 +14,7 @@ import java.util.List;
 import com.quickbite.dao.FavoriteDAO;
 import com.quickbite.dao.OrderDAO;
 import com.quickbite.dao.UserDAO;
-import com.quickbite.model.Item;
+import com.quickbite.model.ItemModel;
 import com.quickbite.model.OrderModel;
 import com.quickbite.model.UserModel;
 

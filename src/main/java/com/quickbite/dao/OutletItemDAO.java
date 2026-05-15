@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.quickbite.model.Item;
+import com.quickbite.model.ItemModel;
 import com.quickbite.model.Outlet;
 import com.quickbite.model.OutletItem;
 import com.quickbite.utils.DBconfig;
@@ -28,7 +28,7 @@ public class OutletItemDAO {
 
 			try (ResultSet rs = ps.executeQuery()) {
 				while (rs.next()) {
-					Item item = new Item(
+					ItemModel item = new ItemModel(
 							rs.getInt("item_id"),
 							rs.getString("item_name"),
 							rs.getString("category"),
@@ -66,7 +66,7 @@ public class OutletItemDAO {
 				ResultSet rs = ps.executeQuery()) {
 
 			while (rs.next()) {
-				Item item = new Item(
+				ItemModel item = new ItemModel(
 						rs.getInt("item_id"),
 						rs.getString("item_name"),
 						rs.getString("category"),
@@ -166,7 +166,7 @@ public class OutletItemDAO {
 
 			try (ResultSet rs = ps.executeQuery()) {
 				if (rs.next()) {
-					Item item = new Item(
+					ItemModel item = new ItemModel(
 							rs.getInt("item_id"), rs.getString("item_name"), rs.getString("category"),
 							rs.getString("item_type"), rs.getString("item_description"),
 							rs.getString("item_status"), rs.getString("item_ingredient"),
@@ -226,7 +226,7 @@ public class OutletItemDAO {
 			}
 			try (ResultSet rs = ps.executeQuery()) {
 				while (rs.next()) {
-					Item item = new Item(
+					ItemModel item = new ItemModel(
 							rs.getInt("item_id"),
 							rs.getString("item_name"),
 							rs.getString("category"),
@@ -283,7 +283,7 @@ public class OutletItemDAO {
 
 			try (ResultSet rs = ps.executeQuery()) {
 				while (rs.next()) {
-					Item item = new Item(
+					ItemModel item = new ItemModel(
 							rs.getInt("item_id"),
 							rs.getString("item_name"),
 							rs.getString("category"),

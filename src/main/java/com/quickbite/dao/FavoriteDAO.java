@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.quickbite.model.Item;
+import com.quickbite.model.ItemModel;
 import com.quickbite.model.Outlet;
 import com.quickbite.model.OutletItem;
 import com.quickbite.utils.DBconfig;
@@ -82,7 +82,7 @@ public class FavoriteDAO {
 	         	try (ResultSet rs = pst.executeQuery()) {
 	                while (rs.next()) {
 	                    // map the general item
-	                	Item item = new Item();
+	                	ItemModel item = new ItemModel();
 	                	item.setItemId(rs.getInt("item_id"));
 	                    item.setItemName(rs.getString("item_name"));
 	                    // map the outlet

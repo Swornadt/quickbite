@@ -2,18 +2,18 @@ package com.quickbite.model;
 
 public class OutletItem {
 
-	private Item item;
+	private ItemModel item;
 	private Outlet outlet;
 	private double outletItemPrice;
 	private int outletId;
 
-	public OutletItem(Item item, Outlet outlet, double outletItemPrice) {
+	public OutletItem(ItemModel item, Outlet outlet, double outletItemPrice) {
 		this.item = item;
 		this.outlet = outlet;
 		this.outletItemPrice = outletItemPrice;
 	}
 
-	public Item getItem() {
+	public ItemModel getItem() {
 		return item;
 	}
 

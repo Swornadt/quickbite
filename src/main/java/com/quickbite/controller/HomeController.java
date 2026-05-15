@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.quickbite.dao.ItemDAO;
-import com.quickbite.model.Item;
 
 @WebServlet(asyncSupported = true, urlPatterns = { "/home" })
 public class HomeController extends HttpServlet {

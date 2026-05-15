@@ -20,7 +20,7 @@ import com.quickbite.dao.OutletDAO;
 import com.quickbite.dao.OutletItemDAO;
 import com.quickbite.dao.ReportDAO;
 import com.quickbite.model.FeedbackModel;
-import com.quickbite.model.Item;
+import com.quickbite.model.ItemModel;
 import com.quickbite.model.OrderModel;
 import com.quickbite.model.Outlet;
 import com.quickbite.model.OutletItem;
@@ -397,7 +397,7 @@ public class AdminController extends HttpServlet {
 			}
 
 			ItemDAO itemDAO = new ItemDAO();
-			Item item = itemDAO.getItemById(itemId);
+			ItemModel item = itemDAO.getItemById(itemId);
 			if (item != null) {
 				request.setAttribute("item", item);
 			}
@@ -599,13 +599,13 @@ public class AdminController extends HttpServlet {
 			int itemId = -1;
 
 			// Check by name only
-			Item existing = itemDAO.getItemByName(itemName.trim());
+			ItemModel existing = itemDAO.getItemByName(itemName.trim());
 
 			if (existing != null) {
 				itemId = existing.getItemId();
 				request.setAttribute("message", "Item already exists. Linking to new outlet...");
 			} else {
-				Item newItem = new Item(
+				ItemModel newItem = new ItemModel(
 						itemName.trim(),
 						request.getParameter("category"),
 						request.getParameter("itemType"),
@@ -744,7 +744,7 @@ public class AdminController extends HttpServlet {
 			}
 
 			// Update Item
-			Item item = new Item(itemId, itemName, category, itemType,
+			ItemModel item = new ItemModel(itemId, itemName, category, itemType,
 					itemDescription, itemStatus, itemIngredient, itemAllergy, imagePath);
 
 			ItemDAO itemDAO = new ItemDAO();
@@ -820,7 +820,7 @@ public class AdminController extends HttpServlet {
 			try {
 				int itemId = Integer.parseInt(itemIdStr);
 				ItemDAO itemDAO = new ItemDAO();
-				Item item = itemDAO.getItemById(itemId);
+				ItemModel item = itemDAO.getItemById(itemId);
 				if (item != null) {
 					request.setAttribute("item", item);
 				}
