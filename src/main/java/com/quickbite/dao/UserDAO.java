@@ -78,7 +78,7 @@ public class UserDAO {
 	public List<UserModel> getPendingUsers(){
 		List<UserModel> list = new ArrayList<>();
 		
-		String sql = "SELECT user_id, fname, lname, number, email, role, status FROM user WHERE status = 'pending'";
+		String sql = "SELECT user_id, fname, lname, number, email, role, status, image FROM user WHERE status = 'pending'";
 		
 		try (Connection conn = DBconfig.getConnection();
 			PreparedStatement pst = conn.prepareStatement(sql);
@@ -93,6 +93,7 @@ public class UserDAO {
 		        user.setEmail(rs.getString("email"));
 		        user.setRole(rs.getString("role"));
 		        user.setStatus(rs.getString("status"));
+		        user.setImage(rs.getString("image"));
 		        list.add(user);
 			}
 		}catch (SQLException e) {
@@ -105,7 +106,7 @@ public class UserDAO {
 	// Fetching all users with status = 'active' and role = 'customer'
 	public List<UserModel> getActiveCustomers() {
 	    List<UserModel> list = new ArrayList<>();
-	    String sql = "SELECT user_id, fname, lname, number, email, role, status FROM user WHERE status = 'active' AND role = 'customer'";
+	    String sql = "SELECT user_id, fname, lname, number, email, role, status, image FROM user WHERE status = 'active' AND role = 'customer'";
 
 	    try (Connection conn = DBconfig.getConnection();
 	         PreparedStatement pst = conn.prepareStatement(sql);
@@ -120,6 +121,7 @@ public class UserDAO {
 	            user.setEmail(rs.getString("email"));
 	            user.setRole(rs.getString("role"));
 	            user.setStatus(rs.getString("status"));
+	            user.setImage(rs.getString("image"));
 	            list.add(user);
 	        }
 

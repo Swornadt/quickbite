@@ -50,4 +50,23 @@ public class OutletDAO {
 		}
 		return null;
 	}
+
+	public Outlet getOutletById(int outletId) {
+		String sql = "SELECT * FROM outlet WHERE outlet_id = ?";
+		try (Connection conn = DBconfig.getConnection();
+				PreparedStatement ps = conn.prepareStatement(sql)) {
+			ps.setInt(1, outletId);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				return new Outlet(
+						rs.getInt("outlet_id"),
+						rs.getString("outlet_name"),
+						rs.getString("outlet_status"),
+						rs.getString("outlet_image"));
+			}
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return null;
+	}
 }
