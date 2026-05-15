@@ -3,6 +3,7 @@ package com.quickbite.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,12 +13,12 @@ import com.quickbite.utils.DBconfig;
 
 public class FeedbackDAO {
 
-    public void insertFeedback(int userId, int rating, String message) throws Exception {
+    public int insertFeedback(int userId, int rating, String message) throws Exception {
         String sql = "INSERT INTO feedback (user_id, rating_value, feedback_description, rating_date) "
                    + "VALUES (?, ?, ?, ?)";
 
         try (Connection con = DBconfig.getConnection();
-             PreparedStatement pst = con.prepareStatement(sql)) {
+             PreparedStatement pst = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
             pst.setInt(1, userId);
             pst.setInt(2, rating);
@@ -25,8 +26,13 @@ public class FeedbackDAO {
             pst.setTimestamp(4, Timestamp.valueOf(java.time.LocalDateTime.now()));
 
             pst.executeUpdate();
-            System.out.println("Feedback inserted successfully for user_id: " + userId);
+            
+            ResultSet rs = pst.getGeneratedKeys();
+            if (rs.next()) {
+            	return rs.getInt(1);
+            }
         }
+		return -1;
     }
     
     public List<FeedbackModel> getAllFeedbacks() throws Exception {
