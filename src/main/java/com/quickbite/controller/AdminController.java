@@ -26,7 +26,6 @@ import com.quickbite.model.Outlet;
 import com.quickbite.model.OutletItem;
 import com.quickbite.model.Report;
 import com.quickbite.model.UserModel;
-import com.quickbite.service.AdminCustomerService;
 import com.quickbite.service.AdminService;
 import com.quickbite.service.MenuService;
 import com.quickbite.utils.ImageUtil;
@@ -40,7 +39,21 @@ import com.quickbite.utils.SessionUtil;
 public class AdminController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private AdminCustomerService adminCustomerService;
+
+	private AdminService adminService;
+
+	
+    public AdminController() {
+        super();
+    }
+    
+    @Override
+    public void init() throws ServletException {
+        // Initialize the service once when the servlet starts
+
+    	this.adminService = new AdminService();
+
+    }
 
 	public AdminController() {
 		super();
@@ -267,15 +280,18 @@ public class AdminController extends HttpServlet {
 			throws ServletException, IOException {
 
 		System.out.print("Hit viewCustomers");
-		List<UserModel> pendingUsers = adminCustomerService.getPendingUsers();
-		List<UserModel> activeCustomers = adminCustomerService.getActiveCustomers();
 
-		// Attaching the list to the request so the jsp can access it
-		request.setAttribute("pendingUsers", pendingUsers);
-		request.setAttribute("activeCustomers", activeCustomers);
+		List<UserModel> pendingUsers = adminService.getPendingUsers();
+		List<UserModel> activeCustomers = adminService.getActiveCustomers();
 
-		// Foward to JSP, the JSP wil loop through the list and display each user
-		request.getRequestDispatcher("/WEB-INF/views/admin/adminCustomerApproval.jsp").forward(request, response);
+		
+		
+		//Attaching the list to the request so the jsp can access it
+		request.setAttribute("pendingUsers",pendingUsers);
+		request.setAttribute("activeCustomers",activeCustomers);
+		
+		//Foward to JSP, the JSP wil loop through the list and display each user
+		request.getRequestDispatcher("/WEB-INF/views/admin/adminCustomerApproval.jsp").forward(request,response);
 	}
 
 /**
@@ -536,10 +552,11 @@ public class AdminController extends HttpServlet {
 
 		String userIdParam = request.getParameter("user_id");
 		String action = request.getParameter("action");
+						
 
-		adminCustomerService.updateUserStatus(userIdParam, action);
-
-		// Always redirect back after a POST - prevent resubmission on refresh
+		adminService.updateUserStatus(userIdParam, action);
+						
+		//Always redirect back after a POST - prevent resubmission on refresh
 		response.sendRedirect(request.getContextPath() + "/admin/customers");
 	}
 	
