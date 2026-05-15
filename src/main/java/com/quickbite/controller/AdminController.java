@@ -55,16 +55,6 @@ public class AdminController extends HttpServlet {
 
     }
 
-	public AdminController() {
-		super();
-	}
-
-	@Override
-	public void init() throws ServletException {
-		// Initialize the service once when the servlet starts
-		this.adminCustomerService = new AdminCustomerService();
-	}
-
 	/**
 	 * Handles GET requests by routing them to corresponding admin features.
 	 * 
