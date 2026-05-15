@@ -14,7 +14,7 @@ import java.util.List;
 
 import com.quickbite.dao.FavoriteDAO;
 import com.quickbite.model.CartItemModel;
-import com.quickbite.model.OutletItem;
+import com.quickbite.model.OutletItemModel;
 import com.quickbite.model.UserModel;
 import com.quickbite.service.CartService;
 
@@ -48,7 +48,7 @@ public class CartController extends HttpServlet {
 	        FavoriteDAO favDAO = new FavoriteDAO();
 	        try {
 	            // Fetch the user's favorites to compare against items on the page
-	            List<OutletItem> favoriteList = favDAO.getFavoritesByUser(user.getUserId());
+	            List<OutletItemModel> favoriteList = favDAO.getFavoritesByUser(user.getUserId());
 	            request.setAttribute("favoriteList", favoriteList); 
 	        } catch (SQLException e) {
 	            e.printStackTrace();

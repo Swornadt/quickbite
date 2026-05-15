@@ -170,7 +170,7 @@ public class AuthController extends HttpServlet {
 		// Authentication logic
         LoginService loginService = new LoginService();
         UserModel user = loginService.authenticate(number, pass);
-        
+
         if (user != null) {   
         	
         	// User's approval status check

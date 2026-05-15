@@ -147,7 +147,7 @@
             </c:choose>
         </div>
 
-        <a href="<%=request.getContextPath() %>/views/customer/outlets" class="add-more-link">+ Add More Items</a>
+        <a href="${pageContext.request.contextPath}/views/customer/outlets" class="add-more-link">+ Add More Items</a>
 
         <div class="summary-divider"></div>
 

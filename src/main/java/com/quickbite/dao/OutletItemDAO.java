@@ -7,20 +7,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.quickbite.model.Item;
-import com.quickbite.model.Outlet;
-import com.quickbite.model.OutletItem;
+import com.quickbite.model.ItemModel;
+import com.quickbite.model.OutletModel;
+import com.quickbite.model.OutletItemModel;
 import com.quickbite.utils.DBconfig;
 
 public class OutletItemDAO {
 
-	public List<OutletItem> getItemsByOutlet(int outletId) {
-		List<OutletItem> outletItems = new ArrayList<>();
+	public List<OutletItemModel> getItemsByOutlet(int outletId) {
+		List<OutletItemModel> outletItems = new ArrayList<>();
 		String sql = "SELECT i.*, oi.outlet_item_price, o.outlet_id, o.outlet_name, o.outlet_status, o.outlet_image " +
-	             "FROM item i " +
-	             "JOIN outlet_item oi ON i.item_id = oi.item_id " +
-	             "JOIN outlet o ON oi.outlet_id = o.outlet_id " +
-	             "WHERE oi.outlet_id = ?";
+				"FROM item i " +
+				"JOIN outlet_item oi ON i.item_id = oi.item_id " +
+				"JOIN outlet o ON oi.outlet_id = o.outlet_id " +
+				"WHERE oi.outlet_id = ?";
 
 		try (Connection conn = DBconfig.getConnection();
 				PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -28,7 +28,7 @@ public class OutletItemDAO {
 
 			try (ResultSet rs = ps.executeQuery()) {
 				while (rs.next()) {
-					Item item = new Item(
+					ItemModel item = new ItemModel(
 							rs.getInt("item_id"),
 							rs.getString("item_name"),
 							rs.getString("category"),
@@ -37,15 +37,13 @@ public class OutletItemDAO {
 							rs.getString("item_status"),
 							rs.getString("item_ingredient"),
 							rs.getString("item_allergy"),
-							rs.getString("item_image")
-						);
-					Outlet outlet = new Outlet(
-							rs.getInt("outlet_id"), 
-							rs.getString("outlet_name"), 
+							rs.getString("item_image"));
+					OutletModel outlet = new OutletModel(
+							rs.getInt("outlet_id"),
+							rs.getString("outlet_name"),
 							rs.getString("outlet_status"),
-							rs.getString("outlet_image")
-						);
-					OutletItem outletItem = new OutletItem(item, outlet, rs.getDouble("outlet_item_price"));
+							rs.getString("outlet_image"));
+					OutletItemModel outletItem = new OutletItemModel(item, outlet, rs.getDouble("outlet_item_price"));
 					outletItems.add(outletItem);
 				}
 			}
@@ -56,8 +54,8 @@ public class OutletItemDAO {
 		return outletItems;
 	}
 
-	public List<OutletItem> getAllOutletItems() {
-		List<OutletItem> outletItems = new ArrayList<>();
+	public List<OutletItemModel> getAllOutletItems() {
+		List<OutletItemModel> outletItems = new ArrayList<>();
 		String sql = "SELECT i.*, oi.outlet_item_price, oi.outlet_id " +
 				"FROM item i " +
 				"JOIN outlet_item oi ON i.item_id = oi.item_id " +
@@ -68,7 +66,7 @@ public class OutletItemDAO {
 				ResultSet rs = ps.executeQuery()) {
 
 			while (rs.next()) {
-				Item item = new Item(
+				ItemModel item = new ItemModel(
 						rs.getInt("item_id"),
 						rs.getString("item_name"),
 						rs.getString("category"),
@@ -77,15 +75,13 @@ public class OutletItemDAO {
 						rs.getString("item_status"),
 						rs.getString("item_ingredient"),
 						rs.getString("item_allergy"),
-						rs.getString("item_image")
-					);
-				Outlet outlet = new Outlet(
-						rs.getInt("outlet_id"), 
-						rs.getString("outlet_name"), 
+						rs.getString("item_image"));
+				OutletModel outlet = new OutletModel(
+						rs.getInt("outlet_id"),
+						rs.getString("outlet_name"),
 						rs.getString("outlet_status"),
-						rs.getString("outlet_image")
-					);
-				OutletItem outletItem = new OutletItem(item, outlet, rs.getDouble("outlet_item_price"));
+						rs.getString("outlet_image"));
+				OutletItemModel outletItem = new OutletItemModel(item, outlet, rs.getDouble("outlet_item_price"));
 				outletItems.add(outletItem);
 			}
 		} catch (SQLException e) {
@@ -154,103 +150,83 @@ public class OutletItemDAO {
 		return false;
 	}
 
-	// Delete all outlet_item entries for a specific item (required before deleting
-	// item)
-	public boolean deleteOutletItemsByItemId(int itemId) {
-		String sql = "DELETE FROM outlet_item WHERE item_id = ?";
+	public OutletItemModel getOutletItemByItemAndOutlet(int itemId, int outletId) {
+		String sql = "SELECT oi.outlet_id, oi.outlet_item_price, " +
+				"       i.*, o.outlet_name, o.outlet_status, o.outlet_image " +
+				"FROM outlet_item oi " +
+				"JOIN item i ON oi.item_id = i.item_id " +
+				"JOIN outlet o ON oi.outlet_id = o.outlet_id " +
+				"WHERE oi.item_id = ? AND oi.outlet_id = ?";
+
 		try (Connection conn = DBconfig.getConnection();
 				PreparedStatement ps = conn.prepareStatement(sql)) {
 
 			ps.setInt(1, itemId);
-			ps.executeUpdate();
-			return true;
+			ps.setInt(2, outletId);
+
+			try (ResultSet rs = ps.executeQuery()) {
+				if (rs.next()) {
+					ItemModel item = new ItemModel(
+							rs.getInt("item_id"), rs.getString("item_name"), rs.getString("category"),
+							rs.getString("item_type"), rs.getString("item_description"),
+							rs.getString("item_status"), rs.getString("item_ingredient"),
+							rs.getString("item_allergy"), rs.getString("item_image"));
+
+					OutletModel outlet = new OutletModel(
+							rs.getInt("outlet_id"), rs.getString("outlet_name"),
+							rs.getString("outlet_status"), rs.getString("outlet_image"));
+
+					return new OutletItemModel(item, outlet, rs.getDouble("outlet_item_price"));
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	// Delete outlet_item entries for a specific item (required before deleting
+	// item)
+	public boolean deleteOutletItem(int outletId, int itemId) {
+		String sql = "DELETE FROM outlet_item WHERE outlet_id = ? AND item_id = ?";
+
+		try (Connection conn = DBconfig.getConnection();
+				PreparedStatement ps = conn.prepareStatement(sql)) {
+
+			ps.setInt(1, outletId);
+			ps.setInt(2, itemId);
+
+			int rows = ps.executeUpdate();
+			System.out.println("Deleted " + rows + " row(s) for item " + itemId + " from outlet " + outletId);
+			return rows > 0;
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
 		}
 	}
-	
-	public List<OutletItem> getItemsByOutletAndCategory(int outletId, String category){
-		List <OutletItem> outletItems = new ArrayList<>();
+
+	public List<OutletItemModel> getItemsByOutletAndCategory(int outletId, String category) {
+		List<OutletItemModel> outletItems = new ArrayList<>();
 		String sql = "SELECT i.*, oi.outlet_item_price, o.outlet_id, o.outlet_name, o.outlet_status, o.outlet_image " +
-	             "FROM item i " +
-	             "JOIN outlet_item oi ON i.item_id = oi.item_id " +
-	             "JOIN outlet o ON oi.outlet_id = o.outlet_id " +
-	             "WHERE oi.outlet_id = ?";
-		
-		if(category !=null && !category.equalsIgnoreCase("all")) {
+				"FROM item i " +
+				"JOIN outlet_item oi ON i.item_id = oi.item_id " +
+				"JOIN outlet o ON oi.outlet_id = o.outlet_id " +
+				"WHERE oi.outlet_id = ?";
+
+		if (category != null && !category.equalsIgnoreCase("all")) {
 			sql += " and i.category =?";
 		}
-		
-		try(Connection conn = DBconfig.getConnection();
-				PreparedStatement ps = conn.prepareStatement(sql)){
+
+		try (Connection conn = DBconfig.getConnection();
+				PreparedStatement ps = conn.prepareStatement(sql)) {
 			ps.setInt(1, outletId);
-			if(category != null && !category.equalsIgnoreCase("all")) {
+			if (category != null && !category.equalsIgnoreCase("all")) {
 				ps.setString(2, category);
 			}
-			try(ResultSet rs = ps.executeQuery()){
-				while(rs.next()) {
-					Item item = new Item(
-							rs.getInt("item_id"), 
-							rs.getString("item_name"),
-							rs.getString("category"), 
-							rs.getString("item_type"),
-							rs.getString("item_description"), 
-							rs.getString("item_status"),
-							rs.getString("item_ingredient"), 
-							rs.getString("item_allergy"),
-							rs.getString("item_image")
-							);
-					Outlet outlet = new Outlet(
-							rs.getInt("outlet_id"), 
-							rs.getString("outlet_name"), 
-							rs.getString("outlet_status"),
-							rs.getString("outlet_image")
-						);
-					outletItems.add(new OutletItem(item, outlet, rs.getDouble("outlet_item_price")));
-							
-				}
-			}
-		}
-		catch(SQLException e) {
-			e.printStackTrace();
-		}
-		return outletItems;
-	}
-	
-	public List<OutletItem> searchItems(int outletId, String category, String searchTerm){
-		List<OutletItem> outletItems = new ArrayList<>();
-		String sql = "SELECT i.*, oi.outlet_item_price, o.outlet_id, o.outlet_name, o.outlet_status, o.outlet_image " +
-	             "FROM item i " +
-	             "JOIN outlet_item oi ON i.item_id = oi.item_id " +
-	             "JOIN outlet o ON oi.outlet_id = o.outlet_id " +
-	             "WHERE oi.outlet_id = ?";
-		
-		if(category != null && !category.equalsIgnoreCase("all")) {
-			sql += " and i.category=?";
-		}
-		
-		if(searchTerm != null && !searchTerm.trim().isEmpty()) {
-			sql += " and i.item_name like ?";
-		}
-		
-		try(Connection conn = DBconfig.getConnection();
-				PreparedStatement ps = conn.prepareStatement(sql.toString())){
-			
-			int paramIndex=1;
-			ps.setInt(paramIndex++, outletId);
-			
-			if(category != null && !category.equalsIgnoreCase("all")) {
-				ps.setString(paramIndex++, category);
-			}
-			
-			if(searchTerm != null && !searchTerm.trim().isEmpty()) {
-				ps.setString(paramIndex++, "%" + searchTerm + "%");
-			}
-			
-			try(ResultSet rs = ps.executeQuery()){
+			try (ResultSet rs = ps.executeQuery()) {
 				while (rs.next()) {
-					Item item = new Item(
+					ItemModel item = new ItemModel(
 							rs.getInt("item_id"),
 							rs.getString("item_name"),
 							rs.getString("category"),
@@ -259,19 +235,73 @@ public class OutletItemDAO {
 							rs.getString("item_status"),
 							rs.getString("item_ingredient"),
 							rs.getString("item_allergy"),
-							rs.getString("item_image")
-							);
-					Outlet outlet = new Outlet(
-							rs.getInt("outlet_id"), 
-							rs.getString("outlet_name"), 
+							rs.getString("item_image"));
+					OutletModel outlet = new OutletModel(
+							rs.getInt("outlet_id"),
+							rs.getString("outlet_name"),
 							rs.getString("outlet_status"),
-							rs.getString("outlet_image")
-						);
-					outletItems.add(new OutletItem(item, outlet, rs.getDouble("outlet_item_price")));
+							rs.getString("outlet_image"));
+					outletItems.add(new OutletItemModel(item, outlet, rs.getDouble("outlet_item_price")));
+
 				}
 			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-		catch(SQLException e) {
+		return outletItems;
+	}
+
+	public List<OutletItemModel> searchItems(int outletId, String category, String searchTerm) {
+		List<OutletItemModel> outletItems = new ArrayList<>();
+		String sql = "SELECT i.*, oi.outlet_item_price, o.outlet_id, o.outlet_name, o.outlet_status, o.outlet_image " +
+				"FROM item i " +
+				"JOIN outlet_item oi ON i.item_id = oi.item_id " +
+				"JOIN outlet o ON oi.outlet_id = o.outlet_id " +
+				"WHERE oi.outlet_id = ?";
+
+		if (category != null && !category.equalsIgnoreCase("all")) {
+			sql += " and i.category=?";
+		}
+
+		if (searchTerm != null && !searchTerm.trim().isEmpty()) {
+			sql += " and i.item_name like ?";
+		}
+
+		try (Connection conn = DBconfig.getConnection();
+				PreparedStatement ps = conn.prepareStatement(sql.toString())) {
+
+			int paramIndex = 1;
+			ps.setInt(paramIndex++, outletId);
+
+			if (category != null && !category.equalsIgnoreCase("all")) {
+				ps.setString(paramIndex++, category);
+			}
+
+			if (searchTerm != null && !searchTerm.trim().isEmpty()) {
+				ps.setString(paramIndex++, "%" + searchTerm + "%");
+			}
+
+			try (ResultSet rs = ps.executeQuery()) {
+				while (rs.next()) {
+					ItemModel item = new ItemModel(
+							rs.getInt("item_id"),
+							rs.getString("item_name"),
+							rs.getString("category"),
+							rs.getString("item_type"),
+							rs.getString("item_description"),
+							rs.getString("item_status"),
+							rs.getString("item_ingredient"),
+							rs.getString("item_allergy"),
+							rs.getString("item_image"));
+					OutletModel outlet = new OutletModel(
+							rs.getInt("outlet_id"),
+							rs.getString("outlet_name"),
+							rs.getString("outlet_status"),
+							rs.getString("outlet_image"));
+					outletItems.add(new OutletItemModel(item, outlet, rs.getDouble("outlet_item_price")));
+				}
+			}
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return outletItems;

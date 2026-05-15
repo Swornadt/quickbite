@@ -54,16 +54,16 @@
 	</div>
 	
 	<!-- Popular Items Section -->
-	<%@ include file="./popular-items.jsp" %>
+	<%@ include file="./home/popular-items.jsp" %>
 	
 	<!-- About Us Section -->
-	<%@ include file="./about-section.jsp" %>
+	<%@ include file="./home/about-section.jsp" %>
 
 	<!-- FAQ Section -->
-	<%@ include file="./faq.jsp" %>
+	<%@ include file="./home/faq.jsp" %>
 	
 	<!-- Contact Us Section -->
-	<%@ include file="./contact-us.jsp" %>
+	<%@ include file="./home/contact-us.jsp" %>
         
     <!-- Footer Section -->
 	<%@ include file="../common/footer.jsp" %>

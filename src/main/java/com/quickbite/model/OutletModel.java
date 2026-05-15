@@ -1,13 +1,13 @@
 package com.quickbite.model;
 
-public class Outlet {
+public class OutletModel {
 	private int outletId;
 	private String outletName;
 	private String outletStatus;
 	private String outletImage;
 
 	//Constructors
-	public Outlet(int outletId, String outletName, String outletStatus, String outletImage) {
+	public OutletModel(int outletId, String outletName, String outletStatus, String outletImage) {
 		this.outletId=outletId;
 		this.outletName=outletName;
 		this.outletStatus=outletStatus;

@@ -9,9 +9,9 @@ import com.quickbite.model.UserModel;
 import jakarta.servlet.http.HttpSession;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class CartService {
 
@@ -101,7 +101,11 @@ public class CartService {
      * @return The sum of (unit price * quantity) for every item in the cart list.
      */
     public double calculateSubtotal(List<CartItemModel> cart) {
-        return cart.stream().mapToDouble(CartItemModel::getTotalPrice).sum();
+        double total = 0.0;
+        for (CartItemModel item : cart) {
+        	total += item.getTotalPrice();
+        }
+    	return total;
     }
 
     /**
@@ -185,7 +189,20 @@ public class CartService {
 	 */
 	public Map<String, List<CartItemModel>> getGroupedCart(HttpSession session) {
 		List<CartItemModel> cart = getCart(session);
+		Map<String, List<CartItemModel>> groupedCart = new HashMap<>();
 		
-		return cart.stream().collect(Collectors.groupingBy(CartItemModel::getOutletName));
+		for (CartItemModel item : cart) {
+			String outletName = item.getOutletName();
+			
+			// if outlet isnt in map yet, create a new list for that
+			if (!groupedCart.containsKey(outletName)) {
+				groupedCart.put(outletName, new ArrayList<>());
+			}
+			
+			// add the current item to the list corresp the outlet
+			groupedCart.get(outletName).add(item);
+		}
+		
+		return groupedCart;
 	}
 }

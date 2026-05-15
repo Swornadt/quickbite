@@ -8,18 +8,18 @@
 	<meta charset="UTF-8">
 	<title>Favorites | QuickBite</title>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/order-history.css">
-	<link rel="stylesheet" href="<%=request.getContextPath() %>/css/userProfile.css" />
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/userProfile.css" />
 </head>
 
 <body>
 	<%@ include file="/WEB-INF/views/common/navbar1.jsp" %>
 	
-    <%@ include file="/WEB-INF/views/common/utilityBar.jsp" %>
+    <%@ include file="/WEB-INF/views/common/utility-bar.jsp" %>
     
 	<div class="user-profile-section-container">
 		<section class="user-profile-section">
 		
-		<%@ include file="/WEB-INF/views/common/userProfileSideNav.jsp" %>
+		<%@ include file="/WEB-INF/views/common/user-profile-sidenav.jsp" %>
 		
 			<div class="user-profile-container">
 		

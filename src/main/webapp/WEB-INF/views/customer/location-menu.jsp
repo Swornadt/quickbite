@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Location Menu</title>
-<link rel="stylesheet" href="<%=request.getContextPath() %>/css/location-menu.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/location-menu.css">
 </head>
 <body>
 
@@ -20,14 +20,15 @@
             <h1>${outlet.outletName}</h1>
         </div>
 <div class="main-category-container">
+			<!-- Buttons for Categories -->
             <div class="category-container">
                 <a href="?category=all" class="category-btn ${empty param.category or param.category == 'all' ? 'active' : ''}">All</a>
-                
-                <c:forEach var="cat" items="${categories }">
+                <!-- Sets class to active for currently selected category button -->
+                <c:forEach var="cat" items="${categories}">
                 	<a href="?category=${cat}" class="category-btn ${fn:toLowerCase(cat) == fn:toLowerCase(param.category)? 'active':''}"> ${cat}</a>
-                </c:forEach>
-                                                         
+                </c:forEach>                                              
             </div>
+            
             <div class="search-bar">
                 <input type="text" id="searchBar" placeholder="Search your cravings!" value="${param.search}">
             </div>
@@ -83,12 +84,19 @@
 <%@ include file="../common/footer.jsp" %>
 </body>
 <script>
+
 document.getElementById('searchBar').addEventListener('keypress', function (e) {
     if (e.key === 'Enter') {
         const searchValue = this.value;
+        
+        //Modifies part of the URL
         const currentUrl = new URL(window.location.href);
+        
+        //Adds the search parameter in the URL's query string
         currentUrl.searchParams.set('search', searchValue);
-        window.location.href = currentUrl.toString(); // Reloads page with ?search=...[cite: 1, 3]
+        
+        //Reloads the page and sends the searched item name to Controlelr
+        window.location.href = currentUrl.toString();
     }
 });
 </script>

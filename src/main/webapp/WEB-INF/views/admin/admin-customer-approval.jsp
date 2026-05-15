@@ -13,16 +13,13 @@
 
 <div class="overall-customerApproval-container">
 
-    <%@ include file="../common/adminNav.jsp" %>
+    <%@ include file="../common/admin-nav.jsp" %>
 
     <div class="container">
 
         <h1>Customer Management</h1>
 
-        <!-- SEARCH -->
-        <div class="search">
-            <input type="text" placeholder=" Search customers...">
-        </div>
+       
 
         <!-- TABS -->
         <div class="tabs">
@@ -41,7 +38,7 @@
                         <div class="card">
                             <div class="card-top">
                                 <img class="photo"
-                                     src="${pageContext.request.contextPath}/assets/user-image.jpg"
+                                     src="${pageContext.request.contextPath}/${not empty user.image ? user.image : 'uploads/default.png'}"
                                      alt="Customer Photo">
                                 <div class="card-info">
                                     <div class="name">${user.fname} ${user.lname}</div>
@@ -83,7 +80,7 @@
                         <div class="card active-card">
                             <div class="card-top">
                                 <img class="photo"
-                                     src="${pageContext.request.contextPath}/assets/user-image.jpg"
+                                     src="${pageContext.request.contextPath}/${not empty user.image ? user.image : 'uploads/default.png'}"
                                      alt="Customer Photo">
                                 <div class="card-info">
                                     <div class="name">${user.fname} ${user.lname}</div>

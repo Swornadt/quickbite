@@ -6,7 +6,7 @@
         <head>
             <meta charset="UTF-8">
             <title>Add New Item | Quickbite</title>
-            <link rel="stylesheet" href="<%=request.getContextPath() %>/css/adminMenuForm.css" />
+            <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminMenuForm.css" />
         </head>
 
         <body>
@@ -26,7 +26,7 @@
                         </div>
 
                         <div class="form-container">
-                            <form action="<%=request.getContextPath()%>/admin/menu/add" method="post"
+                            <form action="${pageContext.request.contextPath}/admin/menu/add" method="post"
                                 enctype="multipart/form-data">
                                 <div class="form-grid">
                                     <div class="form-group">
@@ -47,7 +47,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Location</label>
-                                        <select name="outletId" required>
+                                        <select name="outletId">
                                             <option value="" disabled selected>-- Choose a location --</option>
                                             <c:forEach var="outlet" items="${outlets}">
                                                 <option value="${outlet.outletId}">
