@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 import com.quickbite.dao.FeedbackDAO;
@@ -145,8 +146,11 @@ public class AdminController extends HttpServlet {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	private void viewAdminProfile(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	private void viewAdminProfile(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		//Gets today's date
+		LocalDate today = LocalDate.now();
+		request.setAttribute("maxDate", today.toString());
+		
 		UserModel sessionUser = (UserModel) SessionUtil.getAttribute(request, "user");
 
 		if (sessionUser == null) {
@@ -160,10 +164,10 @@ public class AdminController extends HttpServlet {
 		AdminService adminService = new AdminService();
 
 		UserModel admin = adminService.getUserById(currentId);
-
-		request.setAttribute("userData", admin);
-
-		request.getRequestDispatcher("/WEB-INF/views/admin/admin-profile.jsp").forward(request, response);
+		
+		request.setAttribute("user", admin);
+		
+		request.getRequestDispatcher("/WEB-INF/views/admin/admin-profile.jsp").forward(request,response);
 	}
 
 	/**
@@ -483,7 +487,9 @@ public class AdminController extends HttpServlet {
 	}
 
 	private void handleAdminProfile(HttpServletRequest request, HttpServletResponse response) throws IOException {
-				//Getting the Parameter as a String first
+				//Gets the session to access the current user
+				HttpSession session = request.getSession();
+
 				String userIdStr = request.getParameter("user_id");
 				
 				if(userIdStr == null || userIdStr.isEmpty()) {
@@ -491,8 +497,7 @@ public class AdminController extends HttpServlet {
 					return;
 				}
 				try {
-					//Extracting from data
-					int user_id = Integer.parseInt(request.getParameter("user_id"));
+					int user_id = Integer.parseInt(userIdStr);
 					String fname = request.getParameter("fname");
 					String lname = request.getParameter("lname");
 					String dob = request.getParameter("dob");
@@ -506,6 +511,8 @@ public class AdminController extends HttpServlet {
 					
 					//Shows if the update was successful or not
 					if(success) {
+						UserModel updatedAdmin = adminService.getUserById(user_id);
+						session.setAttribute("user", updatedAdmin);
 						response.sendRedirect(request.getContextPath() + "/admin/profile?update=success");
 					}
 					else {
