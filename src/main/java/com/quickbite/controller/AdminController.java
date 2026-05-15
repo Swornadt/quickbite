@@ -698,7 +698,9 @@ public class AdminController extends HttpServlet {
 	 * @param request
 	 * @param response
 	 */
-	private void handleMenuEdit(HttpServletRequest request, HttpServletResponse response) {
+	private void handleMenuEdit(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		try {
 			int itemId = Integer.parseInt(request.getParameter("itemId"));
 			String itemName = request.getParameter("itemName");
