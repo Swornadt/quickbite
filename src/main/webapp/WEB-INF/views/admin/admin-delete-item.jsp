@@ -7,24 +7,6 @@
             <meta charset="UTF-8">
             <title>Delete Item</title>
             <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminMenuForm.css" />
-            <style>
-                .alert {
-                    padding: 15px;
-                    margin: 15px 0;
-                    border-radius: 5px;
-                    text-align: center;
-                }
-
-                .alert-success {
-                    background: #d4edda;
-                    color: #155724;
-                }
-
-                .alert-error {
-                    background: #f8d7da;
-                    color: #721c24;
-                }
-            </style>
         </head>
 
         <body>
@@ -44,13 +26,14 @@
                         <c:if test="${empty message}">
                             <form action="${pageContext.request.contextPath}/admin/menu/delete" method="post">
                                 <input type="hidden" name="itemId" value="${param.itemId}">
-                                <input type="hidden" name="action" value="delete"> 
+                                <input type="hidden" name="outletId" value="${param.outletId}">
+                                <input type="hidden" name="action" value="confirm">
 
                                 <div class="form-group">
                                     <label>Are you sure?</label>
                                     <p><strong>Item ID: ${param.itemId}</strong></p>
                                 </div>
-                                <button type="submit" class="submit-btn" style="background-color:#dc3545;">
+                                <button type="submit" class="submit-btn">
                                     Yes, Delete Item
                                 </button>
                             </form>
