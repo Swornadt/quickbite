@@ -21,13 +21,13 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin-main-dashboard.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin-main-dashboard.css" />
   </head>
   <body>
   	<div class="admin-body">
   		<%@ include file="../common/side-nav.jsp" %>
 	    <div class="admin-right-body">
-	      <%@ include file='../common/adminNav.jsp' %>
+	      <%@ include file='../common/admin-nav.jsp' %>
 	      
 	
 	      <!-- Bottom Body -->
@@ -36,7 +36,7 @@
 	        <div class="admin-card-infos">
 	          <!-- Card Info -->
 	          <div class="admin-card-info">
-	            <img src="<%=request.getContextPath()%>/assets/info-img-1.png" class="admn-card-img" />
+	            <img src="${pageContext.request.contextPath}/assets/info-img-1.jpeg" class="admn-card-img" />
 	            <p class="gained-number">2.3K</p>
 	            <div class="card-info-numbers">
 	              <p class="card-info-number-title">Total Users</p>
@@ -45,7 +45,7 @@
 	          </div>
 	          <!-- Card Info -->
 	          <div class="admin-card-info">
-	            <img src="<%=request.getContextPath()%>/assets/info-img-2.png" class="admn-card-img" />
+	            <img src="${pageContext.request.contextPath}/assets/info-img-2.jpeg" class="admn-card-img" />
 	            <p class="gained-number">Rs. 150.8K</p>
 	            <div class="card-info-numbers">
 	              <p class="card-info-number-title">Total Proft</p>
@@ -54,7 +54,7 @@
 	          </div>
 	          <!-- Card Info -->
 	          <div class="admin-card-info">
-	            <img src="<%=request.getContextPath()%>/assets/info-img-3.png" class="admn-card-img" />
+	            <img src="${pageContext.request.contextPath}/assets/info-img-3.jpeg" class="admn-card-img" />
 	            <p class="gained-number">100K</p>
 	            <div class="card-info-numbers">
 	              <p class="card-info-number-title">Total Orders</p>
@@ -63,7 +63,7 @@
 	          </div>
 	          <!-- Card Info -->
 	          <div class="admin-card-info">
-	            <img src="<%=request.getContextPath()%>/assets/info-img-4.png" class="admn-card-img" />
+	            <img src="${pageContext.request.contextPath}/assets/info-img-4.jpeg" class="admn-card-img" />
 	            <p class="gained-number">100K</p>
 	            <div class="card-info-numbers">
 	              <p class="card-info-number-title">Expense</p>
@@ -99,7 +99,7 @@
 	            </div>
 	            <div class="line-chart-image-container">
 	              <img
-	                src="<%=request.getContextPath()%>/assets/Line Graph.png"
+	                src="${pageContext.request.contextPath}/assets/Line Graph.png"
 	                class="line-chart"
 	                alt="line-graph-image"
 	              />
@@ -111,7 +111,7 @@
 	            <p class="pie-chart-title">Profit by Location</p>
 	            <div class="pie-chart-image-container">
 	              <img
-	                src="<%=request.getContextPath()%>/assets/pie-chart.png"
+	                src="${pageContext.request.contextPath}/assets/pie-chart.png"
 	                alt="pie-chart img"
 	                class="pie-chart-image"
 	              />
@@ -126,7 +126,7 @@
 	              class="barchart-image-container"
 	              id="barchart-highrate-image-container"
 	            >
-	              <img src="<%=request.getContextPath()%>/assets/barchart1.png" class="barchart" />
+	              <img src="${pageContext.request.contextPath}/assets/barchart1.png" class="barchart" />
 	            </div>
 	          </div>
 	          <div class="barchart-profit">
@@ -140,7 +140,7 @@
 	              class="barchart-image-container"
 	              id="barchart-profit-image-container"
 	            >
-	              <img src="<%=request.getContextPath()%>/assets/barchart2.png" class="barchart" />
+	              <img src="${pageContext.request.contextPath}/assets/barchart2.png" class="barchart" />
 	            </div>
 	          </div>
 	        </div>

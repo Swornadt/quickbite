@@ -32,7 +32,8 @@ public class FeedbackDAO {
     public List<FeedbackModel> getAllFeedbacks() throws Exception {
         List<FeedbackModel> list = new ArrayList<>();
         
-        String sql = "SELECT f.*, CONCAT(u.fname, ' ', u.lname) AS userFullName " +
+        String sql = "SELECT f.*, CONCAT(u.fname, ' ', u.lname) AS userFullName, " +
+        			 "u.image " +
                      "FROM feedback f " +
                      "JOIN user u ON f.user_id = u.user_id " +
                      "ORDER BY f.rating_date DESC";
@@ -43,15 +44,20 @@ public class FeedbackDAO {
 
             while (rs.next()) {
                 FeedbackModel fb = new FeedbackModel();
+                
                 fb.setFeedbackId(rs.getInt("feedback_id"));
                 fb.setUserId(rs.getInt("user_id"));
                 fb.setRatingValue(rs.getInt("rating_value"));
                 fb.setFeedbackDescription(rs.getString("feedback_description"));
                 fb.setRatingDate(rs.getTimestamp("rating_date"));
                 fb.setUserFullName(rs.getString("userFullName"));
+                fb.setUserImage(rs.getString("image"));
                 
                 list.add(fb);
             }
+        } catch (Exception e) {
+            System.err.println("ERROR in getAllFeedbacks(): " + e.getMessage());
+            e.printStackTrace();
         }
         return list;
     }

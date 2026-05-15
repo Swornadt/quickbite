@@ -8,19 +8,25 @@
 <head>
 <meta charset="UTF-8">
 <title>Customer Profile</title>
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/customerProfile.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/customerProfile.css" />
 </head>
 <body>
 
 <div class="admin-body">
+
+	<!-- Side Navigation Bar -->
 	<div class="admin-sidenav">
 		<%@ include file="../common/side-nav.jsp" %>
 	</div>
 
+	<!-- Top Navigation Bar -->
 	<div class="customer-profile-side">
-        <%@ include file='../common/adminNav.jsp' %>
+        <%@ include file='../common/admin-nav.jsp' %>
+        
+        <!-- Profile Picture and Name with Role -->
         <div class="customer-brief" style="margin: 20px 0;">
             <div class="customer-image">
+            	<!-- Checks if image exists. If not, displays a placeholder image -->
                 <img src="${empty customerData.image ? pageContext.request.contextPath.concat('/assets/user-image.jpg') : customerData.image}" alt="Profile Picture">
             </div>
             <div class="customer-brief-detail">
@@ -29,6 +35,7 @@
             </div>
         </div>
 
+		<!-- Grid Layout for Customer Details -->
         <div class="customer-detail-grid" id="customerDetailGrid">
             <div class="customer-credentials-grid" id="customerCredentialsGrid">
                 <div class="user-id">
@@ -74,7 +81,7 @@
             </div>
         </div>
         
-        
+        <!-- Order History -->
         <h2 class="section-title">ORDER HISTORY</h2>
 		<div class="divider"></div>
 		

@@ -13,14 +13,14 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
       rel="stylesheet"
     />
-<link rel="stylesheet" href="${pageContext.request.contextPath }//css/register.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/register.css" />
 
 </head>
 <body>
 <div class="register-page-container">
       <!-- Left Side (Image Container) -->
       <div class="register-page-image-container">
-        <img src="${pageContext.request.contextPath }//assets/Register.jpeg" class="register-page-image" />
+        <img src="${pageContext.request.contextPath}/assets/register.png" class="register-page-image" />
       </div>
 
       <!-- Right Side (Form Container) -->
@@ -42,7 +42,7 @@
           <!-- Actual Form  -->
           <form
             class="register-section"
-            action="${pageContext.request.contextPath }//register"
+            action="${pageContext.request.contextPath}/register"
             method="post" 
             enctype="multipart/form-data"
           >
@@ -152,7 +152,7 @@
             </button>
           </form>
 
-          <a href="${pageContext.request.contextPath }//login" class="no-acc-btn"
+          <a href="${pageContext.request.contextPath}/login" class="no-acc-btn"
             >Already have an account? <span>Login</span></a
           >
         </div>

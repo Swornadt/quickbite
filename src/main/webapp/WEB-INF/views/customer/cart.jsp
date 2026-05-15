@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="<%=request.getContextPath() %>/css/cart.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/cart.css">
 <title>Home | QuickBite</title>
 </head>
 

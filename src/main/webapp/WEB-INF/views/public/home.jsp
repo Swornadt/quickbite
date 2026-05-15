@@ -39,31 +39,31 @@
             </p>
 
             <div class="thumbnails">
-                 <div class="active"> <img src="${pageContext.request.contextPath}/assets/home/momo1.png" alt="Momo 1"> </div>
-                 <div> <img src="${pageContext.request.contextPath}/assets/home/momo2.png" alt="Momo 2"> </div>
-                 <div> <img src="${pageContext.request.contextPath}/assets/home/momo3.png" alt="Momo 3"> </div>
-                 <div> <img src="${pageContext.request.contextPath}/assets/home/momo4.png" alt="Momo 4"> </div>
+                 <div class="active"> <img src="${pageContext.request.contextPath}/assets/momo1.png" alt="Momo 1"> </div>
+                 <div> <img src="${pageContext.request.contextPath}/assets/momo2.png" alt="Momo 2"> </div>
+                 <div> <img src="${pageContext.request.contextPath}/assets/momo3.png" alt="Momo 3"> </div>
+                 <div> <img src="${pageContext.request.contextPath}/assets/momo4.png" alt="Momo 4"> </div>
 			</div>
 			
 			<a href="${pageContext.request.contextPath}/outlets" class="order-btn" style="text-decoration:none;">Order Now</a>
 		</div>
 		
 		<div class="image-container">
-			<img src="${pageContext.request.contextPath}/assets/home/momo1.png" alt="Main Plate" class="main-img">
+			<img src="${pageContext.request.contextPath}/assets/momo1.png" alt="Main Plate" class="main-img">
 		</div>
 	</div>
 	
 	<!-- Popular Items Section -->
-	<%@ include file="./popular-items.jsp" %>
+	<%@ include file="./home/popular-items.jsp" %>
 	
 	<!-- About Us Section -->
-	<%@ include file="./about-section.jsp" %>
+	<%@ include file="./home/about-section.jsp" %>
 
 	<!-- FAQ Section -->
-	<%@ include file="./faq.jsp" %>
+	<%@ include file="./home/faq.jsp" %>
 	
 	<!-- Contact Us Section -->
-	<%@ include file="./contact-us.jsp" %>
+	<%@ include file="./home/contact-us.jsp" %>
         
     <!-- Footer Section -->
 	<%@ include file="../common/footer.jsp" %>
