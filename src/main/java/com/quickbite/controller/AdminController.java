@@ -481,7 +481,7 @@ public class AdminController extends HttpServlet {
 				String userIdStr = request.getParameter("user_id");
 				
 				if(userIdStr == null || userIdStr.isEmpty()) {
-					response.sendRedirect(request.getContextPath() + "/admin-profile?update=error");
+					response.sendRedirect(request.getContextPath() + "/admin-profile?update=error1");
 					return;
 				}
 				try {
