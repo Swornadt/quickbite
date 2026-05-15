@@ -14,6 +14,13 @@
             <div class="admin-body">
                 <div class="admin-right-body">
                     <main class="content">
+                        <!-- Success / Error Message -->
+                        <c:if test="${not empty message}">
+                            <div class="alert ${status == 'success' ? 'alert-success' : 'alert-error'}">
+                                ${message}
+                            </div>
+                        </c:if>
+
                         <div class="page-header">
                             <h2>Edit Item</h2>
                         </div>
@@ -40,16 +47,20 @@
                                         <input type="text" name="itemType" value="${item != null ? item.itemType : ''}">
                                     </div>
                                     <div class="form-group">
-                                        <label>Price <small>(Optional)</small></label>
-                                        <input type="number" step="0.01" name="price" value="" placeholder="0.00">
+                                        <label>Price </label>
+                                        <input type="number" step="0.01" name="price"
+                                            value="${currentPrice != null ? currentPrice : ''}" placeholder="0.00">
                                     </div>
 
                                     <div class="form-group">
-                                        <label>Location (for price update)</label>
+                                        <label>Outlet</label>
                                         <select name="outletId">
                                             <option value="">-- Select Outlet --</option>
                                             <c:forEach var="outlet" items="${outlets}">
-                                                <option value="${outlet.outletId}">${outlet.outletName}</option>
+                                                <option value="${outlet.outletId}" ${outlet.outletId==selectedOutletId
+                                                    ? 'selected' : '' }>
+                                                    ${outlet.outletName}
+                                                </option>
                                             </c:forEach>
                                         </select>
                                     </div>

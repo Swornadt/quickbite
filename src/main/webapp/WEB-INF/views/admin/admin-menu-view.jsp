@@ -16,12 +16,10 @@
       <div class="admin-body">
         <%@ include file="../common/side-nav.jsp" %>
           <div class="admin-right-body">
-          <%@ include file='../common/adminNav.jsp' %>
-    
-    <!-- Bottom Body -->
-	      <div class="admin-bottom-info">
-            
-              <div class="container">
+            <%@ include file='../common/adminNav.jsp' %>
+
+              <!-- Bottom Body -->
+              <div class="admin-bottom-info">
                 <header class="header">
                   <h2>Menu Management</h2>
 
@@ -39,60 +37,64 @@
                   <button class="add-item-btn" onclick="openAddModal()">+ Add Item</button>
                 </header>
 
-                <!-- Dynamic Table -->
-                <table id="menuTable">
-                  <thead>
-                    <tr>
-                      <th>Item ID</th>
-                      <th>Item Name</th>
-                      <th>Category</th>
-                      <th>Price</th>
-                      <th>Item Description</th>
-                      <th>Status</th>
-                      <th>Edit</th>
-                      <th>Delete</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <c:forEach var="oi" items="${outletItems}">
-                      <tr>
-                        <td>${oi.item.itemId}</td>
-                        <td>${oi.item.itemName}</td>
-                        <td>${oi.item.category}</td>
-                        <td>${oi.outletItemPrice}</td>
-                        <td>${oi.item.itemDescription}</td>
-                        <td>${oi.item.itemStatus}</td>
-                        <td>
-						    <form action="${pageContext.request.contextPath}/admin/menu/edit" method="get" target="updateIframe"
-						        style="display: inline;">
-						        <input type="hidden" name="itemId" value="${oi.item.itemId}" />
-						        <button type="button" class="edit-btn"
-						            onclick="this.form.submit(); openUpdateModal()">Edit</button>
-						    </form>
-						</td>
-                        <td>
-                          <form action="${pageContext.request.contextPath}/admin/menu/delete" method="post" target="deleteIframe"
-                            style="display: inline;">
-                            <input type="hidden" name="itemId" value="${oi.item.itemId}" />
-                            <button type="button" class="delete-btn"
-                              onclick="this.form.submit(); openDeleteModal()">Delete</button>
-                          </form>
+                <div class="container">
 
-                        </td>
-                      </tr>
-                    </c:forEach>
-
-                    <c:if test="${empty outletItems}">
+                  <!-- Dynamic Table -->
+                  <table id="menuTable">
+                    <thead>
                       <tr>
-                        <td colspan="6" style="text-align:center; padding:20px;">
-                          No items found for selected outlet. Please select a location.
-                        </td>
+                        <th>Item ID</th>
+                        <th>Item Name</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Item Description</th>
+                        <th>Status</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
                       </tr>
-                    </c:if>
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody>
+                      <c:forEach var="oi" items="${outletItems}">
+                        <tr>
+                          <td>${oi.item.itemId}</td>
+                          <td>${oi.item.itemName}</td>
+                          <td>${oi.item.category}</td>
+                          <td>${oi.outletItemPrice}</td>
+                          <td>${oi.item.itemDescription}</td>
+                          <td>${oi.item.itemStatus}</td>
+                          <td>
+                            <form action="${pageContext.request.contextPath}/admin/menu/edit" method="get"
+                              target="updateIframe" style="display: inline;">
+                              <input type="hidden" name="itemId" value="${oi.item.itemId}" />
+                              <input type="hidden" name="outletId" value="${oi.outlet.outletId}" />
+                              <button type="button" class="edit-btn"
+                                onclick="this.form.submit(); openUpdateModal()">Edit</button>
+                            </form>
+                          </td>
+                          <td>
+                            <form action="${pageContext.request.contextPath}/admin/menu/delete" method="post"
+                              target="deleteIframe" style="display: inline;">
+                              <input type="hidden" name="itemId" value="${oi.item.itemId}" />
+                              <input type="hidden" name="outletId" value="${oi.outlet.outletId}" />
+                              <button type="button" class="delete-btn"
+                                onclick="this.form.submit(); openDeleteModal()">Delete</button>
+                            </form>
+
+                          </td>
+                        </tr>
+                      </c:forEach>
+
+                      <c:if test="${empty outletItems}">
+                        <tr>
+                          <td colspan="6" style="text-align:center; padding:20px;">
+                            No items found for selected outlet. Please select a location.
+                          </td>
+                        </tr>
+                      </c:if>
+                    </tbody>
+                  </table>
+                </div>
               </div>
-            </div>
           </div>
       </div>
 

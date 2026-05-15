@@ -84,12 +84,19 @@
 <%@ include file="../common/footer.jsp" %>
 </body>
 <script>
+
 document.getElementById('searchBar').addEventListener('keypress', function (e) {
     if (e.key === 'Enter') {
         const searchValue = this.value;
+        
+        //Modifies part of the URL
         const currentUrl = new URL(window.location.href);
+        
+        //Adds the search parameter in the URL's query string
         currentUrl.searchParams.set('search', searchValue);
-        window.location.href = currentUrl.toString(); // Reloads page with ?search=...
+        
+        //Reloads the page and sends the searched item name to Controlelr
+        window.location.href = currentUrl.toString();
     }
 });
 </script>
