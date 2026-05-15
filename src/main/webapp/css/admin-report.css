@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
-.admin-body{
-	display:flex;
+.admin-body {
+  display: flex;
 }
 
 .admin-right-body {
@@ -14,11 +14,11 @@
 }
 
 .top-container {
-	display: flex;
+  display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
-  margin-top: 30px
+  margin-bottom: 30px;
+  margin-top: 30px;
 }
 
 .canteen-btn {
@@ -31,18 +31,21 @@
 }
 
 .admin-card-infos {
-  width: 100%;
-  margin-top: 2rem;
-  font-family: "poppins";
   display: grid;
-  grid-auto-flow: column;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+  margin-bottom: 50px;
 }
 
-.admin-card-info {
-  width: 90%;
-  padding: 0.75rem;
-  border: 1px solid #d9d9d9;
-  border-radius: 1rem;
+.admin-card-info,
+.line-chart-container,
+.barchart-highrate,
+.barchart-profit {
+  background: white;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  align-content: center;
 }
 
 .admin-card-img {
@@ -72,13 +75,6 @@
   display: flex;
   gap: 1rem;
   justify-content: center;
-}
-
-.line-chart-container {
-  width: 70%;
-  padding: 1rem 0.5rem;
-  border: 1px solid #d9d9d9;
-  border-radius: 1rem;
 }
 
 .line-chart-details {
@@ -156,13 +152,6 @@
   margin: 1rem 0rem;
 }
 
-.barchart-highrate {
-  width: 30%;
-  border: 1px solid #d9d9d9;
-  border-radius: 10px;
-  padding: 1rem 0.5rem 0.5rem 0.5rem;
-}
-
 .barchart-title {
   font-family: "poppins";
   font-size: 1.25rem;
@@ -183,13 +172,6 @@
   height: 100%;
   width: 100%;
   object-fit: cover;
-}
-
-.barchart-profit {
-  border: 1px solid #d9d9d9;
-  border-radius: 10px;
-  padding: 1rem;
-  width: 70%;
 }
 
 .week-dropdown select {
