@@ -15,6 +15,9 @@ import com.quickbite.service.FeedbackService;
 public class ContactController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
+    /**
+     * 
+     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
         
@@ -22,6 +25,9 @@ public class ContactController extends HttpServlet {
         request.getRequestDispatcher("/WEB-INF/views/public/contact.jsp").forward(request, response);
     }
 
+    /**
+     * 
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
