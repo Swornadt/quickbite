@@ -43,26 +43,14 @@ public class AdminController extends HttpServlet {
 	private AdminService adminService;
 
 	
-    public AdminController() {
-        super();
-    }
-    
     @Override
     public void init() throws ServletException {
         // Initialize the service once when the servlet starts
-
     	this.adminService = new AdminService();
-
     }
 
 	public AdminController() {
 		super();
-	}
-
-	@Override
-	public void init() throws ServletException {
-		// Initialize the service once when the servlet starts
-		this.adminCustomerService = new AdminCustomerService();
 	}
 
 	/**
@@ -160,10 +148,11 @@ public class AdminController extends HttpServlet {
 	 * @throws ServletException
 	 */
 	private void viewAdminProfile(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		//Gets today's date
+		//Gets today's date and sets it as maxDate
 		LocalDate today = LocalDate.now();
 		request.setAttribute("maxDate", today.toString());
 		
+		//Retrieves logged-in user object from the current session
 		UserModel sessionUser = (UserModel) SessionUtil.getAttribute(request, "user");
 
 		if (sessionUser == null) {
@@ -173,7 +162,7 @@ public class AdminController extends HttpServlet {
 
 		int currentId = sessionUser.getUserId();
 
-		// 1. Initializing the service
+		//Initializing the service
 		AdminService adminService = new AdminService();
 
 		UserModel admin = adminService.getUserById(currentId);
@@ -200,17 +189,18 @@ public class AdminController extends HttpServlet {
 				String userIdParam = request.getParameter("userId");
 				if (userIdParam !=null) {
 					try {
+						//Parsing the id from String to Integer
 						int userId = Integer.parseInt(userIdParam);		
 						AdminService adminService = new AdminService();
 						OrderDAO orderDAO = new OrderDAO();
 						
-						//Retrieve User Data
+						//Retrieving User Data
 						UserModel user = adminService.getUserById(userId);			
 						if(user !=null) {
 							request.setAttribute("customerData", user);
 						}
 						
-						//Retrieve split order history (Current and Past Orders)
+						//Retrieving split order history (Current and Past Orders)
 						List<OrderModel> currentOrders = orderDAO.getOrdersByStatus(userId, true);
 						List<OrderModel> pastOrders = orderDAO.getOrdersByStatus(userId, false);
 						
@@ -513,7 +503,10 @@ public class AdminController extends HttpServlet {
 					return;
 				}
 				try {
+					//Parsing the id from String to Integer
 					int user_id = Integer.parseInt(userIdStr);
+					
+					//Extracting updated details
 					String fname = request.getParameter("fname");
 					String lname = request.getParameter("lname");
 					String dob = request.getParameter("dob");
@@ -527,7 +520,10 @@ public class AdminController extends HttpServlet {
 					
 					//Shows if the update was successful or not
 					if(success) {
+						//Refreshes the data
 						UserModel updatedAdmin = adminService.getUserById(user_id);
+						
+						//Replaces the old user profile
 						session.setAttribute("user", updatedAdmin);
 						response.sendRedirect(request.getContextPath() + "/admin/profile?update=success");
 					}
