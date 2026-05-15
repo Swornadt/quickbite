@@ -6,7 +6,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>QuickBite | Admin Nav</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath }/css/admin-nav.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/css/adminNav.css" />
     <!-- Font Awesome Cdn link  -->
     <link
       rel="stylesheet"
