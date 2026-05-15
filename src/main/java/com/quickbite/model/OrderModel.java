@@ -75,4 +75,12 @@ public class OrderModel {
         return Date.from(this.orderDate.atZone(ZoneId.systemDefault()).toInstant());
     }
 	
+	public void setFeedbackId(int feedbackId) {
+	    this.feedbackId = feedbackId;
+	}
+
+	public void setPaymentId(int paymentId) {
+	    this.paymentId = paymentId;
+	}
+	
 }
