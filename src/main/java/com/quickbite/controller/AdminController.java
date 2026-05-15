@@ -180,7 +180,7 @@ public class AdminController extends HttpServlet {
 	 * @throws IOException
 	 */
 	private void viewCustomerProfile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//Gets the id from the URL
+				//Gets the id from the URL
 				String userIdParam = request.getParameter("userId");
 				if (userIdParam !=null) {
 					try {
@@ -188,11 +188,13 @@ public class AdminController extends HttpServlet {
 						AdminService adminService = new AdminService();
 						OrderDAO orderDAO = new OrderDAO();
 						
+						//Retrieve User Data
 						UserModel user = adminService.getUserById(userId);			
 						if(user !=null) {
 							request.setAttribute("customerData", user);
 						}
 						
+						//Retrieve split order history (Current and Past Orders)
 						List<OrderModel> currentOrders = orderDAO.getOrdersByStatus(userId, true);
 						List<OrderModel> pastOrders = orderDAO.getOrdersByStatus(userId, false);
 						
@@ -209,6 +211,18 @@ public class AdminController extends HttpServlet {
 				request.getRequestDispatcher("/WEB-INF/views/admin/customer-profile.jsp").forward(request,response);
 	}
 	
+	/**
+     * Handles the menu management display for admins
+     * 
+     * Retrieves selected outlet ID from request parameter or session fallback,
+     * fetches all outlets and menu items for the selected outlet, then forwards
+     * the request to the admin menu view JSP page.
+     * 
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
 	private void showMenuManagement(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		MenuService menuService = new MenuService();
 
@@ -261,6 +275,18 @@ public class AdminController extends HttpServlet {
 		request.getRequestDispatcher("/WEB-INF/views/admin/adminCustomerApproval.jsp").forward(request,response);
 	}
 
+/**
+ * Loads and displays feedback management page for admins.
+ * 
+ * Retrieves all feedback records from FeedbackDAO, calculates the
+ * total feedback count, average rating, and rating distribution counts, sets those values 
+ * as request attributes, and forwards to admin feedback JSP.
+ * 
+ * @param request
+ * @param response
+ * @throws ServletException
+ * @throws IOException
+ */
 	private void viewFeedback(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			FeedbackDAO feedbackDao = new FeedbackDAO();
@@ -298,6 +324,17 @@ public class AdminController extends HttpServlet {
 		
 	}
 	
+	/**
+	 * Prepares data required to render the add-menu-item page and forwards it to view.
+	 * 
+	 * Loads the list of outlets from OutletDAO and places it in the request as the outlets attribute, 
+	 * then forwards to the admin add-intem JSP.
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	private void viewMenuAdd(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		OutletDAO outletDAO = new OutletDAO();
         List<Outlet> outlets = outletDAO.getAllOutlets();
@@ -305,10 +342,33 @@ public class AdminController extends HttpServlet {
         request.getRequestDispatcher("/WEB-INF/views/admin/admin-add-item.jsp").forward(request, response);
 	}
 	
+	/**
+	 * Routes to the delete-menu-item page for admin users.
+	 * 
+	 * Forwards the request to the admin delete-item JSP. This method does not 
+	 * perform any data loading; the JSP handles retrieval of items to delete.
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	private void viewMenuDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("/WEB-INF/views/admin/admin-delete-item.jsp").forward(request, response);
 	}
 
+	/**
+	 * Loads item and outlet data for editing a menu items and forwards to the edit page.
+	 * 
+	 * Reads the itemId, requests parameter and attempts to parse it as an interger.
+	 * If parsing succeeds, the method loads the Item using ItemDAO and places it in the request as item.
+	 * The method also loads all outlets and sets them as the outlets attribute.
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	private void viewMenuEdit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String itemIdStr = request.getParameter("itemId");
 
@@ -434,6 +494,7 @@ public class AdminController extends HttpServlet {
 					AdminService adminService = new AdminService();
 					boolean success = adminService.updateAdminProfile(user_id, fname, lname, dob, gender, email, number);
 					
+					//Shows if the update was successful or not
 					if(success) {
 						UserModel updatedAdmin = adminService.getUserById(user_id);
 						session.setAttribute("user", updatedAdmin);
@@ -467,6 +528,26 @@ public class AdminController extends HttpServlet {
 		response.sendRedirect(request.getContextPath() + "/admin/customers");
 	}
 	
+	/**
+	 * Handles adding a new menu item.
+	 * 
+	 * Validates required fields (itemName, price, outlerId), handles image upload 
+	 * from a multipart request, creates the Item if it doesn't already exist (by name), 
+	 * and links the item to the specified outlet with the given price. 
+	 * 
+	 * If the item exists but different outlet, the existing item is linked to that outlet but 
+	 * duplicate linking is prevented. 
+	 * 
+	 * Expected request parameters:
+	 * - itemName (required), price (required), outlerId (required),
+	 * - category, itemType, itemDescription, itemStatus, itemIngredient, itemAllergy,
+	 * existingImage (optional), multipart part "itemImage" (optional).
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	private void handleMenuAdd(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
             String itemName = request.getParameter("itemName");
@@ -549,6 +630,17 @@ public class AdminController extends HttpServlet {
         }
 	}
     
+	/**
+	 * Handles deletion of menu item in both item and its outlet database.
+	 * 
+	 * Expects "action=delete" and an "itemId" request parameter.
+	 * Deletes related outlet_item records first, then deletes the item record itself.
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	private void handleMenuDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String itemIdStr = request.getParameter("itemId");
         String action = request.getParameter("action");
@@ -587,6 +679,18 @@ public class AdminController extends HttpServlet {
         doGet(request, response);
 	}
 
+	/**
+	 * Processes edits to an existing menu item.
+	 * 
+	 * Reads item fields (itemId, itemName, category, itemType, description, status, ingredient, allergy) and image upload.
+	 * If no new image is provided, it uses existing image as a parameter. Updates the item record in the database.
+	 * If outletId and price are provided , updates the outlet_item price.
+	 * 
+	 * If outletId is missing the price is set to 0 and it does not update.
+	 * 
+	 * @param request
+	 * @param response
+	 */
 	private void handleMenuEdit(HttpServletRequest request, HttpServletResponse response) {
 		try {
             int itemId = Integer.parseInt(request.getParameter("itemId"));
@@ -672,7 +776,11 @@ public class AdminController extends HttpServlet {
 	}
 	
 	
-	// Helper Methods
+	/**
+	 * Loads all outlets and stores them as a request attribute for outlet view.
+	 * 
+	 * @param request
+	 */
 	private void loadOutlets(HttpServletRequest request) {
         OutletDAO outletDAO = new OutletDAO();
         java.util.List<com.quickbite.model.Outlet> outlets = outletDAO.getAllOutlets();
