@@ -17,6 +17,7 @@
 </head>
 <body>
 
+<!-- This stores the current URI to apply active class in the side-nav bar -->
 <c:set var="uri" value="${pageContext.request.requestURI}">
 </c:set>
 
@@ -26,7 +27,8 @@
 		    	<p class="logo-text"> Quick Bite</p>
 		    </a>
         </div>
-        
+
+<!-- Use of ternary operator to add active class for styling -->        
         <div class="side-nav-content poppins-light">
             <a href="${pageContext.request.contextPath}/admin/" class="${uri == ('/QuickBite/WEB-INF/views/admin/admin-main-dashboard.jsp') ? 'active' : '' }"><i class="fa-regular fa-chart-bar"></i> Dashboard</a>
             <a href="${pageContext.request.contextPath}/admin/customers" class="${uri == ('/QuickBite/WEB-INF/views/admin/adminCustomerApproval.jsp') ? 'active' : '' }"><i class="fa-solid fa-user-group"></i> Customer Management</a>
@@ -46,6 +48,8 @@
 			<a href="${pageContext.request.contextPath}/logout"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a>
 		</div>
     </div>
+    
+<!-- Overlay div used for layout alignment -->
     <div class="under-side-nav">
    	</div>
 </body>
