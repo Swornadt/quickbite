@@ -1,13 +1,13 @@
 package com.quickbite.model;
 
-public class OutletItem {
+public class OutletItemModel {
 
 	private ItemModel item;
-	private Outlet outlet;
+	private OutletModel outlet;
 	private double outletItemPrice;
 	private int outletId;
 
-	public OutletItem(ItemModel item, Outlet outlet, double outletItemPrice) {
+	public OutletItemModel(ItemModel item, OutletModel outlet, double outletItemPrice) {
 		this.item = item;
 		this.outlet = outlet;
 		this.outletItemPrice = outletItemPrice;
@@ -17,7 +17,7 @@ public class OutletItem {
 		return item;
 	}
 
-	public Outlet getOutlet() {
+	public OutletModel getOutlet() {
 		return outlet;
 	}
 

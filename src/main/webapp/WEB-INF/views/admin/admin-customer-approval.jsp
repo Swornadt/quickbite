@@ -13,7 +13,7 @@
 
 <div class="overall-customerApproval-container">
 
-    <%@ include file="../common/adminNav.jsp" %>
+    <%@ include file="../common/admin-nav.jsp" %>
 
     <div class="container">
 

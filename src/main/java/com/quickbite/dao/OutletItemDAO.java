@@ -8,14 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.quickbite.model.ItemModel;
-import com.quickbite.model.Outlet;
-import com.quickbite.model.OutletItem;
+import com.quickbite.model.OutletModel;
+import com.quickbite.model.OutletItemModel;
 import com.quickbite.utils.DBconfig;
 
 public class OutletItemDAO {
 
-	public List<OutletItem> getItemsByOutlet(int outletId) {
-		List<OutletItem> outletItems = new ArrayList<>();
+	public List<OutletItemModel> getItemsByOutlet(int outletId) {
+		List<OutletItemModel> outletItems = new ArrayList<>();
 		String sql = "SELECT i.*, oi.outlet_item_price, o.outlet_id, o.outlet_name, o.outlet_status, o.outlet_image " +
 				"FROM item i " +
 				"JOIN outlet_item oi ON i.item_id = oi.item_id " +
@@ -38,12 +38,12 @@ public class OutletItemDAO {
 							rs.getString("item_ingredient"),
 							rs.getString("item_allergy"),
 							rs.getString("item_image"));
-					Outlet outlet = new Outlet(
+					OutletModel outlet = new OutletModel(
 							rs.getInt("outlet_id"),
 							rs.getString("outlet_name"),
 							rs.getString("outlet_status"),
 							rs.getString("outlet_image"));
-					OutletItem outletItem = new OutletItem(item, outlet, rs.getDouble("outlet_item_price"));
+					OutletItemModel outletItem = new OutletItemModel(item, outlet, rs.getDouble("outlet_item_price"));
 					outletItems.add(outletItem);
 				}
 			}
@@ -54,8 +54,8 @@ public class OutletItemDAO {
 		return outletItems;
 	}
 
-	public List<OutletItem> getAllOutletItems() {
-		List<OutletItem> outletItems = new ArrayList<>();
+	public List<OutletItemModel> getAllOutletItems() {
+		List<OutletItemModel> outletItems = new ArrayList<>();
 		String sql = "SELECT i.*, oi.outlet_item_price, oi.outlet_id " +
 				"FROM item i " +
 				"JOIN outlet_item oi ON i.item_id = oi.item_id " +
@@ -76,12 +76,12 @@ public class OutletItemDAO {
 						rs.getString("item_ingredient"),
 						rs.getString("item_allergy"),
 						rs.getString("item_image"));
-				Outlet outlet = new Outlet(
+				OutletModel outlet = new OutletModel(
 						rs.getInt("outlet_id"),
 						rs.getString("outlet_name"),
 						rs.getString("outlet_status"),
 						rs.getString("outlet_image"));
-				OutletItem outletItem = new OutletItem(item, outlet, rs.getDouble("outlet_item_price"));
+				OutletItemModel outletItem = new OutletItemModel(item, outlet, rs.getDouble("outlet_item_price"));
 				outletItems.add(outletItem);
 			}
 		} catch (SQLException e) {
@@ -150,7 +150,7 @@ public class OutletItemDAO {
 		return false;
 	}
 
-	public OutletItem getOutletItemByItemAndOutlet(int itemId, int outletId) {
+	public OutletItemModel getOutletItemByItemAndOutlet(int itemId, int outletId) {
 		String sql = "SELECT oi.outlet_id, oi.outlet_item_price, " +
 				"       i.*, o.outlet_name, o.outlet_status, o.outlet_image " +
 				"FROM outlet_item oi " +
@@ -172,11 +172,11 @@ public class OutletItemDAO {
 							rs.getString("item_status"), rs.getString("item_ingredient"),
 							rs.getString("item_allergy"), rs.getString("item_image"));
 
-					Outlet outlet = new Outlet(
+					OutletModel outlet = new OutletModel(
 							rs.getInt("outlet_id"), rs.getString("outlet_name"),
 							rs.getString("outlet_status"), rs.getString("outlet_image"));
 
-					return new OutletItem(item, outlet, rs.getDouble("outlet_item_price"));
+					return new OutletItemModel(item, outlet, rs.getDouble("outlet_item_price"));
 				}
 			}
 		} catch (SQLException e) {
@@ -206,8 +206,8 @@ public class OutletItemDAO {
 		}
 	}
 
-	public List<OutletItem> getItemsByOutletAndCategory(int outletId, String category) {
-		List<OutletItem> outletItems = new ArrayList<>();
+	public List<OutletItemModel> getItemsByOutletAndCategory(int outletId, String category) {
+		List<OutletItemModel> outletItems = new ArrayList<>();
 		String sql = "SELECT i.*, oi.outlet_item_price, o.outlet_id, o.outlet_name, o.outlet_status, o.outlet_image " +
 				"FROM item i " +
 				"JOIN outlet_item oi ON i.item_id = oi.item_id " +
@@ -236,12 +236,12 @@ public class OutletItemDAO {
 							rs.getString("item_ingredient"),
 							rs.getString("item_allergy"),
 							rs.getString("item_image"));
-					Outlet outlet = new Outlet(
+					OutletModel outlet = new OutletModel(
 							rs.getInt("outlet_id"),
 							rs.getString("outlet_name"),
 							rs.getString("outlet_status"),
 							rs.getString("outlet_image"));
-					outletItems.add(new OutletItem(item, outlet, rs.getDouble("outlet_item_price")));
+					outletItems.add(new OutletItemModel(item, outlet, rs.getDouble("outlet_item_price")));
 
 				}
 			}
@@ -251,8 +251,8 @@ public class OutletItemDAO {
 		return outletItems;
 	}
 
-	public List<OutletItem> searchItems(int outletId, String category, String searchTerm) {
-		List<OutletItem> outletItems = new ArrayList<>();
+	public List<OutletItemModel> searchItems(int outletId, String category, String searchTerm) {
+		List<OutletItemModel> outletItems = new ArrayList<>();
 		String sql = "SELECT i.*, oi.outlet_item_price, o.outlet_id, o.outlet_name, o.outlet_status, o.outlet_image " +
 				"FROM item i " +
 				"JOIN outlet_item oi ON i.item_id = oi.item_id " +
@@ -293,12 +293,12 @@ public class OutletItemDAO {
 							rs.getString("item_ingredient"),
 							rs.getString("item_allergy"),
 							rs.getString("item_image"));
-					Outlet outlet = new Outlet(
+					OutletModel outlet = new OutletModel(
 							rs.getInt("outlet_id"),
 							rs.getString("outlet_name"),
 							rs.getString("outlet_status"),
 							rs.getString("outlet_image"));
-					outletItems.add(new OutletItem(item, outlet, rs.getDouble("outlet_item_price")));
+					outletItems.add(new OutletItemModel(item, outlet, rs.getDouble("outlet_item_price")));
 				}
 			}
 		} catch (SQLException e) {

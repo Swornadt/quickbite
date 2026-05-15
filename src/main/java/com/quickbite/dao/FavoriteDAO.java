@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.quickbite.model.ItemModel;
-import com.quickbite.model.Outlet;
-import com.quickbite.model.OutletItem;
+import com.quickbite.model.OutletModel;
+import com.quickbite.model.OutletItemModel;
 import com.quickbite.utils.DBconfig;
 
 public class FavoriteDAO {
@@ -66,8 +66,8 @@ public class FavoriteDAO {
 	 * @param userId
 	 * @throws SQLException
 	 */
-	public List<OutletItem> getFavoritesByUser(int userId) throws SQLException {
-		List<OutletItem> favoriteItems = new ArrayList<>();
+	public List<OutletItemModel> getFavoritesByUser(int userId) throws SQLException {
+		List<OutletItemModel> favoriteItems = new ArrayList<>();
 		String sql = "SELECT i.*, o.*, oi.outlet_item_price FROM favorite f " +
 						"JOIN item i ON f.item_id = i.item_id " +
 						"JOIN outlet_item oi ON f.item_id = oi.item_id AND f.outlet_id = oi.outlet_id " +
@@ -86,14 +86,14 @@ public class FavoriteDAO {
 	                	item.setItemId(rs.getInt("item_id"));
 	                    item.setItemName(rs.getString("item_name"));
 	                    // map the outlet
-	                    Outlet outlet = new Outlet(
+	                    OutletModel outlet = new OutletModel(
 	                    		rs.getInt("outlet_id"),
 	                    		rs.getString("outlet_name"), 
 	                    		null, 
 	                    		null
 	                    );
 	                    // combining into outletItem
-	                    OutletItem favRecord = new OutletItem(item, outlet, rs.getDouble("outlet_item_price"));
+	                    OutletItemModel favRecord = new OutletItemModel(item, outlet, rs.getDouble("outlet_item_price"));
 	                    
 	                    favoriteItems.add(favRecord);
 	                }

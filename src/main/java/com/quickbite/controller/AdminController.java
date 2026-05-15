@@ -22,9 +22,9 @@ import com.quickbite.dao.ReportDAO;
 import com.quickbite.model.FeedbackModel;
 import com.quickbite.model.ItemModel;
 import com.quickbite.model.OrderModel;
-import com.quickbite.model.Outlet;
-import com.quickbite.model.OutletItem;
-import com.quickbite.model.Report;
+import com.quickbite.model.OutletModel;
+import com.quickbite.model.OutletItemModel;
+import com.quickbite.model.ReportModel;
 import com.quickbite.model.UserModel;
 import com.quickbite.service.AdminService;
 import com.quickbite.service.MenuService;
@@ -251,8 +251,8 @@ public class AdminController extends HttpServlet {
 		}
 
 		// Get data through Service
-		List<Outlet> outlets = menuService.getAllOutlets();
-		List<OutletItem> outletItems = menuService.getMenuItems(outletParam);
+		List<OutletModel> outlets = menuService.getAllOutlets();
+		List<OutletItemModel> outletItems = menuService.getMenuItems(outletParam);
 
 		// Set attributes
 		request.setAttribute("outletItems", outletItems);
@@ -405,7 +405,7 @@ public class AdminController extends HttpServlet {
 			// Load specific outlet + price for this item
 			if (outletId > 0) {
 				OutletItemDAO outletItemDAO = new OutletItemDAO();
-				OutletItem current = outletItemDAO.getOutletItemByItemAndOutlet(itemId, outletId);
+				OutletItemModel current = outletItemDAO.getOutletItemByItemAndOutlet(itemId, outletId);
 				if (current != null) {
 					request.setAttribute("selectedOutletId", current.getOutletId());
 					request.setAttribute("currentPrice", current.getOutletItemPrice());
@@ -437,7 +437,7 @@ public class AdminController extends HttpServlet {
 		}
 
 		ReportDAO reportDAO = new ReportDAO();
-		Report report = reportDAO.getReport(outletId);
+		ReportModel report = reportDAO.getReport(outletId);
 
 		request.setAttribute("report", report);
 		request.setAttribute("selectedOutletId", outletId);
@@ -624,7 +624,7 @@ public class AdminController extends HttpServlet {
 				int outletId = Integer.parseInt(outletIdStr.trim());
 				double price = Double.parseDouble(priceStr.trim());
 
-				Outlet outlet = outletDAO.getOutletById(outletId);
+				OutletModel outlet = outletDAO.getOutletById(outletId);
 				String outletName = (outlet != null) ? outlet.getOutletName() : "Outlet " + outletId;
 
 				// Check if item already exists in this outlet
@@ -777,7 +777,7 @@ public class AdminController extends HttpServlet {
 			}
 
 			if (updated) {
-				String msg = "Item updated successfully!";
+				String msg = " updated successfully!";
 				if (priceUpdated)
 					msg += " Price also updated.";
 				request.setAttribute("message", msg);
@@ -810,7 +810,7 @@ public class AdminController extends HttpServlet {
 	 */
 	private void loadOutlets(HttpServletRequest request) {
 		OutletDAO outletDAO = new OutletDAO();
-		List<Outlet> outlets = outletDAO.getAllOutlets();
+		List<OutletModel> outlets = outletDAO.getAllOutlets();
 		request.setAttribute("outlets", outlets);
 	}
 

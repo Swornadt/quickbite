@@ -1,6 +1,6 @@
 package com.quickbite.model;
 
-public class Report {
+public class ReportModel {
 	private int totalUsers;
 	private int totalOrders;
 	private double totalSales;

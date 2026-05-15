@@ -21,7 +21,7 @@
 
 	<!-- Top Navigation Bar -->
 	<div class="customer-profile-side">
-        <%@ include file='../common/adminNav.jsp' %>
+        <%@ include file='../common/admin-nav.jsp' %>
         
         <!-- Profile Picture and Name with Role -->
         <div class="customer-brief" style="margin: 20px 0;">

@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>User Profile Utility Bar</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/utilityBar.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/utility-bar.css" />
     <!-- Google Fonts Preconnect and Link -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

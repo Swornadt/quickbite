@@ -4,13 +4,13 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-import com.quickbite.model.Report;
+import com.quickbite.model.ReportModel;
 import com.quickbite.utils.DBconfig;
 
 public class ReportDAO {
 	
-	public Report getReport(int outletId) {
-		Report report = new Report();
+	public ReportModel getReport(int outletId) {
+		ReportModel report = new ReportModel();
 		
 		try (Connection conn = DBconfig.getConnection()) {
 			Statement st = conn.createStatement();

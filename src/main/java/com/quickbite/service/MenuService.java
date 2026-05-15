@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.quickbite.dao.OutletDAO;
 import com.quickbite.dao.OutletItemDAO;
-import com.quickbite.model.Outlet;
-import com.quickbite.model.OutletItem;
+import com.quickbite.model.OutletModel;
+import com.quickbite.model.OutletItemModel;
 
 public class MenuService {
 
@@ -17,10 +17,10 @@ public class MenuService {
      * If outletId is null or empty → return all items
      * Else → return items for that specific outlet
      */
-    public List<OutletItem> getMenuItems(String outletIdStr) {
+    public List<OutletItemModel> getMenuItems(String outletIdStr) {
         if (outletIdStr == null || outletIdStr.trim().isEmpty()) {
             // Default to first outlet if none selected
-            List<Outlet> outlets = outletDAO.getAllOutlets();
+            List<OutletModel> outlets = outletDAO.getAllOutlets();
             if (!outlets.isEmpty()) {
                 return outletItemDAO.getItemsByOutlet(outlets.get(0).getOutletId());
             }
@@ -32,7 +32,7 @@ public class MenuService {
             return outletItemDAO.getItemsByOutlet(outletId);
         } catch (NumberFormatException e) {
             // fallback to first outlet
-            List<Outlet> outlets = outletDAO.getAllOutlets();
+            List<OutletModel> outlets = outletDAO.getAllOutlets();
             if (!outlets.isEmpty()) {
                 return outletItemDAO.getItemsByOutlet(outlets.get(0).getOutletId());
             }
@@ -40,7 +40,7 @@ public class MenuService {
         }
     }
 
-    public List<Outlet> getAllOutlets() {
+    public List<OutletModel> getAllOutlets() {
         return outletDAO.getAllOutlets();
     }
 }
