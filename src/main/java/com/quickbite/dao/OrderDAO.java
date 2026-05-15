@@ -14,23 +14,22 @@ import com.quickbite.utils.DBconfig;
 
 public class OrderDAO {
 
-	public int createOrder (int userId, List<CartItemModel> cart, String instructions, String preferredDate) {
-		String orderSql = "INSERT INTO `order` (user_id, order_date, order_status, order_note, preferred_date)"
-							+ "VALUES (?, NOW(), 0, ?, ?)";
+	public int createOrder (int userId, List<CartItemModel> cart, String instructions, String preferredDate, int paymentId) {
+		String orderSql = "INSERT INTO `order` (user_id, order_date, order_status, order_note, preferred_date, payment_id)"
+                		+ " VALUES (?, NOW(), 0, ?, ?, ?)";
 		String itemSql = "INSERT INTO order_outlet_item (order_id, outlet_id, item_id, item_qty, order_subtotal)"
-				+ "VALUES (?, ?, ?, ?, ?)";
-
+		                + " VALUES (?, ?, ?, ?, ?)";
 		Connection conn = null;
 		try {
-			conn = DBconfig.getConnection();
-			conn.setAutoCommit(false); // start transaction
-
-			// insert parent order
-			PreparedStatement ps1 = conn.prepareStatement(orderSql, Statement.RETURN_GENERATED_KEYS);
-			ps1.setInt(1, userId);
-			ps1.setString(2, instructions);
-			ps1.setString(3, preferredDate);
-			ps1.executeUpdate();
+		    conn = DBconfig.getConnection();
+		    conn.setAutoCommit(false);
+		
+		    PreparedStatement ps1 = conn.prepareStatement(orderSql, Statement.RETURN_GENERATED_KEYS);
+		    ps1.setInt(1, userId);
+		    ps1.setString(2, instructions);
+		    ps1.setString(3, preferredDate);
+		    ps1.setInt(4, paymentId);
+		    ps1.executeUpdate();
 
 			// get generated orderID
 			ResultSet rs = ps1.getGeneratedKeys();
@@ -80,7 +79,7 @@ public class OrderDAO {
 		// 0: pending; 1: processing; 2: completed"
 		String statusCondition = isCurrent ? "IN (0, 1)" : "= 2";
 		
-		String query = "SELECT order_id, order_date, order_status, order_note FROM `order` "+
+		String query = "SELECT order_id, order_date, order_status, order_note, feedback_id FROM `order` "+
 						" WHERE user_id = ? AND order_status "+ statusCondition +
 						" ORDER BY order_date DESC";
 		
@@ -95,6 +94,7 @@ public class OrderDAO {
 				order.setOrderId(rs.getInt("order_id"));
                 order.setOrderStatus(rs.getInt("order_status"));
                 order.setOrderNote(rs.getString("order_note"));
+                order.setFeedbackId(rs.getInt("feedback_id"));
                 
                 java.sql.Timestamp ts = rs.getTimestamp("order_date");
 			    if (ts != null) {
@@ -109,6 +109,18 @@ public class OrderDAO {
 		}
 		
 		return orders;
+	}
+	
+	public void updateFeedbackId(int orderId, int feedbackId) {
+	    String sql = "UPDATE `order` SET feedback_id = ? WHERE order_id = ?";
+	    try (Connection conn = DBconfig.getConnection();
+	         PreparedStatement pst = conn.prepareStatement(sql)) {
+	        pst.setInt(1, feedbackId);
+	        pst.setInt(2, orderId);
+	        pst.executeUpdate();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
 	}
 
 	public int createOrderAndGetId(int userId, List<CartItemModel> cart, String specialInstructions,

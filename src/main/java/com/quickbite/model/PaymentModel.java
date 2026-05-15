@@ -7,7 +7,6 @@ public class PaymentModel implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private int paymentId;
-    private int orderId;
     private double amount;
     private String paymentStatus; // {"Pending", "Completed", "Failed"}
     private Timestamp paymentDate;
@@ -15,9 +14,8 @@ public class PaymentModel implements Serializable {
     public PaymentModel() {
     }
 
-    public PaymentModel(int paymentId, int orderId, double amount, String paymentStatus, Timestamp paymentDate) {
+    public PaymentModel(int paymentId, double amount, String paymentStatus, Timestamp paymentDate) {
         this.paymentId = paymentId;
-        this.orderId = orderId;
         this.amount = amount;
         this.paymentStatus = paymentStatus;
         this.paymentDate = paymentDate;
@@ -30,14 +28,6 @@ public class PaymentModel implements Serializable {
 
     public void setPaymentId(int paymentId) {
         this.paymentId = paymentId;
-    }
-
-    public int getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
     }
 
     public double getAmount() {

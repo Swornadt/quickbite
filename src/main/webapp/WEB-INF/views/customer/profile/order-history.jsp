@@ -71,14 +71,24 @@
 					<c:when test="${not empty pastOrders}">
 						<c:forEach var="order" items="${pastOrders}">
 							<div class="divider"></div>
-							<div class="order-card">
-								<p> Order ID: <span>#${order.orderId}</span></p>
-								<p> Order Date: <span><fmt:formatDate value="${order.orderDateAsDate}" pattern="dd MMM yyyy"/></span></p>
-								<p> Order Status: 
-								    <span class="${order.orderStatus == 2 ? 'status-completed' : 'status-current'}">
-								        ${order.statusText}
-								    </span>
-								</p>
+							<div class="order-card-complete">
+							    <div class="order-card-complete-info">
+							        <p>Order ID: <span>#${order.orderId}</span></p>
+							        <p>Order Date: <span><fmt:formatDate value="${order.orderDateAsDate}" pattern="dd MMM yyyy"/></span></p>
+							        <p>Order Status:
+							            <span class="${order.orderStatus == 2 ? 'status-completed' : 'status-current'}">
+							                ${order.statusText}
+							            </span>
+							        </p>
+							    </div>
+							    <c:if test="${order.feedbackId == 0}">
+							        <a href="${pageContext.request.contextPath}/profile/contact?orderId=${order.orderId}">
+							            <button class="rate-btn">Rate Order</button>
+							        </a>
+							    </c:if>
+							    <c:if test="${order.feedbackId != 0}">
+							        <button class="rate-btn-done" disabled>Reviewed</button>
+							    </c:if>
 							</div>
 						</c:forEach>
 					</c:when>
