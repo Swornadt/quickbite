@@ -79,7 +79,7 @@ public class OrderDAO {
 		// 0: pending; 1: processing; 2: completed"
 		String statusCondition = isCurrent ? "IN (0, 1)" : "= 2";
 		
-		String query = "SELECT order_id, order_date, order_status, order_note FROM `order` "+
+		String query = "SELECT order_id, order_date, order_status, order_note, feedback_id FROM `order` "+
 						" WHERE user_id = ? AND order_status "+ statusCondition +
 						" ORDER BY order_date DESC";
 		
@@ -94,6 +94,7 @@ public class OrderDAO {
 				order.setOrderId(rs.getInt("order_id"));
                 order.setOrderStatus(rs.getInt("order_status"));
                 order.setOrderNote(rs.getString("order_note"));
+                order.setFeedbackId(rs.getInt("feedback_id"));
                 
                 java.sql.Timestamp ts = rs.getTimestamp("order_date");
 			    if (ts != null) {
