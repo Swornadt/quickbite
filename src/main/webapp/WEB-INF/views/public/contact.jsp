@@ -1,41 +1,60 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us | QuickBite</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/contact.css">
-</head>
+    <!DOCTYPE html>
+    <html lang="en">
 
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Contact Us | QuickBite</title>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/contact.css">
+    </head>
 
-    <!-- Header -->
-    <%@ include file="../common/navbar1.jsp" %>
+    <body>
 
-    <div class="hero-image">
-        <div class="hero-title">Contact Us</div>
-    </div>
+        <!-- Header -->
+        <%@ include file="../common/navbar1.jsp" %>
 
-    <div class="contact-container">
+            <div class="hero-image">
+                <div class="hero-title">Contact Us</div>
+            </div>
 
-        <div class="info">
-            <h2>Islington College</h2>
-            <p>Kamal Pokhari, Kathmandu, Nepal</p>
-            <p>Phone: +977 - 4433221</p>
-        </div>
-        
+            <div class="contact-container">
+                <h2>Need More Help?</h2>
 
-    </div>
+                <div class="info">
 
-    <div class="map">
-        <img src="${pageContext.request.contextPath}/assets/Location.jpg" alt="Islington College Location">
-    </div>
+                    <!-- Call Card -->
+                    <div class="info-card">
+                        <h2>Call us at</h2>
+                        <div class="number">9765432108</div>
+                        <div class="subtitle">
+                            Available 7am–5pm, 6 days a week
+                        </div>
+                        <a href="#" class="btn">Call Us</a>
+                    </div>
 
-    <!-- Footer -->
-    <%@ include file="../common/footer.jsp" %>
+                    <!-- Email Card -->
+                    <div class="info-card">
+                        <h2>Send us an email</h2>
+                        <div class="subtitle">
+                            We’d love to hear from you
+                        </div>
+                        <a href="#" class="btn">Email Us</a>
+                    </div>
+                </div>
+            </div>
 
-</body>
-</html>
+
+            </div>
+
+            <div class="map">
+                <img src="${pageContext.request.contextPath}/assets/Location.jpg" alt="Islington College Location">
+            </div>
+
+            <!-- Footer -->
+            <%@ include file="../common/footer.jsp" %>
+
+    </body>
+
+    </html>
