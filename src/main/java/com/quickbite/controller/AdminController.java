@@ -305,9 +305,10 @@ public class AdminController extends HttpServlet {
 			if (totalFeedback > 0) {
 				int sum = 0;
 				for (FeedbackModel fb : feedbackList) {
-					sum += fb.getRatingValue();
-					if (fb.getRatingValue() >= 1 && fb.getRatingValue() <= 5) {
-						ratingCount[fb.getRatingValue()]++;
+					int rating = fb.getRatingValue();
+					sum += rating;
+					if (rating >= 1 && rating <= 5) {
+						ratingCount[rating]++;
 					}
 				}
 				avgRating = (double) sum / totalFeedback;
@@ -315,11 +316,15 @@ public class AdminController extends HttpServlet {
 
 			// Round to 1 decimal place
 			avgRating = Math.round(avgRating * 10.0) / 10.0;
+			
+			//Calculating filled star
+			int filledStars = (int) Math.round(avgRating);
 
 			request.setAttribute("feedbackList", feedbackList);
 			request.setAttribute("totalFeedback", totalFeedback);
 			request.setAttribute("avgRating", avgRating);
 			request.setAttribute("ratingCount", ratingCount);
+			request.setAttribute("filledStars", filledStars);
 
 		} catch (Exception e) {
 			e.printStackTrace();
