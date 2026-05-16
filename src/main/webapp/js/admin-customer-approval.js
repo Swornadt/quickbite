@@ -1,25 +1,22 @@
 const tabs = document.querySelectorAll(".tab");
 
-const activeSection = document.getElementById("active");
 const pendingSection = document.getElementById("pending");
+const activeSection = document.getElementById("active");
+const passwordResetSection = document.getElementById("password-reset-requests");
+
+const sections = [pendingSection, activeSection, passwordResetSection];
 
 tabs.forEach((tab, index) => {
-
     tab.addEventListener("click", () => {
 
-        if (index === 0) {
-            pendingSection.style.display = "grid";
-            activeSection.style.display = "none";
-        } else {
-            pendingSection.style.display = "none";
-            activeSection.style.display = "grid";
-        }
+        // Hiding all sections
+        sections.forEach(section => section.style.display = "none");
 
-        tabs.forEach((item) => {
-            item.classList.remove("onactive");
-        });
+        // Showing the section matching the clicked tab
+        sections[index].style.display = "grid";
 
+        // Updating active tab styling
+        tabs.forEach(item => item.classList.remove("onactive"));
         tab.classList.add("onactive");
     });
-
 });
