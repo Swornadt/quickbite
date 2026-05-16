@@ -9,6 +9,9 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/order-details.css" />
 </head>
 <body>
+  
+  <%@ include file="/WEB-INF/views/staff/kitchen-nav.jsp" %>
+  
   <div class="order">
  
     <!-- Letf div for order details -->

@@ -16,6 +16,7 @@ body {
   display: flex;
   flex-direction: row;
   padding: 30px 4vw 30px 13vw;
+  margin-top: 80px;
 }
  
 /* Lefty */
