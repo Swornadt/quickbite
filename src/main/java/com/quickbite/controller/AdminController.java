@@ -280,7 +280,7 @@ public class AdminController extends HttpServlet {
 		request.setAttribute("activeCustomers",activeCustomers);
 		
 		//Foward to JSP, the JSP wil loop through the list and display each user
-		request.getRequestDispatcher("/WEB-INF/views/admin/adminCustomerApproval.jsp").forward(request,response);
+		request.getRequestDispatcher("/WEB-INF/views/admin/admin-customer-approval.jsp").forward(request,response);
 	}
 
 /**

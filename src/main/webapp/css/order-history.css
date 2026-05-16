@@ -51,13 +51,31 @@ body {
     line-height: 1.8;
 }
 
-.order-card p {
+.order-card p { 
     margin: 0;
     font-size: 0.95rem;
     color: #666;
 }
 
 .order-card span {
+    color: #444;
+}
+
+.order-card-complete {
+    padding: 10px 0;
+    line-height: 1.8;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.order-card-complete-info p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #666;
+}
+
+.order-card-complete-info span {
     color: #444;
 }
 
@@ -96,4 +114,31 @@ body {
     overflow-y: auto;
     overflow-x: hidden;
     padding-right: 15px;
+}
+
+.rate-btn {
+    background: #DB4A1E;
+    color: #fff;
+    border: none;
+    padding: 9px 18px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+.rate-btn:hover { background: #c13f1a; }
+
+.rate-btn-done {
+    background: #f5f5f5;
+    color: #aaa;
+    border: 1px solid #e0e0e0;
+    cursor: not-allowed;
+    padding: 9px 18px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
