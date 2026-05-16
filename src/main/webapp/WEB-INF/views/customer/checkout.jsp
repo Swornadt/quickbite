@@ -33,6 +33,12 @@
     <div class="left-container">
     	<form id="checkout-form" action="${pageContext.request.contextPath}/checkout" method="post">
 
+			<c:if test="${not empty error}">
+	            <div class="error-message">
+	                <span class="error-banner-text">${error}</span>
+	            </div>
+	        </c:if>
+	        
 	        <!-- DATE AND TIME SECTION -->
 	        <div class="checkout-card">
 	            <div class="checkout-card-heading">
