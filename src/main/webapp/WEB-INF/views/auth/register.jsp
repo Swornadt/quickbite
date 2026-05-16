@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,16 +27,13 @@
       <!-- Right Side (Form Container) -->
       <div class="register-page-section">
       <!-- Error / Success Messages -->
-		<% if (request.getAttribute("error") != null) { %>
-    		<p style="color: red;" class='register-message'>
-        		<%= request.getAttribute("error") %>
-    		</p>
-		<% } %>
-		<% if (request.getAttribute("success") != null) { %>
-    		<p style="color: green;"  class='register-message'>
-        		<%= request.getAttribute("success") %>
-    		</p>
-		<% } %>
+		<c:if test="${not empty error}">
+		    <p style="color: red;" class="register-message">${error}</p>
+		</c:if>
+		
+		<c:if test="${not empty success}">
+		    <p style="color: green;" class="register-message">${success}</p>
+		</c:if>
 
         <div class="register-container">
           <h1 class="register-heading">Register</h1>
