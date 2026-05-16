@@ -11,8 +11,8 @@ import java.io.IOException;
 
 import com.quickbite.model.UserModel;
 
-@WebServlet(asyncSupported = true, urlPatterns = { "/ProfilePopUpServlet" })
-public class ProfilePopUpServlet extends HttpServlet {
+@WebServlet(asyncSupported = true, urlPatterns = { "/profile-popup" })
+public class ProfilePopupController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
