@@ -30,6 +30,7 @@ import com.quickbite.service.AdminService;
 import com.quickbite.service.MenuService;
 import com.quickbite.utils.ImageUtil;
 import com.quickbite.utils.SessionUtil;
+import com.quickbite.utils.ValidationUtil;
 
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
 		maxFileSize = 1024 * 1024 * 10, // 10MB
@@ -98,6 +99,12 @@ public class AdminController extends HttpServlet {
 			case "/customers/profile":
 				viewCustomerProfile(request, response);
 				break;
+			case "customers/reset":
+				handleResetRequest(request,response);
+				break;
+			case "/customers/savePassword":
+				//handleSavePassword(request,response);
+				break;
 			case "/menu/add":
 				viewMenuAdd(request, response);
 				break;
@@ -110,6 +117,9 @@ public class AdminController extends HttpServlet {
 				break;
 			case "/report":
 				viewReport(request, response);
+				break;
+			case "/resetPassword":
+				resetPassword(request, response);
 				break;
 			default:
 				response.sendError(HttpServletResponse.SC_NOT_FOUND);
@@ -260,7 +270,7 @@ public class AdminController extends HttpServlet {
 
 	/**
 	 * doGet() runs when the browser visits /admin/customers
-	 * It fetches all pending users from the DB and sends them to the JSP
+	 * It fetches all pending, active and passwordResetRequest users from the DB and sends them to the JSP
 	 */
 	private void viewCustomers(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -269,12 +279,13 @@ public class AdminController extends HttpServlet {
 
 		List<UserModel> pendingUsers = adminService.getPendingUsers();
 		List<UserModel> activeCustomers = adminService.getActiveCustomers();
-
+		List<UserModel> passwordResetRequests = adminService.getPasswordResetRequests();
 		
 		
 		//Attaching the list to the request so the jsp can access it
 		request.setAttribute("pendingUsers",pendingUsers);
 		request.setAttribute("activeCustomers",activeCustomers);
+		request.setAttribute("passwordResetRequests", passwordResetRequests);
 		
 		//Foward to JSP, the JSP wil loop through the list and display each user
 		request.getRequestDispatcher("/WEB-INF/views/admin/admin-customer-approval.jsp").forward(request,response);
@@ -305,9 +316,10 @@ public class AdminController extends HttpServlet {
 			if (totalFeedback > 0) {
 				int sum = 0;
 				for (FeedbackModel fb : feedbackList) {
-					sum += fb.getRatingValue();
-					if (fb.getRatingValue() >= 1 && fb.getRatingValue() <= 5) {
-						ratingCount[fb.getRatingValue()]++;
+					int rating = fb.getRatingValue();
+					sum += rating;
+					if (rating >= 1 && rating <= 5) {
+						ratingCount[rating]++;
 					}
 				}
 				avgRating = (double) sum / totalFeedback;
@@ -315,11 +327,15 @@ public class AdminController extends HttpServlet {
 
 			// Round to 1 decimal place
 			avgRating = Math.round(avgRating * 10.0) / 10.0;
+			
+			//Calculating filled star
+			int filledStars = (int) Math.round(avgRating);
 
 			request.setAttribute("feedbackList", feedbackList);
 			request.setAttribute("totalFeedback", totalFeedback);
 			request.setAttribute("avgRating", avgRating);
 			request.setAttribute("ratingCount", ratingCount);
+			request.setAttribute("filledStars", filledStars);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -443,7 +459,43 @@ public class AdminController extends HttpServlet {
 
 		request.getRequestDispatcher("/WEB-INF/views/admin/admin-report.jsp").forward(request, response);
 	}
+	
+	/**
+	 * This function is responsible for loading loading contents in the reset password jsp file
+	 * validates it the userId exists or not
+	 * if yes, passes user data on to the jsp file
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	private void resetPassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String userIdParam = request.getParameter("userId");
+		
+		if(userIdParam == null) {
+			response.sendRedirect(request.getContextPath() + "/admin/customers");
+		}
+		
+		try {
+	        int userId = Integer.parseInt(userIdParam);
+	        UserModel user = adminService.getUserById(userId);
 
+	        if (user == null) {
+	            response.sendRedirect(request.getContextPath() + "/admin/customers");
+	            return;
+	        }
+
+	        request.setAttribute("userData", user);
+	        request.getRequestDispatcher("/WEB-INF/views/admin/admin-change-password.jsp")
+	               .forward(request, response);
+
+	    } catch (NumberFormatException e) {
+	        response.sendRedirect(request.getContextPath() + "/admin/customers");
+	    }
+	}
+	
+	
 	/**
 	 * Handles POST requests by routing them to corresponding admin features.
 	 * 
@@ -483,6 +535,12 @@ public class AdminController extends HttpServlet {
 			case "/menu/delete":
 				handleMenuDelete(request, response);
 				break;
+			case "/customers/reset":
+			    handleResetRequest(request, response);
+			    break;
+			case "/customers/savePassword":
+			    handleSavePassword(request, response);
+			    break;	
 			default:
 				response.sendError(HttpServletResponse.SC_NOT_FOUND);
 		}
@@ -548,8 +606,107 @@ public class AdminController extends HttpServlet {
 
 		adminService.updateUserStatus(userIdParam, action);
 						
-		//Always redirect back after a POST - prevent resubmission on refresh
+		//Always redirect back after a POST - prevent re submission on refresh
 		response.sendRedirect(request.getContextPath() + "/admin/customers");
+	}
+	
+	
+	/**
+	 * Handles admin approve or reject action on a password reset request
+	 * On approve, redirect to the change-password page with the userID, so that the admin can set the new password
+	 * On reject, clears the reset request and redirects back to the customer management page.
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 */
+	private void handleResetRequest(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		String userIdParam = request.getParameter("user_id");
+		String action = request.getParameter("action");
+		
+		
+		//Null validation
+		if (userIdParam == null || action == null){
+			response.sendRedirect(request.getContextPath() + "/admin/customers");
+			return;
+		}
+		
+		int userId;
+		
+		try {
+			userId = Integer.parseInt(userIdParam);			
+		}catch (NumberFormatException e) {
+			response.sendRedirect(request.getContextPath() + "/admin/customers");
+			return;
+		}
+		
+		if (action.equals("approve")) {
+			response.sendRedirect(request.getContextPath() + "/admin/resetPassword?userId=" + userId);
+		}else if (action.equals("reject")) {
+			adminService.rejectResetRequest(userId);
+			response.sendRedirect(request.getContextPath() + "/admin/customers");
+		}else {
+			response.sendRedirect(request.getContextPath() + "/admin/customers");
+		}
+		
+	}
+	
+	/**
+	 * Handles the admin form submission for setting a new password on behalf of a user
+	 * 
+	 * Reads userId, newPassword, and confirmPassword from the request.
+	 * Validates that both password fields matches
+	 * 
+	 * Redirect back to the change password page with a success or error parameter to display feedback via the JSP
+	 * 	 
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 */
+	private void handleSavePassword(HttpServletRequest request, HttpServletResponse response) throws  ServletException, IOException {
+		String userIdParam = request.getParameter("user_id");
+		String newPassword = request.getParameter("newPassword");
+	    String confirmPassword = request.getParameter("confirmPassword");
+	    
+	    if (userIdParam == null){
+	        response.sendRedirect(request.getContextPath() + "/admin/customers");
+	        return;
+	    }
+	    
+	    int userId;
+	    try {
+	        userId = Integer.parseInt(userIdParam);
+	    } catch (NumberFormatException e) {
+	        response.sendRedirect(request.getContextPath() + "/admin/customers");
+	        return;
+	    }
+
+	    if (!newPassword.equals(confirmPassword)) {
+	    	UserModel user = adminService.getUserById(userId);
+	        request.setAttribute("userData", user);
+	    	request.setAttribute("errorMessage", "Passwords do not match. Please try again.");
+	        request.getRequestDispatcher("/WEB-INF/views/admin/admin-change-password.jsp").forward(request, response);
+	        return;
+	    }
+	    
+	    String validationError = ValidationUtil.validatePassword(newPassword, confirmPassword);
+	    if (validationError != null) {
+	        UserModel user = adminService.getUserById(userId);
+	        request.setAttribute("userData", user);
+	        request.setAttribute("errorMessage", validationError);
+	        request.getRequestDispatcher("/WEB-INF/views/admin/admin-change-password.jsp").forward(request, response);
+	        return;
+	    }
+	    
+	    boolean success = adminService.resetPasswordForUser(userId, newPassword);
+
+	    if (success) {
+	        response.sendRedirect(request.getContextPath() + "/admin/customers?status=passwordReset");
+	    } else {
+	    	UserModel user = adminService.getUserById(userId);
+	    	request.setAttribute("userData", user);
+	    	request.setAttribute("errorMessage", "Something went wrong. Please try again.");
+	    	request.getRequestDispatcher("/WEB-INF/views/admin/admin-change-password.jsp").forward(request, response);
+	    }
 	}
 	
 	/**
