@@ -1,11 +1,13 @@
 package com.quickbite.controller;
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Part;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -19,11 +21,17 @@ import com.quickbite.model.OrderModel;
 import com.quickbite.model.UserModel;
 import com.quickbite.service.FeedbackService;
 import com.quickbite.service.UserService;
+import com.quickbite.utils.ImageUtil;
 import com.quickbite.utils.PasswordUtil;
 import com.quickbite.utils.SessionUtil;
 import com.quickbite.utils.ValidationUtil;
 import com.quickbite.model.OutletItemModel;
 
+@MultipartConfig(
+	    fileSizeThreshold = 1024 * 1024 * 2,  // 2MB
+	    maxFileSize = 1024 * 1024 * 10,       // 10MB
+	    maxRequestSize = 1024 * 1024 * 50     // 50MB
+	)
 
 @WebServlet(asyncSupported = true, urlPatterns = { "/profile", "/profile/*" })
 public class CustomerController extends HttpServlet {
@@ -106,6 +114,9 @@ public class CustomerController extends HttpServlet {
 				break;
 			case "/change-password":
 				handleChangePassword(request, response);
+				break;
+			case "/upload-image":
+				uploadProfileImage(request, response);
 				break;
 			default:
 				response.sendError(HttpServletResponse.SC_NOT_FOUND);
@@ -367,5 +378,55 @@ public class CustomerController extends HttpServlet {
 	    }
 
 	}
+	
+	/**
+     * Handles profile image upload
+     * POST /profile/upload-image
+     */
+    private void uploadProfileImage(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
+        
+        HttpSession session = request.getSession();
+        UserModel user = (UserModel) session.getAttribute("user");
+
+        if (user == null) {
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
+        }
+
+        try {
+            Part part = request.getPart("profileImage");
+            
+            if (part == null || part.getSize() == 0) {
+                request.setAttribute("error", "Please select an image to upload.");
+                request.getRequestDispatcher("/WEB-INF/views/customer/profile/user-profile.jsp").forward(request, response);
+                return;
+            }
+
+            ImageUtil imageUtil = new ImageUtil();
+            String imagePath = imageUtil.uploadProfileImage(part, "uploads", getServletContext());
+
+            // Update image path in database
+            UserDAO userDAO = new UserDAO();
+            boolean success = userDAO.updateUserImage(user.getUserId(), imagePath);
+
+            if (success) {
+                // Update session with new image path
+                user.setImage(imagePath);
+                session.setAttribute("user", user);
+                
+                request.setAttribute("success", "Profile picture updated successfully!");
+            } else {
+                request.setAttribute("error", "Failed to update profile picture.");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("error", "Error uploading image. Please try again.");
+        }
+
+        // Forward back to profile page
+        request.getRequestDispatcher("/WEB-INF/views/customer/profile/user-profile.jsp").forward(request, response);
+    }
 
 }
