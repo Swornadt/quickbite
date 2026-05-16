@@ -20,16 +20,17 @@
     </div>
     
     <!-- Success / Error Messages -->
-        <% if (request.getAttribute("success") != null) { %>
-            <div style="color:green; text-align:center; margin:25px 0; font-weight:bold; font-size:1.1em;">
-                <%= request.getAttribute("success") %>
-            </div>
-        <% } %>
-        <% if (request.getAttribute("error") != null) { %>
-            <div style="color:red; text-align:center; margin:25px 0; font-weight:bold; font-size:1.1em;">
-                <%= request.getAttribute("error") %>
-            </div>
-        <% } %>
+        <c:if test="${not empty success}">
+        <div style="color:green; text-align:center; margin:25px 0; font-weight:bold; font-size:1.1em;">
+            ${success}
+        </div>
+    </c:if>
+    
+    <c:if test="${not empty error}">
+        <div style="color:red; text-align:center; margin:25px 0; font-weight:bold; font-size:1.1em;">
+            ${error}
+        </div>
+    </c:if>
 
     <div class="contact-container">
 
@@ -39,13 +40,6 @@
             <p>Phone: +977 - 4433221</p>
         </div>
 
-        <!-- Login Check -->
-        <%
-            boolean isLoggedIn = (session != null && session.getAttribute("user") != null);
-        %>
-
-        <% if (isLoggedIn) { %>
-            <!-- Logged-in Feedback Form -->
             <form action="${pageContext.request.contextPath}/profile/contact" method="post" class="feedback-form">
             <input type="hidden" name="orderId" value="${param.orderId}"/>
                 <h2>Send us your feedback</h2>
@@ -71,17 +65,7 @@
 
                 <button type="submit">Submit Feedback</button>
             </form>
-        <% } else { %>
-            <!-- Non-logged-in version -->
-            <div class="feedback-form" style="text-align:center; padding:40px; background:#f9f9f9; border-radius:8px;">
-                <h2>Send us your feedback</h2>
-                <p style="color:#666; margin:20px 0; font-size:1.1em;">
-                    You need to be <strong>logged in</strong> to submit feedback.
-                </p>
-                <a href="${pageContext.request.contextPath}/login" 
-                   class="login-btn">Login to Submit Feedback</a>
-            </div>
-        <% } %>
+        
 
     </div>
 

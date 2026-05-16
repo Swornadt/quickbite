@@ -37,10 +37,16 @@ public class FeedbackDAO {
     public List<FeedbackModel> getAllFeedbacks() throws Exception {
         List<FeedbackModel> list = new ArrayList<>();
         
-        String sql = "SELECT f.*, CONCAT(u.fname, ' ', u.lname) AS userFullName, " +
-        			 "u.image " +
+        String sql = "SELECT " +
+                     "    f.feedback_id, " +
+                     "    f.rating_value, " +
+                     "    f.feedback_description, " +
+                     "    f.rating_date, " +
+                     "    CONCAT(u.fname, ' ', u.lname) AS userFullName, " +
+                     "    COALESCE(u.image, 'uploads/default.png') AS userImage " +
                      "FROM feedback f " +
-                     "JOIN user u ON f.user_id = u.user_id " +
+                     "LEFT JOIN `order` o ON f.feedback_id = o.feedback_id " +
+                     "LEFT JOIN user u ON o.user_id = u.user_id " +
                      "ORDER BY f.rating_date DESC";
 
         try (Connection con = DBconfig.getConnection();
@@ -51,15 +57,15 @@ public class FeedbackDAO {
                 FeedbackModel fb = new FeedbackModel();
                 
                 fb.setFeedbackId(rs.getInt("feedback_id"));
-                fb.setUserId(rs.getInt("user_id"));
                 fb.setRatingValue(rs.getInt("rating_value"));
                 fb.setFeedbackDescription(rs.getString("feedback_description"));
                 fb.setRatingDate(rs.getTimestamp("rating_date"));
                 fb.setUserFullName(rs.getString("userFullName"));
-                fb.setUserImage(rs.getString("image"));
+                fb.setUserImage(rs.getString("userImage"));
                 
                 list.add(fb);
             }
+
         } catch (Exception e) {
             System.err.println("ERROR in getAllFeedbacks(): " + e.getMessage());
             e.printStackTrace();
