@@ -11,6 +11,8 @@ import jakarta.servlet.http.Part;
 import java.io.IOException;
 import java.time.LocalDate;
 
+import com.quickbite.dao.OutletDAO;
+import com.quickbite.model.OutletModel;
 import com.quickbite.model.UserModel;
 import com.quickbite.service.LoginService;
 import com.quickbite.service.RegisterService;
@@ -235,6 +237,12 @@ public class AuthController extends HttpServlet {
         			break;
         		case "staff":
         			request.getSession().setAttribute("outletId", user.getOutletId());
+        			
+        			OutletDAO outletDAO= new OutletDAO();
+        			OutletModel outlet = outletDAO.getOutletById(user.getOutletId());
+        			
+        			request.getSession().setAttribute("outletName", outlet.getOutletName());
+        		    request.getSession().setAttribute("outletImage", outlet.getOutletImage());
         			targetPath = "/kitchen";
         			break;
         		default:

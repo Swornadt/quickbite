@@ -14,10 +14,11 @@ public class OrderOutletItemModel {
 	 private Timestamp preferredDate;
 	 private String orderNote;
 	 private String outletName;
+	 private int outletOrderStatus;
 
 	 
 	 public OrderOutletItemModel(int orderId, int outletId, int itemId, int itemStatus, String itemName, int itemQty, int orderStatus, 
-			 Timestamp orderDate, Timestamp preferredDate, String orderNote, String outletName) {
+			 Timestamp orderDate, Timestamp preferredDate, String orderNote, String outletName, int outletOrderStatus) {
 		 	this.orderId = orderId;
 		    this.outletId = outletId;
 		    this.itemId = itemId;
@@ -29,14 +30,15 @@ public class OrderOutletItemModel {
 		    this.preferredDate = preferredDate;
 		    this.orderNote = orderNote;
 		    this.outletName = outletName; 
+		    this.outletOrderStatus = outletOrderStatus;
 		
 	}
 	 
 	 //Overloading for distinct
-	 public OrderOutletItemModel(int orderId, int outletId, int orderStatus) {
+	 public OrderOutletItemModel(int orderId, int outletId, int outletOrderStatus) {
 		    this.orderId = orderId;
 		    this.outletId = outletId;
-		    this.orderStatus = orderStatus;
+		    this.outletOrderStatus = outletOrderStatus;
 	}
 	 
 	 public int getOrderId() {
@@ -83,8 +85,8 @@ public class OrderOutletItemModel {
 		 return outletName; 
 	 }
 
-	 public void setOrderStatus(int orderStatus) { 
-		 this.orderStatus = orderStatus; 
+	 public int getOutletOrderStatus() {
+		 return outletOrderStatus;
 	 }
 	 
 	 public String getOrderStatusLabel() {
@@ -99,6 +101,19 @@ public class OrderOutletItemModel {
 	public String getOrderTypeLabel() {    
 		return preferredDate == null ? "Instant Delivery" : "Scheduled";	
 	}
+	 
+	 public void setOrderStatus(int orderStatus) { 
+		 this.orderStatus = orderStatus; 
+	 }
+	 
+	 public String getOutletOrderStatusLabel() {
+		    switch (outletOrderStatus) {
+		        case 0: return "Pending";
+		        case 1: return "Ongoing";
+		        case 2: return "Complete";
+		        default: return "Unknown";
+		    }
+		}
 	 
 }
 	 
