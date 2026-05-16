@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 16, 2026 at 04:21 AM
+-- Generation Time: May 16, 2026 at 06:14 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -119,10 +119,14 @@ CREATE TABLE `order` (
 INSERT INTO `order` (`order_id`, `order_date`, `order_status`, `order_note`, `preferred_date`, `payment_id`, `user_id`, `feedback_id`) VALUES
 (13, '2026-05-13 12:47:40', 2, '', NULL, NULL, 11, 2),
 (14, '2026-05-13 15:49:42', 2, '', NULL, NULL, 11, 3),
-(15, '2026-05-13 15:49:54', 0, '[ASAP]', NULL, NULL, 11, NULL),
+(15, '2026-05-13 15:49:54', 1, '[ASAP]', NULL, NULL, 11, NULL),
 (16, '2026-05-13 15:50:07', 2, '', NULL, NULL, 11, 4),
 (17, '2026-05-13 15:50:21', 2, '', '2026-05-06 15:30:00', NULL, 11, 1),
-(18, '2026-05-13 17:20:22', 0, '[ASAP]', NULL, 1, 11, NULL);
+(18, '2026-05-13 17:20:22', 2, '[ASAP]', NULL, 1, 11, NULL),
+(19, '2026-05-16 09:15:47', 2, '[ASAP]', NULL, 2, 11, NULL),
+(20, '2026-05-16 14:17:57', 0, '', '2026-05-17 16:00:00', 3, 11, NULL),
+(21, '2026-05-16 14:18:18', 2, '[ASAP]', NULL, 4, 11, NULL),
+(22, '2026-05-16 17:08:48', 2, '[ASAP]', NULL, 5, 11, NULL);
 
 -- --------------------------------------------------------
 
@@ -136,20 +140,29 @@ CREATE TABLE `order_outlet_item` (
   `item_id` smallint(5) UNSIGNED NOT NULL,
   `item_qty` tinyint(3) UNSIGNED NOT NULL,
   `order_subtotal` decimal(10,2) NOT NULL,
-  `item_status` tinyint(4) DEFAULT 0
+  `item_status` tinyint(4) DEFAULT 0,
+  `outlet_order_status` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `order_outlet_item`
 --
 
-INSERT INTO `order_outlet_item` (`order_id`, `outlet_id`, `item_id`, `item_qty`, `order_subtotal`, `item_status`) VALUES
-(13, 1, 4, 1, 175.00, 0),
-(14, 1, 4, 1, 175.00, 1),
-(15, 1, 5, 1, 150.00, 0),
-(16, 1, 4, 1, 175.00, 1),
-(17, 1, 4, 1, 175.00, 1),
-(18, 1, 4, 3, 525.00, 0);
+INSERT INTO `order_outlet_item` (`order_id`, `outlet_id`, `item_id`, `item_qty`, `order_subtotal`, `item_status`, `outlet_order_status`) VALUES
+(13, 1, 4, 1, 175.00, 0, 0),
+(14, 1, 4, 1, 175.00, 1, 0),
+(15, 1, 5, 1, 150.00, 1, 0),
+(16, 1, 4, 1, 175.00, 1, 0),
+(17, 1, 4, 1, 175.00, 1, 0),
+(18, 1, 4, 3, 525.00, 1, 0),
+(19, 1, 4, 1, 175.00, 1, 2),
+(19, 6, 6, 1, 85.00, 1, 2),
+(20, 1, 4, 1, 175.00, 0, 0),
+(20, 6, 6, 1, 85.00, 0, 0),
+(21, 1, 4, 1, 175.00, 1, 2),
+(21, 6, 6, 1, 85.00, 1, 2),
+(22, 1, 4, 1, 175.00, 1, 2),
+(22, 6, 6, 1, 85.00, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -169,12 +182,12 @@ CREATE TABLE `outlet` (
 --
 
 INSERT INTO `outlet` (`outlet_id`, `outlet_name`, `outlet_status`, `outlet_image`) VALUES
-(1, 'Canteen', 'Active', 'assets/canteen.png'),
-(2, 'Coffee Station', 'Active', 'assets/coffee.png'),
+(1, 'Canteen', 'Active', 'assets/images/canteen.png'),
+(2, 'Coffee Station', 'Active', 'assets/images/coffee.png'),
 (3, 'Momo Station', 'Active', NULL),
-(4, 'Chautari', 'Active', 'assets/chautari.png'),
-(5, 'Birt Cafe', 'Active', 'assets/brit.png'),
-(6, 'Kumari', 'Active', 'assets/kumari.png');
+(4, 'Chautari', 'Active', 'assets/images/chautari.png'),
+(5, 'Birt Cafe', 'Active', 'assets/images/brit.png'),
+(6, 'Kumari', 'Active', 'assets/images/kumari.png');
 
 -- --------------------------------------------------------
 
@@ -249,7 +262,11 @@ CREATE TABLE `payment` (
 --
 
 INSERT INTO `payment` (`payment_id`, `amount`, `payment_status`, `payment_date`) VALUES
-(1, 525.00, 'Completed', '2026-05-13 17:20:22');
+(1, 525.00, 'Completed', '2026-05-13 17:20:22'),
+(2, 260.00, 'Completed', '2026-05-16 09:15:47'),
+(3, 260.00, 'Completed', '2026-05-16 14:17:57'),
+(4, 260.00, 'Completed', '2026-05-16 14:18:18'),
+(5, 260.00, 'Completed', '2026-05-16 17:08:48');
 
 -- --------------------------------------------------------
 
@@ -280,7 +297,8 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`user_id`, `fname`, `lname`, `number`, `email`, `gender`, `dob`, `password`, `role`, `status`, `image`, `reset_pwd`, `outlet_id`) VALUES
 (11, 'Sahil', 'Shrestha', '9846714966', 'shresthasahil65@gmail.com', 'Male', '2005-12-17', '$2a$10$JDl2yzRC60kpNolOe5slQ.mgWRU8g9emGm2WTIpGinsF5.ItmqHH.', 'customer', 'active', 'uploads/default.png', NULL, NULL),
 (12, 'Canteen', 'Staff', '9846714900', 'email@gmail.com', 'Male', '2023-01-01', '$2a$10$BaVyDoMEgPOIJMW4ckTM4.EXuBbGb/LUDc/ut3mzhVxY67qhjNeqy', 'staff', 'active', 'uploads/default.png', NULL, 1),
-(13, 'Admin', 'Acc', '9846714911', 'admin@gmail.com', 'Male', '2026-05-01', '$2a$10$kR9oPwPEegh1/gch/WvSz.YQOsrqlSW8pGJTAjEvzqtcT6KJ6TG4C', 'admin', 'active', 'uploads/default.png', NULL, NULL);
+(13, 'Admin', 'Acc', '9846714911', 'admin@gmail.com', 'Male', '2026-05-01', '$2a$10$kR9oPwPEegh1/gch/WvSz.YQOsrqlSW8pGJTAjEvzqtcT6KJ6TG4C', 'admin', 'active', 'uploads/default.png', NULL, NULL),
+(14, 'Kumari', 'Cafe', '9846714901', 'email@gmail.com', 'Male', '2026-05-01', '$2a$10$sH.ToliYkbM5sUPGZs8v1uWgmMD5ZnhiOP.ncCCtd0h0lqr9OTBPm', 'staff', 'active', 'uploads/default.png', NULL, 6);
 
 --
 -- Indexes for dumped tables
@@ -367,19 +385,19 @@ ALTER TABLE `item`
 -- AUTO_INCREMENT for table `order`
 --
 ALTER TABLE `order`
-  MODIFY `order_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `order_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `payment`
 --
 ALTER TABLE `payment`
-  MODIFY `payment_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `payment_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `user_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Constraints for dumped tables
