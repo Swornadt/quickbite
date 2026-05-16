@@ -16,7 +16,7 @@
 	 <div class="reset-page-container">
       <!-- Left Side (Image Container) -->
       <div class="reset-page-image-container">
-        <img src="${pageContext.request.contextPath}/assets/reset.jpg" class="reset-page-image" />
+        <img src="${pageContext.request.contextPath}/assets/reset.png" class="reset-page-image" />
       </div>
 
       <!-- Right Side (Form Container) -->
