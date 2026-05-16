@@ -113,6 +113,18 @@ public class CustomerController extends HttpServlet {
 		}
 	}
 
+    /**
+	 * Processes the submission form to update the customer's account password.
+	 * 
+	 * Extracts the old password, new password, and confirmed password entries. 
+	 * It ensures the new passwords match and complies with validations according to the ValidationUtil. 
+	 * If all validation checks succeed, it hashes the new password using PasswordUtil, updates the database, and returns a success message. 
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws ServletException 
+	 * @throws IOException      
+	 */
     private void handleChangePassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String oldPassword = request.getParameter("oldPassword");
 		String newPassword = request.getParameter("newPassword");
@@ -258,6 +270,18 @@ public class CustomerController extends HttpServlet {
 		request.getRequestDispatcher("/WEB-INF/views/customer/profile/order-history.jsp").forward(request, response);		
 	}
 
+	/**
+	 * Processes and saves customer reviews and ratings for completed orders.
+	 * 
+	 * Validates the user's active session and extracts the score evaluation, specific message review, and targeted order. 
+	 * It verifies that required text fields are not blank and confirms the rating falls within the valid range (1 to 5 stars). 
+	 * Upon successful validation, it starts database insertion to FeedbackService and gives a success message.
+	 * 
+	 * @param request  
+	 * @param response 
+	 * @throws ServletException
+	 * @throws IOException    
+	 */
 	private void submitOrderFeedback(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    HttpSession session = request.getSession();
 	    
@@ -304,10 +328,29 @@ public class CustomerController extends HttpServlet {
         request.getRequestDispatcher("/WEB-INF/views/customer/profile/order-history.jsp").forward(request, response);
     }
 	
+	/**
+	 * Renders the dedicated profile password modification view.
+	 * 
+	 * @param request  
+	 * @param response 
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	private void viewChangePassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("/WEB-INF/views/customer/profile/change-password.jsp").forward(request, response);
 	}
 
+	/**
+	 * Prepares and displays the favorite items for the logged-in user.
+	 * 
+	 * Verifies the customer's active session state and redirects unauthenticated requests back to the login interface. 
+	 * It uses FavoriteDAO to fetch a collection of the user's favorite items, with their respective outlet. 
+	 * 
+	 * @param request 
+	 * @param response 
+	 * @throws ServletException
+	 * @throws IOException      
+	 */
 	private void viewFavorites(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 	    UserModel user = (session != null) ? (UserModel) session.getAttribute("user") : null;
@@ -330,7 +373,16 @@ public class CustomerController extends HttpServlet {
 	    }
 	}
 	
-
+	/**
+	 * Toggles the favorite status of a specific item for the logged-in customer.
+	 * 
+	 * Ensures the request originates from a authenticated user session. 
+	 * It extracts the target item and outlet, and checks the current favorite state via FavoriteDAO, and either adds or deletes the item combination (item and target) from the customer's favorites. 
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 */
 	private void toggleFavorites(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		HttpSession session = request.getSession();
 	    UserModel user = (UserModel) session.getAttribute("user");

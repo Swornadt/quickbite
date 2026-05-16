@@ -22,7 +22,19 @@ public class OutletController extends HttpServlet {
         super();
     }
 
-    
+    /**
+   	 * Handles HTTP GET requests to manage and route outlet discovery or location menus.
+   	 * 
+   	 * Reads the sub-path information from the request URL. 
+   	 * If no additional path segment exists, it forwards to primary location selection dashboard. 
+   	 * Otherwise, it extracts the target location branch name substring, and routes processing to assemble 
+   	 * that specific branch's dynamic menu.
+   	 * 
+   	 * @param request  
+   	 * @param response 
+   	 * @throws ServletException 
+   	 * @throws IOException      
+   	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String path = request.getPathInfo();
@@ -115,7 +127,15 @@ public class OutletController extends HttpServlet {
 	    request.getRequestDispatcher("/WEB-INF/views/customer/location-menu.jsp").forward(request, response);
 } 
 
-	
+	/**
+	 * Handles HTTP POST requests by delegating processing logic to the doGet method.
+	 * 
+	 * @param request  
+	 * @param response
+	 * @throws ServletException 
+	 * @throws IOException 
+	 * @see #doGet(HttpServletRequest, HttpServletResponse)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}

@@ -50,7 +50,14 @@ public class KitchenContoller extends HttpServlet {
 		}
 	}
 	
-	
+	/**
+	 * Organizes outlet orders by status.
+	 * 
+	 * @param request  
+	 * @param response
+	 * @throws ServletException 
+	 * @throws IOException     
+	 */
 	private void handleOrderManagement(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//session stores attibutes as object
 		Integer outletId = (Integer) request.getSession().getAttribute("outletId");
@@ -73,6 +80,21 @@ public class KitchenContoller extends HttpServlet {
 		request.getRequestDispatcher("/WEB-INF/views/staff/order-management.jsp").forward(request,response);
 	}
 	
+	/**
+	  Generates a detailed dashboard view for a single customer order inside the kitchen view.
+	 * 
+	 * Checks whether the user session consists of authorized outletId
+	 * Gets the orderId
+	 * Uses OrderOutletItemDAO to retrieve all items related to that order
+	 * Then collects information related to the order
+	 * 
+	 * 
+	 * @param request  
+	 * @param 
+	 * @param orderId
+	 * @throws ServletException
+	 * @throws IOException  
+	 */
 	private void handleOrderDetails(HttpServletRequest request, HttpServletResponse response, String orderId ) throws ServletException, IOException {
 		
 		Integer outletId = (Integer) request.getSession().getAttribute("outletId");
@@ -127,6 +149,12 @@ public class KitchenContoller extends HttpServlet {
 	
 
 	/**
+	 * Handles POST requests to process state changes and status updates for food preparation items.
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
