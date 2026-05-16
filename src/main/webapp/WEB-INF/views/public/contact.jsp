@@ -1,80 +1,60 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us | QuickBite</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/contact.css">
-</head>
+    <!DOCTYPE html>
+    <html lang="en">
 
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Contact Us | QuickBite</title>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/contact.css">
+    </head>
 
-    <!-- Header -->
-    <%@ include file="../common/navbar1.jsp" %>
+    <body>
 
-    <div class="hero-image">
-        <div class="hero-title">Contact Us</div>
-    </div>
-    
-    <!-- Success / Error Messages -->
-        <c:if test="${not empty success}">
-        <div style="color:green; text-align:center; margin:25px 0; font-weight:bold; font-size:1.1em;">
-            ${success}
-        </div>
-    </c:if>
-    
-    <c:if test="${not empty error}">
-        <div style="color:red; text-align:center; margin:25px 0; font-weight:bold; font-size:1.1em;">
-            ${error}
-        </div>
-    </c:if>
+        <!-- Header -->
+        <%@ include file="../common/navbar1.jsp" %>
 
-    <div class="contact-container">
+            <div class="hero-image">
+                <div class="hero-title">Contact Us</div>
+            </div>
 
-        <div class="info">
-            <h2>Islington College</h2>
-            <p>Kamal Pokhari, Kathmandu, Nepal</p>
-            <p>Phone: +977 - 4433221</p>
-        </div>
+            <div class="contact-container">
+                <h2>Need More Help?</h2>
 
-            <form action="${pageContext.request.contextPath}/profile/contact" method="post" class="feedback-form">
-            <input type="hidden" name="orderId" value="${param.orderId}"/>
-                <h2>Send us your feedback</h2>
+                <div class="info">
 
-                <div class="rating-row">
-                    <label for="rating">Rating:</label>
-                    <div class="star-rating">
-                        <input type="radio" id="star5" name="rating" value="5" required>
-                        <label for="star5">★</label>
-                        <input type="radio" id="star4" name="rating" value="4">
-                        <label for="star4">★</label>
-                        <input type="radio" id="star3" name="rating" value="3">
-                        <label for="star3">★</label>
-                        <input type="radio" id="star2" name="rating" value="2">
-                        <label for="star2">★</label>
-                        <input type="radio" id="star1" name="rating" value="1">
-                        <label for="star1">★</label>
+                    <!-- Call Card -->
+                    <div class="info-card">
+                        <h2>Call us at</h2>
+                        <div class="number">9765432108</div>
+                        <div class="subtitle">
+                            Available 7am–5pm, 6 days a week
+                        </div>
+                        <a href="#" class="btn">Call Us</a>
+                    </div>
+
+                    <!-- Email Card -->
+                    <div class="info-card">
+                        <h2>Send us an email</h2>
+                        <div class="subtitle">
+                            We’d love to hear from you
+                        </div>
+                        <a href="#" class="btn">Email Us</a>
                     </div>
                 </div>
+            </div>
 
-                <label for="message">Your Message</label>
-                <textarea id="message" name="message" placeholder="Write your feedback here..." rows="5" required></textarea>
 
-                <button type="submit">Submit Feedback</button>
-            </form>
-        
+            </div>
 
-    </div>
+            <div class="map">
+                <img src="${pageContext.request.contextPath}/assets/Location.jpg" alt="Islington College Location">
+            </div>
 
-    <div class="map">
-        <img src="${pageContext.request.contextPath}/assets/Location.jpg" alt="Islington College Location">
-    </div>
+            <!-- Footer -->
+            <%@ include file="../common/footer.jsp" %>
 
-    <!-- Footer -->
-    <%@ include file="../common/footer.jsp" %>
+    </body>
 
-</body>
-</html>
+    </html>

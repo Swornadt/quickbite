@@ -173,7 +173,7 @@ INSERT INTO `outlet` (`outlet_id`, `outlet_name`, `outlet_status`, `outlet_image
 (2, 'Coffee Station', 'Active', 'assets/coffee.png'),
 (3, 'Momo Station', 'Active', NULL),
 (4, 'Chautari', 'Active', 'assets/chautari.png'),
-(5, 'Birt Cafe', 'Active', 'assets/brit.png'),
+(5, 'Brit Cafe', 'Active', 'assets/brit.png'),
 (6, 'Kumari', 'Active', 'assets/kumari.png');
 
 -- --------------------------------------------------------
