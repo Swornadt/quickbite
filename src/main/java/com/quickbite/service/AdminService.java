@@ -4,6 +4,7 @@ package com.quickbite.service;
 import java.util.List;
 import com.quickbite.dao.UserDAO;
 import com.quickbite.model.UserModel;
+import com.quickbite.utils.PasswordUtil;
 
 public class AdminService {
 	private UserDAO userDAO = new UserDAO();
@@ -16,14 +17,59 @@ public class AdminService {
 		return userDAO.updateUserDetails(user_id, fname, lname, dob, gender, email, number);
 	}
 
-	//Returning all pending users
+	/**
+	 * Retrieves all user who have pending status	
+	 * @return a list of UserModel objects with pending status
+	 */
 	public List<UserModel> getPendingUsers(){
 		return userDAO.getPendingUsers();
 	}
 	
-	//Returning all active users
+	/**
+	 * Retrieves all user who have active status	
+	 * @return a list of UserModel objects with active status
+	 */
 	public List<UserModel> getActiveCustomers(){
 		return userDAO.getActiveCustomers();
+	}
+	
+	/**
+	 * Retrieves all user who have submitted a password reset requests
+	 * @return a list of UserModel objects with pending reset requests
+	 * @see UserDAO getUsersWithResetRequests();
+	 * @since 2026-05-15
+	 */
+	public List<UserModel> getPasswordResetRequests(){
+		return userDAO.getUsersWithResetRequest();
+	}
+	
+	/**
+	 * Resets the password for a specified user after admin approval 
+	 * 
+	 * Hashes the provided plain-text password, updates database and then clears the user reset request.
+	 * Both operation must succeed for the method to return true
+	 * @param userId the id of user whose password is being reset
+	 * @param plainPassword the new plain-text password entered by the admin
+	 * @return true if both the password update and request clear succeeded, false otherwise
+	 * @since 2026-05-15
+	 */
+	public boolean resetPasswordForUser(int userId, String plainPassword) {
+		String hashed = PasswordUtil.hashPassword(plainPassword);
+		boolean passwordUpdated = userDAO.updatePassword(userId, hashed);
+		boolean requestCleared = userDAO.clearResetRequest(userId);
+		return passwordUpdated && requestCleared;
+	}
+	
+	/**
+	 * Rejects a user's password reset request without changing their password (reset_pwd is set to false)
+	 * 
+	 * @param userId - The unique ID of the user whose request is being rejected
+	 * @return true - if the request was successfully cleared, false otherwise
+	 * @see UserDAO clearResetRequest(int)
+	 * @since 2026-05-15
+	 */
+	public boolean rejectResetRequest(int userId) {
+		return userDAO.clearResetRequest(userId);
 	}
 	
 	public boolean updateUserStatus(String userIdParam, String action) {
