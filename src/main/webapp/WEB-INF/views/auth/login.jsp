@@ -62,7 +62,7 @@
           </form>
 
           <!-- Other Bottom Info's  -->
-          <a href="#" class="forget-pass-link">Forgot your password?</a>
+          <a href="${pageContext.request.contextPath }/resetPassword" class="forget-pass-link">Forgot your password?</a>
           <p class="site-info">
             This site is protected by reCAPTCHA and the Google
             <span>Privacy Policy</span> and <span>Terms of Service</span> apply

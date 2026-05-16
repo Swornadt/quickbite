@@ -103,8 +103,11 @@ public class UserDAO {
 		return list;
 		
 	}
-	
-	// Fetching all users with status = 'active' and role = 'customer'
+	 
+	/**
+	 * Fetching all users with status = 'active' and role = 'customer'
+	 * @return
+	 */
 	public List<UserModel> getActiveCustomers() {
 	    List<UserModel> list = new ArrayList<>();
 	    String sql = "SELECT user_id, fname, lname, number, email, role, status, image FROM user WHERE status = 'active' AND role = 'customer'";
@@ -130,6 +133,62 @@ public class UserDAO {
 	        e.printStackTrace();
 	    }
 	    return list;
+	}
+	
+	/**
+	 * Retrieves all users who have submitted a password reset request.
+	 * 
+	 * @return a list of UserModel objects with reset request true, 
+	 * @see AdminService getPasswordResetRequest()
+	 * @since 2026-05-15
+	 */
+	public List<UserModel> getUsersWithResetRequest(){
+		List <UserModel> list = new ArrayList<>();
+		String sql = "SELECT user_id, fname, lname, email, number, image FROM user WHERE reset_pw = 1 AND role = 'customer'";
+		
+		try(Connection conn = DBconfig.getConnection();
+			PreparedStatement pst = conn.prepareStatement(sql);
+			ResultSet rs = pst.executeQuery()){
+			
+			while (rs.next()) {
+	            UserModel user = new UserModel();
+	            user.setUserId(rs.getInt("user_id"));
+	            user.setFname(rs.getString("fname"));
+	            user.setLname(rs.getString("lname"));
+	            user.setEmail(rs.getString("email"));
+	            user.setNumber(rs.getString("number"));
+	            user.setImage(rs.getString("image"));
+	            list.add(user);
+	        }
+			
+		}catch(SQLException e) {
+			System.err.println("Error fetching reset requests: " + e.getMessage());
+	        e.printStackTrace();
+		}
+		return list;
+	}
+	
+	/**
+	 * Sets the password reset request to FALSE for a specified user
+	 * @param userId - the unique ID of the user whose request is being cleared
+	 * @return true if the update was successful, false otherwise
+	 * @since 2026-05-15
+	 */
+	public boolean clearResetRequest(int userId) {
+		String sql = "UPDATE user SET reset_pw = FALSE WHERE user_id =?";
+		
+
+	    try (Connection conn = DBconfig.getConnection();
+	         PreparedStatement pst = conn.prepareStatement(sql)) {
+	        pst.setInt(1, userId);
+	        return pst.executeUpdate() > 0;
+
+	    } catch (SQLException e) {
+	        System.err.println("Error clearing reset request: " + e.getMessage());
+	        e.printStackTrace();
+	        return false;
+	    }
+		
 	}
 	
 	public void updateUserStatus(int userId, String newStatus) {
@@ -203,22 +262,84 @@ public class UserDAO {
 			e.printStackTrace();
 		}
 
+		return null;		
+	}
+	
+	/**
+	 * Retrieves a user record matching both the provided email and phone number
+	 * 
+	 * Performs a verification for the given credentials - Checking if the email and number exist in the db 
+	 * 
+	 * @param email The email address provided by the user
+	 * @param number The phone number provided by the user
+	 * @return user object if a matching user is found  or null otherwise
+	 * @see UserModel
+	 * @since 2026-05-14
+	 */
+	public UserModel getUserByEmailAndNumber(String email, String number) {
+		String sql = "SELECT * FROM user WHERE email = ? AND number = ?";
+		
+		try(Connection conn = DBconfig.getConnection();
+			PreparedStatement pst = conn.prepareStatement(sql)){
+			
+			pst.setString(1,email);
+			pst.setString(2,number);
+			
+			try(ResultSet rs = pst.executeQuery()){
+				if (rs.next()) {
+					UserModel user = new UserModel();
+	                user.setUserId(rs.getInt("user_id"));
+	                user.setFname(rs.getString("fname"));
+	                user.setLname(rs.getString("lname"));
+	                user.setNumber(rs.getString("number"));
+	                user.setEmail(rs.getString("email"));
+	                user.setRole(rs.getString("role"));
+	                user.setStatus(rs.getString("status"));
+	                return user;
+				}
+			}
+		}catch(SQLException e) {
+			System.err.println("Error fetching user by email and number: " + e.getMessage());
+	        e.printStackTrace();
+		}
 		return null;
-				
-				
+	}
+	
+	/**
+	 * Sets the password reset flag for a specified user to True
+	 * 
+	 * 
+	 * @param userId The unique ID of the user requesting a password reset
+	 * @return true if the update was successful, false otherwise
+	 * @see ResetPasswordService
+	 * @since 2026-05-14
+	 */
+	public boolean setResetPasswordFlag(int userId) {
+		String sql = "UPDATE user SET reset_pw = TRUE WHERE user_id = ?";
+
+		try (Connection conn = DBconfig.getConnection();
+	        PreparedStatement pst = conn.prepareStatement(sql)) {
+				pst.setInt(1, userId);
+				return pst.executeUpdate() > 0;
+
+		    } catch (SQLException e) {
+		        System.err.println("Error setting reset_pw flag: " + e.getMessage());
+		        e.printStackTrace();
+		        return false;
+		    }	
 	}
 
+	
 	public boolean updatePassword(int userId, String hashNewPassword) {
-		String sql = "UPDATE user SET password = ? WHERE user_id = ?";
-		try (Connection conn = DBconfig.getConnection();
-				PreparedStatement pst = conn.prepareStatement(sql)) {
-			
-			pst.setString(1, hashNewPassword);
-			pst.setInt(2, userId);
-			return pst.executeUpdate() > 0;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return false;
-		}
+	    String sql = "UPDATE user SET password = ? WHERE user_id = ?";
+	    try (Connection conn = DBconfig.getConnection();
+	            PreparedStatement pst = conn.prepareStatement(sql)) {
+	        pst.setString(1, hashNewPassword);
+	        pst.setInt(2, userId);
+	        return pst.executeUpdate() > 0;
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return false;
+	    }
 	}
 }
