@@ -1,22 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.quickbite.model.Outlet" %>
+<%@ page import="com.quickbite.model.OutletModel" %>
 <%@ page import="java.util.*" %>
-
-<%-- <%
-    List<Map<String, String>> locations = new ArrayList<>();
-    
-    locations.add(Map.of("id", "1", "name", "Coffee Station", "photo", "../assets/outlet/coffee-station.png"));
-    locations.add(Map.of("id", "2", "name", "Momo Station", "photo", "../assets/outlet/momo-station.png"));
-    locations.add(Map.of("id", "3", "name", "Cafeteria", "photo", "../assets/outlet/main-canteen.png"));
-    locations.add(Map.of("id", "4", "name", "Chautari", "photo", "../assets/outlet/chautari.png"));
-    locations.add(Map.of("id", "5", "name", "Brit Cafe", "photo", "../assets/outlet/brit-cafe.png")); // Empty photo
-    locations.add(Map.of("id", "6", "name", "Kumari Cafe", "photo", "../assets/outlet/kumari-cafe.png"));
-
-    request.setAttribute("locations", locations);
-%> 
-
---%>
 
 <!DOCTYPE html>
 <html lang="en">

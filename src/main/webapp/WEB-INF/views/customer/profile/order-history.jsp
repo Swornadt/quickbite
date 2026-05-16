@@ -8,15 +8,15 @@
 	<meta charset="UTF-8">
 	<title>Order History | QuickBite</title>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/order-history.css">
-	<link rel="stylesheet" href="<%=request.getContextPath() %>/css/userProfile.css" />
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/user-profile.css" />
 </head>
 
 <body>
 	<%@ include file="/WEB-INF/views/common/navbar1.jsp" %>
-      <%@ include file="/WEB-INF/views/common/utilityBar.jsp" %>
+      <%@ include file="/WEB-INF/views/common/utility-bar.jsp" %>
 <div class="user-profile-section-container">
 <section class="user-profile-section">
-<%@ include file="/WEB-INF/views/common/userProfileSideNav.jsp" %>
+<%@ include file="/WEB-INF/views/common/user-profile-sidenav.jsp" %>
 <div class="user-profile-container">
 	
 	<div class="history-container">
@@ -71,14 +71,24 @@
 					<c:when test="${not empty pastOrders}">
 						<c:forEach var="order" items="${pastOrders}">
 							<div class="divider"></div>
-							<div class="order-card">
-								<p> Order ID: <span>#${order.orderId}</span></p>
-								<p> Order Date: <span><fmt:formatDate value="${order.orderDateAsDate}" pattern="dd MMM yyyy"/></span></p>
-								<p> Order Status: 
-								    <span class="${order.orderStatus == 2 ? 'status-completed' : 'status-current'}">
-								        ${order.statusText}
-								    </span>
-								</p>
+							<div class="order-card-complete">
+							    <div class="order-card-complete-info">
+							        <p>Order ID: <span>#${order.orderId}</span></p>
+							        <p>Order Date: <span><fmt:formatDate value="${order.orderDateAsDate}" pattern="dd MMM yyyy"/></span></p>
+							        <p>Order Status:
+							            <span class="${order.orderStatus == 2 ? 'status-completed' : 'status-current'}">
+							                ${order.statusText}
+							            </span>
+							        </p>
+							    </div>
+							    <c:if test="${order.feedbackId == 0}">
+							        <a href="${pageContext.request.contextPath}/profile/feedback?orderId=${order.orderId}">
+							            <button class="rate-btn">Rate Order</button>
+							        </a>
+							    </c:if>
+							    <c:if test="${order.feedbackId != 0}">
+							        <button class="rate-btn-done" disabled>Reviewed</button>
+							    </c:if>
 							</div>
 						</c:forEach>
 					</c:when>

@@ -6,7 +6,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Footer | Quick Bite</title>
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/footer.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/footer.css" />
 
     <!-- Google Fonts Preconnect and Link -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -29,19 +29,19 @@
           <div class="footer-info-link">
             <ul class="footer-links">
               <li class="footer-header">Quick Links</li>
-              <li><a href="#">Home</a></li>
-              <li><a href="#">Menu</a></li>
-              <li><a href="#">About Us</a></li>
-              <li><a href="#">Contact</a></li>
+              <li><a href="${pageContext.request.contextPath}/home">Home</a></li>
+              <li><a href="${pageContext.request.contextPath}/outlets">Menu</a></li>
+              <li><a href="${pageContext.request.contextPath}/about">About Us</a></li>
+              <li><a href="${pageContext.request.contextPath}/contact">Contact</a></li>
             </ul>
             <ul class="footer-links">
               <li class="footer-header">Location</li>
-              <li><a href="#">Coffee Station</a></li>
-              <li><a href="#">Chicken Station</a></li>
-              <li><a href="#">Cafeteria</a></li>
-              <li><a href="#">Chautari</a></li>
-              <li><a href="#">Brit Station</a></li>
-              <li><a href="#">Kumari Hall</a></li>
+              <li><a href="${pageContext.request.contextPath}/outlets/Coffee%20Station">Coffee Station</a></li>
+              <li><a href="${pageContext.request.contextPath}/outlets/Canteen">Canteen</a></li>
+              <li><a href="${pageContext.request.contextPath}/outlets/Momo%20Station">Momo Station</a></li>
+              <li><a href="${pageContext.request.contextPath}/outlets/Brit%20Cafe">Brit Cafe</a></li>
+              <li><a href="${pageContext.request.contextPath}/outlets/Chautari">Chautari</a></li>
+              <li><a href="${pageContext.request.contextPath}/outlets/Kumari">Kumari Cafe</a></li>
             </ul>
           </div>
         </div>

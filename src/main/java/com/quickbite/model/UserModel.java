@@ -14,6 +14,7 @@ public class UserModel {
 	private String role = "customer";
     private String status = "pending";
     private String image;
+	private int outletId;
 	
 	//Getter and Setter 
     public int getUserId() {
@@ -48,6 +49,10 @@ public class UserModel {
         return password;
     }
     
+    public int getOutletId() {
+        return outletId;
+    }
+    
     public void setUserId(int userId) {
     	this.userId = userId;
     }
@@ -72,8 +77,8 @@ public class UserModel {
         this.gender = gender;
     }
 
-    public void setDob(String dob) {
-        this.dob = dob;
+    public void setDob(String date) {
+        this.dob = date;
     }
 
     public void setPassword(String password) {
@@ -106,6 +111,10 @@ public class UserModel {
     
     public void setImage(String image) {
     	this.image = image;
+    }
+
+    public void setOutletId(int outletId) {
+        this.outletId = outletId;
     }
     
 }

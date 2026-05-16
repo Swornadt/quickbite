@@ -1,23 +1,12 @@
 @charset "UTF-8";
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 30px 20px;
+.admin-bottom-info {
+  font-family: "Poppins", sans-serif;
 }
 
-h1 {
-  font-size: 32px;
-  font-weight: 600;
-  color: #1f2937;
+h2 {
   margin-bottom: 30px;
-}
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 30px;
+  margin-top: 30px;
 }
 
 .date-range {
@@ -109,7 +98,7 @@ h1 {
   margin-bottom: 25px;
 }
 
-.food-image {
+.user-image {
   width: 85px;
   height: 85px;
   border-radius: 12px;

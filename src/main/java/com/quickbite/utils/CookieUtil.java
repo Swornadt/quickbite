@@ -1,7 +1,5 @@
 package com.quickbite.utils;
 
-import java.util.Arrays;
-
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -16,11 +14,15 @@ public class CookieUtil {
 	}
 
 	public static Cookie getCookie(HttpServletRequest request, String name) {
-		if (request.getCookies() != null) {
-			return Arrays.stream(request.getCookies())
-					.filter(cookie -> name.equals(cookie.getName()))
-					.findFirst()
-					.orElse(null);
+		Cookie[] cookies = request.getCookies();
+		
+		// iterate through array of cookies and search to return
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
+				if (name.equals(cookie.getName())) {
+					return cookie;
+				}
+			}
 		}
 		return null;
 	}

@@ -22,7 +22,13 @@ public class MenuController extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-	/**
+    /**
+	 * Handles HTTP GET requests to render the location-specific menu interface for customers.
+	 * 
+	 * @param request 
+	 * @param response 
+	 * @throws ServletException 
+	 * @throws IOException
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -31,6 +37,12 @@ public class MenuController extends HttpServlet {
 	}
 
 	/**
+	 * Handles HTTP POST requests by delegating processing logic to the doGet method.
+	 * 
+	 * @param request
+	 * @param response 
+	 * @throws ServletException
+	 * @throws IOException 
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

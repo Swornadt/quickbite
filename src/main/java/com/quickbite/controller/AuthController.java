@@ -11,7 +11,8 @@ import jakarta.servlet.http.Part;
 import java.io.IOException;
 import java.time.LocalDate;
 
-import com.quickbite.dao.UserOutletDAO;
+import com.quickbite.dao.OutletDAO;
+import com.quickbite.model.OutletModel;
 import com.quickbite.model.UserModel;
 import com.quickbite.service.LoginService;
 import com.quickbite.service.RegisterService;
@@ -28,6 +29,16 @@ public class AuthController extends HttpServlet {
         super();
     }
 
+    /**
+     * Handles GET request for routing for appropriate view
+     * 
+     * Gets the endpoint of the current URL.
+     * User can: 1. Login, 2. Register, 3. Logout
+     * 
+     * @param request
+     * @param response
+     * @throws ServletException, IOException
+     */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String endpoint = request.getServletPath();
 		
@@ -48,6 +59,22 @@ public class AuthController extends HttpServlet {
 				
 	}
 
+	/** 
+	 * Handles POST request for routing to appropriate handler
+	 * 
+	 * Gets the endpoint of the current URL.
+	 * It calls the corresponding method to execute the action.
+	 * 1. Login
+	 * 2. Logout
+	 * 3. Register
+	 * 
+	 * @param request
+     * @param response
+     * @throws ServletException, IOException
+     * @see #handleLogin(HttpServletRequest, HttpServletResponse)
+     * @see #handleLogout(HttpServletRequest, HttpServletResponse)
+     * @see #handleRegister(HttpServletRequest, HttpServletResponse)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String endpoint = request.getServletPath();
 		
@@ -67,6 +94,21 @@ public class AuthController extends HttpServlet {
 		}
 	}
 
+	/**
+	 *Method to process registeration of a new user.
+	 * 
+	 * Extracts registration details. 
+	 * It first validates the data via ValidationUtil. 
+	 * If validation fails, it forwards back to the registration page with an error message. 
+	 * Upon successful validation, it handles the profile image upload via ImageUtil, saves the 
+	 * user record to the database using RegisterService, and routes the user to the login 
+	 * view with a success indicator.
+	 * 
+	 * @param request 
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	private void handleRegister(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//Reading all form fields 
 				String fname = request.getParameter("fname");
@@ -121,11 +163,36 @@ public class AuthController extends HttpServlet {
 		
 	}
 
+	/**
+	 * Terminates the active user session.
+	 * 
+	 * Logs the user out by invoking SessionUtil to clear out data and invalidate the underlying HTTP session. 
+	 * Then, it triggers a client-side redirection back to the login interface.
+	 * 
+	 * @param request  
+	 * @param response 
+	 * @throws IOException 
+	 */
 	private void handleLogout(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		SessionUtil.invalidateSession(request);
 		response.sendRedirect(request.getContextPath()+"/login");
 	}
 
+	/**
+	 * Validates user credentials.
+	 * 
+	 * Extracts the login phone number and password fields and evaluates basic input structures through ValidationUtil. 
+	 * If credential formats are invalid, or if LoginService database matching fails, it routes back to the login JSP with error message.
+	 * For successfully verified credentials, it reviews the user's account status. Accounts marked as pending or rejected are restricted. Validated "active" 
+	 * users have their profiles loaded into the session state using SessionUtil, and are 
+	 * redirected to specific target dashboards (Admin, Kitchen/Staff, or Home) based on their 
+	 * assigned access roles.
+	 * 
+	 * @param request  
+	 * @param response
+	 * @throws ServletException 
+	 * @throws IOException
+	 */
 	private void handleLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String number = request.getParameter("number");
 		String pass = request.getParameter("pass");
@@ -144,7 +211,7 @@ public class AuthController extends HttpServlet {
 		// Authentication logic
         LoginService loginService = new LoginService();
         UserModel user = loginService.authenticate(number, pass);
-        
+
         if (user != null) {   
         	
         	// User's approval status check
@@ -169,8 +236,13 @@ public class AuthController extends HttpServlet {
         			targetPath = "/admin";
         			break;
         		case "staff":
-        			int outletId = new UserOutletDAO().getOutletByUser(user.getUserId());
-        			request.getSession().setAttribute("outletId", outletId);
+        			request.getSession().setAttribute("outletId", user.getOutletId());
+        			
+        			OutletDAO outletDAO= new OutletDAO();
+        			OutletModel outlet = outletDAO.getOutletById(user.getOutletId());
+        			
+        			request.getSession().setAttribute("outletName", outlet.getOutletName());
+        		    request.getSession().setAttribute("outletImage", outlet.getOutletImage());
         			targetPath = "/kitchen";
         			break;
         		default:
