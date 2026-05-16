@@ -9,6 +9,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -59,6 +62,19 @@ public class CheckoutController extends HttpServlet {
     	}
 	}
 
+    /**
+	 * Displays the primary checkout page.
+	 * 
+	 * Validates the existence of an active customer session and redirects unauthenticated users 
+	 * to the login page. 
+	 * It uses CartService to retrieve the active cart both as a flat list and grouped by its respective outlets. 
+	 * It then computes the order subtotal.
+	 * 
+	 * @param request 
+	 * @param response
+	 * @throws IOException 
+	 * @throws ServletException
+	 */
 	private void viewCheckout(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
     	HttpSession session = request.getSession(false);
 		
@@ -83,6 +99,16 @@ public class CheckoutController extends HttpServlet {
 		
 	}
 	
+	/**
+	 * Prepares and displays the final payment page.
+	 * 
+	 * Extracts the customer's in-session shopping cart items and invokes CartService to compute the total final cost. 
+	 * 
+	 * @param request 
+	 * @param response 
+	 * @throws ServletException 
+	 * @throws IOException    
+	 */
 	private void viewPayment(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 	    
@@ -125,6 +151,17 @@ public class CheckoutController extends HttpServlet {
 		
     }
 
+	/**
+	 * Processes the submission form data from the initial checkout page step.
+	 * 
+	 * Extracts delivery type, targeted dates, specific time frames, and remarks. 
+	 * 
+	 * @param request
+	 * @param response
+	 * @param session
+	 * @throws IOException
+	 * @throws ServletException
+	 */
 	private void handleCheckoutSubmission(HttpServletRequest request, HttpServletResponse response,
 			HttpSession session) throws IOException, ServletException {
 		// get data from the frontend
@@ -137,6 +174,24 @@ public class CheckoutController extends HttpServlet {
 		if ("later".equals(deliveryTimeType)) {
 	        if (deliveryDate == null || deliveryDate.isEmpty() || timeSlot == null || timeSlot.isEmpty()) {
 	            request.setAttribute("error", "Please select both a date and time slot for scheduled orders.");
+	            viewCheckout(request, response);
+	            return;
+	        }
+	        
+	        // Validation to prevent scheduling in the past
+	        try {
+	            LocalDate parsedDate = LocalDate.parse(deliveryDate);
+	            LocalTime parsedTime = LocalTime.parse(timeSlot);
+	            LocalDateTime scheduledDateTime = LocalDateTime.of(parsedDate, parsedTime);
+	            LocalDateTime now = LocalDateTime.now();
+	            
+	            if (scheduledDateTime.isBefore(now)) {
+	                request.setAttribute("error", "The scheduled time cannot be in the past. Please select a future time.");
+	                viewCheckout(request, response);
+	                return;
+	            }
+	        } catch (java.time.format.DateTimeParseException e) {
+	            request.setAttribute("error", "Invalid date or time format provided.");
 	            viewCheckout(request, response);
 	            return;
 	        }
@@ -159,6 +214,18 @@ public class CheckoutController extends HttpServlet {
 		response.sendRedirect(request.getContextPath() + "/payment");
 	}
 	
+	/**
+	 * Coordinates the final authorization and database execution of the pending customer order.
+	 * 
+	 * Extracts user profile information and the active cart details from the session, and the other checkout configurations stored during the previous steps. 
+	 * On a successful database commit, it cleanses the active session of order processing attributes and 
+	 * redirects back to the home view. 
+	 * 
+	 * @param request  
+	 * @param response 
+	 * @param session 
+	 * @throws IOException 
+	 */
 	private void handleFinalPlacement(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException {
 		UserModel user = (UserModel) session.getAttribute("user");
 		List<CartItemModel> cart = cartService.getCart(session);

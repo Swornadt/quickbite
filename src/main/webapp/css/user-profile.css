@@ -43,11 +43,15 @@ body {
   margin-bottom: 1.5rem;
 }
 
-.profile-picture {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  overflow: hidden;
+.profile-picture-container {
+    position: relative;
+    display: inline-block;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 4px solid #fff;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
 .profile-picture img {
@@ -58,8 +62,32 @@ body {
   transition: all 0.3s ease;
 }
 
-.profile-picture img:hover {
-  transform: scale(1.05);
+.edit-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.65);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    color: white;
+}
+
+.edit-overlay i {
+    font-size: 28px;
+}
+
+.edit-overlay:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.profile-picture-container:hover .edit-overlay {
+	display: flex;
 }
 
 /* user profile form  */

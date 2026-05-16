@@ -30,10 +30,10 @@
                 <div class="desc">Looking for opportunities to grow and gain experience.</div>
 
                 <div class="social-icons">
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#"><i class="fab fa-github"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://www.linkedin.com/in/sworna-d-tuladhar-a96315311/"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://github.com/Swornadt"><i class="fab fa-github"></i></a>
+                    <a href="https://www.instagram.com/not.swornadt/"><i class="fab fa-instagram"></i></a>
+                    <a href="https://wa.me/9840259002"><i class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
 

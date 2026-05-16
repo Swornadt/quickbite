@@ -72,6 +72,14 @@ public class AboutController extends HttpServlet {
 		}
 	}
 	
+	/**
+     * Handles the GET request by routing to display each member about page
+     * 
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}

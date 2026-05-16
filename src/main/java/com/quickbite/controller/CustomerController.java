@@ -1,11 +1,13 @@
 package com.quickbite.controller;
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Part;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -19,11 +21,17 @@ import com.quickbite.model.OrderModel;
 import com.quickbite.model.UserModel;
 import com.quickbite.service.FeedbackService;
 import com.quickbite.service.UserService;
+import com.quickbite.utils.ImageUtil;
 import com.quickbite.utils.PasswordUtil;
 import com.quickbite.utils.SessionUtil;
 import com.quickbite.utils.ValidationUtil;
 import com.quickbite.model.OutletItemModel;
 
+@MultipartConfig(
+	    fileSizeThreshold = 1024 * 1024 * 2,  // 2MB
+	    maxFileSize = 1024 * 1024 * 10,       // 10MB
+	    maxRequestSize = 1024 * 1024 * 50     // 50MB
+	)
 
 @WebServlet(asyncSupported = true, urlPatterns = { "/profile", "/profile/*" })
 public class CustomerController extends HttpServlet {
@@ -68,9 +76,9 @@ public class CustomerController extends HttpServlet {
 			case "/change-password":
 				viewChangePassword(request, response);
 				break;
-			case "/contact":
-				request.getRequestDispatcher("/WEB-INF/views/public/contact.jsp").forward(request, response);;
-				break;	
+			case "/feedback":
+				request.getRequestDispatcher("/WEB-INF/views/public/feedback.jsp").forward(request, response);
+				break;
 			case "/favorites":
 				viewFavorites(request, response);
 				break;
@@ -98,7 +106,7 @@ public class CustomerController extends HttpServlet {
 			case "/favorites/toggle":
 				toggleFavorites(request, response);
 				break;
-			case "/contact":
+			case "/feedback":
 			    submitOrderFeedback(request, response);
 			    break;	
 			case "/update":
@@ -107,12 +115,27 @@ public class CustomerController extends HttpServlet {
 			case "/change-password":
 				handleChangePassword(request, response);
 				break;
+			case "/upload-image":
+				uploadProfileImage(request, response);
+				break;
 			default:
 				response.sendError(HttpServletResponse.SC_NOT_FOUND);
 				break;
 		}
 	}
 
+    /**
+	 * Processes the submission form to update the customer's account password.
+	 * 
+	 * Extracts the old password, new password, and confirmed password entries. 
+	 * It ensures the new passwords match and complies with validations according to the ValidationUtil. 
+	 * If all validation checks succeed, it hashes the new password using PasswordUtil, updates the database, and returns a success message. 
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws ServletException 
+	 * @throws IOException      
+	 */
     private void handleChangePassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String oldPassword = request.getParameter("oldPassword");
 		String newPassword = request.getParameter("newPassword");
@@ -258,12 +281,24 @@ public class CustomerController extends HttpServlet {
 		request.getRequestDispatcher("/WEB-INF/views/customer/profile/order-history.jsp").forward(request, response);		
 	}
 
+	/**
+	 * Processes and saves customer reviews and ratings for completed orders.
+	 * 
+	 * Validates the user's active session and extracts the score evaluation, specific message review, and targeted order. 
+	 * It verifies that required text fields are not blank and confirms the rating falls within the valid range (1 to 5 stars). 
+	 * Upon successful validation, it starts database insertion to FeedbackService and gives a success message.
+	 * 
+	 * @param request  
+	 * @param response 
+	 * @throws ServletException
+	 * @throws IOException    
+	 */
 	private void submitOrderFeedback(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    HttpSession session = request.getSession();
 	    
 	    if (session == null || session.getAttribute("user") == null) {
             request.setAttribute("error", "You must be logged in to submit feedback.");
-            request.getRequestDispatcher("/WEB-INF/views/public/contact.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/views/public/feedback.jsp").forward(request, response);
             return;
         }
 	    
@@ -275,7 +310,7 @@ public class CustomerController extends HttpServlet {
         if (ratingStr == null || ratingStr.trim().isEmpty() ||
             message == null || message.trim().isEmpty()) {
             request.setAttribute("error", "Rating and message are required.");
-            request.getRequestDispatcher("/WEB-INF/views/public/contact.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/views/public/feedback.jsp").forward(request, response);
             return;
         }
 
@@ -285,7 +320,7 @@ public class CustomerController extends HttpServlet {
             
             if (rating < 1 || rating > 5) {
                 request.setAttribute("error", "Rating must be between 1 and 5.");
-                request.getRequestDispatcher("/WEB-INF/views/public/contact.jsp").forward(request, response);
+                request.getRequestDispatcher("/WEB-INF/views/public/feedback.jsp").forward(request, response);
                 return;
             }
             
@@ -301,13 +336,32 @@ public class CustomerController extends HttpServlet {
             request.setAttribute("error", "Something went wrong. Please try again later.");
         }
 
-        request.getRequestDispatcher("/WEB-INF/views/public/contact.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/views/customer/profile/order-history.jsp").forward(request, response);
     }
 	
+	/**
+	 * Renders the dedicated profile password modification view.
+	 * 
+	 * @param request  
+	 * @param response 
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	private void viewChangePassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("/WEB-INF/views/customer/profile/change-password.jsp").forward(request, response);
 	}
 
+	/**
+	 * Prepares and displays the favorite items for the logged-in user.
+	 * 
+	 * Verifies the customer's active session state and redirects unauthenticated requests back to the login interface. 
+	 * It uses FavoriteDAO to fetch a collection of the user's favorite items, with their respective outlet. 
+	 * 
+	 * @param request 
+	 * @param response 
+	 * @throws ServletException
+	 * @throws IOException      
+	 */
 	private void viewFavorites(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 	    UserModel user = (session != null) ? (UserModel) session.getAttribute("user") : null;
@@ -330,7 +384,16 @@ public class CustomerController extends HttpServlet {
 	    }
 	}
 	
-
+	/**
+	 * Toggles the favorite status of a specific item for the logged-in customer.
+	 * 
+	 * Ensures the request originates from a authenticated user session. 
+	 * It extracts the target item and outlet, and checks the current favorite state via FavoriteDAO, and either adds or deletes the item combination (item and target) from the customer's favorites. 
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 */
 	private void toggleFavorites(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		HttpSession session = request.getSession();
 	    UserModel user = (UserModel) session.getAttribute("user");
@@ -367,5 +430,55 @@ public class CustomerController extends HttpServlet {
 	    }
 
 	}
+	
+	/**
+     * Handles profile image upload
+     * POST /profile/upload-image
+     */
+    private void uploadProfileImage(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
+        
+        HttpSession session = request.getSession();
+        UserModel user = (UserModel) session.getAttribute("user");
+
+        if (user == null) {
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
+        }
+
+        try {
+            Part part = request.getPart("profileImage");
+            
+            if (part == null || part.getSize() == 0) {
+                request.setAttribute("error", "Please select an image to upload.");
+                request.getRequestDispatcher("/WEB-INF/views/customer/profile/user-profile.jsp").forward(request, response);
+                return;
+            }
+
+            ImageUtil imageUtil = new ImageUtil();
+            String imagePath = imageUtil.uploadProfileImage(part, "uploads", getServletContext());
+
+            // Update image path in database
+            UserDAO userDAO = new UserDAO();
+            boolean success = userDAO.updateUserImage(user.getUserId(), imagePath);
+
+            if (success) {
+                // Update session with new image path
+                user.setImage(imagePath);
+                session.setAttribute("user", user);
+                
+                request.setAttribute("success", "Profile picture updated successfully!");
+            } else {
+                request.setAttribute("error", "Failed to update profile picture.");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("error", "Error uploading image. Please try again.");
+        }
+
+        // Forward back to profile page
+        request.getRequestDispatcher("/WEB-INF/views/customer/profile/user-profile.jsp").forward(request, response);
+    }
 
 }

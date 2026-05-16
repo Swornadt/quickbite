@@ -316,9 +316,10 @@ public class AdminController extends HttpServlet {
 			if (totalFeedback > 0) {
 				int sum = 0;
 				for (FeedbackModel fb : feedbackList) {
-					sum += fb.getRatingValue();
-					if (fb.getRatingValue() >= 1 && fb.getRatingValue() <= 5) {
-						ratingCount[fb.getRatingValue()]++;
+					int rating = fb.getRatingValue();
+					sum += rating;
+					if (rating >= 1 && rating <= 5) {
+						ratingCount[rating]++;
 					}
 				}
 				avgRating = (double) sum / totalFeedback;
@@ -326,11 +327,15 @@ public class AdminController extends HttpServlet {
 
 			// Round to 1 decimal place
 			avgRating = Math.round(avgRating * 10.0) / 10.0;
+			
+			//Calculating filled star
+			int filledStars = (int) Math.round(avgRating);
 
 			request.setAttribute("feedbackList", feedbackList);
 			request.setAttribute("totalFeedback", totalFeedback);
 			request.setAttribute("avgRating", avgRating);
 			request.setAttribute("ratingCount", ratingCount);
+			request.setAttribute("filledStars", filledStars);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -430,6 +435,19 @@ public class AdminController extends HttpServlet {
 		request.getRequestDispatcher("/WEB-INF/views/admin/admin-update-item.jsp").forward(request, response);
 	}
 
+	/**
+	 * Prepares and displays report for admin.
+	 * Reads the optional "outletId" parameter from the request to fetch data for a 
+	 * specific outlet. If missing or invalid, it defaults to 0.
+	 * It fetches the report data using ReportDAO and the list 
+	 * of all available outlets using OutletDAO, binds them as request attributes, and 
+	 * forwards the request to the admin report JSP view.
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	private void viewReport(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String outletParam = request.getParameter("outletId");
@@ -541,6 +559,19 @@ public class AdminController extends HttpServlet {
 		}
 	}
 
+	/**
+	 * Processes the submission form to update the logged-in admin's profile details.
+	 * 
+	 * Extracts user profile details along with the user ID from the request parameters. 
+	 * It invokes AdminService to update the database. Upon a successful transaction, it fetches the fresh 
+	 * user details, refreshes the active HTTP session profile attribute, 
+	 * and redirects back to the profile page.
+	 * If validation, processing, or numeric parsing fails, it redirects with an appropriate error.
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 */
 	private void handleAdminProfile(HttpServletRequest request, HttpServletResponse response) throws IOException {
 				//Gets the session to access the current user
 				HttpSession session = request.getSession();
@@ -968,6 +999,14 @@ public class AdminController extends HttpServlet {
 		request.setAttribute("outlets", outlets);
 	}
 
+	/**
+	 * Extracts and loads a specific menu item's data to edit it
+	 * 
+	 * Reads the "itemId" and parse it into an integer, and fetches the 
+	 * matching item record using ItemDAO.
+	 * 
+	 * @param request
+	 */
 	private void loadItemForEdit(HttpServletRequest request) {
 		String itemIdStr = request.getParameter("itemId");
 		if (itemIdStr != null && !itemIdStr.trim().isEmpty()) {
@@ -984,6 +1023,14 @@ public class AdminController extends HttpServlet {
 		}
 	}
 
+	/**
+	 * Method to dispatch the request to the "Add Menu Item" form page.
+	 * 
+	 * @param req  
+	 * @param resp
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	private void forward(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		req.getRequestDispatcher("/WEB-INF/views/admin/admin-add-item.jsp").forward(req, resp);

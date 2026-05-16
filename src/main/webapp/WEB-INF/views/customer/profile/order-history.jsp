@@ -8,7 +8,7 @@
 	<meta charset="UTF-8">
 	<title>Order History | QuickBite</title>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/order-history.css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/userProfile.css" />
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/user-profile.css" />
 </head>
 
 <body>
@@ -82,7 +82,7 @@
 							        </p>
 							    </div>
 							    <c:if test="${order.feedbackId == 0}">
-							        <a href="${pageContext.request.contextPath}/profile/contact?orderId=${order.orderId}">
+							        <a href="${pageContext.request.contextPath}/profile/feedback?orderId=${order.orderId}">
 							            <button class="rate-btn">Rate Order</button>
 							        </a>
 							    </c:if>

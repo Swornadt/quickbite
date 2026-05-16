@@ -31,6 +31,12 @@ public class KitchenContoller extends HttpServlet {
     }
 
 	/**
+	 * Handles HTTP GET requests to route back relevant order tracking information for kitchen staff.
+	 * 
+	 * @param request
+	 * @param response 
+	 * @throws ServletException
+	 * @throws IOException
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -44,6 +50,14 @@ public class KitchenContoller extends HttpServlet {
 		}
 	}
 	
+	/**
+	 * Organizes outlet orders by status.
+	 * 
+	 * @param request  
+	 * @param response
+	 * @throws ServletException 
+	 * @throws IOException     
+	 */
 	private void handleOrderManagement(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//session stores attibutes as object
 		Integer outletId = (Integer) request.getSession().getAttribute("outletId");
@@ -66,6 +80,21 @@ public class KitchenContoller extends HttpServlet {
 		request.getRequestDispatcher("/WEB-INF/views/staff/order-management.jsp").forward(request,response);
 	}
 	
+	/**
+	  Generates a detailed dashboard view for a single customer order inside the kitchen view.
+	 * 
+	 * Checks whether the user session consists of authorized outletId
+	 * Gets the orderId
+	 * Uses OrderOutletItemDAO to retrieve all items related to that order
+	 * Then collects information related to the order
+	 * 
+	 * 
+	 * @param request  
+	 * @param 
+	 * @param orderId
+	 * @throws ServletException
+	 * @throws IOException  
+	 */
 	private void handleOrderDetails(HttpServletRequest request, HttpServletResponse response, String orderId ) throws ServletException, IOException {
 		
 		Integer outletId = (Integer) request.getSession().getAttribute("outletId");
@@ -80,33 +109,39 @@ public class KitchenContoller extends HttpServlet {
 	    List<OrderOutletItemModel> orderdetails = dao.getOrderDetail(order, outletId);
 
 	    int totalQty = 0;
-	    String orderStatus = "";
+	    String outletOrderStatus = "";
 	    String orderType = "";
 	    String outletName = "";
 	    String orderNote = "";
 	    String orderDateString = "";
 	    String orderTime = "";
-
+	    boolean itemReady = true;
 
 	    for (OrderOutletItemModel item : orderdetails) {
 	        totalQty += item.getItemQty();
-	        orderStatus = item.getOrderStatusLabel();
+	        outletOrderStatus = item.getOutletOrderStatusLabel();
 	        orderType = item.getOrderTypeLabel();
 	        outletName = item.getOutletName();
 	        orderNote = item.getOrderNote();
 	        Timestamp orderDate = item.getOrderDate();
 	        orderDateString = new java.text.SimpleDateFormat("MM/dd/yyyy").format(orderDate);
 	        orderTime = new java.text.SimpleDateFormat("HH:mm").format(orderDate);
+	        if (item.getItemStatus() == 0) {
+	        	itemReady = false;
+	        }
 	    }
 
 	    request.setAttribute("orderId", order);
-	    request.setAttribute("orderStatus", orderStatus);
+	    request.setAttribute("orderStatus", outletOrderStatus);
 	    request.setAttribute("orderType", orderType);
 	    request.setAttribute("outletName", outletName);
 	    request.setAttribute("orderNote", orderNote);
 	    request.setAttribute("orderDate", orderDateString);
 	    request.setAttribute("orderTime", orderTime);
 	    request.setAttribute("totalQty", totalQty);
+	    request.setAttribute("error", request.getSession().getAttribute("error"));
+	    request.getSession().removeAttribute("error");
+	    request.setAttribute("itemReady", itemReady);
 	    request.setAttribute("order", orderdetails);
 	    request.getRequestDispatcher("/WEB-INF/views/staff/order-details.jsp")
 	           .forward(request, response);
@@ -114,6 +149,12 @@ public class KitchenContoller extends HttpServlet {
 	
 
 	/**
+	 * Handles POST requests to process state changes and status updates for food preparation items.
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -121,11 +162,17 @@ public class KitchenContoller extends HttpServlet {
 		String path = request.getPathInfo();
         int orderId = Integer.parseInt(path.substring(1));
         String action = request.getParameter("action");
-
+        Integer outletId = (Integer) request.getSession().getAttribute("outletId");
+        
         if (action.equals("initiate")) {
-            kitchenService.initiateOrder(orderId);
+            kitchenService.initiateOrder(orderId, outletId);
         } else if (action.equals("ready")) {
-            kitchenService.markReady(orderId);
+        	 boolean success = kitchenService.markReady(orderId, outletId);
+             if (!success) {
+                 request.getSession().setAttribute("error", "Please complete all items before marking as ready.");
+                 response.sendRedirect(request.getContextPath() + "/kitchen/" + orderId);
+                 return;
+             }
         } else if (action.equals("itemDone")) {
             int itemId = Integer.parseInt(request.getParameter("itemId"));
             kitchenService.markItemDone(orderId, itemId);

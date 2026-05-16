@@ -23,8 +23,8 @@
 
     <div class="side-nav">
         <div class="side-nav-logo">
-			<a href="${pageContext.request.contextPath}/admin/" class="nav-logo-container">
-		    	<p class="logo-text"> Quick Bite</p>
+			<a href="${pageContext.request.contextPath}/home" class="nav-logo-container">
+		    	<p class="logo-text nav-logo-container"> Quick Bite</p>
 		    </a>
         </div>
 

@@ -19,6 +19,16 @@ public class HomeController extends HttpServlet {
         super();
     }
 
+    /**
+	 * Handles HTTP GET requests to compile and render the public landing homepage.
+	 * 
+	 * Invokes ItemDAO to retrieve a list of popular menu items alongside their associated outlet details. 
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ItemDAO itemDAO = new ItemDAO();
 		List<Map<String, Object>> popularItems = itemDAO.getPopularItemsWithOutlets();
@@ -26,6 +36,14 @@ public class HomeController extends HttpServlet {
 		request.getRequestDispatcher("/WEB-INF/views/public/home.jsp").forward(request, response);
 	}
 
+	/**
+	 * Handles HTTP POST requests by delegating processing logic to the doGet method.
+	 *
+	 * @param request  
+	 * @param response 
+	 * @throws ServletException 
+	 * @throws IOException     
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}

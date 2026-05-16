@@ -15,6 +15,19 @@ import com.quickbite.model.UserModel;
 public class ProfilePopupController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
+    /**
+	 * Handles HTTP GET requests to retrieve and render the customer's profile micro-dashboard context.
+	 * 
+	 * Evaluates the active session state without initializing a new session block to confirm that the requesting client is properly authenticated. 
+	 * If no session or user identity data is detected, it triggers a redirection back to the login interface. 
+	 * Upon successful verification, it extracts the current user model details from the session context, attaches it to the request under the attribute "user", and dispatches execution 
+	 * to the profile model view template located at "/WEB-INF/views/customer/profile-pop-up.jsp".
+	 * 
+	 * @param request 
+	 * @param response 
+	 * @throws ServletException
+	 * @throws IOException
+	 */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
         
@@ -36,6 +49,14 @@ public class ProfilePopupController extends HttpServlet {
                .forward(request, response);
     }
 
+    /**
+	 * Handles HTTP POST requests by delegating processing logic to the doGet method.
+	 * 
+	 * @param request 
+	 * @param response
+	 * @throws ServletException 
+	 * @throws IOException  
+	 */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
         doGet(request, response);

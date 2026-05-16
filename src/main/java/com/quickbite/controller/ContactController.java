@@ -10,39 +10,27 @@ import java.io.IOException;
 /**
  * Servlet implementation class MenuServlet
  */
-@WebServlet(asyncSupported = true, urlPatterns = { "/MenuServlet" })
-public class MenuController extends HttpServlet {
+@WebServlet(asyncSupported = true, urlPatterns = {"/contact"})
+public class ContactController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MenuController() {
+    public ContactController() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-    /**
-	 * Handles HTTP GET requests to render the location-specific menu interface for customers.
-	 * 
-	 * @param request 
-	 * @param response 
-	 * @throws ServletException 
-	 * @throws IOException
+	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.getRequestDispatcher("/WEB-INF/views/customer/location-menu.jsp").forward(request,response);
+		request.getRequestDispatcher("/WEB-INF/views/public/contact.jsp").forward(request,response);
 	}
 
 	/**
-	 * Handles HTTP POST requests by delegating processing logic to the doGet method.
-	 * 
-	 * @param request
-	 * @param response 
-	 * @throws ServletException
-	 * @throws IOException 
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

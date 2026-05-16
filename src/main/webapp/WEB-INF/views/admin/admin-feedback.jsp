@@ -39,9 +39,13 @@
                                             <div class="stat-title">Average Rating</div>
                                             <div style="display:flex; align-items:baseline; gap:12px;">
                                                 <span class="avg-rating">${avgRating}</span>
-                                                <span class="stars">
-                                                    ★★★★☆
-                                                </span>
+                                                <div class="stars" style="font-size: 1.8rem; letter-spacing: 3px;">
+            <c:forEach begin="1" end="5" var="i">
+                <span style="color: ${i <= filledStars ? '#f59e0b' : '#e5e7eb'};">
+                    ★
+                </span>
+            </c:forEach>
+        </div>
                                             </div>
                                             <div style="color:#6b7280; font-size:14px; margin-top:8px;">
                                                 Average rating this period

@@ -14,7 +14,7 @@ public class OrderOutletItemDAO {
 
 	public List<OrderOutletItemModel> getOrderDetail(int orderId, int outletId) {
         List<OrderOutletItemModel> list = new ArrayList<>();
-        String sql ="SELECT ooi.order_id, ooi.outlet_id, ooi.item_id, ooi.item_qty, ooi.item_status, " +
+        String sql ="SELECT ooi.order_id, ooi.outlet_id, ooi.item_id, ooi.item_qty, ooi.item_status, ooi.outlet_order_status, " +
         	    	"o.order_status, o.order_date, o.order_note, o.preferred_date, " +
         	    	"i.item_name, ol.outlet_name " +
         	    	"FROM order_outlet_item ooi " +
@@ -40,7 +40,8 @@ public class OrderOutletItemDAO {
                         rs.getTimestamp("order_date"),    
                         rs.getTimestamp("preferred_date"),
                         rs.getString("order_note"),       
-                        rs.getString("outlet_name")   
+                        rs.getString("outlet_name"),  
+                        rs.getInt("outlet_order_status")
                     ));
                 }
             }
@@ -53,10 +54,16 @@ public class OrderOutletItemDAO {
 	public List<OrderOutletItemModel> getOrdersByOutlet(int outletId) {
 	    List<OrderOutletItemModel> list = new ArrayList<>();
 	    String sql =
-	        "SELECT DISTINCT ooi.order_id, ooi.outlet_id, o.order_status "
-	        + "FROM order_outlet_item ooi JOIN `order` o ON ooi.order_id = o.order_id "
-	        + "WHERE ooi.outlet_id = ?";
-
+	    		"SELECT DISTINCT ooi.order_id, ooi.outlet_id, ooi.outlet_order_status " +
+	    	    "FROM order_outlet_item ooi " +
+	    	    "JOIN `order` o ON ooi.order_id = o.order_id " +
+	    	    "WHERE ooi.outlet_id = ? AND (" +
+	    	    "(o.preferred_date IS NULL AND DATE(o.order_date) = CURDATE()) OR " +
+	    	    "(o.preferred_date IS NOT NULL AND DATE(o.preferred_date) = CURDATE())" +
+	    	    ")";
+	    
+	    System.out.println("SQL running: " + sql);
+	    
 	    try (Connection conn = DBconfig.getConnection();
 	         PreparedStatement ps = conn.prepareStatement(sql)) {
 	        ps.setInt(1, outletId);
@@ -66,7 +73,7 @@ public class OrderOutletItemDAO {
 	                OrderOutletItemModel order = new OrderOutletItemModel(
 	                    rs.getInt("order_id"),
 	                    rs.getInt("outlet_id"),
-	                    rs.getInt("order_status")
+	                    rs.getInt("outlet_order_status")
 	                );
 	                list.add(order);
 	            }
@@ -83,7 +90,7 @@ public class OrderOutletItemDAO {
 	    List<OrderOutletItemModel> list = new ArrayList<>();
 
 	    for (OrderOutletItemModel order : orders) {
-	        if (order.getOrderStatus() == status) {
+	        if (order.getOutletOrderStatus() == status) {
 	            list.add(order);
 	        }
 	    }
@@ -103,6 +110,19 @@ public class OrderOutletItemDAO {
 	    }
 	}
 
+	public void updateOutletOrderStatus(int orderId, int outletId, int status) {
+	    String sql = "UPDATE order_outlet_item SET outlet_order_status = ? WHERE order_id = ? AND outlet_id = ?";
+	    try (Connection conn = DBconfig.getConnection();
+	         PreparedStatement ps = conn.prepareStatement(sql)) {
+	        ps.setInt(1, status);
+	        ps.setInt(2, orderId);
+	        ps.setInt(3, outletId);
+	        ps.executeUpdate();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	}
+	
 	public void updateItemStatus(int orderId, int itemId) {
 	    String sql = "UPDATE order_outlet_item SET item_status = 1 WHERE order_id = ? AND item_id = ?";
 	    try (Connection conn = DBconfig.getConnection();
@@ -113,6 +133,35 @@ public class OrderOutletItemDAO {
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	    }
+	}
+	
+	public boolean getAllOutletOrderStatus(int orderId) {
+	    String sql = "SELECT COUNT(*) FROM order_outlet_item WHERE order_id = ? AND outlet_order_status != 2";
+	    try (Connection conn = DBconfig.getConnection();
+	         PreparedStatement ps = conn.prepareStatement(sql)) {
+	        ps.setInt(1, orderId);
+	        try (ResultSet rs = ps.executeQuery()) {
+	            if (rs.next()) return rs.getInt(1) == 0;
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return false;
+	}
+
+	public boolean getItemsStatus(int orderId, int outletId) {
+	    String sql = "SELECT COUNT(*) FROM order_outlet_item WHERE order_id = ? AND outlet_id = ? AND item_status = 0";
+	    try (Connection conn = DBconfig.getConnection();
+	         PreparedStatement ps = conn.prepareStatement(sql)) {
+	        ps.setInt(1, orderId);
+	        ps.setInt(2, outletId);
+	        try (ResultSet rs = ps.executeQuery()) {
+	            if (rs.next()) return rs.getInt(1) == 0;
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return false;
 	}
 	
 }
