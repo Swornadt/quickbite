@@ -9,6 +9,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -137,6 +140,24 @@ public class CheckoutController extends HttpServlet {
 		if ("later".equals(deliveryTimeType)) {
 	        if (deliveryDate == null || deliveryDate.isEmpty() || timeSlot == null || timeSlot.isEmpty()) {
 	            request.setAttribute("error", "Please select both a date and time slot for scheduled orders.");
+	            viewCheckout(request, response);
+	            return;
+	        }
+	        
+	        // Validation to prevent scheduling in the past
+	        try {
+	            LocalDate parsedDate = LocalDate.parse(deliveryDate);
+	            LocalTime parsedTime = LocalTime.parse(timeSlot);
+	            LocalDateTime scheduledDateTime = LocalDateTime.of(parsedDate, parsedTime);
+	            LocalDateTime now = LocalDateTime.now();
+	            
+	            if (scheduledDateTime.isBefore(now)) {
+	                request.setAttribute("error", "The scheduled time cannot be in the past. Please select a future time.");
+	                viewCheckout(request, response);
+	                return;
+	            }
+	        } catch (java.time.format.DateTimeParseException e) {
+	            request.setAttribute("error", "Invalid date or time format provided.");
 	            viewCheckout(request, response);
 	            return;
 	        }
