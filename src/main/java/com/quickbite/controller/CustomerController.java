@@ -68,9 +68,9 @@ public class CustomerController extends HttpServlet {
 			case "/change-password":
 				viewChangePassword(request, response);
 				break;
-			case "/contact":
-				request.getRequestDispatcher("/WEB-INF/views/public/contact.jsp").forward(request, response);;
-				break;	
+			case "/feedback":
+				request.getRequestDispatcher("/WEB-INF/views/public/feedback.jsp").forward(request, response);
+				break;
 			case "/favorites":
 				viewFavorites(request, response);
 				break;
@@ -98,7 +98,7 @@ public class CustomerController extends HttpServlet {
 			case "/favorites/toggle":
 				toggleFavorites(request, response);
 				break;
-			case "/contact":
+			case "/feedback":
 			    submitOrderFeedback(request, response);
 			    break;	
 			case "/update":
@@ -263,7 +263,7 @@ public class CustomerController extends HttpServlet {
 	    
 	    if (session == null || session.getAttribute("user") == null) {
             request.setAttribute("error", "You must be logged in to submit feedback.");
-            request.getRequestDispatcher("/WEB-INF/views/public/contact.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/views/public/feedback.jsp").forward(request, response);
             return;
         }
 	    
@@ -275,7 +275,7 @@ public class CustomerController extends HttpServlet {
         if (ratingStr == null || ratingStr.trim().isEmpty() ||
             message == null || message.trim().isEmpty()) {
             request.setAttribute("error", "Rating and message are required.");
-            request.getRequestDispatcher("/WEB-INF/views/public/contact.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/views/public/feedback.jsp").forward(request, response);
             return;
         }
 
@@ -285,7 +285,7 @@ public class CustomerController extends HttpServlet {
             
             if (rating < 1 || rating > 5) {
                 request.setAttribute("error", "Rating must be between 1 and 5.");
-                request.getRequestDispatcher("/WEB-INF/views/public/contact.jsp").forward(request, response);
+                request.getRequestDispatcher("/WEB-INF/views/public/feedback.jsp").forward(request, response);
                 return;
             }
             
@@ -301,7 +301,7 @@ public class CustomerController extends HttpServlet {
             request.setAttribute("error", "Something went wrong. Please try again later.");
         }
 
-        request.getRequestDispatcher("/WEB-INF/views/public/contact.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/views/customer/profile/order-history.jsp").forward(request, response);
     }
 	
 	private void viewChangePassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

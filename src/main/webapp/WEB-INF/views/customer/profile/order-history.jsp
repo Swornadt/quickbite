@@ -82,7 +82,7 @@
 							        </p>
 							    </div>
 							    <c:if test="${order.feedbackId == 0}">
-							        <a href="${pageContext.request.contextPath}/profile/contact?orderId=${order.orderId}">
+							        <a href="${pageContext.request.contextPath}/profile/feedback?orderId=${order.orderId}">
 							            <button class="rate-btn">Rate Order</button>
 							        </a>
 							    </c:if>

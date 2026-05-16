@@ -1,0 +1,152 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  line-height: 1.5;
+}
+
+.hero-image {
+  height: 35vh;
+  width: 100%;
+  background-image: url('../assets/feedback.png');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-title {
+  font-size: 64px;
+  font-weight: bold;
+  text-align: center;
+  color: #363636;
+}
+
+.contact-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  margin: 40px 0px 40px 0px;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.feedback-form {
+  flex: 1 1 350px;
+  max-width: 400px;
+}
+
+.feedback-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 30px;
+  max-width: 400px;
+}
+
+.feedback-form input, 
+.feedback-form textarea {
+  padding: 10px;
+  border: 1px solid #F1E4D7;
+  border-radius: 4px;
+  width: 100%;
+}
+
+/* Button */
+.feedback-form button {
+  background: #DB4A1E;
+  color: #F1E4D7;
+  border: none;
+  padding: 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.feedback-form button:hover {
+  transform: scale(1.02);
+}
+
+/* Star Rating*/
+.rating-row {
+  display: flex;
+  align-items: center;  
+  gap: 10px;             
+}
+
+.star-rating {
+  display: flex;
+  flex-direction: row-reverse; 
+  gap: 5px;
+}
+
+.star-rating input {
+  display: none;
+}
+
+.star-rating label {
+  font-size: 28px;
+  color: #F1E4D7;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.star-rating input:checked ~ label {
+  color: #DB4A1E;
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+  color: #DB4A1E;
+}
+
+.star-rating input:checked ~ label {
+  color: #DB4A1E;
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+  color: #DB4A1E;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+  .feedback-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .feedback-container::before {
+    display: none;
+  }
+
+  .feedback-form {
+    max-width: 90%;
+  }
+
+  .hero-title {
+    font-size: 48px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 32px;
+  }
+
+  .feedback-form input, 
+  .feedback-form textarea {
+    font-size: 14px;
+  }
+
+  .star-rating label {
+    font-size: 22px;
+  }
+}
