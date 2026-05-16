@@ -360,6 +360,16 @@ body {
     font-size: 1rem;
 }
 
+.error-message {
+    background-color: #fde8e8 !important;
+    color: #c0392b;
+    border: 1px solid #e74c3c;
+    padding: 10px 16px;
+    border-radius: 6px;
+    margin-bottom: 16px;
+    font-size: 14px;
+}
+
 @media (max-width: 768px) {
     .container {
         flex-direction: column;
@@ -379,3 +389,6 @@ body {
         width: 100%;
     }
 }
+
+
+
