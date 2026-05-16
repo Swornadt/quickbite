@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/user-profile.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Pacifico&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
       rel="stylesheet" />
@@ -22,13 +23,29 @@
 
               <div class="user-profile-container">
                 <!-- Profile image container -->
-                <div class="profile-picture-wrapper">
-                  <h2>PROFILE PICTURE</h2>
+<div class="profile-picture-wrapper">
+    <h2>PROFILE PICTURE</h2>
 
-                  <div class="profile-picture">
-                    <img src="${pageContext.request.contextPath}/${user.image}" alt="Profile Picture" />
-                  </div>
-                </div>
+    <div class="profile-picture-container">
+        <div class="profile-picture">
+            <img id="profileImg" 
+                 src="${pageContext.request.contextPath}/${user.image != null ? user.image : 'uploads/default.png'}" 
+                 alt="Profile Picture" />
+        </div>
+        
+        <!-- Pencil Edit Icon -->
+        <div class="edit-overlay" onclick="document.getElementById('profileImageInput').click()">
+            <i class="fas fa-pencil-alt"></i>
+        </div>
+    </div>
+
+    <!-- Image Upload Form -->
+    <form id="imageUploadForm" action="${pageContext.request.contextPath}/profile/upload-image" 
+          method="post" enctype="multipart/form-data" style="display: none;">
+        <input type="file" id="profileImageInput" name="profileImage" accept="image/*" 
+               onchange="this.form.submit()">
+    </form>
+</div>
 
                 <!-- Success / Error Messages -->
                 <c:if test="${not empty success}">
@@ -83,6 +100,8 @@
           </section>
         </div>
         <%@ include file="../../common/footer.jsp" %>
+        
+        
   </body>
 
   </html>

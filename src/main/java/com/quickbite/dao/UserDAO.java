@@ -342,4 +342,28 @@ public class UserDAO {
 	        return false;
 	    }
 	}
+	
+	/**
+	 * Updates user's profile image in the database
+	 * 
+	 * @param userId
+	 * @param imagePath
+	 * @return
+	 */
+	public boolean updateUserImage(int userId, String imagePath) {
+        String sql = "UPDATE user SET image = ? WHERE user_id = ?";
+        
+        try (Connection conn = DBconfig.getConnection();
+             PreparedStatement pst = conn.prepareStatement(sql)) {
+            
+            pst.setString(1, imagePath);
+            pst.setInt(2, userId);
+            
+            return pst.executeUpdate() > 0;
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
