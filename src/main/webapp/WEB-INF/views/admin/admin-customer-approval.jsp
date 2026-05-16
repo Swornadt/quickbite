@@ -19,7 +19,11 @@
 
         <h1>Customer Management</h1>
 
-       
+       <c:if test="${param.status == 'passwordReset'}">
+    		<div class="success-banner">
+        		Password has been reset successfully.
+    		</div>
+		</c:if>
 
         <!-- TABS -->
         <div class="tabs">
@@ -61,7 +65,7 @@
                                     <button type="submit" class="btn reject">Reject</button>
                                 </form>
 								<a href="${pageContext.request.contextPath}/admin/customers/profile?userId=${user.userId}">
-							        <button type="button" style="color: #d13c3c; class="btn approve">View Profile</button>
+							        <button type="button" style="color: #d13c3c;" class="btn approve">View Profile</button>
 							    </a>
                             </div>
                         </div>
@@ -110,21 +114,21 @@
                         <div class="card">
                             <div class="card-top">
                                 <img class="photo"
-                                     src="${pageContext.request.contextPath}/assets/user-image.jpg"
+                                     src="${pageContext.request.contextPath}/${not empty user.image ? user.image : 'uploads/default.png'}"
                                      alt="Customer Photo">
                                 <div class="card-info">
                                     <div class="name">${user.fname} ${user.lname}</div>
                                     <div class="email">${user.email}</div>
                                 </div>
                                 
-                                <div class="date">${user.requestDate}</div>
+
                             </div>
                             <div class="buttons">
                                 <form method="post"
                                       action="${pageContext.request.contextPath}/admin/customers/reset">
                                     <input type="hidden" name="user_id" value="${user.userId}">
                                     <input type="hidden" name="action" value="approve">
-                                    <button type="submit" class="btn approve">Approve</button>
+                                    <button type="submit" class="btn approve">Set Password</button>
                                 </form>
                                 <form method="post"
                                       action="${pageContext.request.contextPath}/admin/customers/reset">
@@ -142,7 +146,7 @@
     </div>
 </div>
 
-<script src="${pageContext.request.contextPath}/js/adminCustomerApproval.js"></script>
+<script src="${pageContext.request.contextPath}/js/admin-customer-approval.js"></script>
 
 </body>
 </html>
