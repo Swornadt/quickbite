@@ -10,33 +10,33 @@
 </head>
 <body>
   
-  <%@ include file="/WEB-INF/views/staff/kitchen-nav.jsp" %>
+	<%@ include file="/WEB-INF/views/staff/kitchen-nav.jsp" %>
   
-  <div class="order">
- 
+  	<div class="order">
+  	
     <!-- Letf div for order details -->
     <div class="order-details">
-      <div class="order-details-title">Order Details</div>
-      <div class="details">
-        <div class="details-label">
-          <div>Order ID:</div>
-          <div>Order Type:</div>
-          <div>Order Status:</div>
-          <div>Total Quantity:</div>
-          <div>Date:</div>
-          <div>Time:</div>
-          <div>Location:</div>
+    	<div class="order-details-title">Order Details</div>
+      	<div class="details">
+        	<div class="details-label">
+          	<div>Order ID:</div>
+          	<div>Order Type:</div>
+	        <div>Order Status:</div>
+	        <div>Total Quantity:</div>
+	        <div>Date:</div>
+	        <div>Time:</div>
+	        <div>Location:</div>
         </div>
         <div class="details-value">
-          <div>#${orderId}</div>
-          <div>${orderType}</div>
-          <div>${orderStatus}</div>
-          <div>${totalQty}</div>
-          <div>${orderDate}</div>
-		  <div>${orderTime}</div>
-          <div>${outletName}</div>
+          	<div>#${orderId}</div>
+         	<div>${orderType}</div>
+          	<div>${orderStatus}</div>
+          	<div>${totalQty}</div>
+          	<div>${orderDate}</div>
+		  	<div>${orderTime}</div>
+          	<div>${outletName}</div>
         </div>
-      </div>
+      	</div>
     </div>
       
        <!-- Right section order item + additional note + buttons -->
@@ -63,9 +63,10 @@
 	                <form method="post" action="${pageContext.request.contextPath}/kitchen/${orderId}">
 		                <input type="hidden" name="action" value="itemDone" />
 		                <input type="hidden" name="itemId" value="${item.itemId}" />
-		                <button type="submit" class="checkbox ${item.itemStatus eq 1 ? 'checked' : ''} "${orderStatus eq 'Ongoing' ? '' : 'disabled'}>
+		                <button type="submit" class="checkbox ${item.itemStatus eq 1 ? 'checked' : ''}" ${orderStatus eq 'Ongoing' ? '' : 'disabled'}>
     						${item.itemStatus eq 1 ? '✓' : ''}
 						</button>
+
            	 		</form>
 	              </td>
 	            </tr>
@@ -79,6 +80,9 @@
         <div class="note-box">${orderNote}</div>
       </div>
       
+      <c:if test="${error != null}">
+    	<div class="error-msg">${error}</div>
+	</c:if>
       
       <div class="order-actions">
       	<form method="post" action="${pageContext.request.contextPath}/kitchen/${orderId}">

@@ -57,8 +57,13 @@ public class OrderOutletItemDAO {
 	    		"SELECT DISTINCT ooi.order_id, ooi.outlet_id, ooi.outlet_order_status " +
 	    	    "FROM order_outlet_item ooi " +
 	    	    "JOIN `order` o ON ooi.order_id = o.order_id " +
-	    	    "WHERE ooi.outlet_id = ? AND DATE(o.order_date) = CURDATE()";
-
+	    	    "WHERE ooi.outlet_id = ? AND (" +
+	    	    "(o.preferred_date IS NULL AND DATE(o.order_date) = CURDATE()) OR " +
+	    	    "(o.preferred_date IS NOT NULL AND DATE(o.preferred_date) = CURDATE())" +
+	    	    ")";
+	    
+	    System.out.println("SQL running: " + sql);
+	    
 	    try (Connection conn = DBconfig.getConnection();
 	         PreparedStatement ps = conn.prepareStatement(sql)) {
 	        ps.setInt(1, outletId);
@@ -144,7 +149,7 @@ public class OrderOutletItemDAO {
 	    return false;
 	}
 
-	public boolean getItemsstatus(int orderId, int outletId) {
+	public boolean getItemsStatus(int orderId, int outletId) {
 	    String sql = "SELECT COUNT(*) FROM order_outlet_item WHERE order_id = ? AND outlet_id = ? AND item_status = 0";
 	    try (Connection conn = DBconfig.getConnection();
 	         PreparedStatement ps = conn.prepareStatement(sql)) {
