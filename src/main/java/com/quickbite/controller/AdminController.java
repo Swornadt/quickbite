@@ -30,6 +30,7 @@ import com.quickbite.service.AdminService;
 import com.quickbite.service.MenuService;
 import com.quickbite.utils.ImageUtil;
 import com.quickbite.utils.SessionUtil;
+import com.quickbite.utils.ValidationUtil;
 
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
 		maxFileSize = 1024 * 1024 * 10, // 10MB
@@ -678,6 +679,15 @@ public class AdminController extends HttpServlet {
 	    	UserModel user = adminService.getUserById(userId);
 	        request.setAttribute("userData", user);
 	    	request.setAttribute("errorMessage", "Passwords do not match. Please try again.");
+	        request.getRequestDispatcher("/WEB-INF/views/admin/admin-change-password.jsp").forward(request, response);
+	        return;
+	    }
+	    
+	    String validationError = ValidationUtil.validatePassword(newPassword, confirmPassword);
+	    if (validationError != null) {
+	        UserModel user = adminService.getUserById(userId);
+	        request.setAttribute("userData", user);
+	        request.setAttribute("errorMessage", validationError);
 	        request.getRequestDispatcher("/WEB-INF/views/admin/admin-change-password.jsp").forward(request, response);
 	        return;
 	    }
