@@ -35,8 +35,7 @@
                                 <div class="form-grid">
                                     <div class="form-group">
                                         <label>Item Name</label>
-                                        <input type="text" name="itemName" value="${item != null ? item.itemName : ''}"
-                                            required>
+                                        <input type="text" name="itemName" value="${item != null ? item.itemName : ''}">
                                     </div>
                                     <div class="form-group">
                                         <label>Category</label>
