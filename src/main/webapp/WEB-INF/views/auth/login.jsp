@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,13 +27,15 @@
         <div class="signin-container">
           <h1>Sign in to your account</h1>
 
-			<!-- Error / Success Messages -->
-          <% if (request.getAttribute("error") != null) { %>
-               <p style="color: red; text-align:center; margin:10px 0;"> <%= request.getAttribute("error") %> </p>
-          <% } %>
-          <% if (request.getAttribute("success") != null) { %>
-               <p style="color: green; text-align:center; margin:10px 0;"> <%= request.getAttribute("success") %> </p>
-          <% } %>
+         	
+			<c:if test="${not empty error}">
+    			<p style="color: red; text-align:center; margin:10px 0;">${error}</p>
+			</c:if>
+
+			<c:if test="${not empty success}">
+			    <p style="color: green; text-align:center; margin:10px 0;">${success}</p>
+			</c:if>
+			
           <!-- Actual Form  -->
           <form class="signin-section" action="${pageContext.request.contextPath}/login" method="post">
             <!-- Section 1 -->
