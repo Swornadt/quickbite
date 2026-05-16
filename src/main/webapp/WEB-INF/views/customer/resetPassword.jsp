@@ -56,17 +56,6 @@
                 class="reset-input"
               />
             </div>
-            
-            <!-- Section 3 -->
-            <div class="reset-label">
-              <label for="username">Username:</label>
-              <input
-                id="username"
-                type="text"
-                name="username"
-                class="reset-input"
-              />
-            </div>
 
             <!-- Sign in Button -->
             <button class="reset-btn" type="submit">Send Request</button>

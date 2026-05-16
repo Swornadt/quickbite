@@ -327,6 +327,7 @@ public class UserDAO {
 		        e.printStackTrace();
 		        return false;
 		    }	
+	}
 
 	
 	public boolean updatePassword(int userId, String hashNewPassword) {
