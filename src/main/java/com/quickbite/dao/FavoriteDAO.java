@@ -14,6 +14,18 @@ import com.quickbite.utils.DBconfig;
 
 public class FavoriteDAO {
 	
+	/**
+	 * Inserts a new favorite item record into the database for a specific user and outlet combination.
+	 * 
+	 * Establishes a database connection via DBconfig and prepares an INSERT SQL statement to safely
+	 * log the relationship between a user, a specific menu item, and its outlet. 
+	 * It binds the parameters to prevent SQL injection and executes a data update.
+	 * 
+	 * @param userId
+	 * @param itemId 
+	 * @param outletId
+	 * @throws SQLException 
+	 */
 	public void addFavorite (int userId, int itemId, int outletId) throws SQLException {
 		String sql = "INSERT INTO favorite (user_id, item_id, outlet_id) "
                 + "VALUES (?, ?, ?)";
@@ -29,6 +41,17 @@ public class FavoriteDAO {
      	}
 	}
 	
+	/**
+	 * Deletes an existing favorite item record from the database.
+	 * 
+	 * Establishes a database connection via DBconfig and prepares a DELETE SQL statement to remove 
+	 * the specific menu item, user and outlet relationship from the database.
+	 * 
+	 * @param userId  
+	 * @param itemId  
+	 * @param outletId
+	 * @throws SQLException 
+	 */
 	public void removeFavorite (int userId, int itemId, int outletId) throws SQLException {
 		String sql = "DELETE FROM favorite WHERE user_id = ? AND item_id = ? AND outlet_id = ? ";
 
@@ -43,6 +66,19 @@ public class FavoriteDAO {
      	}
 	}
 	
+	/**
+	 * Checks whether a specific menu item from a given outlet is favorited by a user.
+	 * 
+	 * Prepares a SELECT query to check for the existence of an active relational 
+	 * record matching the provided user, item, and outlet criteria. 
+	 * Returns true if the query yields a matching row result, otherwise returns false.
+	 * 
+	 * @param userId 
+	 * @param itemId 
+	 * @param outletId
+	 * @return true or false
+	 * @throws SQLException 
+	 */
 	public boolean isFavorite (int userId, int itemId, int outletId) throws SQLException {
 		String sql = "SELECT 1 FROM favorite WHERE user_id = ? AND item_id = ? AND outlet_id = ?";
 		
