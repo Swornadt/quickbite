@@ -13,6 +13,17 @@ import com.quickbite.utils.DBconfig;
 
 public class FeedbackDAO {
 
+	/**
+	 * Inserts a new customer feedback record into the database and retrieves its generated primary key.
+	 * 
+	 * Establishes a database connection via DBconfig and prepares an INSERT SQL statement to commit 
+	 * the rating score evaluation, descriptive message text, and the current system timestamp. 
+	 * 
+	 * @param rating
+	 * @param message
+	 * @return the unique generated key of the new feedback record, or -1 if insertion fails
+	 * @throws Exception 
+	 */
     public int insertFeedback(int rating, String message) throws Exception {
         String sql = "INSERT INTO feedback (rating_value, feedback_description, rating_date) "
                    + "VALUES (?, ?, ?)";
@@ -34,6 +45,14 @@ public class FeedbackDAO {
 		return -1;
     }
     
+    /**
+	 * Retrieves and maps a complete list of all customer feedback submissions sorted by entry date.
+	 * 
+	 * Executes a LEFT JOIN query linking the feedback table with order and user profile accounts. 
+	 * 
+	 * @return a List containing complete FeedbackModel data sorted in descending order by submission date
+	 * @throws Exception
+	 */
     public List<FeedbackModel> getAllFeedbacks() throws Exception {
         List<FeedbackModel> list = new ArrayList<>();
         

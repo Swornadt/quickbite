@@ -9,6 +9,17 @@ import com.quickbite.utils.DBconfig;
 
 public class ReportDAO {
 	
+	/**
+	 * Compiles metric aggregates into a unified analytics data report model.
+	 * 
+	 * Constructs conditional SQL selection filters depending on 
+	 * whether the execution context targets a specific outlet or requests system-wide insights. 
+	 * It executes multiple database queries to calculate the total number of active users,
+	 * total orders, and overall revenue, then stores the results in a ReportModel object.
+	 * 
+	 * @param outletId
+	 * @return a populated ReportModel containing aggregated user count, total orders, and sales metrics
+	 */
 	public ReportModel getReport(int outletId) {
 		ReportModel report = new ReportModel();
 		

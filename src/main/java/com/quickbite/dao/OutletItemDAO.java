@@ -14,6 +14,14 @@ import com.quickbite.utils.DBconfig;
 
 public class OutletItemDAO {
 
+	/**
+	 * Retrieves all items for an outlet.
+	 * 
+	 * Executes a JOIN query linking outlet_items, item, and outlet.
+	 * 
+	 * @param outletId 
+	 * @return a List containing populated OutletItemModel entries assigned to the specified outlet
+	 */
 	public List<OutletItemModel> getItemsByOutlet(int outletId) {
 		List<OutletItemModel> outletItems = new ArrayList<>();
 		String sql = "SELECT i.*, oi.outlet_item_price, o.outlet_id, o.outlet_name, o.outlet_status, o.outlet_image " +
@@ -54,6 +62,11 @@ public class OutletItemDAO {
 		return outletItems;
 	}
 
+	/**
+	 * Compiles an inventory of all item-outlet across the entire system.
+	 * 
+	 * @return a List containing OutletItemModel entity entries sorted alphabetically by item name
+	 */
 	public List<OutletItemModel> getAllOutletItems() {
 		List<OutletItemModel> outletItems = new ArrayList<>();
 		String sql = "SELECT i.*, oi.outlet_item_price, oi.outlet_id " +
@@ -91,7 +104,14 @@ public class OutletItemDAO {
 		return outletItems;
 	}
 
-	// Add or Update price for an item in a specific outlet
+	/**
+	 * Adds an item to a specific outlet or modifies its active price if the item for the outlet already exists.
+	 * 
+	 * @param outletId 
+	 * @param itemId   
+	 * @param price    
+	 * @return true if the database transaction successfully registers or modifies the record row; false otherwise
+	 */
 	public boolean addOrUpdateOutletItem(int outletId, int itemId, double price) {
 
 		String checkSql = "SELECT outlet_item_price FROM outlet_item WHERE outlet_id = ? AND item_id = ?";
@@ -130,6 +150,13 @@ public class OutletItemDAO {
 		}
 	}
 
+	/**
+	 * Audits the outlet to verify if a specific item is currently allocated to the outlet.
+	 * 
+	 * @param outletId
+	 * @param itemId  
+	 * @return true if the targeted cross-reference association is explicitly defined within the database; false otherwise
+	 */
 	public boolean isItemExistsInOutlet(int outletId, int itemId) {
 		String sql = "SELECT COUNT(*) FROM outlet_item WHERE outlet_id = ? AND item_id = ?";
 
@@ -150,6 +177,15 @@ public class OutletItemDAO {
 		return false;
 	}
 
+	/**
+	 * Resolves an item mapped directly to an explicit outlet.
+	 * 
+	 * Formulates a JOIN statement using outletId
+	 * 
+	 * @param itemId   
+	 * @param outletId 
+	 * @return a fully populated OutletItemModel matching the query inputs, or null if no record is discovered
+	 */
 	public OutletItemModel getOutletItemByItemAndOutlet(int itemId, int outletId) {
 		String sql = "SELECT oi.outlet_id, oi.outlet_item_price, " +
 				"       i.*, o.outlet_name, o.outlet_status, o.outlet_image " +
@@ -185,8 +221,15 @@ public class OutletItemDAO {
 		return null;
 	}
 
-	// Delete outlet_item entries for a specific item (required before deleting
-	// item)
+	/**
+	 * Deletes an item in an outlet's database.
+	 * 
+	 * Prepares a DELETE query for a specific row where oulet_id and item_id matches. 
+	 * 
+	 * @param outletId 
+	 * @param itemId   
+	 * @return true if the relationship entry row was successfully dropped from the table index; false otherwise
+	 */
 	public boolean deleteOutletItem(int outletId, int itemId) {
 		String sql = "DELETE FROM outlet_item WHERE outlet_id = ? AND item_id = ?";
 
@@ -206,6 +249,13 @@ public class OutletItemDAO {
 		}
 	}
 
+	/**
+	 * Filters and compiles menu listings for an outlet matching a category.
+	 * 
+	 * @param outletId 
+	 * @param category 
+	 * @return a List containing populated OutletItemModel entries that match the branch and category criteria
+	 */
 	public List<OutletItemModel> getItemsByOutletAndCategory(int outletId, String category) {
 		List<OutletItemModel> outletItems = new ArrayList<>();
 		String sql = "SELECT i.*, oi.outlet_item_price, o.outlet_id, o.outlet_name, o.outlet_status, o.outlet_image " +
@@ -251,6 +301,14 @@ public class OutletItemDAO {
 		return outletItems;
 	}
 
+	/**
+	 * Executes a dynamic keyword text pattern search across an outlet's category.
+	 * 
+	 * @param outletId   
+	 * @param category   
+	 * @param searchTerm 
+	 * @return a List containing all composite OutletItemModel data records that satisfy the dynamic search filters
+	 */
 	public List<OutletItemModel> searchItems(int outletId, String category, String searchTerm) {
 		List<OutletItemModel> outletItems = new ArrayList<>();
 		String sql = "SELECT i.*, oi.outlet_item_price, o.outlet_id, o.outlet_name, o.outlet_status, o.outlet_image " +
