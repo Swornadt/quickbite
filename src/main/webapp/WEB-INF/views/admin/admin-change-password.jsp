@@ -21,7 +21,7 @@
 
                 <!-- Back Button -->
                 <div class="btn-container">
-                    <button class="back-btn" onclick="window.location='${pageContext.request.contextPath}/admin/customers'"> BACK </button>
+                    <a class="back-btn" href="${pageContext.request.contextPath}/admin/customers">&larr; BACK </a>
                 </div>
 
                 <!-- User Profile -->
