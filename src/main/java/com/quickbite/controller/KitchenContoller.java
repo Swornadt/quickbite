@@ -31,6 +31,12 @@ public class KitchenContoller extends HttpServlet {
     }
 
 	/**
+	 * Handles HTTP GET requests to route back relevant order tracking information for kitchen staff.
+	 * 
+	 * @param request
+	 * @param response 
+	 * @throws ServletException
+	 * @throws IOException
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -43,6 +49,7 @@ public class KitchenContoller extends HttpServlet {
 			handleOrderDetails(request,response, path.substring(1));
 		}
 	}
+	
 	
 	private void handleOrderManagement(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//session stores attibutes as object

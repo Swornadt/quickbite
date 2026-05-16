@@ -92,6 +92,21 @@ public class AuthController extends HttpServlet {
 		}
 	}
 
+	/**
+	 *Method to process registeration of a new user.
+	 * 
+	 * Extracts registration details. 
+	 * It first validates the data via ValidationUtil. 
+	 * If validation fails, it forwards back to the registration page with an error message. 
+	 * Upon successful validation, it handles the profile image upload via ImageUtil, saves the 
+	 * user record to the database using RegisterService, and routes the user to the login 
+	 * view with a success indicator.
+	 * 
+	 * @param request 
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	private void handleRegister(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//Reading all form fields 
 				String fname = request.getParameter("fname");
@@ -146,11 +161,36 @@ public class AuthController extends HttpServlet {
 		
 	}
 
+	/**
+	 * Terminates the active user session.
+	 * 
+	 * Logs the user out by invoking SessionUtil to clear out data and invalidate the underlying HTTP session. 
+	 * Then, it triggers a client-side redirection back to the login interface.
+	 * 
+	 * @param request  
+	 * @param response 
+	 * @throws IOException 
+	 */
 	private void handleLogout(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		SessionUtil.invalidateSession(request);
 		response.sendRedirect(request.getContextPath()+"/login");
 	}
 
+	/**
+	 * Validates user credentials.
+	 * 
+	 * Extracts the login phone number and password fields and evaluates basic input structures through ValidationUtil. 
+	 * If credential formats are invalid, or if LoginService database matching fails, it routes back to the login JSP with error message.
+	 * For successfully verified credentials, it reviews the user's account status. Accounts marked as pending or rejected are restricted. Validated "active" 
+	 * users have their profiles loaded into the session state using SessionUtil, and are 
+	 * redirected to specific target dashboards (Admin, Kitchen/Staff, or Home) based on their 
+	 * assigned access roles.
+	 * 
+	 * @param request  
+	 * @param response
+	 * @throws ServletException 
+	 * @throws IOException
+	 */
 	private void handleLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String number = request.getParameter("number");
 		String pass = request.getParameter("pass");
