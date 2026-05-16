@@ -1,6 +1,7 @@
 const tabs = document.querySelectorAll(".tab");
 
 const pendingSection = document.getElementById("pending");
+
 const activeSection = document.getElementById("active");
 const passwordResetSection = document.getElementById("password-reset-requests");
 
@@ -20,3 +21,4 @@ tabs.forEach((tab, index) => {
         tab.classList.add("onactive");
     });
 });
+

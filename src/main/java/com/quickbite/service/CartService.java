@@ -1,9 +1,10 @@
 package com.quickbite.service;
 
 import com.quickbite.dao.OrderDAO;
+import com.quickbite.dao.PaymentDAO;
 import com.quickbite.model.CartItemModel;
+import com.quickbite.model.PaymentModel;
 import com.quickbite.model.UserModel;
-import com.quickbite.utils.DBconfig;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -12,16 +13,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
 public class CartService {
 
     private static final String CART_SESSION_KEY = "cart";
     private OrderDAO orderDAO = new OrderDAO();
+    private PaymentDAO paymentDAO = new PaymentDAO();
 
     /**
      * Retrieve the cart from session, or create a new one if it doesn't exist
@@ -139,7 +135,7 @@ public class CartService {
 				finalPreferredDate = deliveryDate + " " + timeSlot + ":00";
 			}
 		} else {
-			finalInstructions = "[ASAP] " + (finalInstructions != null ? finalInstructions : "");
+			finalInstructions = "[ASAP] " + finalInstructions;
 		}
 		
 		// calling method for final validation and placing order
@@ -163,8 +159,20 @@ public class CartService {
 		if (user == null || cart == null || cart.isEmpty()) {
 	        return false;
 	    }
+		
+		double totalAmount = calculateSubtotal(cart);
+	    PaymentModel payment = new PaymentModel();
+	    payment.setAmount(totalAmount);
+	    payment.setPaymentStatus("Completed");
+	    payment.setPaymentDate(new java.sql.Timestamp(System.currentTimeMillis()));
+	   
+	    int paymentId = paymentDAO.createPayment(payment);
+	    if (paymentId <= 0) {
+	        return false;
+		}
+	    int orderId = orderDAO.createOrder(user.getUserId(), cart, specialInstructions, preferredDate, paymentId);
 
-	    return orderDAO.createOrder(user.getUserId(), cart, specialInstructions, preferredDate);
+	    return orderId > 0;
 	}
 	
 	/**

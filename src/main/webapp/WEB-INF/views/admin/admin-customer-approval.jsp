@@ -65,7 +65,9 @@
                                     <button type="submit" class="btn reject">Reject</button>
                                 </form>
 								<a href="${pageContext.request.contextPath}/admin/customers/profile?userId=${user.userId}">
-							        <button type="button" style="color: #d13c3c;" class="btn approve">View Profile</button>
+
+							        <button type="button" style="color: #d13c3c; background-color:white;" class="btn approve">View Profile</button>
+
 							    </a>
                             </div>
                         </div>

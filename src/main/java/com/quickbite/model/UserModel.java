@@ -14,6 +14,7 @@ public class UserModel {
 	private String role = "customer";
     private String status = "pending";
     private String image;
+	private int outletId;
 	
 	//Getter and Setter 
     public int getUserId() {
@@ -46,6 +47,10 @@ public class UserModel {
 
     public String getPassword() {
         return password;
+    }
+    
+    public int getOutletId() {
+        return outletId;
     }
     
     public void setUserId(int userId) {
@@ -108,4 +113,8 @@ public class UserModel {
     	this.image = image;
     }
 
+    public void setOutletId(int outletId) {
+        this.outletId = outletId;
+    }
+    
 }

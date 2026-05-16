@@ -11,7 +11,8 @@ public class OrderModel {
 	private LocalDateTime orderDate;
 	private int orderStatus;
 	private String orderNote;
-	
+	private int feedbackId;
+	private int paymentId;
 	
 	public OrderModel() {
 	}
@@ -41,6 +42,16 @@ public class OrderModel {
 	public int getOrderStatus() {
 		return this.orderStatus;
 	}
+	
+	public int getFeedbackId() {
+	    return feedbackId;
+	}
+
+	public int getPaymentId() {
+	    return paymentId;
+	}
+
+	
 	public void setOrderStatus(int orderStatus) {
 		this.orderStatus = orderStatus;
 	}
@@ -63,5 +74,13 @@ public class OrderModel {
         if (this.orderDate == null) return null;
         return Date.from(this.orderDate.atZone(ZoneId.systemDefault()).toInstant());
     }
+	
+	public void setFeedbackId(int feedbackId) {
+	    this.feedbackId = feedbackId;
+	}
+
+	public void setPaymentId(int paymentId) {
+	    this.paymentId = paymentId;
+	}
 	
 }
