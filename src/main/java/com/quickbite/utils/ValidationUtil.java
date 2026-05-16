@@ -4,6 +4,28 @@ import java.time.LocalDate;
 
 public class ValidationUtil {
 
+	/**
+	 * Handles validation of registration by evaluating incoming user
+	 * requests against strict business rules before allowing an account to be created.
+	 * 
+	 * It checks:
+	 * 1. null validation
+	 * 2. Regex validation
+	 * 3. Phone number length validation
+	 * 4. Email domain validation
+	 * 5. DOB validation
+	 * 6. Password Validation @see #validatePassword(String, String)
+	 * 7. Terms agreement
+	 * @param fname
+	 * @param lname
+	 * @param number
+	 * @param email
+	 * @param dob
+	 * @param pass
+	 * @param confirmPass
+	 * @param terms
+	 * @return customer error String if any; else returns null
+	 */
 	public static String validateRegistration (
 	        String fname, String lname, String number, String email, 
 	        String dob, String pass, String confirmPass, String terms
@@ -57,6 +79,16 @@ public class ValidationUtil {
         return null; //executes if all checks are passed
 	}
 	
+	/**
+	 * Handles pre-authentication validation check for filtering out
+	 * improperly structured or clearly invalid login credentials.
+	 * 
+	 * Checks null values and phone number length.
+	 * 
+	 * @param number
+	 * @param pass
+	 * @return custom error String if any; otherwise null.
+	 */
 	public static String validateLogin (String number, String pass) {
 		
 		// Checking for empty value in Number and password input field
@@ -72,6 +104,18 @@ public class ValidationUtil {
 		return null;
 	}
 	
+	/**
+	 * Handles password complexity business rules and ensures
+	 * credential matching during setup and change password.
+	 * 
+	 * Validates:
+	 * 1. Password length
+	 * 2. Presence of special characters, numbers, and capital letters.
+	 * 
+	 * @param pass
+	 * @param confirmPass
+	 * @return custom error String if incorrect; otherwise null
+	 */
 	public static String validatePassword(String pass, String confirmPass) {
 	    if (pass == null || pass.length() <= 6 ||
 	            !pass.matches(".*[A-Z].*") ||
