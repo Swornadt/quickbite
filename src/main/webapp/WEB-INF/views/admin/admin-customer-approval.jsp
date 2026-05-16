@@ -61,7 +61,7 @@
                                     <button type="submit" class="btn reject">Reject</button>
                                 </form>
 								<a href="${pageContext.request.contextPath}/admin/customers/profile?userId=${user.userId}">
-							        <button type="button" style="color: #d13c3c; class="btn approve">View Profile</button>
+							        <button type="button" style="color: #d13c3c; background-color:white;" class="btn approve">View Profile</button>
 							    </a>
                             </div>
                         </div>
@@ -124,7 +124,7 @@
                                       action="${pageContext.request.contextPath}/admin/customers/reset">
                                     <input type="hidden" name="user_id" value="${user.userId}">
                                     <input type="hidden" name="action" value="approve">
-                                    <button type="submit" class="btn approve">Approve</button>
+                                    <button type="submit" class="btn approve">Set Password</button>
                                 </form>
                                 <form method="post"
                                       action="${pageContext.request.contextPath}/admin/customers/reset">
@@ -142,7 +142,7 @@
     </div>
 </div>
 
-<script src="${pageContext.request.contextPath}/js/adminCustomerApproval.js"></script>
+<script src="${pageContext.request.contextPath}/js/admin-customer-approval.js"></script>
 
 </body>
 </html>
