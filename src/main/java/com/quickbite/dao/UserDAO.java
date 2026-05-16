@@ -326,8 +326,7 @@ public class UserDAO {
 		        e.printStackTrace();
 		        return false;
 		    }	
-	}
-	
+
 	
 	public boolean updatePassword(int userId, String hashNewPassword) {
 	    String sql = "UPDATE user SET password = ? WHERE user_id = ?";
