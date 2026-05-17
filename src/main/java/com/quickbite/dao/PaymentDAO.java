@@ -11,6 +11,17 @@ import com.quickbite.utils.DBconfig;
 
 public class PaymentDAO {
 	
+	/**
+	 * Creates a payment record in the database.
+	 * 
+	 * This method temporarily disables auto-commit, inserts payment information such as payment
+	 * amount, authorization status, and current timestamp into the database, then retrieves
+	 * the newly generated payment ID.
+	 * 
+	 * @param payment 
+	 * @return the generated paymentID, or -1 if the transaction fails
+	 * @throws SQLException if a core database access conflict or connectivity drop breaks the statement execution
+	 */
 	public int createPayment(PaymentModel payment) throws SQLException {
 		String query = "INSERT INTO payment (amount, payment_status, payment_date) "+
 						"VALUES (?, ?, NOW())";

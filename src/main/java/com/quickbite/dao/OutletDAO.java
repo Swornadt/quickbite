@@ -11,6 +11,13 @@ import com.quickbite.model.OutletModel;
 import com.quickbite.utils.DBconfig;
 
 public class OutletDAO {
+	
+	/**
+	 * Retrieves all outlets in the database.
+	 * 
+	 * Executes a query against the outlet table to fetch fields.
+	 * @return a List containing complete OutletModel data mappings for every registered branch outlet
+	 */
 	public List<OutletModel> getAllOutlets() {
 		List<OutletModel> list = new ArrayList<>();
 		String query = "Select outlet_id, outlet_name, outlet_status, outlet_image from outlet";
@@ -32,6 +39,14 @@ public class OutletDAO {
 		return list;
 	}
 
+	/**
+	 * Finds and returns a specific outlet matching the provided outletName.
+	 * 
+	 * Prepares a conditional query for outletName. 
+	 * 
+	 * @param outletName 
+	 * @return an OutletModel mapping containing the target outlet details, or null if no record matches
+	 */
 	public OutletModel getOutletByName(String outletName) {
 		String sql = "SELECT * FROM outlet WHERE outlet_name = ?";
 		try (Connection conn = DBconfig.getConnection();
@@ -51,6 +66,12 @@ public class OutletDAO {
 		return null;
 	}
 
+	/**
+	 * Retrieves a specific outlet by outletId.
+	 * 
+	 * @param outletId
+	 * @return an OutletModel mapping containing the target outlet details, or null if no record matches
+	 */
 	public OutletModel getOutletById(int outletId) {
 		String sql = "SELECT * FROM outlet WHERE outlet_id = ?";
 		try (Connection conn = DBconfig.getConnection();
