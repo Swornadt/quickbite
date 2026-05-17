@@ -144,7 +144,7 @@ public class UserDAO {
 	 */
 	public List<UserModel> getUsersWithResetRequest(){
 		List <UserModel> list = new ArrayList<>();
-		String sql = "SELECT user_id, fname, lname, email, number, image FROM user WHERE reset_pw = 1 AND role = 'customer'";
+		String sql = "SELECT user_id, fname, lname, email, number, image FROM user WHERE reset_pwd = 1 AND role = 'customer'";
 		
 		try(Connection conn = DBconfig.getConnection();
 			PreparedStatement pst = conn.prepareStatement(sql);
@@ -175,7 +175,7 @@ public class UserDAO {
 	 * @since 2026-05-15
 	 */
 	public boolean clearResetRequest(int userId) {
-		String sql = "UPDATE user SET reset_pw = FALSE WHERE user_id =?";
+		String sql = "UPDATE user SET reset_pwd = FALSE WHERE user_id =?";
 		
 
 	    try (Connection conn = DBconfig.getConnection();
@@ -315,7 +315,7 @@ public class UserDAO {
 	 * @since 2026-05-14
 	 */
 	public boolean setResetPasswordFlag(int userId) {
-		String sql = "UPDATE user SET reset_pw = TRUE WHERE user_id = ?";
+		String sql = "UPDATE user SET reset_pwd = TRUE WHERE user_id = ?";
 
 		try (Connection conn = DBconfig.getConnection();
 	        PreparedStatement pst = conn.prepareStatement(sql)) {
@@ -323,7 +323,7 @@ public class UserDAO {
 				return pst.executeUpdate() > 0;
 
 		    } catch (SQLException e) {
-		        System.err.println("Error setting reset_pw flag: " + e.getMessage());
+		        System.err.println("Error setting reset_pwd flag: " + e.getMessage());
 		        e.printStackTrace();
 		        return false;
 		    }	
