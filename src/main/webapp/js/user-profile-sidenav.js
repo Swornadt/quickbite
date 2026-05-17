@@ -1,13 +1,19 @@
 const navLinks = document.querySelectorAll(".user-profile-nav-link");
 
-navLinks.forEach((link) => {
-  link.addEventListener("click", () => {
-    //Removing active class from all links
-    navLinks.forEach((item) => {
-      item.classList.remove("active");
-    });
-
-    //Adding active class to the clicked link
-    link.classList.add("active");
-  });
-});
+document.addEventListener("DOMContentLoaded", () => {
+	
+	const currentPath = window.location.pathname;
+	
+	const navLinks = document.querySelectorAll(".user-profile-nav-link");
+	
+	navLinks.forEach(link => {
+	  const linkPath = new URL(link.href).pathname;
+	  
+	  if (currentPath == linkPath) {
+		link.classList.add("active");
+	  } else {
+		link.classList.remove("active");
+	  }
+	});
+	
+})
