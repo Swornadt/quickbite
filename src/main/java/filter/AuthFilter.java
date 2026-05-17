@@ -34,7 +34,7 @@ public class AuthFilter extends HttpFilter {
 	@Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) 
             throws IOException, ServletException {
-		
+
         HttpSession session = req.getSession(false);
         String path = req.getServletPath();
         
