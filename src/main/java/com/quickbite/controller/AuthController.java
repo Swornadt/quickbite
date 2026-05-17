@@ -9,7 +9,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 
 import java.io.IOException;
-import java.time.LocalDate;
 
 import com.quickbite.dao.OutletDAO;
 import com.quickbite.model.OutletModel;
