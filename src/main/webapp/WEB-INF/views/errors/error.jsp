@@ -24,6 +24,7 @@
     <div class="error-title">
         <c:choose>
             <c:when test="${pageContext.errorData.statusCode == 404}">404 - PAGE NOT FOUND</c:when>
+            <c:when test="${pageContext.errorData.statusCode == 403}">403 - FORBIDDEN</c:when>
             <c:when test="${pageContext.errorData.statusCode == 500}">500 - INTERNAL SERVER ERROR</c:when>
             <c:otherwise>SOMETHING WENT WRONG</c:otherwise>
         </c:choose>
@@ -34,6 +35,10 @@
             <c:when test="${pageContext.errorData.statusCode == 404}">
                 The page you are looking for might have been removed, <br>
                 had its name changed, or is temporarily unavailable.
+            </c:when>
+            <c:when test="${pageContext.errorData.statusCode == 403}">
+                Unauthorized access. If you believe this is a mistake, <br>
+                please contact support.
             </c:when>
             <c:otherwise>
                 We encountered an unexpected problem while processing your request. <br>
