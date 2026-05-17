@@ -4,94 +4,92 @@
   padding: 0;
   box-sizing: border-box;
 }
- 
+
 body {
   font-family: 'Poppins', sans-serif;
   background: #ffffff;
   color: #111;
-  min-width: 900px;
 }
- 
+
 .order {
   display: flex;
   flex-direction: row;
-  padding: 30px 4vw 30px 13vw;
   margin-top: 80px;
+  padding: 30px clamp(0px, 4vw, 160px);
 }
- 
+
 /* Lefty */
 .order-details {
-  flex: 0 0 15%;
   border-right: 1.5px solid #ccc;
-  padding-right: 8vw;
   align-self: flex-start;
-  padding-bottom: 8vw;
+  padding-right: clamp(0px, 2vw, 120px);
+  padding-bottom: 40px;
 }
- 
+
 .order-details-title {
   font-size: 39px;
   margin-bottom: 15px;
   white-space: nowrap;
 }
- 
+
 .details {
   display: flex;
   flex-direction: row;
   gap: 100px;
   width: fit-content;
 }
- 
+
 .details-label {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
- 
+
 .details-value {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
- 
+
 .details-label div {
   font-size: 19px;
   font-weight: 500;
   color: #111;
   white-space: nowrap;
 }
- 
+
 .details-value div {
   font-size: 19px;
   font-weight: 500;
   color: #222;
   white-space: nowrap;
 }
- 
+
 /* Righty (item + note + button)*/
 .order-right {
   flex: 1;
-  padding-left: 8vw;
-  padding-right: 13vw;
   display: flex;
   flex-direction: column;
   gap: 20px;
+  padding-left: clamp(0px, 2vw, 120px);
+  padding-right: 40px;
 }
- 
+
 /* Order item */
 .order-items {
   width: 100%;
 }
- 
+
 .order-items-title {
   font-size: 39px;
   margin-bottom: 18px;
 }
- 
+
 .items-table {
   width: 100%;
   border-collapse: collapse;
 }
- 
+
 .items-table th {
   font-size: 19px;
   font-weight: 500;
@@ -100,20 +98,20 @@ body {
   padding-bottom: 10px;
   border-bottom: 1.5px solid #ccc;
 }
- 
+
 .items-table td {
   font-size: 19px;
   font-weight: 500;
   color: #222;
   padding: 10px 0;
 }
- 
+
 .items-table th:last-child,
 .items-table td:last-child {
   width: 1%;
   white-space: nowrap;
 }
- 
+
 .checkbox {
   width: 18px;
   height: 18px;
@@ -134,13 +132,13 @@ body {
   border-color: #ccc;
   cursor: not-allowed;
 }
- 
+
 /* Addinational note */
 .note-title {
   font-size: 39px;
   margin-bottom: 18px;
 }
- 
+
 .note-box {
   background: #EFE9E1;
   border-radius: 10px;
@@ -150,7 +148,7 @@ body {
   color: #222;
   line-height: 1.6;
 }
- 
+
 .order-actions {
   display: flex;
   flex-direction: row;
@@ -158,7 +156,7 @@ body {
   gap: 15px;
   margin-top: 50px;
 }
- 
+
 .btn-initiate,
 .btn-ready {
   width: 180px;
@@ -172,7 +170,7 @@ body {
   cursor: pointer;
   transition: 0.3s;
 }
- 
+
 .btn-initiate:hover,
 .btn-ready:hover {
   background: #c43f17;
@@ -182,4 +180,67 @@ body {
 .btn-ready:disabled {
   background: #ccc;
   cursor: not-allowed;
+}
+
+@media (max-width: 800px) {
+  body { min-width: unset; }
+
+  .order {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .order-details {
+    flex: unset;
+    border-right: none;
+    border-bottom: 1.5px solid #ccc;
+    padding-right: 0;
+    padding-bottom: 20px;
+    align-self: unset;
+    margin-bottom: 20px;
+  }
+
+
+  .order-details-title {
+	font-size: 39px;
+    margin-bottom: 15px;
+    white-space: nowrap;
+  }
+
+  .details {
+    gap: 30px;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .details-label {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+   }
+
+  .details-value {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .details-label div {
+    font-size: 19px;
+    font-weight: 500;
+    color: #111;
+    white-space: nowrap;
+  }
+
+  .details-value div {
+    font-size: 19px;
+    font-weight: 500;
+    color: #222;
+    white-space: nowrap;
+  }
+  
+   .order-right {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
