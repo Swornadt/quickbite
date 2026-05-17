@@ -15,8 +15,8 @@ body {
 .order {
   display: flex;
   flex-direction: row;
-  margin-top: 80px;
-  padding: 30px clamp(0px, 4vw, 160px);
+  padding: 30px 4vw 30px 13vw;
+  margin-top: 80px; 
 }
 
 /* Lefty */
@@ -72,8 +72,8 @@ body {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding-left: clamp(0px, 2vw, 120px);
-  padding-right: 40px;
+  padding-left: 8vw;
+  padding-right: 13vw;
 }
 
 /* Order item */
