@@ -20,7 +20,7 @@
 </head>
 <body>
 	<div class="user-profile-nav">
-      <a href="${pageContext.request.contextPath}/profile" class="user-profile-nav-link active">
+      <a href="${pageContext.request.contextPath}/profile" class="user-profile-nav-link">
         <i class="fa-regular fa-circle-user"></i>
         <p>My Profile</p>
       </a>
