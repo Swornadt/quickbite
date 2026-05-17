@@ -34,13 +34,11 @@ public class AuthFilter extends HttpFilter {
 	@Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) 
             throws IOException, ServletException {
-		//DEBUG: System.out.println("FILTER hit: servletPath=" + req.getServletPath() + " pathInfo=" + req.getPathInfo());
 		
         HttpSession session = req.getSession(false);
         String path = req.getServletPath();
         UserModel user = (session == null) ? null : (UserModel) session.getAttribute("user");
-        
-        //DEBUG: System.out.println("DEBUG role: [" + (user == null ? "NULL USER" : user.getRole()) + "] path=" + path);
+
         
         
         // Admin Access
