@@ -183,3 +183,66 @@ body {
   background: #ccc;
   cursor: not-allowed;
 }
+
+@media (max-width: 800px) {
+  body { min-width: unset; }
+
+  .order {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .order-details {
+    flex: unset;
+    border-right: none;
+    border-bottom: 1.5px solid #ccc;
+    padding-right: 0;
+    padding-bottom: 20px;
+    align-self: unset;
+    margin-bottom: 20px;
+  }
+
+
+  .order-details-title {
+	font-size: 39px;
+    margin-bottom: 15px;
+    white-space: nowrap;
+  }
+
+  .details {
+    gap: 30px;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .details-label {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+   }
+
+  .details-value {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .details-label div {
+    font-size: 19px;
+    font-weight: 500;
+    color: #111;
+    white-space: nowrap;
+  }
+
+  .details-value div {
+    font-size: 19px;
+    font-weight: 500;
+    color: #222;
+    white-space: nowrap;
+  }
+  
+   .order-right {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
