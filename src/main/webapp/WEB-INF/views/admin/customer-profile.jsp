@@ -27,7 +27,7 @@
         <div class="customer-brief" style="margin: 20px 0;">
             <div class="customer-image">
             	<!-- Checks if image exists. If not, displays a placeholder image -->
-                <img src="${empty customerData.image ? pageContext.request.contextPath.concat('/assets/user-image.jpg') : customerData.image}" alt="Profile Picture">
+                <img src="${pageContext.request.contextPath}/${not empty user.image ? customerData.image : 'uploads/default.png'}" alt="Profile Picture">            
             </div>
             <div class="customer-brief-detail">
                 <h4>${customerData.fullName}</h4>
