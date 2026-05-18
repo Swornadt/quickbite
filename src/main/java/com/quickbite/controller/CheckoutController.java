@@ -45,9 +45,10 @@ public class CheckoutController extends HttpServlet {
     /**
      * Handles GET requests for populating the cart data and its subtotal
      * 
-     * @param request
-     * @param response
-     * @throws ServletException, IOException
+     * @param request containing the incoming routing mapping path info context.
+	 * @param response for rendering targeted view layouts or dispatching error states.
+	 * @throws ServletException if an internal view component throws a compilation or runtime error.
+	 * @throws IOException if a data streaming connection fault occurs during forwarding.
      */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -69,10 +70,10 @@ public class CheckoutController extends HttpServlet {
 	 * It uses CartService to retrieve the active cart both as a flat list and grouped by its respective outlets. 
 	 * It then computes the order subtotal.
 	 * 
-	 * @param request 
-	 * @param response
-	 * @throws IOException 
-	 * @throws ServletException
+	 * @param request containing active customer session contexts..
+	 * @param response for processing user resource forwards.
+	 * @throws ServletException if the underlying checkout form JSP encounters an execution error.
+	 * @throws IOException if a problem occurs during redirection or forwarding.
 	 */
 	private void viewCheckout(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
     	HttpSession session = request.getSession(false);
@@ -103,10 +104,10 @@ public class CheckoutController extends HttpServlet {
 	 * 
 	 * Extracts the customer's in-session shopping cart items and invokes CartService to compute the total final cost. 
 	 * 
-	 * @param request 
-	 * @param response 
-	 * @throws ServletException 
-	 * @throws IOException    
+	 * @param request containing customer shopping session.
+	 * @param response for rendering the target transaction payment view page.
+	 * @throws ServletException if the payment processing view encounters an error.
+	 * @throws IOException if an error happens while streaming data to the client view layout.
 	 */
 	private void viewPayment(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
@@ -129,9 +130,10 @@ public class CheckoutController extends HttpServlet {
      * The business logic of order processing is delegated to CartService.
      * Upon success, the cart is cleared from session and user is redirected to confirmation view.
      * 
-     * @param request
-     * @param response
-     * @throws ServletException, IOException
+     * @param request containing client parameter form fields and current servlet paths.
+	 * @param response for managing client-side redirects.
+	 * @throws ServletException if a jsp throws an exception.
+	 * @throws IOException if an input or output redirection failure occurs.
      */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
@@ -155,11 +157,11 @@ public class CheckoutController extends HttpServlet {
 	 * 
 	 * Extracts delivery type, targeted dates, specific time frames, and remarks. 
 	 * 
-	 * @param request
-	 * @param response
-	 * @param session
-	 * @throws IOException
-	 * @throws ServletException
+	 * @param request containing delivery configurations and special instruction parameters.
+	 * @param response for managing post-validation workflow redirects.
+	 * @param session the current active HTTP data session layer tracking user data.
+	 * @throws ServletException if validation drops back to render the checkout template on scheduling errors.
+	 * @throws IOException if an interface transport stream issue occurs during navigation routing.
 	 */
 	private void handleCheckoutSubmission(HttpServletRequest request, HttpServletResponse response,
 			HttpSession session) throws IOException, ServletException {
@@ -220,10 +222,10 @@ public class CheckoutController extends HttpServlet {
 	 * On a successful database commit, it cleanses the active session of order processing attributes and 
 	 * redirects back to the home view. 
 	 * 
-	 * @param request  
-	 * @param response 
-	 * @param session 
-	 * @throws IOException 
+	 * @param request containing active parameter data.
+	 * @param response for directing the client to order receipts or rolling back.
+	 * @param session the current active HTTP data session layer tracking user context.
+	 * @throws IOException if a failure occurs when committing response redirects or errors.
 	 */
 	private void handleFinalPlacement(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException {
 		UserModel user = (UserModel) session.getAttribute("user");
