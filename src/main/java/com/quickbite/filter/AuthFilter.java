@@ -19,7 +19,12 @@ import com.quickbite.model.UserModel;
 @WebFilter(urlPatterns="/*", asyncSupported = true)
 public class AuthFilter extends HttpFilter {
 
-    public AuthFilter() {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public AuthFilter() {
         super();
     }
 
