@@ -19,7 +19,7 @@
 	 <div class="login-page-container">
       <!-- Left Side (Image Container) -->
       <div class="login-page-image-container">
-        <img src="${pageContext.request.contextPath}/assets/login.png" class="login-page-image" />
+        <img src="${pageContext.request.contextPath}/assets/auth/login.png" class="login-page-image" />
       </div>
 
       <!-- Right Side (Form Container) -->
