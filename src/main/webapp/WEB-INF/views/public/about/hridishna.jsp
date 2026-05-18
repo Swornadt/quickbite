@@ -1,103 +1,106 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Hridishna Deula | CV</title>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+  <!doctype html>
+  <html lang="en">
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hridishna Deula | CV</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/about-individual.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Pacifico&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
+  </head>
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/about-individual.css">
-</head>
-
-<body>
-
-<div class="cv-card">
-
+  <body>
     <div class="header">
-        <div class="back-btn">
-            <a href="${pageContext.request.contextPath}/about">Back to About Us</a>
+      <div class="back-btn">
+        <a href="${pageContext.request.contextPath}/about">Back to About Us</a>
+      </div>
+
+      <div class="image-container">
+        <img src="${pageContext.request.contextPath}/assets/about/hridishna.jpg" class="user-image" />
+      </div>
+
+      <div class="user-bio">
+        <h1 class="user-bio-heading">Hridishna Deula</h1>
+        <p class="user-bio-role">
+          Student at Islington College Kathmandu
+        </p>
+        <p class="user-bio-content">
+          Motivated computing student learning IT fundamentals and web development.
+        </p>
+        <div class="user-socials">
+          <a href="https://github.com/Ridisha88" class="user-social-link" target="_blank"><i
+              class="fa-brands fa-github"></i>
+            <p>Github</p>
+          </a>
+          <a href="https://www.linkedin.com/in/hridishna-deula-707441404/" class="user-social-link" target="_blank"><i
+              class="fa-brands fa-linkedin"></i>
+            <p>LinkedIn</p>
+          </a>
         </div>
-
-        <div class="header-content">
-
-            <img src="${pageContext.request.contextPath}/assets/about/hridishna.jpg" class="profile-img">
-
-            <div class="header-info">
-                <h1>Hridishna Deula</h1>
-                <div class="title">Computing Undergraduate</div>
-
-                <div class="desc">Motivated computing student learning IT fundamentals and web development.</div>
-                <div class="desc">Looking for opportunities to grow and gain experience.</div>
-
-                <div class="social-icons">
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#"><i class="fab fa-github"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-whatsapp"></i></a>
-                </div>
-            </div>
-
-        </div>
+      </div>
     </div>
 
-    <div class="content">
+    <div class="container">
+      <div class="grid">
+        <div class="column-grid first-column">
+          <!-- About Me -->
+          <div class="grid-card">
+            <h2>About Me</h2>
+            <p class="user-aboutme-content">
+              <span>I am a Computing student currently building my skills in web development and programming. Alongside
+                my studies, I have experience working in sales and quotation development, which has improved my
+                communication, problem-solving, and attention to detail. I am motivated to grow in the IT field and gain
+                practical experience through real-world projects and opportunities.</span>
+            </p>
+          </div>
 
-        <div class="two-columns">
-
-            <div class="left-col">
-
-                <div class="section">
-                    <h2>About Me</h2>
-                    <div class="about-text">
-                        I am a Computing student currently building my skills in web development and programming. Alongside my studies, I have experience working in sales and quotation development, which has improved my communication, problem-solving, and attention to detail. I am motivated to grow in the IT field and gain practical experience through real-world projects and opportunities.
-                    </div>
-                </div>
-
-                <div class="section">
-                    <h2>Technical Skills</h2>
-                    <div class="skill-tags">
-                        <span class="skill-tag">HTML</span>
-                        <span class="skill-tag">CSS</span>
-                        <span class="skill-tag">JavaScript (Basic)</span>
-                        <span class="skill-tag">VS Code</span>
-                        <span class="skill-tag">GitHub</span>
-                    </div>
-                </div>
-
+          <!-- Skills Section  -->
+          <div class="grid-card">
+            <h2>Technical Skills</h2>
+            <div class="skills">
+              <a class="user-skill">HTML</a>
+              <a class="user-skill">Python</a>
+              <a class="user-skill">CSS</a>
+              <a class="user-skill">JavaScript (Basic)</a>
+              <a class="user-skill">VS Code</a>
+              <a class="user-skill">GitHub</a>
             </div>
-
-            <div class="right-col">
-
-                <div class="info-box">
-                    <h3>Quick Info</h3>
-                    <div class="info-row"><span class="info-label">Location</span><span>Kathmandu</span></div>
-                    <div class="info-row"><span class="info-label">Education</span><span>Computing Student</span></div>
-                    <div class="info-row"><span class="info-label">Projects</span><span>College Assignments</span></div>
-                </div>
-
-                <div class="info-box">
-                    <h3>Achievements</h3>
-                    <div class="achievement-item">
-                        <strong>Created basic websites</strong>
-                        <span>College coursework projects</span>
-                    </div>
-                </div>
-
-                <div class="info-box">
-                    <h3>Interests</h3>
-                    <div class="interest-item">Web Development</div>
-                    <div class="interest-item">Programming</div>
-                    <div class="interest-item">Technology</div>
-                </div>
-
-            </div>
-
+          </div>
         </div>
 
+        <div class="column-grid second-column">
+          <div class="grid-card">
+            <h2>Quick Info</h2>
+            <p>Kathmandu, Nepal</p>
+            <p>Working as a Student</p>
+            <p>Hobbies: Discussing about Linux</p>
+          </div>
+
+          <!-- Position of Responsibility -->
+          <div class="grid-card achievement-section">
+            <h2>Achievements & Certifications</h2>
+            <div class="all-achievements">
+              <div class="achieve">
+                <p id="achievement-title">
+                  &starf; Created Basic Websites
+                </p>
+                <p id="achievement-description">
+                  College coursework projects
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </body>
 
-</div>
-
-</body>
-</html>
+  </html>
