@@ -34,10 +34,10 @@ public class CartController extends HttpServlet {
      * Additionally, the subtotal is calculated and both are forwarded
      * as attributes.
      * 
-     * @param request
-     * @param response
-     * @return void
-     * @throws ServletException, IOException
+     * @param request containing customer session states and dashboard parameters.
+     * @param response for rendering the target cart JSP layout.
+     * @throws ServletException if a compilation or execution error occurs within the cart JSP component.
+     * @throws IOException if a data transmission failure happens while the system forwards the request.
      */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		CartService cartService = new CartService();
@@ -74,9 +74,10 @@ public class CartController extends HttpServlet {
 	 * Based on the URL path, the method dispatches the request
 	 * to specialized handlers for CRUD operations of items within the cart.
 	 * 
-	 * @param request
-	 * @param response
-	 * @throws ServletException, IOException
+	 * @param request containing operational form data parameters and target endpoints.
+	 * @param response for handling internal resource forwards or browser redirect responses.
+	 * @throws ServletException if a routed internal action or target fallback JSP rendering fails.
+	 * @throws IOException if an input or output transport error occurs during path evaluation or routing.
 	 * @see #handleAddToCart(HttpServletRequest, HttpServletResponse)
 	 * @see #handleRemoveFromCart(HttpServletRequest, HttpServletResponse)
 	 * @see #handleUpdateQuantity(HttpServletRequest, HttpServletResponse)
@@ -105,9 +106,9 @@ public class CartController extends HttpServlet {
 	 * using Referer with a success flag appended to the URL to trigger
 	 * UI feedback.
 	 * 
-	 * @param request
-	 * @param response
-	 * @throws IOException
+	 * @param request containing selected item data payloads and header context profiles.
+	 * @param response for executing client-side browser URL redirections.
+	 * @throws IOException if a low-level stream failure happens while initiating the browser response redirect.
 	 */
 	private void handleAddToCart(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
@@ -175,9 +176,9 @@ public class CartController extends HttpServlet {
 	 * The amount can be negative or positive based on which button was clicked
 	 * on the UI. The update is done via cartService and redirected to cart page.
 	 * 
-	 * @param request
-	 * @param response
-	 * @throws IOException
+	 * @param request containing parameters indicating the unique product identity key.
+	 * @param response for managing the post-removal view refresh redirect.
+	 * @throws IOException if an error is detected when communicating the browser redirection instruction.
 	 */
 	private void handleUpdateQuantity(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		try {

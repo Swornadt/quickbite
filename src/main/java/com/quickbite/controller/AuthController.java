@@ -35,9 +35,10 @@ public class AuthController extends HttpServlet {
      * Gets the endpoint of the current URL.
      * User can: 1. Login, 2. Register, 3. Logout
      * 
-     * @param request
-     * @param response
-     * @throws ServletException, IOException
+* @param request containing client request context and servlet mapping paths.
+	 * @param response for rendering target authentication forms or sending error states.
+	 * @throws ServletException if a target authentication JSP page encounters a compilation or runtime error.
+	 * @throws IOException if an input or output error occurs while forwarding or writing error codes.
      */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String endpoint = request.getServletPath();
@@ -68,9 +69,10 @@ public class AuthController extends HttpServlet {
 	 * 2. Logout
 	 * 3. Register
 	 * 
-	 * @param request
-     * @param response
-     * @throws ServletException, IOException
+* @param request containing form parameter data and target servlet routing contexts.
+	 * @param response for handling the client redirect response or dispatching to views.
+	 * @throws ServletException if an underlying functional handler or target JSP view encounters an exception.
+	 * @throws IOException if a communication stream error happens during low-level execution processing.
      * @see #handleLogin(HttpServletRequest, HttpServletResponse)
      * @see #handleLogout(HttpServletRequest, HttpServletResponse)
      * @see #handleRegister(HttpServletRequest, HttpServletResponse)
@@ -104,10 +106,10 @@ public class AuthController extends HttpServlet {
 	 * user record to the database using RegisterService, and routes the user to the login 
 	 * view with a success indicator.
 	 * 
-	 * @param request 
-	 * @param response
-	 * @throws ServletException
-	 * @throws IOException
+	 * @param request containing multipart form details and user registration parameters.
+	 * @param response for rendering the target JSP view phase.
+	 * @throws ServletException if a target JSP component throws an error during the request forward.
+	 * @throws IOException if an error is detected during file part reading or page streaming.
 	 */
 	private void handleRegister(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//Reading all form fields 
@@ -169,9 +171,9 @@ public class AuthController extends HttpServlet {
 	 * Logs the user out by invoking SessionUtil to clear out data and invalidate the underlying HTTP session. 
 	 * Then, it triggers a client-side redirection back to the login interface.
 	 * 
-	 * @param request  
-	 * @param response 
-	 * @throws IOException 
+	 * @param request containing the active session context to close.
+	 * @param response for handling the client redirect execution.
+	 * @throws IOException if an output system failure occurs while executing the browser redirect.
 	 */
 	private void handleLogout(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		SessionUtil.invalidateSession(request);
@@ -188,10 +190,10 @@ public class AuthController extends HttpServlet {
 	 * redirected to specific target dashboards (Admin, Kitchen/Staff, or Home) based on their 
 	 * assigned access roles.
 	 * 
-	 * @param request  
-	 * @param response
-	 * @throws ServletException 
-	 * @throws IOException
+	 * @param request containing login credentials and parameter contexts.
+	 * @param response for processing user resource forwards or role-based browser redirects.
+	 * @throws ServletException if an error occurs while forwarding back to the login JSP form layout.
+	 * @throws IOException if a connection streaming fault happens during forward or redirect processing.
 	 */
 	private void handleLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String number = request.getParameter("number");

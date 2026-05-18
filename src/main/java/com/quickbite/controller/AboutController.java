@@ -25,10 +25,10 @@ public class AboutController extends HttpServlet {
      * Based on the URL path, the method dispatches the request
      * to each individual's about pages.
      * 
-     * @param request
-     * @param response
-     * @throws ServletException
-     * @throws IOException
+* @param request containing client request and path info details.
+	 * @param response for rendering the target JSP view or returning error statuses.
+	 * @throws ServletException if a target JSP file encounters a compilation or runtime error during dispatching.
+	 * @throws IOException if an input or output error is detected when the container forwards the request or sends an error code.
      */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -75,10 +75,10 @@ public class AboutController extends HttpServlet {
 	/**
      * Handles the GET request by routing to display each member about page
      * 
-     * @param request
-     * @param response
-     * @throws ServletException
-     * @throws IOException
+* @param request containing client request context.
+	 * @param response for rendering the target JSP view via the shared doGet handler.
+	 * @throws ServletException if the underlying JSP throws a server-side exception.
+	 * @throws IOException if an input or output system failure occurs while routing or rendering the response view.
      */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);

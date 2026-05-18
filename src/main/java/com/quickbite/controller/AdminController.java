@@ -60,9 +60,10 @@ public class AdminController extends HttpServlet {
 	 * - Customer Management (view, approvals, requests)
 	 * - Feedback & Analytics
 	 * 
-	 * @param request
-	 * @param response
-	 * @throws ServletException, IOException
+     * @param request containing client request data.
+     * @param response for sending the resource redirect.
+     * @throws ServletException when the target JSP file throws an exception that prevents the request forward mechanism. 
+     * @throws IOException when an input or output error is detected when the servlet handles the redirect or when forwarding the request.
 	 * @see #showDashboard(HttpServletRequest, HttpServletResponse)
 	 * @see #showMenuManagement(HttpServletRequest, HttpServletResponse)
 	 * @see #viewCustomers(HttpServletRequest, HttpServletResponse)
@@ -130,10 +131,10 @@ public class AdminController extends HttpServlet {
 	/**
 	 * Dispatches to Admin Dashboard page
 	 * 
-	 * @param request
-	 * @param response
-	 * @throws ServletException
-	 * @throws IOException
+     * @param request containing client request data.
+     * @param response for sending the resource redirect.
+     * @throws ServletException if the target JSP file encounters an error.
+     * @throws IOException if an input or output error is detected during the request forward.
 	 */
 	private void showDashboard(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -148,10 +149,10 @@ public class AdminController extends HttpServlet {
 	 * Calls adminService to get user by Id and sets attribute 'userData'
 	 * accordingly.
 	 * 
-	 * @param request
-	 * @param response
-	 * @throws IOException
-	 * @throws ServletException
+     * @param request containing client request data.
+     * @param response for sending the resource redirect.
+     * @throws ServletException when the target JSP file throws an exception that prevents the request forward mechanism. 
+     * @throws IOException when an input or output error is detected when the servlet handles the redirect or when forwarding the request.
 	 */
 	private void viewAdminProfile(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		//Gets today's date and sets it as maxDate
@@ -182,13 +183,12 @@ public class AdminController extends HttpServlet {
 	 * Displays Customer's profile
 	 * 
 	 * Gets the user's Id from request and then instantiates a user model
-	 * using that Id. The attribute of that customers's data is forwarded to the
-	 * view.
+	 * using that Id. The attribute of that customers's data is forwarded to the view.
 	 * 
-	 * @param request
-	 * @param response
-	 * @throws ServletException
-	 * @throws IOException
+     * @param request containing client request data.
+     * @param response for sending the resource redirect.
+     * @throws ServletException when the target JSP file throws an exception that prevents the request forward mechanism. 
+     * @throws IOException when an input or output error is detected when the servlet handles the redirect or when forwarding the request.
 	 */
 	private void viewCustomerProfile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 				//Gets the id from the URL
@@ -230,10 +230,10 @@ public class AdminController extends HttpServlet {
      * fetches all outlets and menu items for the selected outlet, then forwards
      * the request to the admin menu view JSP page.
      * 
-     * @param request
-     * @param response
-     * @throws ServletException
-     * @throws IOException
+     * @param request containing client request data.
+     * @param response for sending the resource redirect.
+     * @throws ServletException when the target JSP file throws an exception that prevents the request forward mechanism. 
+     * @throws IOException when an input or output error is detected when the servlet handles the redirect or when forwarding the request.
      */
 	private void showMenuManagement(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		MenuService menuService = new MenuService();
@@ -291,18 +291,18 @@ public class AdminController extends HttpServlet {
 		request.getRequestDispatcher("/WEB-INF/views/admin/admin-customer-approval.jsp").forward(request,response);
 	}
 
-/**
- * Loads and displays feedback management page for admins.
- * 
- * Retrieves all feedback records from FeedbackDAO, calculates the
- * total feedback count, average rating, and rating distribution counts, sets those values 
- * as request attributes, and forwards to admin feedback JSP.
- * 
- * @param request
- * @param response
- * @throws ServletException
- * @throws IOException
- */
+	/**
+	 * Loads and displays feedback management page for admins.
+	 * 
+	 * Retrieves all feedback records from FeedbackDAO, calculates the
+	 * total feedback count, average rating, and rating distribution counts, sets those values 
+	 * as request attributes, and forwards to admin feedback JSP.
+	 * 
+     * @param request containing client request data.
+     * @param response for sending the resource redirect.
+     * @throws ServletException if the target JSP file encounters an error.
+     * @throws IOException if an input or output error is detected during the request forward.
+	 */
 	private void viewFeedback(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			FeedbackDAO feedbackDao = new FeedbackDAO();
@@ -351,10 +351,10 @@ public class AdminController extends HttpServlet {
 	 * Loads the list of outlets from OutletDAO and places it in the request as the outlets attribute, 
 	 * then forwards to the admin add-intem JSP.
 	 * 
-	 * @param request
-	 * @param response
-	 * @throws ServletException
-	 * @throws IOException
+     * @param request containing client request data.
+     * @param response for sending the resource redirect.
+* @throws ServletException if the target JSP file encounters a compilation or runtime error.
+     * @throws IOException if an input or output error is detected during the request forward.
 	 */
 	private void viewMenuAdd(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -368,10 +368,10 @@ public class AdminController extends HttpServlet {
 	 * Forwards the request to the admin delete-item JSP. This method does not 
 	 * perform any data loading; the JSP handles retrieval of items to delete.
 	 * 
-	 * @param request
-	 * @param response
-	 * @throws ServletException
-	 * @throws IOException
+     * @param request containing client request data.
+* @param response for rendering the view response.
+     * @throws ServletException if the target JSP file encounters a compilation or runtime error.
+     * @throws IOException if an input or output error occurs during the request forward.
 	 */
 	private void viewMenuDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("/WEB-INF/views/admin/admin-delete-item.jsp").forward(request, response);
@@ -384,10 +384,10 @@ public class AdminController extends HttpServlet {
 	 * If parsing succeeds, the method loads the Item using ItemDAO and places it in the request as item.
 	 * The method also loads all outlets and sets them as the outlets attribute.
 	 * 
-	 * @param request
-	 * @param response
-	 * @throws ServletException
-	 * @throws IOException
+     * @param request containing client request data.
+     * @param response for sending the resource redirect.
+     * @throws ServletException when the target JSP file throws an exception that prevents the request forward mechanism. 
+     * @throws IOException when an input or output error is detected when the servlet handles the redirect or when forwarding the request.
 	 */
 	private void viewMenuEdit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String itemIdStr = request.getParameter("itemId");
@@ -443,10 +443,10 @@ public class AdminController extends HttpServlet {
 	 * of all available outlets using OutletDAO, binds them as request attributes, and 
 	 * forwards the request to the admin report JSP view.
 	 * 
-	 * @param request
-	 * @param response
-	 * @throws ServletException
-	 * @throws IOException
+     * @param request containing client request data.
+     * @param response for sending the resource redirect.
+     * @throws ServletException when the target JSP file throws an exception that prevents the request forward mechanism. 
+     * @throws IOException when an input or output error is detected when the servlet handles the redirect or when forwarding the request.
 	 */
 	private void viewReport(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -478,10 +478,10 @@ public class AdminController extends HttpServlet {
 	 * validates it the userId exists or not
 	 * if yes, passes user data on to the jsp file
 	 * 
-	 * @param request
-	 * @param response
-	 * @throws ServletException
-	 * @throws IOException
+* @param request containing client request data.
+     * @param response for handling the resource forward or client redirect.
+     * @throws ServletException if the target JSP file encounters a compilation or runtime error during a forward.
+     * @throws IOException if an input or output error is detected during a forward or redirect execution.
 	 */
 	private void resetPassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userIdParam = request.getParameter("userId");
@@ -518,9 +518,10 @@ public class AdminController extends HttpServlet {
 	 * - Update Admin Profile
 	 * - Menu Management (CRUD)
 	 * 
-	 * @param request
-	 * @param response
-	 * @throws ServletException, IOException
+     * @param request containing client request data.
+     * @param response for sending the resource redirect.
+     * @throws ServletException when the target JSP file throws an exception that prevents the request forward mechanism. 
+     * @throws IOException when an input or output error is detected when the servlet handles the redirect or when forwarding the request.
 	 * @see #handleMenuDelete(HttpServletRequest, HttpServletResponse)
 	 * @see #handleMenuEdit(HttpServletRequest, HttpServletResponse)
 	 * @see #handleCustomerStatus(HttpServletRequest, HttpServletResponse)
@@ -568,9 +569,9 @@ public class AdminController extends HttpServlet {
 	 * and redirects back to the profile page.
 	 * If validation, processing, or numeric parsing fails, it redirects with an appropriate error.
 	 * 
-	 * @param request
-	 * @param response
-	 * @throws IOException
+     * @param request containing client request data.
+     * @param response for sending the resource redirect.
+     * @throws IOException when an input or output error is detected when the servlet handles the redirect or when forwarding the request.
 	 */
 	private void handleAdminProfile(HttpServletRequest request, HttpServletResponse response) throws IOException {
 				//Gets the session to access the current user
@@ -641,9 +642,9 @@ public class AdminController extends HttpServlet {
 	 * Handles admin approve or reject action on a password reset request
 	 * On approve, redirect to the change-password page with the userID, so that the admin can set the new password
 	 * On reject, clears the reset request and redirects back to the customer management page.
-	 * @param request
-	 * @param response
-	 * @throws IOException
+     * @param request containing client request data.
+     * @param response for sending the resource redirect.
+     * @throws IOException when an input or output error is detected when the servlet handles the redirect or when forwarding the request.
 	 */
 	private void handleResetRequest(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		String userIdParam = request.getParameter("user_id");
@@ -684,9 +685,10 @@ public class AdminController extends HttpServlet {
 	 * 
 	 * Redirect back to the change password page with a success or error parameter to display feedback via the JSP
 	 * 	 
-	 * @param request
-	 * @param response
-	 * @throws IOException
+     * @param request containing client request data.
+     * @param response for sending the resource redirect.
+     * @throws ServletException when the target JSP file throws an exception that prevents the request forward mechanism. 
+     * @throws IOException when an input or output error is detected when the servlet handles the redirect or when forwarding the request.
 	 */
 	private void handleSavePassword(HttpServletRequest request, HttpServletResponse response) throws  ServletException, IOException {
 		String userIdParam = request.getParameter("user_id");
@@ -750,10 +752,10 @@ public class AdminController extends HttpServlet {
 	 * - category, itemType, itemDescription, itemStatus, itemIngredient, itemAllergy,
 	 * existingImage (optional), multipart part "itemImage" (optional).
 	 * 
-	 * @param request
-	 * @param response
-	 * @throws ServletException
-	 * @throws IOException
+	 * @param request containing client request data.
+     * @param response for rendering the view response.
+* @throws ServletException if the target JSP file encounters an error during rendering.
+     * @throws IOException if an input or output error is detected during internal forwarding.
 	 */
 	private void handleMenuAdd(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
@@ -844,10 +846,10 @@ public class AdminController extends HttpServlet {
 	 * Expects "action=delete" and an "itemId" request parameter.
 	 * Deletes related outlet_item records first, then deletes the item record itself.
 	 * 
-	 * @param request
-	 * @param response
-	 * @throws ServletException
-	 * @throws IOException
+	 * @param request containing client request data.
+     * @param response for rendering the view response.
+     * @throws ServletException if the underlying doGet router or target JSP throws an exception.
+     * @throws IOException if an input or output error is detected during processing.
 	 */
 	private void handleMenuDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String itemIdStr = request.getParameter("itemId");
@@ -894,8 +896,10 @@ public class AdminController extends HttpServlet {
 	 * 
 	 * If outletId is missing the price is set to 0 and it does not update.
 	 * 
-	 * @param request
-	 * @param response
+     * @param request containing client request data.
+     * @param response for sending the resource redirect.
+     * @throws ServletException when the target JSP file throws an exception that prevents the request forward mechanism. 
+     * @throws IOException when an input or output error is detected when the servlet handles the redirect or when forwarding the request.
 	 */
 	private void handleMenuEdit(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -1026,10 +1030,10 @@ public class AdminController extends HttpServlet {
 	/**
 	 * Method to dispatch the request to the "Add Menu Item" form page.
 	 * 
-	 * @param req  
-	 * @param resp
-	 * @throws ServletException
-	 * @throws IOException
+     * @param request containing client request data.
+     * @param response for sending the resource redirect.
+     * @throws ServletException when the target JSP file throws an exception that prevents the request forward mechanism. 
+     * @throws IOException when an input or output error is detected when the servlet handles the redirect or when forwarding the request.
 	 */
 	private void forward(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
