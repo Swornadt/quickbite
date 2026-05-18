@@ -102,7 +102,7 @@
 
         <div class="menu">
             <a href="${pageContext.request.contextPath}/profile/order-history">Order History</a>
-            <a href="#">Favourites</a>
+            <a href="${pageContext.request.contextPath}/profile/favorites">Favourites</a>
         </div>
 
         <hr>

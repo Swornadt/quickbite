@@ -61,7 +61,7 @@ public class AdminService {
 	}
 	
 	/**
-	 * Rejects a user's password reset request without changing their password (reset_pwd is set to false)
+	 * Rejects a user's password reset request without changing their password (reset_pwdd is set to false)
 	 * 
 	 * @param userId - The unique ID of the user whose request is being rejected
 	 * @return true - if the request was successfully cleared, false otherwise
