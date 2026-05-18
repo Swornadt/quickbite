@@ -2,6 +2,7 @@ package com.quickbite.service;
 
 import com.quickbite.dao.UserDAO;
 import com.quickbite.model.UserModel;
+import com.quickbite.utils.ValidationUtil;
 
 
 /**
@@ -37,38 +38,16 @@ public class UserService {
 	 * @param lname - new last name form the form 
 	 * @param email - new email
 	 * @param number - new number
-	 * @return 
-	 * @throws Exception
+	 * @return true if the database update was successful, otherwise false
+	 * @throws Exception - if any validation rule is violated
 	 */
-
 	public boolean updateUserProfile(int userId, String fname, String lname, String dob, String gender,  String email, String number) throws Exception{
 		
-		
-		//Checking for empty space 
-		
-		if (fname == null || fname.trim().isEmpty()) {
-            throw new Exception("First name cannot be empty.");
-        }
-        if (lname == null || lname.trim().isEmpty()) {
-            throw new Exception("Last name cannot be empty.");
-        }
-        if (email == null || email.trim().isEmpty()) {
-            throw new Exception("Email cannot be empty.");
-        }
-        if (number == null || number.trim().isEmpty()) {
-            throw new Exception("Phone number cannot be empty.");
-        }
-        
-      //Phone Number length validation
-        if ( number.length() != 10) {
-        	 throw new Exception("Phone number must be exactly 10 digits.");
-        }
-        
-        //Email validation
-        if (!email.contains("@gmail.com")) {
-        	 throw new Exception("Please enter a valid email address.");
-        }
-        
+		String validationError = ValidationUtil.validateProfileUpdate(fname, lname, email, number);
+	    if (validationError != null) {
+	        throw new Exception(validationError);
+	    }
+     
         return userDAO.updateUserDetails(
                 userId,
                 fname.trim(),

@@ -186,10 +186,18 @@ public class CustomerController extends HttpServlet {
 	}
 
 
-	/**
-     * Loads the Profile Page. 
-     * Gets the Logged in user from the session and puts them into the request
-     * so the jsp can access them with <=%user.getFname()>
+	
+    /**
+     * Loads Profile Page
+     * Gets the logged in user from the active session and puts them onto the request
+     * so jsp file can access them 
+     * 
+     * if no user is found in the session ,the request is redirected to the login page
+     * 
+     * @param request - the HTTP request used to retrieve the session and forwarding to JSP 
+     * @param response - the HTTP response used for redirecting unauthenticated requests
+    * @throws IOException - if an I/O error occurs during forwarding
+     * @throws ServletException if the request dispatcher fails
      */
     private void viewUserProfile(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
     	HttpSession session = request.getSession();
@@ -207,7 +215,19 @@ public class CustomerController extends HttpServlet {
     }
 	
     /**
-     * Handles the profile update form submission (POST /profile/update).
+     * Handles the profile update form submission (POST /profile/update)
+     * 
+     * Reads fname, lname, email and number from the request.
+     * Runs input validation via validationUtil
+     * 
+     * On success, fetches the updated user record and refreshes the session
+     * so all components such as navbar reflect the new data immediately.
+     * on failure, forward back to the profile page with an error message. 
+     * 
+     * @param request - the HTTP request containing the updated profile form fields
+     * @param response - the HTTP response used for forwarding or redirecting
+     * @throws IOException - if an I/O error occurs during forwarding
+     * @throws ServletException if the request dispatcher fails
      */
     private void updateUserProfile(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
     	 HttpSession session = request.getSession();
@@ -224,6 +244,13 @@ public class CustomerController extends HttpServlet {
          String lname = request.getParameter("lname");
          String email = request.getParameter("email");
          String number = request.getParameter("number");
+         
+         String validationError = ValidationUtil.validateProfileUpdate(fname, lname, email, number);
+         if (validationError != null) {
+             request.setAttribute("error", validationError);
+             request.getRequestDispatcher("/WEB-INF/views/customer/profile/user-profile.jsp").forward(request, response);
+             return;
+         }
          
          try {
         	 //Calling the service layer
