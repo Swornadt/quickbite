@@ -401,7 +401,7 @@ public class UserDAO {
 	 * 
 	 * @param userId
 	 * @param imagePath
-	 * @return
+	 * @return true if the entry is made successfully; false otherwise
 	 */
 	public boolean updateUserImage(int userId, String imagePath) {
         String sql = "UPDATE user SET image = ? WHERE user_id = ?";
