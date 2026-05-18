@@ -335,7 +335,12 @@ public class CustomerController extends HttpServlet {
             e.printStackTrace();
             request.setAttribute("error", "Something went wrong. Please try again later.");
         }
-
+        
+        List<OrderModel> currentOrders = orderDAO.getOrdersByStatus(user.getUserId(), true);
+        List<OrderModel> pastOrders    = orderDAO.getOrdersByStatus(user.getUserId(), false);
+        request.setAttribute("currentOrders", currentOrders);
+        request.setAttribute("pastOrders", pastOrders);
+        
         request.getRequestDispatcher("/WEB-INF/views/customer/profile/order-history.jsp").forward(request, response);
     }
 	
