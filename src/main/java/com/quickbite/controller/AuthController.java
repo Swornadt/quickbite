@@ -3,6 +3,7 @@ package com.quickbite.controller;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -15,6 +16,7 @@ import com.quickbite.model.OutletModel;
 import com.quickbite.model.UserModel;
 import com.quickbite.service.LoginService;
 import com.quickbite.service.RegisterService;
+import com.quickbite.utils.CookieUtil;
 import com.quickbite.utils.ImageUtil;
 import com.quickbite.utils.SessionUtil;
 import com.quickbite.utils.ValidationUtil;
@@ -43,6 +45,11 @@ public class AuthController extends HttpServlet {
 		
 		switch(endpoint) {
 			case "/login":
+				// using utility to pull cookie directly
+				Cookie phoneCookie = CookieUtil.getCookie(request, "rememberedPhone");
+				if (phoneCookie != null) {
+					request.setAttribute("number", phoneCookie.getValue());
+				}
 				request.getRequestDispatcher("/WEB-INF/views/auth/login.jsp").forward(request,response);
 				break;
 			case "/register":
@@ -195,6 +202,7 @@ public class AuthController extends HttpServlet {
 	private void handleLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String number = request.getParameter("number");
 		String pass = request.getParameter("pass");
+		String rememberMe = request.getParameter("rememberMe"); // gets checkbox state
 		
 		// Validation check
 		String error = ValidationUtil.validateLogin(number, pass);
@@ -224,6 +232,17 @@ public class AuthController extends HttpServlet {
                 return;
             }
         	
+        	// cookie handling: remember me
+        	Cookie rememberCookie = new Cookie("rememberedPhone", number);
+        	rememberCookie.setPath(request.getContextPath());
+        	
+        	if (rememberMe != null) {
+        		rememberCookie.setMaxAge(60*60*24*14); // 2 weeks
+        	} else {
+        		rememberCookie.setMaxAge(0);
+        	}
+        	response.addCookie(rememberCookie);
+        	
         	// When user status is active
         	SessionUtil.setAttribute(request, "user", user);
         	request.setAttribute("success","Login successful!");
@@ -251,6 +270,7 @@ public class AuthController extends HttpServlet {
         	response.sendRedirect(request.getContextPath() + targetPath);
         } else {
         	request.setAttribute("error", "Invalid phone number or password.");
+        	request.setAttribute("number", number);
         	request.getRequestDispatcher("/WEB-INF/views/auth/login.jsp").forward(request, response);
         }
 	}

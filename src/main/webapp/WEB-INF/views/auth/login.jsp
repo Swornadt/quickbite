@@ -45,6 +45,7 @@
                 id="number"
                 type="text"
                 name="number"
+                                value="${not empty number ? number : ''}"
                 class="signin-input"
               />
             </div>
