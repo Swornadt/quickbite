@@ -130,6 +130,7 @@ public class CartController extends HttpServlet {
             
             // get source url
             String referer = request.getHeader("Referer");
+            System.out.println(referer);
             String url;
             // append success param
             if (referer != null && !referer.isEmpty()) {

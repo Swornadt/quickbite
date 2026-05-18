@@ -103,9 +103,6 @@ public class AdminController extends HttpServlet {
 			case "customers/reset":
 				handleResetRequest(request,response);
 				break;
-			case "/customers/savePassword":
-				//handleSavePassword(request,response);
-				break;
 			case "/menu/add":
 				viewMenuAdd(request, response);
 				break;
