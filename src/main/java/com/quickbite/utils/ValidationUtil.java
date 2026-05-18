@@ -36,15 +36,13 @@ public class ValidationUtil {
 		        return "All fields are required.";
 		    }
 		
-        if (!fname.matches("[a-zA-Z ]+")) {
-            return "First name must contain letters only.";
-        }
-        
-        //Second Name validation
-        if (!lname.matches("[a-zA-Z ]+")) {
-            return "Last name must contain letters only.";
-        } 
-        
+		//Validation of first name and last name
+		String fnameError = validateName(fname, "First name");
+	    if (fnameError != null) return fnameError;
+
+	    String lnameError = validateName(lname, "Last name");
+	    if (lnameError != null) return lnameError;
+             
         //Phone Number length validation
         if ( number.length() != 10) {
             return "Phone number must be 10 characters (e.g. 9812345678).";
@@ -129,4 +127,56 @@ public class ValidationUtil {
 	    return null;
 	}
 	
+	/**
+	 * Used for validation of First name and Lastname
+	 * Ensuring that value is not null and not blank, contains only letters and spaces.
+	 * @param name - The name value to validate
+	 * @param fieldLabel - The label to show in error message
+	 * @return error string if invalid, otherwise null
+	 */
+	public static String validateName(String name, String fieldLabel) {
+		if (name  == null || name.trim().isEmpty()) {
+			return fieldLabel + " cannot be empty.";
+		}
+		
+		if (!name.trim().matches("[a-zA-Z ]+")) {
+	        return fieldLabel + " must contain letters only";
+	    }
+		
+		return null;
+	}
+	
+	
+	/**
+	 * Validates profile update form fields submitted by logged in users
+	 * @param fname - updated first name
+	 * @param lname - updated last name
+	 * @param email - updated email address 
+	 * @param number - updated phone number
+	 * @return error string if wrong, otherwise null
+	 */
+	public static String validateProfileUpdate(String fname, String lname, String email, String number) {
+
+	    String fnameError = validateName(fname, "First name");
+	    if (fnameError != null) return fnameError;
+
+	    String lnameError = validateName(lname, "Last name");
+	    if (lnameError != null) return lnameError;
+
+	    if (email == null || email.trim().isEmpty()) {
+	        return "Email cannot be empty.";
+	    }
+	    if (!email.trim().contains("@gmail.com")) {
+	        return "Email address must contain '@gmail.com'.";
+	    }
+
+	    if (number == null || number.trim().isEmpty()) {
+	        return "Phone number cannot be empty.";
+	    }
+	    if (number.trim().length() != 10) {
+	        return "Phone number must be exactly 10 digits.";
+	    }
+
+	    return null;
+	}
 }

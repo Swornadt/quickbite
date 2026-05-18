@@ -1,31 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="jakarta.servlet.http.HttpSession" %>
-<%@ page import="jakarta.servlet.http.HttpServletRequest" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
-<%@ page import="com.quickbite.model.UserModel" %>
-
-<%
-	HttpSession userSession = request.getSession(false);
-	UserModel currentUserObj = (userSession != null) ? (UserModel) userSession.getAttribute("user") : null;
-	
-	String currentUser = (currentUserObj != null) ? currentUserObj.getNumber() : null;
-	String contextPath = request.getContextPath();
-	
-	String actionUrl;
-	String formMethod;
-	String buttonLabel;
-	
-	if(currentUser != null) {
-		actionUrl = contextPath + "/logout";
-		formMethod = "  post";
-		buttonLabel = "Logout";
-	} else {
-		actionUrl = contextPath + "/login";
-		formMethod = "get";
-		buttonLabel = "Login";
-	}
-%>
 
 <!doctype html>
 <html lang="en">
@@ -88,7 +63,7 @@
 
           <div class="nav-image-container" id="profileTrigger">
             <img
-              src="${pageContext.request.contextPath}/${user.image}"
+              src="${pageContext.request.contextPath}/${sessionScope.user.image}"
               alt="Profile Image"
               class="nav-profile-image"
               style = "cursor: pointer;"
@@ -97,17 +72,17 @@
         </div>
       </div>
       
-      <!-- Profile Popup -->
-<div id="profilePopup" class="profile-popup-overlay" style="display: none;">
-    <div class="profile-popup-content">
-        <div class="popup-header">
-            <button class="close-popup">&times;</button>
-        </div>
-        
-        <!-- Content will be loaded here -->
-        <jsp:include page="/WEB-INF/views/customer/profile-pop-up.jsp" />
-    </div>
-</div>
+      	<!-- Profile Popup -->
+		<div id="profilePopup" class="profile-popup-overlay" style="display: none;">
+		    <div class="profile-popup-content">
+		        <div class="popup-header">
+		            <button class="close-popup">&times;</button>
+		        </div>
+		        
+		        <!-- Content will be loaded here -->
+		        <jsp:include page="/WEB-INF/views/customer/profile-pop-up.jsp" />
+		    </div>
+		</div>
 
       <!-- For Mobile Responsiveness  -->
       <div class="nav-mobile-menu">
@@ -130,8 +105,8 @@
           </div>
 
           <a href="${pageContext.request.contextPath}/home" class="nav-logo-container">
-	            <p class="logo-text">Quick</p>
-	            <p class="logo-text">Bite</p>
+	        <p class="logo-text">Quick</p>
+	        <p class="logo-text">Bite</p>
           </a>
         </div>
 
@@ -145,9 +120,7 @@
 
         <!-- Navbar login button  -->
         <div class="nav-login-btn-container">
-        	<form action="<%= actionUrl %>" method="<%= formMethod %>">
-        		<input class="nav-login-btn" type="submit" value="<%= buttonLabel %>"/>
-        	</form>
+        	<a href="${pageContext.request.contextPath}/login" class="nav-login-btn">Login</a>
         </div>
       </div>
 

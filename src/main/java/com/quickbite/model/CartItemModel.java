@@ -3,6 +3,10 @@ import java.io.Serializable;
 
 public class CartItemModel implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int itemId;
 	private int outletId;
 	private String outletName;
