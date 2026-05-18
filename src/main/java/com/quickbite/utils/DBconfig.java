@@ -12,6 +12,14 @@ public class DBconfig {
 	private static final String USER = "root";
 	private static final String PASSWORD = "";
 	
+	/**
+	 * Starts and returns a live connection to the database.
+	 * 
+	 * This method registers the MySQL JDBC driver class and attempts to
+	 * initialize a connection using the predefined URL, username and password.
+	 * 
+	 * @return active Connection instance if the database connection is successful; null otherwise.
+	 */
 	public static Connection getConnection() {
 		Connection conn = null;
 		try {
