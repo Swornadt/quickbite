@@ -18,14 +18,14 @@ import com.quickbite.service.KitchenService;
  * Servlet implementation class OrderManagement
  */
 @WebServlet(asyncSupported = true, urlPatterns = { "/kitchen/*" })
-public class KitchenContoller extends HttpServlet {
+public class KitchenController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private KitchenService kitchenService = new KitchenService();
 	
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public KitchenContoller() {
+    public KitchenController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -51,7 +51,7 @@ public class KitchenContoller extends HttpServlet {
 	}
 	
 	/**
-	 * Organizes outlet orders by status.
+	 * Fetches today's orders of outlets and groups them according to their status.
 	 * 
 	 * @param request  
 	 * @param response
@@ -59,7 +59,7 @@ public class KitchenContoller extends HttpServlet {
 	 * @throws IOException     
 	 */
 	private void handleOrderManagement(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//session stores attibutes as object
+		//session stores attributes as object
 		Integer outletId = (Integer) request.getSession().getAttribute("outletId");
 		
 		if (outletId==null) {
@@ -81,7 +81,7 @@ public class KitchenContoller extends HttpServlet {
 	}
 	
 	/**
-	  Generates a detailed dashboard view for a single customer order inside the kitchen view.
+	 * Generates a detailed dashboard view for a single customer order inside the kitchen view.
 	 * 
 	 * Checks whether the user session consists of authorized outletId
 	 * Gets the orderId
@@ -149,7 +149,7 @@ public class KitchenContoller extends HttpServlet {
 	
 
 	/**
-	 * Handles POST requests to process state changes and status updates for food preparation items.
+	 * Handles POST requests to process state changes and status updates for order's items.
 	 * 
 	 * @param request
 	 * @param response

@@ -10,8 +10,16 @@ import java.nio.file.Paths;
 public class ImageUtil {
 
     /**
-     * Uploads the profile image and returns the relative path to store in database
-     * Example: "uploads/filename.jpg"
+     * Processes and uploads user profile image to server's file system.
+     * 
+     * This cleans the incoming file name by trimming spaces and illegal characters, and
+     * appends a timestamp to avoid file name duplicates. It then creates a directory where
+     * to store the image on the server disk, and then commits the byte stream.
+     * 
+     * @param part - the object representing the multipart form data of the uploaded image
+     * @param uploadFolder - the name of the target sub-directory where files are routed (like "uploads")
+     * @param context - ServletContext used to dynamically resolve relative web paths to absolute machine storage locations.
+     * @return server-relative file path mapping (ex. "uploads/picture.png")
      */
 	public String uploadProfileImage(Part part, String uploadFolder, ServletContext context) {
 	    
