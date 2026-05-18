@@ -350,7 +350,7 @@ public class AdminController extends HttpServlet {
 	 * 
      * @param request containing client request data.
      * @param response for sending the resource redirect.
-* @throws ServletException if the target JSP file encounters a compilation or runtime error.
+     * @throws ServletException if the target JSP file encounters a compilation or runtime error.
      * @throws IOException if an input or output error is detected during the request forward.
 	 */
 	private void viewMenuAdd(HttpServletRequest request, HttpServletResponse response)
@@ -366,7 +366,7 @@ public class AdminController extends HttpServlet {
 	 * perform any data loading; the JSP handles retrieval of items to delete.
 	 * 
      * @param request containing client request data.
-* @param response for rendering the view response.
+     * @param response for rendering the view response.
      * @throws ServletException if the target JSP file encounters a compilation or runtime error.
      * @throws IOException if an input or output error occurs during the request forward.
 	 */
@@ -475,7 +475,7 @@ public class AdminController extends HttpServlet {
 	 * validates it the userId exists or not
 	 * if yes, passes user data on to the jsp file
 	 * 
-* @param request containing client request data.
+	 * @param request containing client request data.
      * @param response for handling the resource forward or client redirect.
      * @throws ServletException if the target JSP file encounters a compilation or runtime error during a forward.
      * @throws IOException if an input or output error is detected during a forward or redirect execution.
@@ -751,7 +751,7 @@ public class AdminController extends HttpServlet {
 	 * 
 	 * @param request containing client request data.
      * @param response for rendering the view response.
-* @throws ServletException if the target JSP file encounters an error during rendering.
+     * @throws ServletException if the target JSP file encounters an error during rendering.
      * @throws IOException if an input or output error is detected during internal forwarding.
 	 */
 	private void handleMenuAdd(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

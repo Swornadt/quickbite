@@ -36,7 +36,7 @@ public class AuthController extends HttpServlet {
      * Gets the endpoint of the current URL.
      * User can: 1. Login, 2. Register, 3. Logout
      * 
-* @param request containing client request context and servlet mapping paths.
+     * @param request containing client request context and servlet mapping paths.
 	 * @param response for rendering target authentication forms or sending error states.
 	 * @throws ServletException if a target authentication JSP page encounters a compilation or runtime error.
 	 * @throws IOException if an input or output error occurs while forwarding or writing error codes.
@@ -75,7 +75,7 @@ public class AuthController extends HttpServlet {
 	 * 2. Logout
 	 * 3. Register
 	 * 
-* @param request containing form parameter data and target servlet routing contexts.
+	 * @param request containing form parameter data and target servlet routing contexts.
 	 * @param response for handling the client redirect response or dispatching to views.
 	 * @throws ServletException if an underlying functional handler or target JSP view encounters an exception.
 	 * @throws IOException if a communication stream error happens during low-level execution processing.
