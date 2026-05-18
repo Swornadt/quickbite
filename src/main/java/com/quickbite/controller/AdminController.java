@@ -106,7 +106,6 @@ public class AdminController extends HttpServlet {
 				viewMenuAdd(request, response);
 				break;
 			case "/menu/edit":
-				System.out.println("edit");
 				viewMenuEdit(request, response);
 				break;
 			case "/menu/delete":
