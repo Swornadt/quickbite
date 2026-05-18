@@ -58,7 +58,6 @@ body {
 
 .selection-item {
     background-color: #F9F8F7;
-    height: 12vh;
     width: 100%;
     border-radius: 10px;
 
@@ -90,7 +89,7 @@ body {
     flex-direction: column;
     align-items: flex-end;
     gap: 8px;
-    margin-right: 40px;
+    margin: 10px 40px;
 }
 
 .item-price {
@@ -190,3 +189,31 @@ body {
     transform: scale(0.9);
 }
 
+@media (max-width: 765px) {
+	.container {
+		flex-direction: column;
+		gap: 30px;
+	}
+	
+	.left-container {
+		width: 100%;
+	}
+	
+	.right-container {
+		width: 100%;
+	}
+}
+
+@media (max-width: 475px) {
+	.selection-item {
+		flex-direction: column;
+	}
+	
+	.item-details {
+		align-items: center;
+	}
+	
+	.quantity-control {
+		justify-content: center;
+	}
+}

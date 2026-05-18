@@ -31,7 +31,7 @@
                 <input type="checkbox" id="select-all"/>
                 <label for="select-all">Select All</label>
             </div>
-            <div style="display:flex; justify-content: space-between;">
+            <div style="display:flex; justify-content: space-between;" class="heading-group">
                 <span class="icon-trash">🗑️</span>
                 <span>Delete All</span>
             </div>
