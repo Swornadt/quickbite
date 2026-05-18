@@ -168,8 +168,6 @@ public class UserModel {
 
     /**
      * Sets the password of the user.
-     * 
-     * The password should already be hashed with BCrypt before calling this method.
      *     
      * @param password the hashed password to set
      */
@@ -200,7 +198,6 @@ public class UserModel {
     /**
      * Returns the approval status of the user account.
      * 
-     * Default value is {@code "pending"}.
      *
      * @return the status (e.g., "pending" or "approved")
      */
