@@ -95,6 +95,7 @@ nav {
   font-family: "DM Sans";
   transform: scale(1);
   transition: all 0.2s ease;
+  text-decoration:none;
 }
 
 .nav-login-btn:hover {
