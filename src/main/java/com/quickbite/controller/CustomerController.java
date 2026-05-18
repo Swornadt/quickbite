@@ -16,7 +16,6 @@ import java.util.List;
 import com.quickbite.dao.FavoriteDAO;
 import com.quickbite.dao.OrderDAO;
 import com.quickbite.dao.UserDAO;
-import com.quickbite.model.ItemModel;
 import com.quickbite.model.OrderModel;
 import com.quickbite.model.UserModel;
 import com.quickbite.service.FeedbackService;
@@ -302,7 +301,6 @@ public class CustomerController extends HttpServlet {
             return;
         }
 	    
-	    UserModel user = (UserModel) session.getAttribute("user");
         String ratingStr = request.getParameter("rating");
         String message = request.getParameter("message");
         String orderIdStr = request.getParameter("orderId");

@@ -45,6 +45,7 @@
                 id="number"
                 type="text"
                 name="number"
+                                value="${not empty number ? number : ''}"
                 class="signin-input"
               />
             </div>
@@ -60,6 +61,20 @@
               />
             </div>
 
+			<div class="remember-me">
+				<input 
+					type="checkbox" 
+					id="rememberMe" 
+					name="rememberMe" 
+					${not empty number ? 'checked' : '' }
+				/>
+				<label 
+					for="rememberMe" 
+					style="font-family: 'Poppins'; font-size= 0.9rem; color: #666;">
+						Remember Me 
+				</label>
+			</div>
+			
             <!-- Sign in Button -->
             <button class="signin-btn" type="submit">Sign in</button>
           </form>

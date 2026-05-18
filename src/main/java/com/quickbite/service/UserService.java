@@ -3,7 +3,6 @@ package com.quickbite.service;
 import com.quickbite.dao.UserDAO;
 import com.quickbite.model.UserModel;
 
-import jakarta.servlet.http.HttpSession;
 
 /**
  * The controller calls methods here
