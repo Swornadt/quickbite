@@ -93,6 +93,14 @@
     color: #363636 !important; 
 }
 
+input,
+select {
+    padding: 8px 10px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    margin-top: 5px;
+}
+
 .save-btn{
 	background-color: rgb(219, 74, 30);
 	padding: 4px 10px;
@@ -100,4 +108,84 @@
     border-radius: 6px;
     border: none;
     margin-top: 20px;
+}
+
+@media (max-width: 1024px) {
+
+    .admin-profile-side {
+        padding: 20px;
+    }
+
+    .admin-credentials-grid,
+    .admin-contact-details,
+    .admin-dates {
+        gap: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .admin-profile-side {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .admin-brief {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .admin-credentials-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .admin-contact-details,
+    .admin-dates {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    input,
+    select {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .admin-profile-side {
+        padding: 12px;
+    }
+
+    .admin-credentials-grid,
+    .admin-contact-details,
+    .admin-dates {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .admin-brief {
+        gap: 10px;
+        margin: 15px 0 !important;
+    }
+
+    .admin-image img {
+        width: 50px;
+        height: 50px;
+    }
+
+    h4 {
+        font-size: 15px;
+    }
+
+    p,
+    input,
+    select {
+        font-size: 14px;
+    }
+
+    .save-btn {
+        width: 100%;
+        padding: 10px;
+        font-size: 14px;
+    }
 }
