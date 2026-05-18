@@ -51,6 +51,7 @@
 .location-card {
     background-color: #fdf2f1;
     width: 100%;
+    min-width: 200px;
     height: 200px;
     position: relative;
     overflow: hidden;
@@ -126,3 +127,14 @@
 .card-with-photo.active .location-name {
     color: white;
 }
+
+@media (max-width: 680px) {
+	.location-grid {
+        display: block;
+    }
+    
+    .location-card {
+    	margin-bottom: 30px;
+    }
+}
+
