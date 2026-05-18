@@ -12,6 +12,15 @@ import java.sql.SQLException;
 
 public class OrderOutletItemDAO {
 
+	/**
+ 	 * Retrieves all order details belonging to a specific order of an specific outlet
+ 	 * 
+ 	 * Executes a JOIN query connecting order_outlet_item, order, item, and outlet tables 
+ 	 * 
+ 	 * @param orderId  identitfes which orders details to retrieve
+ 	 * @param outletId identifies which outlet the order belongs to
+ 	 * @return a List containing fully populated OrderOutletItemModel attributes of the required order and the outlet
+ 	 */
 	public List<OrderOutletItemModel> getOrderDetail(int orderId, int outletId) {
         List<OrderOutletItemModel> list = new ArrayList<>();
         String sql ="SELECT ooi.order_id, ooi.outlet_id, ooi.item_id, ooi.item_qty, ooi.item_status, ooi.outlet_order_status, " +
@@ -51,6 +60,16 @@ public class OrderOutletItemDAO {
         return list;
     }
 	
+
+	/**
+	 * Retrieves all orders assigned to a specific outlet for the current date.
+	 * 
+	 * Executes a DISTINCT query to avoid duplicate entries caused by repeating item rows,
+ 	 * filtering by outlet and displaying only today's order by comparing today's date with either the order date or preferred date.
+	 * 
+	 * @param outletId identifies which outlets orders to fecth
+	 * @return a List containing OrderOutletItemModel entries representing each unique order for today
+	 */
 	public List<OrderOutletItemModel> getOrdersByOutlet(int outletId) {
 	    List<OrderOutletItemModel> list = new ArrayList<>();
 	    String sql =
@@ -86,6 +105,16 @@ public class OrderOutletItemDAO {
 	    return list;
 	}
 	
+
+	/**
+	 * Filters a list of orders according to their status.
+	 * 
+	 * Iterates the provided order list and returns only entries matching the given status.
+	 *
+	 * @param orders the List of OrderOutletItemModel entries to filter
+	 * @param status the integer status used to filter the list entries
+	 * @return a List containing only orders matching the specified status
+	 */
 	public List<OrderOutletItemModel> getOrderByStatus(List<OrderOutletItemModel> orders, int status) {
 	    List<OrderOutletItemModel> list = new ArrayList<>();
 
@@ -98,6 +127,13 @@ public class OrderOutletItemDAO {
 	    return list;
 	}
 	
+
+	/**
+	 * Updates the status of an order in the database.
+ 	 * 	
+ 	 * @param orderId identifies the order that needs to be updated
+ 	 * @param status  the new status to update the order with
+ 	 */
 	public void updateOrderStatus(int orderId, int status) {
 	    String sql = "UPDATE `order` SET order_status = ? WHERE order_id = ?";
 	    try (Connection conn = DBconfig.getConnection();
@@ -110,6 +146,14 @@ public class OrderOutletItemDAO {
 	    }
 	}
 
+
+	/**
+ 	 * Updates the outlet-level status of specific orders.
+ 	 * 
+ 	 * @param orderId  identifies the order to be updated
+ 	 * @param outletId identifies the outlet of the order
+ 	 * @param status   the new status that will be assigned
+ 	 */
 	public void updateOutletOrderStatus(int orderId, int outletId, int status) {
 	    String sql = "UPDATE order_outlet_item SET outlet_order_status = ? WHERE order_id = ? AND outlet_id = ?";
 	    try (Connection conn = DBconfig.getConnection();
@@ -123,6 +167,13 @@ public class OrderOutletItemDAO {
 	    }
 	}
 	
+
+	/**
+	 * Updates the status of item of an order as complete.
+ 	 * 
+ 	 * @param orderId identifies the order containing the item
+ 	 * @param itemId  identifies the item to mark as complete
+ 	 */
 	public void updateItemStatus(int orderId, int itemId) {
 	    String sql = "UPDATE order_outlet_item SET item_status = 1 WHERE order_id = ? AND item_id = ?";
 	    try (Connection conn = DBconfig.getConnection();
@@ -135,6 +186,13 @@ public class OrderOutletItemDAO {
 	    }
 	}
 	
+
+	/**
+ 	 * Checks whether an order with multiple outlets has been completed in all the each respective outlet.
+ 	 * 
+ 	 * @param orderId identifies the order to check
+ 	 * @return true if order has been completed in all outlets; false otherwise
+ 	 */
 	public boolean getAllOutletOrderStatus(int orderId) {
 	    String sql = "SELECT COUNT(*) FROM order_outlet_item WHERE order_id = ? AND outlet_order_status != 2";
 	    try (Connection conn = DBconfig.getConnection();
@@ -149,6 +207,14 @@ public class OrderOutletItemDAO {
 	    return false;
 	}
 
+
+	/**
+ 	 * Checks whether all items within an order of an outlet is ready.
+ 	 * 
+ 	 * @param orderId  identifies the order to check
+ 	 * @param outletId identifies the outlet to check
+ 	 * @return true if no pending items remain; false otherwise
+ 	 */
 	public boolean getItemsStatus(int orderId, int outletId) {
 	    String sql = "SELECT COUNT(*) FROM order_outlet_item WHERE order_id = ? AND outlet_id = ? AND item_status = 0";
 	    try (Connection conn = DBconfig.getConnection();
@@ -165,4 +231,3 @@ public class OrderOutletItemDAO {
 	}
 	
 }
-

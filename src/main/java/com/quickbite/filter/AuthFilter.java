@@ -1,4 +1,4 @@
-package filter;
+package com.quickbite.filter;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.FilterConfig;

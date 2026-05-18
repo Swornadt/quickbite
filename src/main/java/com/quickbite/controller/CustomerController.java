@@ -361,6 +361,7 @@ public class CustomerController extends HttpServlet {
             request.setAttribute("error", "Something went wrong. Please try again later.");
         }
         
+        UserModel user = (UserModel) request.getSession().getAttribute("user");
         List<OrderModel> currentOrders = orderDAO.getOrdersByStatus(user.getUserId(), true);
         List<OrderModel> pastOrders    = orderDAO.getOrdersByStatus(user.getUserId(), false);
         request.setAttribute("currentOrders", currentOrders);

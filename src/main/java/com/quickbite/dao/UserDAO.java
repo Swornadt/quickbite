@@ -13,6 +13,19 @@ import com.quickbite.model.UserModel;
 
 public class UserDAO {
 	
+	/**
+	 * Inserts a new user record into the database with default customer role and pending status.
+	 * 
+	 * @param fname
+	 * @param lname
+	 * @param number
+	 * @param email
+	 * @param gender
+	 * @param dob
+	 * @param password - hashed password credential
+	 * @param image - the file storage path for the profile icon
+	 * @throws Exception
+	 */
 	public void insertUser (String fname, String lname, String number, String email, String gender, String
 			dob, String password, String image) throws Exception{
 		Connection con = DBconfig.getConnection();
@@ -41,6 +54,13 @@ public class UserDAO {
 	     System.out.println("User inserted into Quickbite DB successfully!");
 	}
 	
+	/**
+	 * Retrieves a single user from the database, searched by their phone number
+	 * Used as a primary lookup step for authentication logic flows.
+	 * 
+	 * @param number
+	 * @return UserModel instance with all the user's details if matched; otherwise null
+	 */
 	public UserModel getUserByNumber(String number) {
 		String sql = "SELECT * FROM user WHERE number = ?";
 		
@@ -75,7 +95,10 @@ public class UserDAO {
 		return null;			
 	}
 	
-	//Fetching all user with status = "pending"
+	/**
+	 * Retrieves a list of users currently awaiting approval from admin
+	 * @return List containing UserModel instances with a 'pending' status.
+	 */
 	public List<UserModel> getPendingUsers(){
 		List<UserModel> list = new ArrayList<>();
 		
@@ -105,8 +128,8 @@ public class UserDAO {
 	}
 	 
 	/**
-	 * Fetching all users with status = 'active' and role = 'customer'
-	 * @return
+	 * Retrieves a list of all users with status of 'active' and role of 'customer'
+	 * @return List of validated customer UserModel entities
 	 */
 	public List<UserModel> getActiveCustomers() {
 	    List<UserModel> list = new ArrayList<>();
@@ -191,6 +214,12 @@ public class UserDAO {
 		
 	}
 	
+	/**
+	 * Modifies the access status classification assigned to a specific user.
+	 * 
+	 * @param userId    
+	 * @param newStatus The updated status value to assign (e.g., 'active', 'rejected').
+	 */
 	public void updateUserStatus(int userId, String newStatus) {
 		String sql = "UPDATE user SET status = ? WHERE user_id = ?";
 		
@@ -205,6 +234,17 @@ public class UserDAO {
 		}
 	}
 	
+	/**
+	 * Updates core profile entries for an existing user within the database layout.
+	 * @param user_id
+	 * @param fname   
+	 * @param lname 
+	 * @param dob
+	 * @param gender 
+	 * @param email  
+	 * @param number
+	 * @return true if row changes evaluate greater than zero; false if errors occur.
+	 */
 	public boolean updateUserDetails(int user_id, String fname, String lname, String dob, String gender, String email, String number) {
 		String sql = "Update user set fname=?, lname=?, dob=?, gender=?, email=?, number=? where user_id=?";
 		
@@ -226,6 +266,12 @@ public class UserDAO {
 		}
 	}
 	
+	/**
+	 * Retrieves a single user from the database, searched by their user ID
+	 * 
+	 * @param user_id
+	 * @return UserModel instance with all the user's details if matched; otherwise null
+	 */
 	public UserModel getUserById(int user_id) {
 		String sql = "SELECT * FROM user WHERE user_id = ?";
 		
@@ -330,6 +376,13 @@ public class UserDAO {
 	}
 
 	
+	/**
+	 * Updates the password string for a user with new hash token.
+	 * 
+	 * @param userId
+	 * @param hashNewPassword - the cryptographic hash string replacing previous password
+	 * @return true if row transaction returns successful update; false otherwise.
+	 */
 	public boolean updatePassword(int userId, String hashNewPassword) {
 	    String sql = "UPDATE user SET password = ? WHERE user_id = ?";
 	    try (Connection conn = DBconfig.getConnection();
@@ -348,7 +401,7 @@ public class UserDAO {
 	 * 
 	 * @param userId
 	 * @param imagePath
-	 * @return
+	 * @return true if the entry is made successfully; false otherwise
 	 */
 	public boolean updateUserImage(int userId, String imagePath) {
         String sql = "UPDATE user SET image = ? WHERE user_id = ?";
