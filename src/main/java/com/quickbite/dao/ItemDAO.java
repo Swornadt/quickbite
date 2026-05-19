@@ -59,7 +59,7 @@ public class ItemDAO {
 	 * mapping the matching table details into a clean ItemModel state object. 
 	 * Returns null if no matching row record is discovered inside the database tracking index.
 	 * 
-	 * @param itemName
+	 * @param itemName name of the item to be accessed.
 	 * @return an ItemModel mapping containing the target item details, or null if no record matches
 	 */
 	public ItemModel getItemByName(String itemName) {
@@ -147,7 +147,7 @@ public class ItemDAO {
 	 * capturing the assigned unique row index field immediately upon a successful write 
 	 * transaction.
 	 * 
-	 * @param item
+	 * @param item an ItemModel data container holding the descriptive profile fields for the new menu product.
 	 * @return the unique generated integer key of the new item record, or -1 if the write transaction fails
 	 */
 	public int addItemAndReturnId(ItemModel item) {
@@ -199,7 +199,7 @@ public class ItemDAO {
 	 * Prepares a query targeting the primary itemId. 
 	 * Returns null if the specified key context does not exist in the system.
 	 * 
-	 * @param itemId
+	 * @param itemId the unique identifier for item to be accessed.
 	 * @return an ItemModel mapping containing the target item details, or null if no record matches
 	 */
 	public ItemModel getItemById(int itemId) {
@@ -234,7 +234,7 @@ public class ItemDAO {
 	 * 
 	 * Prepares an UPDATE statement modifying descriptions, images, status, ingredients, and allergy. 
 	 * 
-	 * @param item 
+	 * @param item an ItemModel data container.
 	 * @return true if at least one matching database record row was successfully modified; false otherwise
 	 */
 	public boolean updateItem(ItemModel item) {
@@ -270,7 +270,7 @@ public class ItemDAO {
 	 * 
 	 * Formulates a DELETE statement targeting the specific row linked to the itemId. 
 	 * 
-	 * @param itemId
+	 * @param itemId unique id for item to delete.
 	 * @return true if the matching record was successfully removed from the persistence store; false otherwise
 	 */
 	public boolean deleteItem(int itemId) {

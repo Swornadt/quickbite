@@ -16,15 +16,16 @@ public class UserDAO {
 	/**
 	 * Inserts a new user record into the database with default customer role and pending status.
 	 * 
-	 * @param fname
-	 * @param lname
-	 * @param number
-	 * @param email
-	 * @param gender
-	 * @param dob
+	 * @param user_id the unique id that identifies the user.
+	 * @param fname the first name of the user to update.
+	 * @param lname the last name of the user to update.
+	 * @param dob the date of birth for the user.
+	 * @param gender the gender of the user entered.
+	 * @param email the email stored for the user.
+	 * @param number the phone number added by the user.
 	 * @param password - hashed password credential
 	 * @param image - the file storage path for the profile icon
-	 * @throws Exception
+	 * @throws Exception if a database connectivity error or broken SQL query halts record creation.
 	 */
 	public void insertUser (String fname, String lname, String number, String email, String gender, String
 			dob, String password, String image) throws Exception{
@@ -58,7 +59,7 @@ public class UserDAO {
 	 * Retrieves a single user from the database, searched by their phone number
 	 * Used as a primary lookup step for authentication logic flows.
 	 * 
-	 * @param number
+	 * @param number phone number for the targeted user to find.
 	 * @return UserModel instance with all the user's details if matched; otherwise null
 	 */
 	public UserModel getUserByNumber(String number) {
@@ -217,7 +218,7 @@ public class UserDAO {
 	/**
 	 * Modifies the access status classification assigned to a specific user.
 	 * 
-	 * @param userId    
+	 * @param userId the unique ID of the user whose status is to update.
 	 * @param newStatus The updated status value to assign (e.g., 'active', 'rejected').
 	 */
 	public void updateUserStatus(int userId, String newStatus) {
@@ -236,13 +237,14 @@ public class UserDAO {
 	
 	/**
 	 * Updates core profile entries for an existing user within the database layout.
-	 * @param user_id
-	 * @param fname   
-	 * @param lname 
-	 * @param dob
-	 * @param gender 
-	 * @param email  
-	 * @param number
+	 * 
+	 * @param user_id the unique id that identifies the user.
+	 * @param fname the first name of the user to update.
+	 * @param lname the last name of the user to update.
+	 * @param dob the date of birth for the user.
+	 * @param gender the gender of the user entered.
+	 * @param email the email stored for the user.
+	 * @param number the phone number added by the user.
 	 * @return true if row changes evaluate greater than zero; false if errors occur.
 	 */
 	public boolean updateUserDetails(int user_id, String fname, String lname, String dob, String gender, String email, String number) {
@@ -269,7 +271,7 @@ public class UserDAO {
 	/**
 	 * Retrieves a single user from the database, searched by their user ID
 	 * 
-	 * @param user_id
+	 * @param user_id unique id of the user to find.
 	 * @return UserModel instance with all the user's details if matched; otherwise null
 	 */
 	public UserModel getUserById(int user_id) {
@@ -379,7 +381,7 @@ public class UserDAO {
 	/**
 	 * Updates the password string for a user with new hash token.
 	 * 
-	 * @param userId
+	 * @param userId the unique id of the user for whom the password is to be updated.
 	 * @param hashNewPassword - the cryptographic hash string replacing previous password
 	 * @return true if row transaction returns successful update; false otherwise.
 	 */
@@ -399,8 +401,8 @@ public class UserDAO {
 	/**
 	 * Updates user's profile image in the database
 	 * 
-	 * @param userId
-	 * @param imagePath
+	 * @param userId the unique id of the user for whom image is to be updated.
+	 * @param imagePath the updated local system string path pointing to the new image file.
 	 * @return true if the entry is made successfully; false otherwise
 	 */
 	public boolean updateUserImage(int userId, String imagePath) {

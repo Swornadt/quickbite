@@ -14,7 +14,7 @@ tabs.forEach((tab, index) => {
         sections.forEach(section => section.style.display = "none");
 
         // Showing the section matching the clicked tab
-        sections[index].style.display = "grid";
+        sections[index].style.display = "flex";
 
         // Updating active tab styling
         tabs.forEach(item => item.classList.remove("onactive"));

@@ -18,7 +18,7 @@ public class PaymentDAO {
 	 * amount, authorization status, and current timestamp into the database, then retrieves
 	 * the newly generated payment ID.
 	 * 
-	 * @param payment 
+	 * @param payment a PaymentModel object container holding the required amount.
 	 * @return the generated paymentID, or -1 if the transaction fails
 	 * @throws SQLException if a core database access conflict or connectivity drop breaks the statement execution
 	 */
@@ -70,7 +70,7 @@ public class PaymentDAO {
 	/**
 	 * Lookup method to check the payment details of a specific order.
 	 * 
-	 * @param orderId
+	 * @param paymentId the tracking identification number used to filter out the matching payment rows.
 	 * @return PaymentModel object or null if not found
 	 * @throws SQLException
 	 */

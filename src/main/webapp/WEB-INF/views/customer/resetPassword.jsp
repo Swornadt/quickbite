@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Reset Password | Quick Bite</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/resetPassword.css" />
 <link
@@ -16,7 +17,7 @@
 	 <div class="reset-page-container">
       <!-- Left Side (Image Container) -->
       <div class="reset-page-image-container">
-        <img src="${pageContext.request.contextPath}/assets/reset.png" class="reset-page-image" />
+        <img src="${pageContext.request.contextPath}/assets/auth/reset.png" class="reset-page-image" />
       </div>
 
       <!-- Right Side (Form Container) -->

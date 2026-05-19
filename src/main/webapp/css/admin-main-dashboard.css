@@ -407,3 +407,18 @@
     padding: 0rem 2.25rem;
   }
 }
+
+@media (max-width: 600px) {
+	.admin-card-infos {
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+	
+	.admin-card-info {
+		width: 100%;
+	}
+	
+	.line-chart-dates {
+		flex-direction: column;
+	}
+}

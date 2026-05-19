@@ -115,6 +115,7 @@ h1 {
     flex-direction: column;
     justify-content: space-between;
     min-height: 190px;
+    gap: 5px;
     transition: box-shadow 0.2s, transform 0.2s;
 }
 
@@ -222,4 +223,20 @@ h1 {
     padding: 60px 0;
 }
 
+@media (max-width: 900px) {
+	.tabs {
+		flex-direction: column;
+		height: 100%;
+	}
+	
+	.grid {
+		display: flex;
+		flex-direction: column;
+	}
+}
 
+@media (max-width: 540px) {
+	.card-top {
+		flex-direction: column;
+	}
+}

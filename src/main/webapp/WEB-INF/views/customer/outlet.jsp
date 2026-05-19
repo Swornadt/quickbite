@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.quickbite.model.OutletModel" %>
 <%@ page import="java.util.*" %>
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Outlet Selection | QuickBite</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -32,19 +33,19 @@
 
 		<div class="location-grid" id="locationGrid">
 			<c:forEach var="loc" items="${locations}">
-				<c:set var="hasPhoto" value="${not empty loc.outletImage}" />
-				<a href="${pageContext.request.contextPath}/outlets/${loc.outletName}" style="text-decoration: none; color: inherit; width: 30%;">
-					<div class="location-card ${hasPhoto ? 'card-with-photo' : ''}" onclick="selectLocation(this, '${loc.outletId}', '${loc.outletName}')"
-						<c:if test="${hasPhoto}">
-							style= "--bg-image: url('${loc.outletImage}');"
-						</c:if>>
-						
-						<span class="location-name">
-							${loc.outletName}
-						</span>
-					</div>
-				</a>
-			</c:forEach>
+		        <c:set var="hasPhoto" value="${not empty loc.outletImage}" />
+		        <a href="${pageContext.request.contextPath}/outlets/${loc.outletName}" style="text-decoration: none; color: inherit; width: 30%;">
+		            <div class="location-card ${hasPhoto ? 'card-with-photo' : ''}" 
+		                 <c:if test="${hasPhoto}">
+		                     style="--bg-image: url('${pageContext.request.contextPath}/${loc.outletImage}');"
+		                 </c:if>>
+		                
+		                <span class="location-name">
+		                    ${loc.outletName}
+		                </span>
+		            </div>
+		        </a>
+		    </c:forEach>
 		</div>
 		
       </section>
@@ -52,16 +53,5 @@
   <!-- Footer -->
   <%@ include file="../common/footer.jsp" %>
 
-    <script>
-    function selectLocation(element, id, name) {
-        const currentActive = document.querySelector(".location-card.active");
-        if (currentActive) {
-            currentActive.classList.remove("active");
-        }
-        element.classList.add("active");
-        console.log("Selected Location ID:", id, "Name:", name);
-		//TODO: implement redirect
-    }
-    </script>
   </body>
 </html>

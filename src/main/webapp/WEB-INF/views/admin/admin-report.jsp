@@ -5,63 +5,62 @@
 
 		<head>
 			<meta charset="UTF-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 			<title>Admin Report | QuickBite</title>
 			<link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin-report.css" />
 		</head>
 
 		<body>
-			<div class="admin-body">
-				<%@ include file="../common/side-nav.jsp" %>
-					<div class="admin-right-body">
-						<%@ include file='../common/admin-nav.jsp' %>
+			<%@ include file="../common/side-nav.jsp" %>
+				<div class="admin-right-body">
+					<%@ include file='../common/admin-nav.jsp' %>
 
-							<div class="admin-bottom-info">
-								<div class="top-container">
-									<h2>Report</h2>
 
-									<form method="GET" action="${pageContext.request.contextPath}/admin/report">
-										<select name="outletId" class="canteen-btn" onchange="this.form.submit()">
-											<option value="0" ${selectedOutletId==0 ? 'selected' : '' }>All Outlets
-											</option>
-											<c:forEach var="outlet" items="${outlets}">
-												<option value="${outlet.outletId}" ${selectedOutletId==outlet.outletId
-													? 'selected' : '' }>
-													${outlet.outletName}
-												</option>
-											</c:forEach>
-										</select>
-									</form>
-								</div>
+						<div class="container">
+							<h2>Report</h2>
 
-								<!-- Cards -->
-								<div class="admin-card-infos">
-									<div class="admin-card-info">
-										<img src="${pageContext.request.contextPath}/assets/info-img-1.jpeg"
-											class="admin-card-img" />
-										<p class="gained-number">${report.totalUsers}</p>
-										<div class="card-info-numbers">
-											<p class="card-info-number-title">Total Users</p>
-										</div>
-									</div>
+							<form method="GET" action="${pageContext.request.contextPath}/admin/report">
+								<select name="outletId" class="canteen-btn" onchange="this.form.submit()">
+									<option value="0" ${selectedOutletId==0 ? 'selected' : '' }>All Outlets
+									</option>
+									<c:forEach var="outlet" items="${outlets}">
+										<option value="${outlet.outletId}" ${selectedOutletId==outlet.outletId
+											? 'selected' : '' }>
+											${outlet.outletName}
+										</option>
+									</c:forEach>
+								</select>
+							</form>
 
-									<div class="admin-card-info">
-										<img src="${pageContext.request.contextPath}/assets/info-img-2.jpeg"
-											class="admin-card-img" />
-										<p class="gained-number">Rs. ${report.totalSales}</p>
-										<div class="card-info-numbers">
-											<p class="card-info-number-title">Total Sales</p>
-										</div>
-									</div>
-
-									<div class="admin-card-info">
-										<img src="${pageContext.request.contextPath}/assets/info-img-3.jpeg"
-											class="admin-card-img" />
-										<p class="gained-number">${report.totalOrders}</p>
-										<div class="card-info-numbers">
-											<p class="card-info-number-title">Total Orders</p>
-										</div>
+							<!-- Cards -->
+							<div class="admin-card-infos">
+								<div class="admin-card-info">
+									<img src="${pageContext.request.contextPath}/assets/admin/info-img-1.jpeg"
+										class="admin-card-img" />
+									<p class="gained-number">${report.totalUsers}</p>
+									<div class="card-info-numbers">
+										<p class="card-info-number-title">Total Users</p>
 									</div>
 								</div>
+
+								<div class="admin-card-info">
+									<img src="${pageContext.request.contextPath}/assets/admin/info-img-2.jpeg"
+										class="admin-card-img" />
+									<p class="gained-number">Rs. ${report.totalSales}</p>
+									<div class="card-info-numbers">
+										<p class="card-info-number-title">Total Sales</p>
+									</div>
+								</div>
+
+								<div class="admin-card-info">
+									<img src="${pageContext.request.contextPath}/assets/admin/info-img-3.jpeg"
+										class="admin-card-img" />
+									<p class="gained-number">${report.totalOrders}</p>
+									<div class="card-info-numbers">
+										<p class="card-info-number-title">Total Orders</p>
+									</div>
+								</div>
+
 
 							</div>
 
@@ -81,7 +80,7 @@
 										</div>
 									</div>
 									<div class="line-chart-image-container">
-										<img src="${pageContext.request.contextPath}/assets/Line Graph.png"
+										<img src="${pageContext.request.contextPath}/assets/admin/Line Graph.png"
 											class="line-chart" alt="line-graph-image" />
 									</div>
 								</div>
@@ -93,7 +92,7 @@
 								<div class="barchart-highrate">
 									<p class="barchart-title">Highest Rated Items</p>
 									<div class="barchart-image-container" id="barchart-highrate-image-container">
-										<img src="${pageContext.request.contextPath}/assets/barchart1.png"
+										<img src="${pageContext.request.contextPath}/assets/admin/barchart1.png"
 											class="barchart" />
 									</div>
 								</div>
@@ -105,14 +104,13 @@
 										</select>
 									</div>
 									<div class="barchart-image-container" id="barchart-profit-image-container">
-										<img src="${pageContext.request.contextPath}/assets/barchart2.png"
+										<img src="${pageContext.request.contextPath}/assets/admin/barchart2.png"
 											class="barchart" />
 									</div>
 								</div>
 							</div>
-					</div>
-			</div>
-
+						</div>
+				</div>
 		</body>
 
 		</html>
