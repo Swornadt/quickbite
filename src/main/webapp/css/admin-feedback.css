@@ -1,12 +1,34 @@
 @charset "UTF-8";
 
-.admin-bottom-info {
-  font-family: "Poppins", sans-serif;
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    min-height: 100vh;
+}
+
+.admin-right-body {
+	padding: 0 5rem;
+    width: 80%;
+    flex: 1;
+}
+
+.container {
+  max-width: 960px;
+    margin: 0 auto;
+    padding-bottom: 60px;
 }
 
 h2 {
-  margin-bottom: 30px;
-  margin-top: 30px;
+    font-size: 26px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 28px 0 20px;
 }
 
 .date-range {
@@ -143,4 +165,122 @@ h2 {
 
 .feedback-text p {
   margin-bottom: 10px;
+}
+
+@media (max-width: 1024px) {
+
+    .admin-right-body {
+        padding: 0 2rem;
+        width: 100%;
+    }
+
+    .container {
+        max-width: 100%;
+    }
+
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+
+    .admin-right-body {
+        padding: 0 1rem;
+        width: 100%;
+    }
+
+    h2 {
+        font-size: 22px;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .stat-card {
+        padding: 20px;
+    }
+
+    .total-feedback,
+    .avg-rating {
+        font-size: 40px;
+    }
+
+    .feedback-card {
+        flex-direction: column;
+        padding: 20px;
+        gap: 18px;
+    }
+
+    .feedback-header {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .rating-date {
+        flex-wrap: wrap;
+        font-size: 18px;
+    }
+
+    .user-image {
+        width: 70px;
+        height: 70px;
+    }
+
+    .feedback-text {
+        font-size: 14px;
+    }
+
+    .date {
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .admin-right-body {
+        padding: 0 0.8rem;
+    }
+
+    .container {
+        padding-bottom: 30px;
+    }
+
+    h2 {
+        font-size: 20px;
+        margin: 20px 0;
+    }
+
+    .stat-card {
+        padding: 16px;
+        border-radius: 12px;
+    }
+
+    .total-feedback,
+    .avg-rating {
+        font-size: 32px;
+    }
+
+    .stars {
+        font-size: 20px !important;
+    }
+
+    .feedback-card {
+        padding: 16px;
+        border-radius: 12px;
+    }
+
+    .feedback-text {
+        line-height: 1.5;
+    }
+
+    .rating-bar {
+        gap: 8px;
+    }
+
+    .rating-bar span {
+        font-size: 14px;
+    }
 }

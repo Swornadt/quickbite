@@ -1,4 +1,18 @@
 @charset "UTF-8";
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+.admin-body{
+	display:flex;
+}
+
+.admin-right-body {
+  width: 80%;
+  padding: 0rem 5rem;
+}
 
 .admin-bottom-info {
   font-family: "Poppins", sans-serif;
@@ -124,4 +138,100 @@ tbody tr {
   font-size: 22px;
   cursor: pointer;
   z-index: 1000;
+}
+
+@media (max-width: 1024px) {
+
+  .admin-right-body {
+    padding: 0 2rem;
+  }
+
+  .modal-content {
+    width: 90%;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .admin-right-body {
+    padding: 0 1rem;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .canteen-btn {
+    width: 100%;
+  }
+
+  .add-item-btn {
+    width: 100%;
+  }
+
+  .container {
+    padding: 15px;
+    overflow-x: auto;
+  }
+
+  table {
+    min-width: 750px;
+  }
+
+  th,
+  td {
+    font-size: 14px;
+    white-space: nowrap;
+  }
+
+  .modal-content {
+    width: 95%;
+    height: 85vh;
+    margin: 30px auto;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .admin-right-body {
+    padding: 0 0.7rem;
+  }
+
+  .header {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  h2 {
+    font-size: 22px;
+  }
+
+  .container {
+    padding: 12px;
+    border-radius: 12px;
+  }
+
+  .add-item-btn,
+  .canteen-btn {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .delete-btn,
+  .edit-btn {
+    width: 60px;
+    font-size: 12px;
+  }
+
+  .modal-content {
+    height: 90vh;
+    border-radius: 10px;
+  }
+
+  .close-btn {
+    font-size: 20px;
+    right: 10px;
+  }
 }

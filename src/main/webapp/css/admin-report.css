@@ -1,24 +1,34 @@
 @charset "UTF-8";
 
-.admin-body {
-  display: flex;
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    min-height: 100vh;
 }
 
 .admin-right-body {
-  width: 80%;
-  padding: 0rem 5rem;
+	padding: 0 5rem;
+    width: 80%;
+    flex: 1;
 }
 
-.admin-bottom-info {
-  font-family: "Poppins", sans-serif;
+.container {
+  max-width: 960px;
+    margin: 0 auto;
+    padding-bottom: 60px;
 }
 
-.top-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 30px;
-  margin-top: 30px;
+h2 {
+    font-size: 26px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 28px 0 20px;
 }
 
 .canteen-btn {
@@ -35,6 +45,7 @@
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 25px;
   margin-bottom: 50px;
+  margin-top: 50px;
 }
 
 .admin-card-info,
@@ -227,14 +238,17 @@
   }
 }
 
-@media (max-width: 800px) {
-  .admin-right-body {
-    padding: 0rem 3rem;
-  }
-}
-
-@media (max-width: 690px) {
-  .admin-right-body {
-    padding: 0rem 2.25rem;
-  }
+@media (max-width: 500px) {
+	.container, .line-chart-dates {
+		flex-direction: column;
+	}
+	
+	.admin-card-infos {
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+	
+	.admin-card-info {
+        width: 100%;
+    }
 }
