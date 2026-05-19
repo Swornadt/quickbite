@@ -53,9 +53,10 @@ public class CustomerController extends HttpServlet {
      * 3. Change Password
      * 4. View Favorites
      * 
-     * @param request
-     * @param response
-     * @throws ServletException, IOException
+     * @param request the HTTP request containing the URL path information.
+	 * @param response the HTTP response used to forward the user or return error codes.
+	 * @throws ServletException if the system fails to forward to the target JSP file.
+	 * @throws IOException if a network error occurs while sending the page back to the user.
      * @see #viewChangePassword(HttpServletRequest, HttpServletResponse)
      * @see #viewCustomerOrderHistory(HttpServletRequest, HttpServletResponse)
      * @see #viewFavorites(HttpServletRequest, HttpServletResponse)
@@ -90,6 +91,11 @@ public class CustomerController extends HttpServlet {
 	/**
      * doPost handles all POST requests
      * We check the path to know which form was submitted.
+     * 
+     * @param request the HTTP request containing the submitted form fields.
+	 * @param response the HTTP response used to redirect the user or show error messages.
+	 * @throws ServletException if a server-side error occurs during form processing.
+	 * @throws IOException if an input or output error happens during processing.
      */
     @Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -130,10 +136,10 @@ public class CustomerController extends HttpServlet {
 	 * It ensures the new passwords match and complies with validations according to the ValidationUtil. 
 	 * If all validation checks succeed, it hashes the new password using PasswordUtil, updates the database, and returns a success message. 
 	 * 
-	 * @param request
-	 * @param response
-	 * @throws ServletException 
-	 * @throws IOException      
+	 * @param request the HTTP request containing the old, new, and confirmed password entries.
+	 * @param response the HTTP response used to forward the user back to the form with a status message.
+	 * @throws ServletException if the system fails to reload the password change form view.
+	 * @throws IOException if a communication error happens during page rendering.  
 	 */
     private void handleChangePassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String oldPassword = request.getParameter("oldPassword");
@@ -196,7 +202,7 @@ public class CustomerController extends HttpServlet {
      * 
      * @param request - the HTTP request used to retrieve the session and forwarding to JSP 
      * @param response - the HTTP response used for redirecting unauthenticated requests
-    * @throws IOException - if an I/O error occurs during forwarding
+     * @throws IOException - if an I/O error occurs during forwarding
      * @throws ServletException if the request dispatcher fails
      */
     private void viewUserProfile(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
@@ -283,10 +289,10 @@ public class CustomerController extends HttpServlet {
 	 * for current and past respectively.
 	 * The data is then passed to jsp through attributes.
 	 * 
-	 * @param request
-	 * @param response
-	 * @throws IOException
-	 * @throws ServletException
+	 * @param request the HTTP request used to store active and historical data lists.
+	 * @param response the HTTP response used to display the order history dashboard view.
+	 * @throws ServletException if the history JSP cannot be loaded.
+	 * @throws IOException if the order history data is prevented from being sent.
 	 */
 	private void viewCustomerOrderHistory(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		HttpSession session = request.getSession();
@@ -314,10 +320,10 @@ public class CustomerController extends HttpServlet {
 	 * It verifies that required text fields are not blank and confirms the rating falls within the valid range (1 to 5 stars). 
 	 * Upon successful validation, it starts database insertion to FeedbackService and gives a success message.
 	 * 
-	 * @param request  
-	 * @param response 
-	 * @throws ServletException
-	 * @throws IOException    
+	 * @param request the HTTP request holding submitted stars, messages, and orderId.
+	 * @param response the HTTP response used to push statuses.
+	 * @throws ServletException if the view renderer errors out while refreshing the order panel.
+	 * @throws IOException if refreshing is interrupted.
 	 */
 	private void submitOrderFeedback(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    HttpSession session = request.getSession();
@@ -373,10 +379,10 @@ public class CustomerController extends HttpServlet {
 	/**
 	 * Renders the dedicated profile password modification view.
 	 * 
-	 * @param request  
-	 * @param response 
-	 * @throws ServletException
-	 * @throws IOException
+	 * @param request the HTTP request profile context wrapper.
+	 * @param response the HTTP response handling the password view page generation.
+	 * @throws ServletException if the framework encounters a loading issue with the change-password JSP view.
+	 * @throws IOException if a failure blocks loading the password page.
 	 */
 	private void viewChangePassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("/WEB-INF/views/customer/profile/change-password.jsp").forward(request, response);
@@ -388,10 +394,10 @@ public class CustomerController extends HttpServlet {
 	 * Verifies the customer's active session state and redirects unauthenticated requests back to the login interface. 
 	 * It uses FavoriteDAO to fetch a collection of the user's favorite items, with their respective outlet. 
 	 * 
-	 * @param request 
-	 * @param response 
-	 * @throws ServletException
-	 * @throws IOException      
+	 * @param request the HTTP request collecting bookmarked list values.
+	 * @param response the HTTP response forwarding details down into the bookmarks listing engine.
+	 * @throws ServletException if the underlying layout template components throw a data mapping error.
+	 * @throws IOException if a network connection drop prevents loading the favorites view page.  
 	 */
 	private void viewFavorites(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
@@ -421,9 +427,9 @@ public class CustomerController extends HttpServlet {
 	 * Ensures the request originates from a authenticated user session. 
 	 * It extracts the target item and outlet, and checks the current favorite state via FavoriteDAO, and either adds or deletes the item combination (item and target) from the customer's favorites. 
 	 * 
-	 * @param request
-	 * @param response
-	 * @throws IOException
+	 * @param request the HTTP request of the itemId and outletId.
+	 * @param response the HTTP response updating browser location routing headers.
+	 * @throws IOException if an error happens while handling web route paths or redirect commands
 	 */
 	private void toggleFavorites(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		HttpSession session = request.getSession();
@@ -465,6 +471,11 @@ public class CustomerController extends HttpServlet {
 	/**
      * Handles profile image upload
      * POST /profile/upload-image
+     * 
+     * @param request the HTTP request containing the uploaded multi-part image data stream.
+	 * @param response the HTTP response used to display success states back on the main profile screen.
+	 * @throws ServletException if the underlying request container fails to parse multi-part multi-media headers.
+	 * @throws IOException if an I/O interrupts writing to storage.
      */
     private void uploadProfileImage(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {

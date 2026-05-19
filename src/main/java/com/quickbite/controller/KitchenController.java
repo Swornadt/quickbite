@@ -33,10 +33,10 @@ public class KitchenController extends HttpServlet {
 	/**
 	 * Handles HTTP GET requests to route back relevant order tracking information for kitchen staff.
 	 * 
-	 * @param request
-	 * @param response 
-	 * @throws ServletException
-	 * @throws IOException
+	 * @param request the HTTP request containing the path info for routing.
+	 * @param response the HTTP response used to forward the workflow to the correct dashboard view.
+	 * @throws ServletException if the request engine fails to dispatch the request to a JSP layout.
+	 * @throws IOException if a network connection drop interrupts page data delivery.
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -53,10 +53,10 @@ public class KitchenController extends HttpServlet {
 	/**
 	 * Fetches today's orders of outlets and groups them according to their status.
 	 * 
-	 * @param request  
-	 * @param response
-	 * @throws ServletException 
-	 * @throws IOException     
+	 * @param request the HTTP request storing sorted state lists for view rendering.
+	 * @param response the HTTP response routing authenticated users or bouncing guests to login.
+	 * @throws ServletException if the system fails to display the main order tracking dashboard.
+	 * @throws IOException if an error cuts off communication with the browser.   
 	 */
 	private void handleOrderManagement(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//session stores attributes as object
@@ -89,11 +89,11 @@ public class KitchenController extends HttpServlet {
 	 * Then collects information related to the order
 	 * 
 	 * 
-	 * @param request  
-	 * @param 
-	 * @param orderId
-	 * @throws ServletException
-	 * @throws IOException  
+	 * @param request the HTTP request carrying specific tracking keys and parameters.
+	 * @param response the HTTP response driving path updates back down to the viewing portal.
+	 * @param orderId the text identifier key matching the target transaction records.
+	 * @throws ServletException if the template compiler encounters an issue displaying order details.
+	 * @throws IOException if an unexpected input/output fault stalls communication mid-stream.
 	 */
 	private void handleOrderDetails(HttpServletRequest request, HttpServletResponse response, String orderId ) throws ServletException, IOException {
 		
@@ -151,10 +151,10 @@ public class KitchenController extends HttpServlet {
 	/**
 	 * Handles POST requests to process state changes and status updates for order's items.
 	 * 
-	 * @param request
-	 * @param response
-	 * @throws ServletException
-	 * @throws IOException
+	 * @param request the HTTP request detailing submission data, actions, and primary item keys.
+	 * @param response the HTTP response redirecting operators back to refreshing status boards.
+	 * @throws ServletException if core processing loops experience data routing issues.
+	 * @throws IOException if a transmission breakdown prevents updating the browser view.
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
