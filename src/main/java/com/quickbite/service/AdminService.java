@@ -21,6 +21,18 @@ public class AdminService {
 		return userDAO.getUserById(user_id);
 	}
 	
+	/**
+	 * Updates the details for admin
+	 * 
+	 * @param user_id the unique identifier for the admin
+	 * @param fname the first name of the admin
+	 * @param lname the last name of the admin
+	 * @param dob the dob that the admin has entered
+	 * @param gender the gender selected by the admin
+	 * @param email the email address entered by the admin
+	 * @param number the phone number entered by the admin
+	 * @return parameters to updateUserDetails in the UserDAO
+	 */
 	public boolean updateAdminProfile(int user_id, String fname, String lname, String dob, String gender, String email, String number) {
 		return userDAO.updateUserDetails(user_id, fname, lname, dob, gender, email, number);
 	}
