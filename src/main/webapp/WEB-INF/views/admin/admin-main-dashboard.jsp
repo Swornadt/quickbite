@@ -36,7 +36,7 @@
 	        <div class="admin-card-infos">
 	          <!-- Card Info -->
 	          <div class="admin-card-info">
-	            <img src="${pageContext.request.contextPath}/assets/info-img-1.jpeg" class="admn-card-img" />
+	            <img src="${pageContext.request.contextPath}/assets/admin/info-img-1.jpeg" class="admn-card-img" />
 	            <p class="gained-number">2.3K</p>
 	            <div class="card-info-numbers">
 	              <p class="card-info-number-title">Total Users</p>
@@ -45,7 +45,7 @@
 	          </div>
 	          <!-- Card Info -->
 	          <div class="admin-card-info">
-	            <img src="${pageContext.request.contextPath}/assets/info-img-2.jpeg" class="admn-card-img" />
+	            <img src="${pageContext.request.contextPath}/assets/admin/info-img-2.jpeg" class="admn-card-img" />
 	            <p class="gained-number">Rs. 150.8K</p>
 	            <div class="card-info-numbers">
 	              <p class="card-info-number-title">Total Proft</p>
@@ -54,7 +54,7 @@
 	          </div>
 	          <!-- Card Info -->
 	          <div class="admin-card-info">
-	            <img src="${pageContext.request.contextPath}/assets/info-img-3.jpeg" class="admn-card-img" />
+	            <img src="${pageContext.request.contextPath}/assets/admin/info-img-3.jpeg" class="admn-card-img" />
 	            <p class="gained-number">100K</p>
 	            <div class="card-info-numbers">
 	              <p class="card-info-number-title">Total Orders</p>
@@ -63,7 +63,7 @@
 	          </div>
 	          <!-- Card Info -->
 	          <div class="admin-card-info">
-	            <img src="${pageContext.request.contextPath}/assets/info-img-4.jpeg" class="admn-card-img" />
+	            <img src="${pageContext.request.contextPath}/assets/admin/info-img-4.jpeg" class="admn-card-img" />
 	            <p class="gained-number">100K</p>
 	            <div class="card-info-numbers">
 	              <p class="card-info-number-title">Expense</p>
@@ -99,7 +99,7 @@
 	            </div>
 	            <div class="line-chart-image-container">
 	              <img
-	                src="${pageContext.request.contextPath}/assets/Line Graph.png"
+	                src="${pageContext.request.contextPath}/assets/admin/Line Graph.png"
 	                class="line-chart"
 	                alt="line-graph-image"
 	              />
@@ -111,7 +111,7 @@
 	            <p class="pie-chart-title">Profit by Location</p>
 	            <div class="pie-chart-image-container">
 	              <img
-	                src="${pageContext.request.contextPath}/assets/pie-chart.png"
+	                src="${pageContext.request.contextPath}/assets/admin/pie-chart.png"
 	                alt="pie-chart img"
 	                class="pie-chart-image"
 	              />
@@ -126,7 +126,7 @@
 	              class="barchart-image-container"
 	              id="barchart-highrate-image-container"
 	            >
-	              <img src="${pageContext.request.contextPath}/assets/barchart1.png" class="barchart" />
+	              <img src="${pageContext.request.contextPath}/assets/admin/barchart1.png" class="barchart" />
 	            </div>
 	          </div>
 	          <div class="barchart-profit">
@@ -140,7 +140,7 @@
 	              class="barchart-image-container"
 	              id="barchart-profit-image-container"
 	            >
-	              <img src="${pageContext.request.contextPath}/assets/barchart2.png" class="barchart" />
+	              <img src="${pageContext.request.contextPath}/assets/admin/barchart2.png" class="barchart" />
 	            </div>
 	          </div>
 	        </div>

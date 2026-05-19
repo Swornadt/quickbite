@@ -13,7 +13,7 @@
                     <div class="card" data-category="${item.category}">
                         
                         <div class="card-image">
-                            <img src="${entry.itemDetails.itemImage}" alt="${entry.itemDetails.itemName}">
+                            <img src="${pageContext.request.contextPath}/${entry.itemDetails.itemImage}" alt="${entry.itemDetails.itemName}">
                         </div>
                 
                         <div class="card-details">
