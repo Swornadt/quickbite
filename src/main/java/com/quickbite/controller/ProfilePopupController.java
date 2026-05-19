@@ -23,10 +23,10 @@ public class ProfilePopupController extends HttpServlet {
 	 * Upon successful verification, it extracts the current user model details from the session context, attaches it to the request under the attribute "user", and dispatches execution 
 	 * to the profile model view template located at "/WEB-INF/views/customer/profile-pop-up.jsp".
 	 * 
-	 * @param request 
-	 * @param response 
-	 * @throws ServletException
-	 * @throws IOException
+	 * @param request the HTTP request holding active customer data attributes.
+	 * @param response the HTTP response used to handle redirects or load the small popup layout.
+	 * @throws ServletException if a problem is encountered while dispatching to the popup view.
+	 * @throws IOException if a network connection interruption occurs.
 	 */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
@@ -52,10 +52,10 @@ public class ProfilePopupController extends HttpServlet {
     /**
 	 * Handles HTTP POST requests by delegating processing logic to the doGet method.
 	 * 
-	 * @param request 
-	 * @param response
-	 * @throws ServletException 
-	 * @throws IOException  
+	 * @param request the HTTP request container details sent by the client browser.
+	 * @param response the HTTP response handler route used to send back response data.
+	 * @throws ServletException if the internal server-side servlet router encounters an issue.
+	 * @throws IOException if an error happens while streaming data back to the user's browser.
 	 */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {

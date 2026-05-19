@@ -30,10 +30,9 @@ public class OutletController extends HttpServlet {
    	 * Otherwise, it extracts the target location branch name substring, and routes processing to assemble 
    	 * that specific branch's dynamic menu.
    	 * 
-   	 * @param request  
-   	 * @param response 
-   	 * @throws ServletException 
-   	 * @throws IOException      
+   	 * @param request the HTTP request containing the path information used for routing.
+	 * @param response the HTTP response used to forward the user to the proper page view.
+	 * @throws ServletException if connection is disturbed mid-way.   
    	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -51,10 +50,10 @@ public class OutletController extends HttpServlet {
 	 * 
 	 * Fetches all available outlets from the database and forwards it to the Outlet View
 	 * 
-	 * @param request
-	 * @param response
-	 * @throws ServletException
-	 * @throws IOException
+	 * @param request the HTTP request container used to hold the compiled list of locations.
+	 * @param response the HTTP response handler used to render the location selection panel.
+	 * @throws ServletException if the view renderer runs into an exception loading the outlet JSP.
+	 * @throws IOException if a network connection drop prevents sending the page back to the user.
 	 */
 	private void handleOutlet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
 		
@@ -76,11 +75,11 @@ public class OutletController extends HttpServlet {
 	 * 
 	 * Extracts query parameters from the URL to display results for selected category or item name
 	 * 
-	 * @param request
-	 * @param response
-	 * @param outletName
-	 * @throws ServletException
-	 * @throws IOException
+	 * @param request the HTTP request containing search text or category choices.
+	 * @param response the HTTP response used to deliver the food menu panel.
+	 * @param outletName the unique textual identifier name matching the requested outlet.
+	 * @throws ServletException if system components fail while drawing the menu dashboard JSP.
+	 * @throws IOException if an processing error interrupts writing data back to the browser.
 	 */
 	private void handleOutletMenu(HttpServletRequest request, HttpServletResponse response, String outletName) throws ServletException, IOException {
 		//Extracts the query parameters from the URL (for filtering and searching)
@@ -130,10 +129,10 @@ public class OutletController extends HttpServlet {
 	/**
 	 * Handles HTTP POST requests by delegating processing logic to the doGet method.
 	 * 
-	 * @param request  
-	 * @param response
-	 * @throws ServletException 
-	 * @throws IOException 
+	 * @param request the HTTP request context container passing client details.
+	 * @param response the HTTP response routing engine used to push view states back.
+	 * @throws ServletException if the underlying controller router runs into an internal exception.
+	 * @throws IOException if an error happens while streaming the response payload back to the browser.
 	 * @see #doGet(HttpServletRequest, HttpServletResponse)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

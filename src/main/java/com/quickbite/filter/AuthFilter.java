@@ -31,6 +31,21 @@ public class AuthFilter extends HttpFilter {
 	public void destroy() {
 	}
 
+	/**
+	 * Intercepts incoming requests to validate authentication states and role access privileges.
+	 * 
+	 * It inspects the application sub-path and active session data. 
+	 * 
+	 * If logged-in users try to access the login or registration screens, it redirects them to their respective dashboards. 
+	 * For secured paths (such as admin panels, kitchen views, or customer profiles), it blocks 
+	 * unauthenticated visitors and verifies role permissions before letting the request pass through.
+	 * 
+	 * @param req the HTTP request container used to check paths and retrieve session states.
+	 * @param res the HTTP response container used to execute redirects or dispatch access errors.
+	 * @param chain the filter chain object used to forward authorization-cleared requests to the next destination.
+	 * @throws ServletException if a server-side processing conflict disrupts filter execution.
+	 * @throws IOException if a network transmission error intercepts data streaming routines.
+	 */
 	@Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) 
             throws IOException, ServletException {
@@ -98,6 +113,12 @@ public class AuthFilter extends HttpFilter {
         chain.doFilter(req, res);
     }
 		
+	/**
+	 * Initializes the authentication filter parameters when server starts.
+	 * 
+	 * @param fConfig contains the filter configuration settings.
+	 * @throws ServletException if the filter fails to initialize.
+	 */
 	public void init(FilterConfig fConfig) throws ServletException {	
 	}
 }
