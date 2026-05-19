@@ -570,49 +570,59 @@ public class AdminController extends HttpServlet {
      * @param response for sending the resource redirect.
      * @throws IOException when an input or output error is detected when the servlet handles the redirect or when forwarding the request.
 	 */
-	private void handleAdminProfile(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	private void handleAdminProfile(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 				//Gets the session to access the current user
 				HttpSession session = request.getSession();
-
-				String userIdStr = request.getParameter("user_id");
+				UserModel currentAdmin = (UserModel) session.getAttribute("user");
 				
-				if(userIdStr == null || userIdStr.isEmpty()) {
-					response.sendRedirect(request.getContextPath() + "/admin-profile?update=error1");
+				if(currentAdmin == null) {
+					response.sendRedirect(request.getContextPath() + "/login");
 					return;
 				}
+				
+				//Extracting updated details
+				String fname = request.getParameter("fname");
+				String lname = request.getParameter("lname");
+				String dob = request.getParameter("dob");
+				String gender = request.getParameter("gender");
+				String email = request.getParameter("email");
+				String number = request.getParameter("number");
+				
+				//Running validation for admin
+				String validationError = ValidationUtil.adminUpdateValidation(fname, lname, email, number);
+				if (validationError != null) {
+		             session.setAttribute("error", validationError);
+		             response.sendRedirect(request.getContextPath() + "/admin/profile");
+		             return;
+		         }
+				
 				try {
-					//Parsing the id from String to Integer
-					int user_id = Integer.parseInt(userIdStr);
-					
-					//Extracting updated details
-					String fname = request.getParameter("fname");
-					String lname = request.getParameter("lname");
-					String dob = request.getParameter("dob");
-					String gender = request.getParameter("gender");
-					String email = request.getParameter("email");
-					String number = request.getParameter("number");
-							
-					//Update via service
 					AdminService adminService = new AdminService();
-					boolean success = adminService.updateAdminProfile(user_id, fname, lname, dob, gender, email, number);
+					boolean success = adminService.updateAdminProfile(currentAdmin.getUserId(), fname, lname, dob, gender, email, number);
 					
 					//Shows if the update was successful or not
 					if(success) {
 						//Refreshes the data
-						UserModel updatedAdmin = adminService.getUserById(user_id);
+						UserModel updatedAdmin = adminService.getUserById(currentAdmin.getUserId());
+						
+						//Keeping the derived image property safe (for JSP)
+			            if (updatedAdmin.getImage() == null || updatedAdmin.getImage().isEmpty()) {
+			                updatedAdmin.setImage(currentAdmin.getImage());
+			            }
 						
 						//Replaces the old user profile
 						session.setAttribute("user", updatedAdmin);
-						response.sendRedirect(request.getContextPath() + "/admin/profile?update=success");
+						request.setAttribute("success", "Profile Updated Successfully!");
 					}
 					else {
-						response.sendRedirect(request.getContextPath() + "/admin/profile?update=fail");
+						request.setAttribute("error", "Update failed. Please try again.");
 					}
 				}
-				catch (NumberFormatException e) {
+				catch (Exception e) {
 					e.printStackTrace();
-					response.sendRedirect(request.getContextPath() + "/admin-profile?update=error2");
+					session.setAttribute("error", "An error occurred: " + e.getMessage());
 				}
+				response.sendRedirect(request.getContextPath() + "/admin/profile");
 	}
 
 	/**
