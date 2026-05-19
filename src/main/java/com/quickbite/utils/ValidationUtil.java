@@ -83,8 +83,8 @@ public class ValidationUtil {
 	 * 
 	 * Checks null values and phone number length.
 	 * 
-	 * @param number
-	 * @param pass
+	 * @param number the phone number of user to validate login
+	 * @param pass the password entered by the user for logging in.
 	 * @return custom error String if any; otherwise null.
 	 */
 	public static String validateLogin (String number, String pass) {
@@ -110,8 +110,8 @@ public class ValidationUtil {
 	 * 1. Password length
 	 * 2. Presence of special characters, numbers, and capital letters.
 	 * 
-	 * @param pass
-	 * @param confirmPass
+	 * @param pass he raw plain-text password string submitted for validation.
+	 * @param confirmPass the matching validation entry string used to verify the password.
 	 * @return custom error String if incorrect; otherwise null
 	 */
 	public static String validatePassword(String pass, String confirmPass) {

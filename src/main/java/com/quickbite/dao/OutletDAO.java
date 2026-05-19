@@ -44,7 +44,7 @@ public class OutletDAO {
 	 * 
 	 * Prepares a conditional query for outletName. 
 	 * 
-	 * @param outletName 
+	 * @param outletName the name of the outlet to search.
 	 * @return an OutletModel mapping containing the target outlet details, or null if no record matches
 	 */
 	public OutletModel getOutletByName(String outletName) {
@@ -69,7 +69,7 @@ public class OutletDAO {
 	/**
 	 * Retrieves a specific outlet by outletId.
 	 * 
-	 * @param outletId
+	 * @param outletId the id of the outlet to search.
 	 * @return an OutletModel mapping containing the target outlet details, or null if no record matches
 	 */
 	public OutletModel getOutletById(int outletId) {

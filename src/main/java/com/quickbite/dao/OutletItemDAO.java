@@ -19,7 +19,7 @@ public class OutletItemDAO {
 	 * 
 	 * Executes a JOIN query linking outlet_items, item, and outlet.
 	 * 
-	 * @param outletId 
+	 * @param outletId the unique id for outlet to get the menu for.
 	 * @return a List containing populated OutletItemModel entries assigned to the specified outlet
 	 */
 	public List<OutletItemModel> getItemsByOutlet(int outletId) {
@@ -107,9 +107,9 @@ public class OutletItemDAO {
 	/**
 	 * Adds an item to a specific outlet or modifies its active price if the item for the outlet already exists.
 	 * 
-	 * @param outletId 
-	 * @param itemId   
-	 * @param price    
+	 * @param outletId unique id for outlet where item is to be added or updated.
+	 * @param itemId unique id for item to add or update.
+	 * @param price the cost value to assign to the item.
 	 * @return true if the database transaction successfully registers or modifies the record row; false otherwise
 	 */
 	public boolean addOrUpdateOutletItem(int outletId, int itemId, double price) {
@@ -153,8 +153,8 @@ public class OutletItemDAO {
 	/**
 	 * Audits the outlet to verify if a specific item is currently allocated to the outlet.
 	 * 
-	 * @param outletId
-	 * @param itemId  
+	 * @param outletId the unique id for outlet for which the item is to be checked.
+	 * @param itemId  the unique id for item which is to be checked in the outlet.
 	 * @return true if the targeted cross-reference association is explicitly defined within the database; false otherwise
 	 */
 	public boolean isItemExistsInOutlet(int outletId, int itemId) {
@@ -182,8 +182,8 @@ public class OutletItemDAO {
 	 * 
 	 * Formulates a JOIN statement using outletId
 	 * 
-	 * @param itemId   
-	 * @param outletId 
+	 * @param itemId the unique id matching the specific food item.
+	 * @param outletId the unique id for the outlet.
 	 * @return a fully populated OutletItemModel matching the query inputs, or null if no record is discovered
 	 */
 	public OutletItemModel getOutletItemByItemAndOutlet(int itemId, int outletId) {
@@ -226,8 +226,8 @@ public class OutletItemDAO {
 	 * 
 	 * Prepares a DELETE query for a specific row where oulet_id and item_id matches. 
 	 * 
-	 * @param outletId 
-	 * @param itemId   
+	 * @param outletId unique id for the outlet where item is to be deleted.
+	 * @param itemId unique id for the item to be deleted in the given outlet.
 	 * @return true if the relationship entry row was successfully dropped from the table index; false otherwise
 	 */
 	public boolean deleteOutletItem(int outletId, int itemId) {
@@ -252,8 +252,8 @@ public class OutletItemDAO {
 	/**
 	 * Filters and compiles menu listings for an outlet matching a category.
 	 * 
-	 * @param outletId 
-	 * @param category 
+	 * @param outletId unique id for the outlet where item is to be searched.
+	 * @param category the group to filtering the items.
 	 * @return a List containing populated OutletItemModel entries that match the branch and category criteria
 	 */
 	public List<OutletItemModel> getItemsByOutletAndCategory(int outletId, String category) {
@@ -304,9 +304,9 @@ public class OutletItemDAO {
 	/**
 	 * Executes a dynamic keyword text pattern search across an outlet's category.
 	 * 
-	 * @param outletId   
-	 * @param category   
-	 * @param searchTerm 
+	 * @param outletId  the unique id for the outlet where item is to be searched.
+	 * @param category   the category selected by user under which item is to be searched.
+	 * @param searchTerm the item searched by the user.
 	 * @return a List containing all composite OutletItemModel data records that satisfy the dynamic search filters
 	 */
 	public List<OutletItemModel> searchItems(int outletId, String category, String searchTerm) {

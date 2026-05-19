@@ -21,10 +21,10 @@ public class FavoriteDAO {
 	 * log the relationship between a user, a specific menu item, and its outlet. 
 	 * It binds the parameters to prevent SQL injection and executes a data update.
 	 * 
-	 * @param userId
-	 * @param itemId 
-	 * @param outletId
-	 * @throws SQLException 
+	 * @param userId the unique id for the customer.
+	 * @param itemId the unique id representing the specific bookmarked food item.
+	 * @param outletId the unique id representing the targeted outlet.
+	 * @throws SQLException if a core database access conflict or connectivity drop breaks statement execution.
 	 */
 	public void addFavorite (int userId, int itemId, int outletId) throws SQLException {
 		String sql = "INSERT INTO favorite (user_id, item_id, outlet_id) "
@@ -47,10 +47,10 @@ public class FavoriteDAO {
 	 * Establishes a database connection via DBconfig and prepares a DELETE SQL statement to remove 
 	 * the specific menu item, user and outlet relationship from the database.
 	 * 
-	 * @param userId  
-	 * @param itemId  
-	 * @param outletId
-	 * @throws SQLException 
+	 * @param userId the unique id for the customer.
+	 * @param itemId the unique id representing the specific food item being unbookmarked.
+	 * @param outletId the unique id representing the targeted outlet.
+	 * @throws SQLException if a database query execution error or connection failure occurs.
 	 */
 	public void removeFavorite (int userId, int itemId, int outletId) throws SQLException {
 		String sql = "DELETE FROM favorite WHERE user_id = ? AND item_id = ? AND outlet_id = ? ";
@@ -73,11 +73,11 @@ public class FavoriteDAO {
 	 * record matching the provided user, item, and outlet criteria. 
 	 * Returns true if the query yields a matching row result, otherwise returns false.
 	 * 
-	 * @param userId 
-	 * @param itemId 
-	 * @param outletId
-	 * @return true or false
-	 * @throws SQLException 
+	 * @param userId the unique id of the customer.
+	 * @param itemId the unique id representing the item.
+	 * @param outletId the unique id representing the targeted outlet.
+	 * @return true if a matching preference relationship is found; false otherwise.
+	 * @throws SQLException if a relational scanning failure or database connection error pops up.
 	 */
 	public boolean isFavorite (int userId, int itemId, int outletId) throws SQLException {
 		String sql = "SELECT 1 FROM favorite WHERE user_id = ? AND item_id = ? AND outlet_id = ?";
@@ -99,8 +99,8 @@ public class FavoriteDAO {
 	 * Fetches all favorite items for a user.
 	 * 
 	 * Joins with Item and Outlet_Item to get current price and details
-	 * @param userId
-	 * @throws SQLException
+	 * @param userId unique id for user to search the favorite items.
+	 * @throws SQLException if a data pipeline failure or bad join statement disrupts row extraction.
 	 */
 	public List<OutletItemModel> getFavoritesByUser(int userId) throws SQLException {
 		List<OutletItemModel> favoriteItems = new ArrayList<>();

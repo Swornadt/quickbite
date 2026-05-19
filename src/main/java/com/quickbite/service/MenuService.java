@@ -16,6 +16,9 @@ public class MenuService {
      * Get items based on outlet selection
      * If outletId is null or empty → return all items
      * Else → return items for that specific outlet
+     * 
+     * @param outletIdStr string containing the targeted outletId.
+     * @return a list of food item models matching the selected or default outlet, or an empty list if no outlet exist.
      */
     public List<OutletItemModel> getMenuItems(String outletIdStr) {
         if (outletIdStr == null || outletIdStr.trim().isEmpty()) {
@@ -40,6 +43,11 @@ public class MenuService {
         }
     }
 
+    /**
+     * Pulls a complete collection list of all active outlets.
+     * 
+     * @return a list containing all the registered Outlet Model data records.
+     */
     public List<OutletModel> getAllOutlets() {
         return outletDAO.getAllOutlets();
     }

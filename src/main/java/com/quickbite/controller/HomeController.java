@@ -24,10 +24,10 @@ public class HomeController extends HttpServlet {
 	 * 
 	 * Invokes ItemDAO to retrieve a list of popular menu items alongside their associated outlet details. 
 	 * 
-	 * @param request
-	 * @param response
-	 * @throws ServletException
-	 * @throws IOException
+	 * @param request object used to pass data down to the view layer.
+	 * @param response object used to forward or redirect the user.
+	 * @throws ServletException if the request engine fails to dispatch or load the home JSP.
+	 * @throws IOException if a breakdown occurs during data transmission.
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ItemDAO itemDAO = new ItemDAO();
@@ -39,10 +39,10 @@ public class HomeController extends HttpServlet {
 	/**
 	 * Handles HTTP POST requests by delegating processing logic to the doGet method.
 	 *
-	 * @param request  
-	 * @param response 
-	 * @throws ServletException 
-	 * @throws IOException     
+	 * @param request the HTTP request container details sent by the client browser.
+	 * @param response the HTTP response handler route used to send back response data.
+	 * @throws ServletException if the internal server-side servlet router encounters an issue.
+	 * @throws IOException if an error happens while streaming data back to the user's browser.  
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);

@@ -28,6 +28,11 @@ public class ResetPasswordController extends HttpServlet {
 
 	/**
 	 * Handles GET request by forwarding the user to the reset password form
+	 * 
+	 * @param request the HTTP request object context.
+	 * @param response the HTTP response object handling the view delivery.
+	 * @throws ServletException if the underlying request dispatcher fails to load the form.
+	 * @throws IOException if an unexpected communication breakdown blocks the file stream.
 	 * @since 2026-05-14
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

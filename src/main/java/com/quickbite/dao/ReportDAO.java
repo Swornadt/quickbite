@@ -17,7 +17,7 @@ public class ReportDAO {
 	 * It executes multiple database queries to calculate the total number of active users,
 	 * total orders, and overall revenue, then stores the results in a ReportModel object.
 	 * 
-	 * @param outletId
+	 * @param outletId the unique id for the outlet selected for report generation.
 	 * @return a populated ReportModel containing aggregated user count, total orders, and sales metrics
 	 */
 	public ReportModel getReport(int outletId) {
