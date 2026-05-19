@@ -9,6 +9,14 @@ import com.quickbite.utils.PasswordUtil;
 public class AdminService {
 	private UserDAO userDAO = new UserDAO();
 	
+	/**
+	 * Pulls a comprehensive user information profile matching a specific identifier key.
+	 * 
+	 * It accesses the userDAO to run a query matching the provided user_id, and returning a data model.
+	 * 
+	 * @param user_id the id matching the targeted account row.
+	 * @return a UserModel entity containing the account details if found, or null if no record exists.
+	 */
 	public UserModel getUserById(int user_id) {
 		return userDAO.getUserById(user_id);
 	}
@@ -72,6 +80,15 @@ public class AdminService {
 		return userDAO.clearResetRequest(userId);
 	}
 	
+	/**
+	 * Updates the status of a user account.
+	 * 
+	 * It validates the raw input strings and maps the action into standard database flag
+	 * 
+	 * @param userIdParam the raw text string containing targeted userId
+	 * @param action the command string detailing whether to approve or reject the registration.
+	 * @return true if the validation is clean and the database update executes successfully; false otherwise.
+	 */
 	public boolean updateUserStatus(String userIdParam, String action) {
 		
 		//Validation of input
