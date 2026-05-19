@@ -2,6 +2,9 @@ package com.quickbite.model;
 
 import java.sql.Timestamp;
 
+/**
+ * Represents customer feedback and rating for an order in the Quickbite system.
+ */
 public class FeedbackModel {
     private int feedbackId;
     private int userId;
@@ -11,7 +14,14 @@ public class FeedbackModel {
     private String userFullName;
     private String userImage;
 
-    // Constructor, getters and setters...
+    /**
+     * Constructor for FeedbackModel with essential fields.
+     * Automatically sets the rating date to current timestamp.
+     *
+     * @param userId - the ID of the user giving feedback
+     * @param ratingValue - the rating value (e.g., 1 to 5)
+     * @param feedbackDescription - the detailed feedback text
+     */
     public FeedbackModel(int userId, int ratingValue, String feedbackDescription) {
         this.userId = userId;
         this.ratingValue = ratingValue;
