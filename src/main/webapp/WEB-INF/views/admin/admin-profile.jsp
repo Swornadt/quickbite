@@ -34,6 +34,17 @@
 
 
             <div class="admin-detail-grid" id="adminDetailGrid">
+            	<c:if test="${not empty error}">
+			    <div style="color: red; background-color: #ffe6e6; padding: 10px; margin-bottom: 15px; border-radius: 4px;">
+			        ${error}
+			    </div>
+			</c:if>
+			
+			<c:if test="${not empty success}">
+			    <div style="color: green; background-color: #e6ffe6; padding: 10px; margin-bottom: 15px; border-radius: 4px;">
+			        ${success}
+			    </div>
+			</c:if>
             	<!-- Form submits the data to the same servlet path but as a POST request-->
                 <form action="${pageContext.request.contextPath}/admin/profile" method="post">
 

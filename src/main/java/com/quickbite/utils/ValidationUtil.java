@@ -179,4 +179,33 @@ public class ValidationUtil {
 
 	    return null;
 	}
+	
+	public static String adminUpdateValidation(String fname, String lname, String email, String number) {
+		if(fname == null || fname.trim().isEmpty() ||
+				lname == null || lname.trim().isEmpty() ||
+				email == null || email.trim().isEmpty() ||
+				number == null || number.trim().isEmpty()) {
+			return "All fields are to be filled.";
+		}
+		
+		String namePattern = "^[a-zA-Z\\s]+$";
+		if(!fname.matches(namePattern)) {
+			return "First name must contain only letters.";
+		}
+		
+		if(!lname.matches(namePattern)) {
+			return "Last name must contain only letters.";
+		}
+		
+		String phonePatter = "^\\d{10}";
+		if(!number.matches(phonePatter)) {
+			return "Phone number must be valid.";
+		}
+		
+		if(!email.toLowerCase().endsWith("@gmail.com")) {
+			return "Email address must be a valid @gmail.com account.";
+		}
+		
+		return null;
+	}
 }
