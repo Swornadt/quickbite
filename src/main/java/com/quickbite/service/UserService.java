@@ -16,7 +16,7 @@ public class UserService {
 	private UserDAO userDAO = new UserDAO();
 	
 	/**
-     *  THis methods is used for fetching user from db by their ID.
+     * This methods is used for fetching user from db by their ID.
      * Used when loading profile data.
      *
      * @param userId : the ID of the logged-in user (from session)
