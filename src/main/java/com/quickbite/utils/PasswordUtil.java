@@ -12,7 +12,7 @@ public class PasswordUtil {
 	 * It generates a unique random salt based on the cost before computing the final hash.
 	 * So, it transforms a plain-text password into a cryptographic hash using the BCrypt algorithm.
 	 * 
-	 * @param password
+	 * @param password the raw, unhashed plain-text password string provided by the user.
 	 * @return string representing the secure salt and hashed password characters.
 	 */
 	public static String hashPassword(String password) {
@@ -26,8 +26,8 @@ public class PasswordUtil {
 	 * in the database. It safely extracts the original salt from the stored hash and
 	 * applies it to the plainPassword to compare the two hashes.
 	 * 
-	 * @param plainPassword
-	 * @param storedHash
+	 * @param plainPassword the raw, typed text password entry provided at the login terminal.
+	 * @param storedHash the existing, secured cryptographic hash string pulled from the user database record.
 	 * @return true if the credentials match; false otherwise.
 	 */
 	public static boolean checkPassword(String plainPassword, String storedHash) {

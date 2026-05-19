@@ -19,10 +19,10 @@ public class FeedbackDAO {
 	 * Establishes a database connection via DBconfig and prepares an INSERT SQL statement to commit 
 	 * the rating score evaluation, descriptive message text, and the current system timestamp. 
 	 * 
-	 * @param rating
-	 * @param message
+	 * @param rating the numeric score scale value submitted by the customer.
+	 * @param message text containing review by the customer.
 	 * @return the unique generated key of the new feedback record, or -1 if insertion fails
-	 * @throws Exception 
+	 * @throws Exceptionif a database connectivity error or query execution breakdown interrupts the save process.
 	 */
     public int insertFeedback(int rating, String message) throws Exception {
         String sql = "INSERT INTO feedback (rating_value, feedback_description, rating_date) "

@@ -12,7 +12,7 @@ public class SessionUtil {
 	 * 
 	 * If an active session does not exist, this method instantiates a new one, and then
 	 * maps the user model object to a specific tracking identifier in the server's memory.
-	 * @param request
+	 * @param request the HttpServletRequest packet originating from the client browser terminal.
 	 * @param key - unique string identifier used to map the session attribute.
 	 * @param user - UserModel being stored in the session context.
 	 */
@@ -27,8 +27,8 @@ public class SessionUtil {
 	 * It calls the getSession(false) method in request to look up an existing session without instantiating a new one. 
 	 * If an active session is found, it extracts the attributes associated with the specified key, otherwise returns null. 
 	 *
-	 * @param request
-	 * @param key
+	 * @param request the HttpServletRequest packet originating from the client browser terminal.
+	 * @param key the tracking text label identifying the target data asset in session memory.
 	 * @return Object instance mapped to key if valid session; null otherwise.
 	 */
 	public static Object getAttribute(HttpServletRequest request, String key) {
@@ -46,8 +46,8 @@ public class SessionUtil {
 	 * session itself. It does this by unbinding the object mapped to the specified key to remove it 
 	 * from the session storage.
 	 * 
-	 * @param request
-	 * @param key
+	 * @param requestthe HttpServletRequest packet originating from the client browser terminal.
+	 * @param key the tracking text label identifying the target data asset in session memory
 	 */
 	public static void removeAttribute(HttpServletRequest request, String key) {
 		HttpSession session = request.getSession(false);
@@ -63,7 +63,7 @@ public class SessionUtil {
 	 * It firstly locates the active session profile and triggers invalidate method, which destroys 
 	 * the entire session record. 
 	 * 
-	 * @param request
+	 * @param request the HttpServletRequest packet originating from the client browser terminal.
 	 */
 	public static void invalidateSession(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
