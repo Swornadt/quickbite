@@ -124,3 +124,90 @@
     overflow-x: hidden;
     padding-right: 15px;
 }
+
+@media (max-width: 1024px) {
+
+    .customer-profile-side {
+        width: 100%;
+        margin: 30px;
+    }
+
+    .customer-credentials-grid,
+    .customer-contact-details,
+    .customer-dates {
+        gap: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .customer-profile-side {
+        width: 100%;
+        margin: 20px;
+    }
+
+    .customer-brief {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .customer-credentials-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .customer-contact-details,
+    .customer-dates {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .order-list-scroll {
+        max-height: 250px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .customer-profile-side {
+        margin: 12px;
+    }
+
+    .customer-credentials-grid,
+    .customer-contact-details,
+    .customer-dates {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .customer-image img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .customer-detail-grid {
+        gap: 20px;
+        margin: 20px 0;
+    }
+
+    .customer-brief {
+        margin: 15px 0 !important;
+    }
+
+    h2.section-title {
+        font-size: 20px;
+    }
+
+    .order-label {
+        font-size: 15px;
+    }
+
+    .order-card p {
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    .order-list-scroll {
+        max-height: 220px;
+        padding-right: 5px;
+    }
+}

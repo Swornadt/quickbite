@@ -7,6 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Location Menu</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/location-menu.css">
 </head>
@@ -38,7 +39,7 @@
     <c:forEach var="item" items="${outletItems}">
         <div class="card" data-category="${item.item.category}">
             <div class="card-image">
-                <img src="${item.item.itemImage}" alt="${item.item.itemName}">
+                <img src="${pageContext.request.contextPath}/${item.item.itemImage}" alt="${item.item.itemName}">
             </div>
             
             <div class="card-details">

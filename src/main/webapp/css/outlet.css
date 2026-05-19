@@ -51,6 +51,7 @@
 .location-card {
     background-color: #fdf2f1;
     width: 100%;
+    min-width: 200px;
     height: 200px;
     position: relative;
     overflow: hidden;
@@ -118,11 +119,30 @@
     transition: opacity 0.4s ease;
 }
 
-.card-with-photo.active::before,
-.card-with-photo.active::after {
+.location-card.card-with-photo:hover::before {
     opacity: 1;
+    transform: scale(1);
 }
 
 .card-with-photo.active .location-name {
     color: white;
+}
+
+@media (max-width: 680px) {
+	.location-grid {
+        display: block;
+    }
+    
+    .location-card {
+    	margin-bottom: 30px;
+    }
+}
+
+.location-card.card-with-photo:hover::after {
+    opacity: 1;
+}
+
+.location-card.card-with-photo:hover .location-name {
+    color: #ffffff;
+    z-index: 5;
 }
