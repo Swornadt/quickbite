@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: May 19, 2026 at 10:02 AM
+-- Host: localhost
+-- Generation Time: May 19, 2026 at 06:35 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `quickbite`
+-- Database: `QuickBite`
 --
 
 -- --------------------------------------------------------
@@ -38,6 +38,10 @@ CREATE TABLE `favorite` (
 --
 
 INSERT INTO `favorite` (`user_id`, `outlet_id`, `item_id`) VALUES
+(11, 1, 5),
+(11, 5, 10),
+(11, 5, 11),
+(11, 6, 10),
 (15, 1, 5),
 (15, 3, 15),
 (15, 4, 5),
@@ -140,7 +144,10 @@ INSERT INTO `order` (`order_id`, `order_date`, `order_status`, `order_note`, `pr
 (22, '2026-05-16 12:45:32', 0, '', '2026-05-17 09:30:00', 5, 15, NULL),
 (23, '2026-05-17 12:13:30', 0, '', '2026-05-17 14:00:00', 6, 16, NULL),
 (24, '2026-05-18 17:51:13', 0, '[ASAP]', NULL, 7, 16, NULL),
-(25, '2026-05-18 19:08:43', 0, '[ASAP]', NULL, 8, 17, NULL);
+(25, '2026-05-18 19:08:43', 0, '[ASAP]', NULL, 8, 17, NULL),
+(26, '2026-05-19 22:08:16', 2, '[ASAP]', NULL, 9, 11, NULL),
+(27, '2026-05-19 22:08:35', 1, '[ASAP]', NULL, 10, 11, NULL),
+(28, '2026-05-19 22:08:48', 0, '[ASAP]', NULL, 11, 11, NULL);
 
 -- --------------------------------------------------------
 
@@ -154,37 +161,43 @@ CREATE TABLE `order_outlet_item` (
   `item_id` smallint(5) UNSIGNED NOT NULL,
   `item_qty` tinyint(3) UNSIGNED NOT NULL,
   `order_subtotal` decimal(10,2) NOT NULL,
-  `item_status` tinyint(4) DEFAULT 0
+  `item_status` tinyint(4) DEFAULT 0,
+  `outlet_order_status` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `order_outlet_item`
 --
 
-INSERT INTO `order_outlet_item` (`order_id`, `outlet_id`, `item_id`, `item_qty`, `order_subtotal`, `item_status`) VALUES
-(13, 1, 4, 1, 175.00, 0),
-(14, 1, 4, 1, 175.00, 1),
-(15, 1, 5, 1, 150.00, 0),
-(16, 1, 4, 1, 175.00, 1),
-(17, 1, 4, 1, 175.00, 1),
-(18, 1, 4, 3, 525.00, 0),
-(19, 1, 4, 2, 350.00, 0),
-(20, 1, 4, 2, 350.00, 0),
-(21, 3, 7, 1, 120.00, 0),
-(21, 3, 15, 1, 140.00, 0),
-(21, 4, 5, 1, 150.00, 0),
-(21, 5, 11, 1, 160.00, 0),
-(22, 5, 10, 1, 350.00, 0),
-(22, 6, 14, 2, 60.00, 0),
-(23, 1, 4, 2, 350.00, 0),
-(23, 3, 7, 1, 120.00, 0),
-(23, 3, 15, 1, 140.00, 0),
-(23, 3, 16, 1, 150.00, 0),
-(23, 4, 5, 1, 150.00, 0),
-(24, 1, 5, 1, 150.00, 0),
-(25, 4, 6, 1, 85.00, 0),
-(25, 4, 19, 1, 180.00, 0),
-(25, 5, 10, 1, 350.00, 0);
+INSERT INTO `order_outlet_item` (`order_id`, `outlet_id`, `item_id`, `item_qty`, `order_subtotal`, `item_status`, `outlet_order_status`) VALUES
+(13, 1, 4, 1, 175.00, 0, 0),
+(14, 1, 4, 1, 175.00, 1, 0),
+(15, 1, 5, 1, 150.00, 0, 0),
+(16, 1, 4, 1, 175.00, 1, 0),
+(17, 1, 4, 1, 175.00, 1, 0),
+(18, 1, 4, 3, 525.00, 0, 0),
+(19, 1, 4, 2, 350.00, 0, 0),
+(20, 1, 4, 2, 350.00, 0, 0),
+(21, 3, 7, 1, 120.00, 0, 0),
+(21, 3, 15, 1, 140.00, 0, 0),
+(21, 4, 5, 1, 150.00, 0, 0),
+(21, 5, 11, 1, 160.00, 0, 0),
+(22, 5, 10, 1, 350.00, 0, 0),
+(22, 6, 14, 2, 60.00, 0, 0),
+(23, 1, 4, 2, 350.00, 0, 0),
+(23, 3, 7, 1, 120.00, 0, 0),
+(23, 3, 15, 1, 140.00, 0, 0),
+(23, 3, 16, 1, 150.00, 0, 0),
+(23, 4, 5, 1, 150.00, 0, 0),
+(24, 1, 5, 1, 150.00, 0, 0),
+(25, 4, 6, 1, 85.00, 0, 0),
+(25, 4, 19, 1, 180.00, 0, 0),
+(25, 5, 10, 1, 350.00, 0, 0),
+(26, 1, 4, 1, 175.00, 1, 2),
+(26, 1, 6, 1, 85.00, 1, 2),
+(27, 1, 5, 1, 150.00, 0, 1),
+(27, 1, 6, 1, 85.00, 0, 1),
+(28, 1, 4, 1, 175.00, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -292,7 +305,10 @@ INSERT INTO `payment` (`payment_id`, `amount`, `payment_status`, `payment_date`)
 (5, 410.00, 'Completed', '2026-05-16 12:45:32'),
 (6, 910.00, 'Completed', '2026-05-17 12:13:29'),
 (7, 150.00, 'Completed', '2026-05-18 17:51:13'),
-(8, 615.00, 'Completed', '2026-05-18 19:08:43');
+(8, 615.00, 'Completed', '2026-05-18 19:08:43'),
+(9, 260.00, 'Completed', '2026-05-19 22:08:16'),
+(10, 235.00, 'Completed', '2026-05-19 22:08:35'),
+(11, 175.00, 'Completed', '2026-05-19 22:08:48');
 
 -- --------------------------------------------------------
 
@@ -412,13 +428,13 @@ ALTER TABLE `item`
 -- AUTO_INCREMENT for table `order`
 --
 ALTER TABLE `order`
-  MODIFY `order_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `order_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `payment`
 --
 ALTER TABLE `payment`
-  MODIFY `payment_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `payment_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `user`
