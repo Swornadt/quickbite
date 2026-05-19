@@ -36,7 +36,7 @@
 								<!-- Cards -->
 								<div class="admin-card-infos">
 									<div class="admin-card-info">
-										<img src="${pageContext.request.contextPath}/assets/info-img-1.jpeg"
+										<img src="${pageContext.request.contextPath}/assets/admin/info-img-1.jpeg"
 											class="admin-card-img" />
 										<p class="gained-number">${report.totalUsers}</p>
 										<div class="card-info-numbers">
@@ -45,7 +45,7 @@
 									</div>
 
 									<div class="admin-card-info">
-										<img src="${pageContext.request.contextPath}/assets/info-img-2.jpeg"
+										<img src="${pageContext.request.contextPath}/assets/admin/info-img-2.jpeg"
 											class="admin-card-img" />
 										<p class="gained-number">Rs. ${report.totalSales}</p>
 										<div class="card-info-numbers">
@@ -54,7 +54,7 @@
 									</div>
 
 									<div class="admin-card-info">
-										<img src="${pageContext.request.contextPath}/assets/info-img-3.jpeg"
+										<img src="${pageContext.request.contextPath}/assets/admin/info-img-3.jpeg"
 											class="admin-card-img" />
 										<p class="gained-number">${report.totalOrders}</p>
 										<div class="card-info-numbers">
@@ -81,7 +81,7 @@
 										</div>
 									</div>
 									<div class="line-chart-image-container">
-										<img src="${pageContext.request.contextPath}/assets/Line Graph.png"
+										<img src="${pageContext.request.contextPath}/assets/admin/Line Graph.png"
 											class="line-chart" alt="line-graph-image" />
 									</div>
 								</div>
@@ -93,7 +93,7 @@
 								<div class="barchart-highrate">
 									<p class="barchart-title">Highest Rated Items</p>
 									<div class="barchart-image-container" id="barchart-highrate-image-container">
-										<img src="${pageContext.request.contextPath}/assets/barchart1.png"
+										<img src="${pageContext.request.contextPath}/assets/admin/barchart1.png"
 											class="barchart" />
 									</div>
 								</div>
@@ -105,7 +105,7 @@
 										</select>
 									</div>
 									<div class="barchart-image-container" id="barchart-profit-image-container">
-										<img src="${pageContext.request.contextPath}/assets/barchart2.png"
+										<img src="${pageContext.request.contextPath}/assets/admin/barchart2.png"
 											class="barchart" />
 									</div>
 								</div>

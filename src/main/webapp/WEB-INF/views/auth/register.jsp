@@ -21,7 +21,7 @@
 <div class="register-page-container">
       <!-- Left Side (Image Container) -->
       <div class="register-page-image-container">
-        <img src="${pageContext.request.contextPath}/assets/register.png" class="register-page-image" />
+        <img src="${pageContext.request.contextPath}/assets/auth/register.png" class="register-page-image" />
       </div>
 
       <!-- Right Side (Form Container) -->
