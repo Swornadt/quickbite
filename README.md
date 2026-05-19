@@ -66,7 +66,7 @@ To provide an efficient, role-based web application that enables students to pre
 | Sworna Dhan Tuladhar | Project Lead |
 | Resha Koju | Developer / Designer |
 | Sabrina Pradhan | Developer / Designer |
-| Sanskar Piya | Developer |
+| Sanskar Piya | Developer / Testing Lead|
 | Sahil Shrestha | Developer / Database |
 | Hridishna Deula | Developer |
 
