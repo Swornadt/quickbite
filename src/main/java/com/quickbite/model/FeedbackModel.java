@@ -29,11 +29,6 @@ public class FeedbackModel {
         this.ratingDate = Timestamp.valueOf(java.time.LocalDateTime.now());
     }
     
-    public FeedbackModel() {
-    	
-    }
-	
-	//Getters
     
     /**
      * Returns the unique identifier of the feedback.
@@ -100,12 +95,10 @@ public class FeedbackModel {
 		return userImage != null ? userImage : "uploads/default.png";
 	}
 	
-	// Setters
-	
 	/**
      * Sets the unique identifier of the feedback.
      *
-     * @param feedbackId the feedback ID to set
+     * @param feedbackId - the feedback ID to set
      */
 	public void setFeedbackId(int feedbackId) {
 		this.feedbackId = feedbackId;
@@ -114,7 +107,7 @@ public class FeedbackModel {
 	/**
      * Sets the ID of the user who gave the feedback.
      *
-     * @param userId the user ID to set
+     * @param userId - the user ID to set
      */
 	public void setUserId(int userId) {
 		this.userId = userId;
@@ -123,7 +116,7 @@ public class FeedbackModel {
 	/**
      * Sets the rating value.
      *
-     * @param ratingValue the rating value to set
+     * @param ratingValue - the rating value to set
      */
 	public void setRatingValue(int ratingValue) {
 		this.ratingValue = ratingValue;
@@ -132,7 +125,7 @@ public class FeedbackModel {
 	/**
      * Sets the feedback description.
      *
-     * @param feedbackDescription the feedback description to set
+     * @param feedbackDescription - the feedback description to set
      */
 	public void setFeedbackDescription(String feedbackDescription) {
 		this.feedbackDescription = feedbackDescription;
@@ -141,7 +134,7 @@ public class FeedbackModel {
 	/**
      * Sets the timestamp of the feedback.
      *
-     * @param ratingDate the rating date to set
+     * @param ratingDate - the rating date to set
      */
 	public void setRatingDate(Timestamp ratingDate) {
 		this.ratingDate = ratingDate;
@@ -150,7 +143,7 @@ public class FeedbackModel {
 	/**
      * Sets the full name of the user.
      *
-     * @param userFullName the user full name to set
+     * @param userFullName - the user full name to set
      */
 	public void setUserFullName(String userFullName) {
 		this.userFullName = userFullName;
