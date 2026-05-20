@@ -155,9 +155,9 @@ public class CartController extends HttpServlet {
 	 * It gets the ID of the item that is to be removed, and utilizes the
 	 * cartService to remove the item completely, regardless of the quantity.
 	 * 
-	 * @param request
-	 * @param response
-	 * @throws IOException
+	 * @param request the HttpServletRequest container holding the customer's incoming parameters and session data
+	 * @param response the HttpServletResponse utilized to issue browser-side web page redirects.
+	 * @throws IOException if network disconnection interrupts the response redirection.
 	 */
 	private void handleRemoveFromCart (HttpServletRequest request, HttpServletResponse response) throws IOException {
 		try {
